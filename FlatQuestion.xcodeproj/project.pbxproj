@@ -15,6 +15,7 @@
 		58B8DADE246B474200584B20 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 58B8DADC246B474200584B20 /* LaunchScreen.storyboard */; };
 		58B8DAE9246B474200584B20 /* FlatQuestionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58B8DAE8246B474200584B20 /* FlatQuestionTests.swift */; };
 		58B8DAF4246B474200584B20 /* FlatQuestionUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58B8DAF3246B474200584B20 /* FlatQuestionUITests.swift */; };
+		58B8DB06246B4D6C00584B20 /* Map.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 58B8DB04246B4D6C00584B20 /* Map.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +50,7 @@
 		58B8DAEF246B474200584B20 /* FlatQuestionUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FlatQuestionUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		58B8DAF3246B474200584B20 /* FlatQuestionUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlatQuestionUITests.swift; sourceTree = "<group>"; };
 		58B8DAF5246B474200584B20 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		58B8DB05246B4D6C00584B20 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = FlatQuestion/Base.lproj/Map.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,10 +101,14 @@
 		58B8DAD0246B474100584B20 /* FlatQuestion */ = {
 			isa = PBXGroup;
 			children = (
+				58B8DB03246B493600584B20 /* Models */,
+				58B8DB02246B492D00584B20 /* Views */,
+				58B8DB01246B490C00584B20 /* ViewControllers */,
 				58B8DAD1246B474100584B20 /* AppDelegate.swift */,
 				58B8DAD3246B474100584B20 /* SceneDelegate.swift */,
 				58B8DAD5246B474100584B20 /* ViewController.swift */,
 				58B8DAD7246B474100584B20 /* Main.storyboard */,
+				58B8DB04246B4D6C00584B20 /* Map.storyboard */,
 				58B8DADA246B474200584B20 /* Assets.xcassets */,
 				58B8DADC246B474200584B20 /* LaunchScreen.storyboard */,
 				58B8DADF246B474200584B20 /* Info.plist */,
@@ -126,6 +132,27 @@
 				58B8DAF5246B474200584B20 /* Info.plist */,
 			);
 			path = FlatQuestionUITests;
+			sourceTree = "<group>";
+		};
+		58B8DB01246B490C00584B20 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		58B8DB02246B492D00584B20 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		58B8DB03246B493600584B20 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -235,6 +262,7 @@
 				58B8DADE246B474200584B20 /* LaunchScreen.storyboard in Resources */,
 				58B8DADB246B474200584B20 /* Assets.xcassets in Resources */,
 				58B8DAD9246B474100584B20 /* Main.storyboard in Resources */,
+				58B8DB06246B4D6C00584B20 /* Map.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -311,6 +339,14 @@
 				58B8DADD246B474200584B20 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		58B8DB04246B4D6C00584B20 /* Map.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				58B8DB05246B4D6C00584B20 /* Base */,
+			);
+			name = Map.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -434,16 +470,19 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = TT6B98BUL8;
 				INFOPLIST_FILE = FlatQuestion/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com..FlatQuestion;
+				PRODUCT_BUNDLE_IDENTIFIER = com.FlatQuestion;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -451,16 +490,19 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = TT6B98BUL8;
 				INFOPLIST_FILE = FlatQuestion/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com..FlatQuestion;
+				PRODUCT_BUNDLE_IDENTIFIER = com.FlatQuestion;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
