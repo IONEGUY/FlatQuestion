@@ -6,6 +6,8 @@ target 'FlatQuestion' do
   use_frameworks!
 
   # Pods for FlatQuestion
+  pod 'GoogleMaps'
+  pod 'GooglePlaces'
 
   target 'FlatQuestionTests' do
     inherit! :search_paths
