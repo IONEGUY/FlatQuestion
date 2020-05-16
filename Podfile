@@ -8,6 +8,17 @@ target 'FlatQuestion' do
   # Pods for FlatQuestion
   pod 'GoogleMaps'
   pod 'GooglePlaces'
+  pod 'Firebase/Analytics' 
+  pod 'Alamofire', '~> 4.5'
+  pod 'SDWebImage', '~> 5.0'
+  pod 'AlamofireNetworkActivityLogger', '~> 2.0'
+  pod 'Firebase/Analytics'
+  pod 'Firebase/Auth'
+  pod 'Firebase/Core'
+  pod 'Firebase/Firestore'
+  pod 'Firebase/Crashlytics'
+  pod 'SwiftLint'
+  pod 'RealmSwift'
 
   target 'FlatQuestionTests' do
     inherit! :search_paths
