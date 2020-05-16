@@ -39,6 +39,7 @@
 		58B8DB30246CA99000584B20 /* Flat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58B8DB2F246CA99000584B20 /* Flat.swift */; };
 		58B8DB33246CADA700584B20 /* ReuseIdentifierProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58B8DB32246CADA700584B20 /* ReuseIdentifierProtocol.swift */; };
 		8B69C140BCB0FC9EF701D193 /* Pods_FlatQuestion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2480035DB96377F75447C64A /* Pods_FlatQuestion.framework */; };
+		FAFACBE324706C9E00BBCB60 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FAFACBE224706C9E00BBCB60 /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -105,6 +106,7 @@
 		DD97DF30063FF9D4556F8955 /* Pods_FlatQuestion_FlatQuestionUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FlatQuestion_FlatQuestionUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EF0E1634935991A5CE481015 /* Pods-FlatQuestion-FlatQuestionUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FlatQuestion-FlatQuestionUITests.debug.xcconfig"; path = "Target Support Files/Pods-FlatQuestion-FlatQuestionUITests/Pods-FlatQuestion-FlatQuestionUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		F5F0FB1E3BEB54F5531A977A /* Pods-FlatQuestion-FlatQuestionUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FlatQuestion-FlatQuestionUITests.release.xcconfig"; path = "Target Support Files/Pods-FlatQuestion-FlatQuestionUITests/Pods-FlatQuestion-FlatQuestionUITests.release.xcconfig"; sourceTree = "<group>"; };
+		FAFACBE224706C9E00BBCB60 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -173,6 +175,7 @@
 		58B8DAD0246B474100584B20 /* FlatQuestion */ = {
 			isa = PBXGroup;
 			children = (
+				FAFACBE224706C9E00BBCB60 /* GoogleService-Info.plist */,
 				58B8DB31246CAD8B00584B20 /* Extensions */,
 				58B8DB09246B66B600584B20 /* Resources */,
 				58B8DB03246B493600584B20 /* Models */,
@@ -290,11 +293,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 58B8DAF8246B474200584B20 /* Build configuration list for PBXNativeTarget "FlatQuestion" */;
 			buildPhases = (
+				FAFACBE624708CE800BBCB60 /* ShellScript */,
 				CF3DA0A34977A5204BAE7357 /* [CP] Check Pods Manifest.lock */,
 				58B8DACA246B474100584B20 /* Sources */,
 				58B8DACB246B474100584B20 /* Frameworks */,
 				58B8DACC246B474100584B20 /* Resources */,
 				780BACC693068BE92F499432 /* [CP] Copy Pods Resources */,
+				CBFFA3F5178BFD0D6FB48334 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -333,6 +338,7 @@
 				58B8DAEC246B474200584B20 /* Frameworks */,
 				58B8DAED246B474200584B20 /* Resources */,
 				C4205FA4FC1865756EB7C202 /* [CP] Copy Pods Resources */,
+				721424B92284EBB41A241D04 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -401,6 +407,7 @@
 				58B8DB29246CA00600584B20 /* SFProDisplay-Regular.ttf in Resources */,
 				58B8DB24246CA00600584B20 /* SFProDisplay-Medium.ttf in Resources */,
 				58B8DB13246C9C8400584B20 /* FlatCardCollectionViewCell.xib in Resources */,
+				FAFACBE324706C9E00BBCB60 /* GoogleService-Info.plist in Resources */,
 				58B8DB2C246CA00600584B20 /* SFProDisplay-Light.ttf in Resources */,
 				589CC3B0246DEAF200D4E400 /* FlatModalViewController.xib in Resources */,
 				58B8DADB246B474200584B20 /* Assets.xcassets in Resources */,
@@ -431,6 +438,23 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		721424B92284EBB41A241D04 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-FlatQuestion-FlatQuestionUITests/Pods-FlatQuestion-FlatQuestionUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-FlatQuestion-FlatQuestionUITests/Pods-FlatQuestion-FlatQuestionUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-FlatQuestion-FlatQuestionUITests/Pods-FlatQuestion-FlatQuestionUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		780BACC693068BE92F499432 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -487,6 +511,23 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-FlatQuestion-FlatQuestionUITests/Pods-FlatQuestion-FlatQuestionUITests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		CBFFA3F5178BFD0D6FB48334 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-FlatQuestion/Pods-FlatQuestion-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-FlatQuestion/Pods-FlatQuestion-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-FlatQuestion/Pods-FlatQuestion-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		CF3DA0A34977A5204BAE7357 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -530,6 +571,23 @@
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
+		};
+		FAFACBE624708CE800BBCB60 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "${PODS_ROOT}/SwiftLint/swiftlint\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
