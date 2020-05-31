@@ -23,7 +23,7 @@ class FlatCardCollectionViewCell: UICollectionViewCell {
     
     func fillCellData(with flat: Flat) {
         self.addressLabel.text = flat.address
-        self.numberOfPersonsLabel.text = String(flat.numberOfPersons) 
+        self.numberOfPersonsLabel.text = String(flat.numberOfPersons)
         self.titleLabel.text = flat.title
         self.dateLabel.text = flat.dateToCome
     }
@@ -34,4 +34,3 @@ extension FlatCardCollectionViewCell: ReuseIdentifierProtocol {
         return String(describing: self)
     }
 }
-
