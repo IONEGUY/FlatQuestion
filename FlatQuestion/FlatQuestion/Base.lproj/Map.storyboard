@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="iqu-1r-qBY">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="iqu-1r-qBY">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
@@ -7,7 +7,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Map-->
+        <!--Карта-->
         <scene sceneID="JCY-1R-WHR">
             <objects>
                 <viewController id="iqu-1r-qBY" customClass="MapViewController" customModule="FlatQuestion" customModuleProvider="target" sceneMemberID="viewController">
@@ -17,7 +17,7 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="mLq-km-iqh"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Map" image="map" catalog="system" selectedImage="mappin.and.ellipse" id="QzW-Hj-AmU"/>
+                    <tabBarItem key="tabBarItem" title="Карта" image="global" id="QzW-Hj-AmU"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hVb-Om-X9n" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -25,7 +25,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="map" catalog="system" width="128" height="113"/>
-        <image name="mappin.and.ellipse" catalog="system" width="118" height="128"/>
+        <image name="global" width="24" height="24"/>
     </resources>
 </document>

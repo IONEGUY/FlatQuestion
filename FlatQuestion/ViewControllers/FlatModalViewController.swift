@@ -34,7 +34,12 @@ class FlatModalViewController: UIViewController {
     private var currentState: State?
     var flat: Flat?
     @IBOutlet weak var collectionView: UICollectionView!
-
+    
+    @IBOutlet weak var profileView: UIView!
+    @IBOutlet weak var mapView: UIView!
+    @IBOutlet weak var favoriteView: UIView!
+    @IBOutlet weak var shareView: UIView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupGesture()
@@ -100,6 +105,12 @@ class FlatModalViewController: UIViewController {
     }
 
     func roundViews() {
+        profileView.addCorner(with: 10, with: .black)
+        mapView.addCorner(with: 10, with: .black)
+        favoriteView.addCorner(with: 10, with: .black)
+        shareView.addCorner(with: 10, with: .black)
+        self.view.setNeedsLayout()
+        self.view.layoutIfNeeded()
         view.layer.cornerRadius = 10
         view.clipsToBounds = true
     }

@@ -13,11 +13,13 @@ class MapViewController: UIViewController {
     private var collectionView: UICollectionView?
     private var flatModalVC: FlatModalViewController!
     private var flats = [Flat]()
+    private var spacing: CGFloat = 90
 
     override func viewDidLoad() {
         super.viewDidLoad()
         setupMapView()
         setupCollectionView()
+        setupSearchView()
         getFlats()
     }
 
@@ -30,21 +32,35 @@ class MapViewController: UIViewController {
         self.view.layoutIfNeeded()
     }
 
+    func setupSearchView() {
+        let view = TopMapSearchView(frame: CGRect(x: 0, y: UIApplication.shared.statusBarFrame.height + 10, width: self.view.frame.size.width, height: 82))
+        self.view.addSubview(view)
+    }
+
     func setupCollectionView() {
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
-        layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-        layout.estimatedItemSize = CGSize(width: 275, height: 150)
         layout.scrollDirection = .horizontal
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView?.register(UINib(nibName: FlatCardCollectionViewCell.identifier, bundle: nil),
                                  forCellWithReuseIdentifier: FlatCardCollectionViewCell.identifier)
         collectionView?.showsHorizontalScrollIndicator = false
+        collectionView?.isPagingEnabled = true
         self.view.addSubview(collectionView ?? UICollectionView())
         self.collectionView?.delegate = self
         self.collectionView?.dataSource = self
     }
 
     func getFlats() {
+        self.flats.append(Flat(title: "Party name here",
+                               address: "st. Ulyanovskaya 8", numberOfPersons: 12, dateToCome: "Tomorrow",
+                               arrayWithDescription:
+            [FlatDescription(name: "Description", description: "Best party ever just click to button"),
+             FlatDescription(name: "Информация", description: "Всем привет)) Если вам скучно и не знсебя заайте - потусим вместе)) мы компания из 4 человек ждем адекватных, веселых девчонок))")]))
+        self.flats.append(Flat(title: "Party name here",
+                           address: "st. Ulyanovskaya 8 sdsffsfsdfsf", numberOfPersons: 12, dateToCome: "Tomorrow",
+                           arrayWithDescription:
+        [FlatDescription(name: "Description", description: "Best party ever i seen. If u want to join us, just click to button"),
+         FlatDescription(name: "Information", description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore e.")]))
         self.flats.append(Flat(title: "Party name here",
                                address: "st. Ulyanovskaya 8", numberOfPersons: 12, dateToCome: "Tomorrow",
                                arrayWithDescription:
@@ -55,11 +71,7 @@ class MapViewController: UIViewController {
                            arrayWithDescription:
         [FlatDescription(name: "Description", description: "Best party ever i seen. If u want to join us, just click to button"),
          FlatDescription(name: "Information", description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore e.")]))
-        self.flats.append(Flat(title: "Party name here",
-                           address: "st. Ulyanovskaya 8", numberOfPersons: 12, dateToCome: "Tomorrow",
-                           arrayWithDescription:
-        [FlatDescription(name: "Description", description: "Best party ever i seen. If u want to join us, just click to button"),
-         FlatDescription(name: "Information", description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore e.")]))
+   
     }
 
     func setupMapView() {
@@ -114,7 +126,27 @@ extension MapViewController: UICollectionViewDataSource {
     }
 }
 
+extension MapViewController: UICollectionViewDelegateFlowLayout {
+     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return spacing
+    }
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        CGSize(width: collectionView.frame.size.width - spacing, height: 115)
+    }
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets(top: 0, left: spacing / 2, bottom: 0, right: spacing / 2)
+    }
+    
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        let index = self.collectionView!.contentOffset.x / self.collectionView!.frame.size.width;
+        print(index)
+    }
+}
+
 extension MapViewController: RemovableDelegate {
+
     func shouldRemoveFromSuperView() {
         flatModalVC.willMove(toParent: nil)
         flatModalVC.view.removeFromSuperview()

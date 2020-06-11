@@ -9,6 +9,10 @@
 /* Begin PBXBuildFile section */
 		0556E73A068B953DFDAAED9B /* Pods_FlatQuestion_FlatQuestionUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD97DF30063FF9D4556F8955 /* Pods_FlatQuestion_FlatQuestionUITests.framework */; };
 		3E262A8E5859B4E5978E52ED /* Pods_FlatQuestionTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 47ACFFE37D36DDED35D76A8F /* Pods_FlatQuestionTests.framework */; };
+		586B69EB247F2070008B456D /* TopMapFilterCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 586B69E9247F2070008B456D /* TopMapFilterCollectionViewCell.swift */; };
+		586B69EC247F2070008B456D /* TopMapFilterCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 586B69EA247F2070008B456D /* TopMapFilterCollectionViewCell.xib */; };
+		5890182324774CF1001FBA21 /* TopMapSearchView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5890182224774CF1001FBA21 /* TopMapSearchView.xib */; };
+		589018252477501B001FBA21 /* TopMapSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 589018242477501B001FBA21 /* TopMapSearchView.swift */; };
 		589CC3AF246DEAF200D4E400 /* FlatModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 589CC3AD246DEAF200D4E400 /* FlatModalViewController.swift */; };
 		589CC3B0246DEAF200D4E400 /* FlatModalViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 589CC3AE246DEAF200D4E400 /* FlatModalViewController.xib */; };
 		58B8DAD2246B474100584B20 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58B8DAD1246B474100584B20 /* AppDelegate.swift */; };
@@ -37,6 +41,10 @@
 		58B8DB2E246CA00600584B20 /* SFProDisplay-BlackItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 58B8DB22246CA00600584B20 /* SFProDisplay-BlackItalic.ttf */; };
 		58B8DB30246CA99000584B20 /* Flat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58B8DB2F246CA99000584B20 /* Flat.swift */; };
 		58B8DB33246CADA700584B20 /* ReuseIdentifierProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58B8DB32246CADA700584B20 /* ReuseIdentifierProtocol.swift */; };
+		58E62CB32492D9F0006B0DCF /* GradientButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58E62CB22492D9F0006B0DCF /* GradientButton.swift */; };
+		58E62CB52492DBF4006B0DCF /* UIView+gradient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58E62CB42492DBF4006B0DCF /* UIView+gradient.swift */; };
+		58E62CB72492DDE1006B0DCF /* UIColor+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58E62CB62492DDE1006B0DCF /* UIColor+Hex.swift */; };
+		58E62CB92492E459006B0DCF /* UIView+CornerShadow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58E62CB82492E459006B0DCF /* UIView+CornerShadow.swift */; };
 		58F241B224734E8100F56681 /* FlatPhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58F241B024734E8100F56681 /* FlatPhotoCollectionViewCell.swift */; };
 		58F241B324734E8100F56681 /* FlatPhotoCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 58F241B124734E8100F56681 /* FlatPhotoCollectionViewCell.xib */; };
 		58F241C124749DB200F56681 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 58B8DADA246B474200584B20 /* Assets.xcassets */; };
@@ -70,6 +78,10 @@
 		4954ACF5F255F19985DC1012 /* Pods-FlatQuestion.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FlatQuestion.release.xcconfig"; path = "Target Support Files/Pods-FlatQuestion/Pods-FlatQuestion.release.xcconfig"; sourceTree = "<group>"; };
 		4B12B0AC463ED6DC74DFB6B5 /* Pods-FlatQuestion.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FlatQuestion.debug.xcconfig"; path = "Target Support Files/Pods-FlatQuestion/Pods-FlatQuestion.debug.xcconfig"; sourceTree = "<group>"; };
 		583F5FCF2471E923000F9ACF /* Alamofire.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Alamofire.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		586B69E9247F2070008B456D /* TopMapFilterCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopMapFilterCollectionViewCell.swift; sourceTree = "<group>"; };
+		586B69EA247F2070008B456D /* TopMapFilterCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TopMapFilterCollectionViewCell.xib; sourceTree = "<group>"; };
+		5890182224774CF1001FBA21 /* TopMapSearchView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TopMapSearchView.xib; sourceTree = "<group>"; };
+		589018242477501B001FBA21 /* TopMapSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopMapSearchView.swift; sourceTree = "<group>"; };
 		589CC3AD246DEAF200D4E400 /* FlatModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlatModalViewController.swift; sourceTree = "<group>"; };
 		589CC3AE246DEAF200D4E400 /* FlatModalViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FlatModalViewController.xib; sourceTree = "<group>"; };
 		589CC3B1246DEC4800D4E400 /* SPStorkController.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SPStorkController.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -107,6 +119,10 @@
 		58B8DB22246CA00600584B20 /* SFProDisplay-BlackItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFProDisplay-BlackItalic.ttf"; sourceTree = "<group>"; };
 		58B8DB2F246CA99000584B20 /* Flat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Flat.swift; sourceTree = "<group>"; };
 		58B8DB32246CADA700584B20 /* ReuseIdentifierProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReuseIdentifierProtocol.swift; sourceTree = "<group>"; };
+		58E62CB22492D9F0006B0DCF /* GradientButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientButton.swift; sourceTree = "<group>"; };
+		58E62CB42492DBF4006B0DCF /* UIView+gradient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+gradient.swift"; sourceTree = "<group>"; };
+		58E62CB62492DDE1006B0DCF /* UIColor+Hex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Hex.swift"; sourceTree = "<group>"; };
+		58E62CB82492E459006B0DCF /* UIView+CornerShadow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+CornerShadow.swift"; sourceTree = "<group>"; };
 		58F241B024734E8100F56681 /* FlatPhotoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlatPhotoCollectionViewCell.swift; sourceTree = "<group>"; };
 		58F241B124734E8100F56681 /* FlatPhotoCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FlatPhotoCollectionViewCell.xib; sourceTree = "<group>"; };
 		58F241C92475F05100F56681 /* FlatDescriptionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlatDescriptionTableViewCell.swift; sourceTree = "<group>"; };
@@ -239,6 +255,10 @@
 				58F241B124734E8100F56681 /* FlatPhotoCollectionViewCell.xib */,
 				58F241C92475F05100F56681 /* FlatDescriptionTableViewCell.swift */,
 				58F241CA2475F05100F56681 /* FlatDescriptionTableViewCell.xib */,
+				5890182224774CF1001FBA21 /* TopMapSearchView.xib */,
+				589018242477501B001FBA21 /* TopMapSearchView.swift */,
+				586B69E9247F2070008B456D /* TopMapFilterCollectionViewCell.swift */,
+				586B69EA247F2070008B456D /* TopMapFilterCollectionViewCell.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -283,6 +303,10 @@
 			isa = PBXGroup;
 			children = (
 				58B8DB32246CADA700584B20 /* ReuseIdentifierProtocol.swift */,
+				58E62CB22492D9F0006B0DCF /* GradientButton.swift */,
+				58E62CB42492DBF4006B0DCF /* UIView+gradient.swift */,
+				58E62CB62492DDE1006B0DCF /* UIColor+Hex.swift */,
+				58E62CB82492E459006B0DCF /* UIView+CornerShadow.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -427,11 +451,13 @@
 				589CC3B0246DEAF200D4E400 /* FlatModalViewController.xib in Resources */,
 				58B8DAD9246B474100584B20 /* Main.storyboard in Resources */,
 				58B8DB23246CA00600584B20 /* SFProDisplay-LightItalic.ttf in Resources */,
+				5890182324774CF1001FBA21 /* TopMapSearchView.xib in Resources */,
 				58B8DB26246CA00600584B20 /* SFProDisplay-MediumItalic.ttf in Resources */,
 				58B8DB0B246B66E100584B20 /* map.json in Resources */,
 				58F241CC2475F05100F56681 /* FlatDescriptionTableViewCell.xib in Resources */,
 				58F241B324734E8100F56681 /* FlatPhotoCollectionViewCell.xib in Resources */,
 				58B8DB06246B4D6C00584B20 /* Map.storyboard in Resources */,
+				586B69EC247F2070008B456D /* TopMapFilterCollectionViewCell.xib in Resources */,
 				58B8DB28246CA00600584B20 /* SFProDisplay-BoldItalic.ttf in Resources */,
 				58B8DB2B246CA00600584B20 /* SFProDisplay-Black.ttf in Resources */,
 			);
@@ -614,12 +640,18 @@
 			files = (
 				58F241B224734E8100F56681 /* FlatPhotoCollectionViewCell.swift in Sources */,
 				58B8DB33246CADA700584B20 /* ReuseIdentifierProtocol.swift in Sources */,
+				58E62CB52492DBF4006B0DCF /* UIView+gradient.swift in Sources */,
 				58B8DAD6246B474100584B20 /* ViewController.swift in Sources */,
 				58B8DAD2246B474100584B20 /* AppDelegate.swift in Sources */,
 				58F241CB2475F05100F56681 /* FlatDescriptionTableViewCell.swift in Sources */,
 				589CC3AF246DEAF200D4E400 /* FlatModalViewController.swift in Sources */,
+				58E62CB92492E459006B0DCF /* UIView+CornerShadow.swift in Sources */,
+				589018252477501B001FBA21 /* TopMapSearchView.swift in Sources */,
 				58B8DAD4246B474100584B20 /* SceneDelegate.swift in Sources */,
+				58E62CB72492DDE1006B0DCF /* UIColor+Hex.swift in Sources */,
 				58B8DB08246B60F100584B20 /* MapViewController.swift in Sources */,
+				586B69EB247F2070008B456D /* TopMapFilterCollectionViewCell.swift in Sources */,
+				58E62CB32492D9F0006B0DCF /* GradientButton.swift in Sources */,
 				58B8DB30246CA99000584B20 /* Flat.swift in Sources */,
 				58B8DB12246C9C8400584B20 /* FlatCardCollectionViewCell.swift in Sources */,
 			);
