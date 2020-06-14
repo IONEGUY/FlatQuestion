@@ -13,11 +13,11 @@ class MapViewController: UIViewController {
     private var collectionView: UICollectionView?
     private var flatModalVC: FlatModalViewController!
     private var flats = [Flat]()
-    private var spacing: CGFloat = 90
+    //private var spacing: CGFloat = 90
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupMapView()
+        //setupMapView()
         setupCollectionView()
         setupSearchView()
         getFlats()
@@ -26,7 +26,7 @@ class MapViewController: UIViewController {
     override func viewWillLayoutSubviews() {
         let tabBarHeight = self.tabBarController!.tabBar.frame.size.height
         collectionView?.frame = CGRect(x: self.view.frame.origin.x,
-                                       y: self.view.frame.size.height - 130 - tabBarHeight,
+                                       y: self.view.frame.size.height - 150 - tabBarHeight,
                                        width: self.view.frame.width, height: 115)
         collectionView?.backgroundColor = .clear
         self.view.layoutIfNeeded()
@@ -44,7 +44,7 @@ class MapViewController: UIViewController {
         collectionView?.register(UINib(nibName: FlatCardCollectionViewCell.identifier, bundle: nil),
                                  forCellWithReuseIdentifier: FlatCardCollectionViewCell.identifier)
         collectionView?.showsHorizontalScrollIndicator = false
-        collectionView?.isPagingEnabled = true
+        //collectionView?.isPagingEnabled = true
         self.view.addSubview(collectionView ?? UICollectionView())
         self.collectionView?.delegate = self
         self.collectionView?.dataSource = self
@@ -114,6 +114,21 @@ extension MapViewController: UICollectionViewDelegate {
     }
 }
 
+extension MapViewController: UIScrollViewDelegate {
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        var closestCell : UICollectionViewCell = collectionView!.visibleCells[0];
+        for cell in collectionView!.visibleCells as [UICollectionViewCell] {
+            let closestCellDelta = abs(closestCell.center.x - collectionView!.bounds.size.width/2.0 - collectionView!.contentOffset.x)
+            let cellDelta = abs(cell.center.x - collectionView!.bounds.size.width/2.0 - collectionView!.contentOffset.x)
+            if (cellDelta < closestCellDelta){
+                closestCell = cell
+            }
+        }
+        let indexPath = collectionView!.indexPath(for: closestCell)
+        collectionView!.scrollToItem(at: indexPath!, at: UICollectionView.ScrollPosition.centeredHorizontally, animated: true)
+    }
+}
+
 extension MapViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView,
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -127,17 +142,17 @@ extension MapViewController: UICollectionViewDataSource {
 }
 
 extension MapViewController: UICollectionViewDelegateFlowLayout {
-     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return spacing
-    }
-
+//     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+//        return spacing
+//    }
+//
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        CGSize(width: collectionView.frame.size.width - spacing, height: 115)
+        CGSize(width: 283, height: 115)
     }
 
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: 0, left: spacing / 2, bottom: 0, right: spacing / 2)
-    }
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+//        return UIEdgeInsets(top: 0, left: spacing / 2, bottom: 0, right: spacing / 2)
+//    }
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         let index = self.collectionView!.contentOffset.x / self.collectionView!.frame.size.width;

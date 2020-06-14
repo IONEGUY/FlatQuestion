@@ -17,7 +17,9 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="mLq-km-iqh"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Карта" image="global" id="QzW-Hj-AmU"/>
+                    <tabBarItem key="tabBarItem" title="Карта" image="global" id="QzW-Hj-AmU">
+                        <offsetWrapper key="titlePositionAdjustment" horizontal="-20" vertical="0.0"/>
+                    </tabBarItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hVb-Om-X9n" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
