@@ -95,6 +95,7 @@
 		4B12B0AC463ED6DC74DFB6B5 /* Pods-FlatQuestion.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FlatQuestion.debug.xcconfig"; path = "Target Support Files/Pods-FlatQuestion/Pods-FlatQuestion.debug.xcconfig"; sourceTree = "<group>"; };
 		583F5FCF2471E923000F9ACF /* Alamofire.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Alamofire.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		585B9BCE24996C6600976A05 /* Profile.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Profile.storyboard; path = /Users/andrejolesov/Documents/FlatQuestion/FlatQuestion/Profile.storyboard; sourceTree = "<absolute>"; };
+		585B9BD024996D2C00976A05 /* Profile.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Profile.storyboard; path = /Users/andrejolesov/Documents/FlatQuestion/FlatQuestion/Profile.storyboard; sourceTree = "<absolute>"; };
 		586B69E9247F2070008B456D /* TopMapFilterCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopMapFilterCollectionViewCell.swift; sourceTree = "<group>"; };
 		586B69EA247F2070008B456D /* TopMapFilterCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TopMapFilterCollectionViewCell.xib; sourceTree = "<group>"; };
 		5890182224774CF1001FBA21 /* TopMapSearchView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TopMapSearchView.xib; sourceTree = "<group>"; };
@@ -246,6 +247,7 @@
 				58B8DAD3246B474100584B20 /* SceneDelegate.swift */,
 				58B8DAD5246B474100584B20 /* ViewController.swift */,
 				58B8DAD7246B474100584B20 /* Main.storyboard */,
+				585B9BD024996D2C00976A05 /* Profile.storyboard */,
 				58B8DB04246B4D6C00584B20 /* Map.storyboard */,
 				585B9BCE24996C6600976A05 /* Profile.storyboard */,
 				58B8DADA246B474200584B20 /* Assets.xcassets */,
