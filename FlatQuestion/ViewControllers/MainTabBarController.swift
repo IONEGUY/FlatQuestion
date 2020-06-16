@@ -13,7 +13,7 @@ import UIKit
 class MainTabBarController: UITabBarController {
   
   @IBOutlet weak var centerButton: UIButton!
-  
+
   override func viewDidLoad() {
     super.viewDidLoad()
   }
@@ -22,7 +22,7 @@ class MainTabBarController: UITabBarController {
         super.viewWillAppear(animated)
         setupCenterButton()
     }
-  
+
   fileprivate func setupCenterButton() {
     tabBar.addSubview(centerButton)
     centerButton.translatesAutoresizingMaskIntoConstraints = false
@@ -31,7 +31,7 @@ class MainTabBarController: UITabBarController {
     guard let customTabbar = tabBar as? MainMenuTabBar else { return }
     customTabbar.centerButton = centerButton
   }
-  
+
   @IBAction fileprivate func unwindToMainViewController(_ segue: UIStoryboardSegue) {}
-  
+
 }

@@ -41,7 +41,8 @@ class TopMapSearchView: UIView {
     }
     
     private func setupFilters() {
-        collectionView.register(UINib(nibName: TopMapFilterCollectionViewCell.identifier, bundle: nil), forCellWithReuseIdentifier: TopMapFilterCollectionViewCell.identifier)
+        collectionView.register(UINib(nibName: TopMapFilterCollectionViewCell.identifier, bundle: nil),
+                                forCellWithReuseIdentifier: TopMapFilterCollectionViewCell.identifier)
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.reloadData()
@@ -50,22 +51,22 @@ class TopMapSearchView: UIView {
 }
 
 extension TopMapSearchView: UICollectionViewDelegate {
-    
+
 }
 
 extension TopMapSearchView: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 10
     }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+
+func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(
             withReuseIdentifier: TopMapFilterCollectionViewCell.identifier, for: indexPath)
             as? TopMapFilterCollectionViewCell else { return UICollectionViewCell()}
         cell.setupCell(with: "Fast date date date")
         return cell
     }
-    
+
 }
 
 extension TopMapSearchView: UICollectionViewDelegateFlowLayout {
@@ -75,7 +76,6 @@ extension TopMapSearchView: UICollectionViewDelegateFlowLayout {
         guard let cell: TopMapFilterCollectionViewCell = Bundle.main.loadNibNamed(TopMapFilterCollectionViewCell.identifier, owner: self, options: nil)?.first as? TopMapFilterCollectionViewCell else {
             return .zero
         }
-        
         cell.setupCell(with: "Fast date date date")
         cell.setNeedsLayout()
         cell.layoutIfNeeded()
