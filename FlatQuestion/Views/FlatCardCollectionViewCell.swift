@@ -10,22 +10,28 @@ import UIKit
 
 class FlatCardCollectionViewCell: UICollectionViewCell {
 
-    @IBOutlet weak var numberOfPersonsLabel: UILabel!
-    @IBOutlet weak var dateLabel: UILabel!
-    @IBOutlet weak var addressLabel: UILabel!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak var addressLabel: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        //contentView.translatesAutoresizingMaskIntoConstraints = false
     }
-    
+
     func fillCellData(with flat: Flat) {
-        self.addressLabel.text = flat.address
-        self.numberOfPersonsLabel.text = String(flat.numberOfPersons)
         self.titleLabel.text = flat.title
-        self.dateLabel.text = flat.dateToCome
+        setupViewOfAddressLabel(address: flat.address)
+    }
+}
+
+//MARK: Private methods
+extension FlatCardCollectionViewCell {
+    private func setupViewOfAddressLabel(address: String) {
+        let attributedString = NSMutableAttributedString(string: address)
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.lineSpacing = 0
+        attributedString.addAttribute(NSAttributedString.Key.paragraphStyle, value:paragraphStyle, range:NSMakeRange(0, attributedString.length))
+        addressLabel.attributedText = attributedString
     }
 }
 

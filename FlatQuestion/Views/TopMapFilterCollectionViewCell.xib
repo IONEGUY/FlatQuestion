@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="SFProDisplay-Regular.ttf">
+            <string>SFProDisplay-Regular</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="TopMapFilterCollectionViewCell" customModule="FlatQuestion" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="60" height="36"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="60" height="36"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Msc-O6-qK6">
+                        <rect key="frame" x="0.0" y="0.0" width="60" height="36"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WeQ-Rs-hH9">
+                                <rect key="frame" x="10" y="7" width="40" height="22"/>
+                                <fontDescription key="fontDescription" name="SFProDisplay-Regular" family="SF Pro Display" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="WeQ-Rs-hH9" firstAttribute="leading" secondItem="Msc-O6-qK6" secondAttribute="leading" constant="10" id="26Z-Sh-CD9"/>
+                            <constraint firstItem="WeQ-Rs-hH9" firstAttribute="top" secondItem="Msc-O6-qK6" secondAttribute="top" constant="7" id="3BJ-VA-OUR"/>
+                            <constraint firstAttribute="bottom" secondItem="WeQ-Rs-hH9" secondAttribute="bottom" constant="7" id="Rib-e2-gxP"/>
+                            <constraint firstAttribute="trailing" secondItem="WeQ-Rs-hH9" secondAttribute="trailing" constant="10" id="eaj-VZ-xb8"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                <integer key="value" value="10"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </view>
+                </subviews>
+            </view>
+            <constraints>
+                <constraint firstItem="Msc-O6-qK6" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="Dvd-pT-1Mi"/>
+                <constraint firstAttribute="bottom" secondItem="Msc-O6-qK6" secondAttribute="bottom" id="Mpc-Je-w6P"/>
+                <constraint firstAttribute="trailing" secondItem="Msc-O6-qK6" secondAttribute="trailing" id="Y0X-hZ-4QC"/>
+                <constraint firstItem="Msc-O6-qK6" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="jOV-1Y-mA1"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
+            <size key="customSize" width="65" height="36"/>
+            <userDefinedRuntimeAttributes>
+                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                    <integer key="value" value="10"/>
+                </userDefinedRuntimeAttribute>
+            </userDefinedRuntimeAttributes>
+            <connections>
+                <outlet property="titleLabel" destination="WeQ-Rs-hH9" id="ycd-wO-jem"/>
+            </connections>
+            <point key="canvasLocation" x="147.82608695652175" y="119.19642857142857"/>
+        </collectionViewCell>
+    </objects>
+</document>

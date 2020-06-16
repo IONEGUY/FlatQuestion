@@ -10,54 +10,75 @@ import UIKit
 import GoogleMaps
 
 class MapViewController: UIViewController {
-    
     private var collectionView: UICollectionView?
-    var flats = [Flat]()
-    
+    private var flatModalVC: FlatModalViewController!
+    private var flats = [Flat]()
+    private var spacing: CGFloat {
+        return self.view.frame.width - 283
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
-                setupMapView()
+        setupMapView()
         setupCollectionView()
+        setupSearchView()
         getFlats()
     }
-    
+
     override func viewWillLayoutSubviews() {
-        collectionView?.frame = CGRect(x: self.view.frame.origin.x, y: self.view.frame.size.height - 170, width: self.view.frame.width, height: 115)
+        let tabBarHeight = self.tabBarController!.tabBar.frame.size.height
+        collectionView?.frame = CGRect(x: self.view.frame.origin.x,
+                                       y: self.view.frame.size.height - 150 - tabBarHeight,
+                                       width: self.view.frame.width, height: 115)
         collectionView?.backgroundColor = .clear
         self.view.layoutIfNeeded()
     }
-    
+
+    func setupSearchView() {
+        let view = TopMapSearchView(frame: CGRect(x: 0, y: UIApplication.shared.statusBarFrame.height + 10, width: self.view.frame.size.width, height: 82))
+        self.view.addSubview(view)
+    }
+
     func setupCollectionView() {
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
-        layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-        layout.estimatedItemSize = CGSize(width: 275, height: 150);
         layout.scrollDirection = .horizontal
-        
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView?.register(UINib(nibName: FlatCardCollectionViewCell.identifier, bundle: nil), forCellWithReuseIdentifier: FlatCardCollectionViewCell.identifier)
+        collectionView?.register(UINib(nibName: FlatCardCollectionViewCell.identifier, bundle: nil),
+                                 forCellWithReuseIdentifier: FlatCardCollectionViewCell.identifier)
         collectionView?.showsHorizontalScrollIndicator = false
+        collectionView?.isPagingEnabled = true
         self.view.addSubview(collectionView ?? UICollectionView())
-        
-        
-        
-        self.collectionView?.delegate = self;
-        self.collectionView?.dataSource = self;
+        self.collectionView?.delegate = self
+        self.collectionView?.dataSource = self
     }
-    
-    
-    
+
     func getFlats() {
-        self.flats.append(Flat(title: "Party name here", address: "st. Ulyanovskaya 8", numberOfPersons: 12, dateToCome: "Tomorrow"))
-        self.flats.append(Flat(title: "Party name", address: "st. Ulyanovskaya 8", numberOfPersons: 123, dateToCome: "Tomorrow"))
-        self.flats.append(Flat(title: "Party name here", address: "st. Ulyanovskaya 8 k 45", numberOfPersons: 1, dateToCome: "Tomorrow"))
-        self.flats.append(Flat(title: "Party name here", address: "st. Ulyanovskaya 8", numberOfPersons: 12, dateToCome: "Tomorrow"))
-        self.flats.append(Flat(title: "Party name here", address: "st. Ulyanovskaya 8", numberOfPersons: 12, dateToCome: "Tomorrow"))
+        self.flats.append(Flat(title: "Party name here",
+                               address: "st. Ulyanovskaya 8", numberOfPersons: 12, dateToCome: "Tomorrow",
+                               arrayWithDescription:
+            [FlatDescription(name: "Description", description: "Best party ever just click to button"),
+             FlatDescription(name: "Информация", description: "Всем привет)) Если вам скучно и не знсебя заайте - потусим вместе)) мы компания из 4 человек ждем адекватных, веселых девчонок))")]))
+        self.flats.append(Flat(title: "Party name here",
+                           address: "st. Ulyanovskaya 8 sdsffsfsdfsf", numberOfPersons: 12, dateToCome: "Tomorrow",
+                           arrayWithDescription:
+        [FlatDescription(name: "Description", description: "Best party ever i seen. If u want to join us, just click to button"),
+         FlatDescription(name: "Information", description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore e.")]))
+        self.flats.append(Flat(title: "Party name here",
+                               address: "st. Ulyanovskaya 8", numberOfPersons: 12, dateToCome: "Tomorrow",
+                               arrayWithDescription:
+            [FlatDescription(name: "Description", description: "Best party ever i seen. If u want to join us, just click to button"),
+             FlatDescription(name: "Information", description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore e.Lorem ipsum dolor sit amet")]))
+        self.flats.append(Flat(title: "Party name here",
+                           address: "st. Ulyanovskaya 8", numberOfPersons: 12, dateToCome: "Tomorrow",
+                           arrayWithDescription:
+        [FlatDescription(name: "Description", description: "Best party ever i seen. If u want to join us, just click to button"),
+         FlatDescription(name: "Information", description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore e.")]))
+   
     }
-    
+
     func setupMapView() {
-        
         let camera = GMSCameraPosition(latitude: 37, longitude: -122, zoom: 10)
-        let mapView = GMSMapView(frame: .zero, camera: camera)
+        let mapView = GMSMapView(frame: self.view.frame, camera: camera)
         do {
             if let styleURL = Bundle.main.url(forResource: "map", withExtension: "json") {
                 mapView.mapStyle = try GMSMapStyle(contentsOfFileURL: styleURL)
@@ -67,28 +88,70 @@ class MapViewController: UIViewController {
         } catch {
             NSLog("One or more of the map styles failed to load. \(error)")
         }
-        view = mapView
+        self.view.addSubview(mapView)
     }
-    
+
+    func addModalFlatView(flat: Flat) {
+        flatModalVC = FlatModalViewController(nibName: "FlatModalViewController", bundle: nil)
+        flatModalVC.flat = flat
+        flatModalVC.delegate = self
+        self.addChild(flatModalVC)
+        self.view.addSubview(flatModalVC.view)
+        flatModalVC.didMove(toParent: self)
+        let height = view.frame.height
+        let width  = view.frame.width
+        flatModalVC.view.frame = CGRect(x: 0, y: view.frame.maxY, width: width, height: height)
+    }
 }
 
 extension MapViewController: UICollectionViewDelegate {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
-    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return self.flats.count
+    }
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        addModalFlatView(flat: self.flats[indexPath.item])
     }
 }
 
 extension MapViewController: UICollectionViewDataSource {
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let flatCell = self.collectionView?.dequeueReusableCell(withReuseIdentifier: FlatCardCollectionViewCell.self.identifier, for: indexPath) as? FlatCardCollectionViewCell
+    func collectionView(_ collectionView: UICollectionView,
+                        cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let flatCell = self.collectionView?
+            .dequeueReusableCell(withReuseIdentifier: FlatCardCollectionViewCell.self.identifier,
+                                                                for: indexPath) as? FlatCardCollectionViewCell
         guard let cell = flatCell else {return UICollectionViewCell()}
         cell.fillCellData(with: self.flats[indexPath.item])
         return cell
-        
     }
-    
+}
+
+extension MapViewController: UICollectionViewDelegateFlowLayout {
+     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return spacing
+    }
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        CGSize(width: 283, height: 115)
+    }
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets(top: 0, left: spacing / 2, bottom: 0, right: spacing / 2)
+    }
+
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        let index = self.collectionView!.contentOffset.x / self.collectionView!.frame.size.width
+        print(index)
+    }
+}
+
+extension MapViewController: RemovableDelegate {
+
+    func shouldRemoveFromSuperView() {
+        flatModalVC.willMove(toParent: nil)
+        flatModalVC.view.removeFromSuperview()
+        flatModalVC.removeFromParent()
+    }
 }

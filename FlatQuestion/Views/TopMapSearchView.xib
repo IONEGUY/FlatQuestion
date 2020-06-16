@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="TopMapSearchView" customModule="FlatQuestion" customModuleProvider="target">
+            <connections>
+                <outlet property="collectionView" destination="wPD-ym-brY" id="wpl-Na-NzZ"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="82"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AT1-Hd-erZ">
+                    <rect key="frame" x="16" y="0.0" width="334" height="36"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mqV-KX-h3s">
+                            <rect key="frame" x="8" y="7" width="14" height="22"/>
+                            <state key="normal" image="Search"/>
+                        </button>
+                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Search" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="KAX-GS-QYz">
+                            <rect key="frame" x="30" y="1" width="274" height="35"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <textInputTraits key="textInputTraits"/>
+                        </textField>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YPv-Dm-LoW">
+                            <rect key="frame" x="314" y="7" width="12" height="22"/>
+                            <state key="normal" image="Dictation"/>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                    <constraints>
+                        <constraint firstItem="mqV-KX-h3s" firstAttribute="leading" secondItem="AT1-Hd-erZ" secondAttribute="leading" constant="8" id="5mP-ZG-wsC"/>
+                        <constraint firstAttribute="trailing" secondItem="YPv-Dm-LoW" secondAttribute="trailing" constant="8" id="EbT-kY-bnb"/>
+                        <constraint firstItem="YPv-Dm-LoW" firstAttribute="centerY" secondItem="AT1-Hd-erZ" secondAttribute="centerY" id="cN2-fg-02y"/>
+                        <constraint firstAttribute="bottom" secondItem="KAX-GS-QYz" secondAttribute="bottom" id="chV-wE-1E4"/>
+                        <constraint firstAttribute="height" constant="36" id="elH-0k-CkX"/>
+                        <constraint firstAttribute="trailing" secondItem="KAX-GS-QYz" secondAttribute="trailing" constant="30" id="pL7-TP-eej"/>
+                        <constraint firstItem="mqV-KX-h3s" firstAttribute="centerY" secondItem="AT1-Hd-erZ" secondAttribute="centerY" id="tmd-Mg-Jz2"/>
+                        <constraint firstItem="KAX-GS-QYz" firstAttribute="top" secondItem="AT1-Hd-erZ" secondAttribute="top" constant="1" id="u8n-Za-iSa"/>
+                        <constraint firstItem="KAX-GS-QYz" firstAttribute="leading" secondItem="AT1-Hd-erZ" secondAttribute="leading" constant="30" id="xL6-gq-Mi5"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                            <integer key="value" value="10"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </view>
+                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="wPD-ym-brY">
+                    <rect key="frame" x="0.0" y="46" width="414" height="36"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="36" id="alS-RD-6vR"/>
+                    </constraints>
+                    <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="6tI-EH-BIz">
+                        <size key="itemSize" width="128" height="128"/>
+                        <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                        <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                        <inset key="sectionInset" minX="16" minY="0.0" maxX="0.0" maxY="0.0"/>
+                    </collectionViewFlowLayout>
+                </collectionView>
+                <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZOw-Zz-d0L">
+                    <rect key="frame" x="362" y="0.0" width="36" height="36"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="36" id="cju-LS-xEC"/>
+                        <constraint firstAttribute="height" constant="36" id="tn7-PL-Xqu"/>
+                    </constraints>
+                    <state key="normal" image="filter"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="keyPath" value="YES"/>
+                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                            <integer key="value" value="10"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </button>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="ZOw-Zz-d0L" firstAttribute="centerY" secondItem="AT1-Hd-erZ" secondAttribute="centerY" id="L4D-Kq-LrJ"/>
+                <constraint firstItem="ZOw-Zz-d0L" firstAttribute="leading" secondItem="AT1-Hd-erZ" secondAttribute="trailing" constant="12" id="PRV-rm-Y4r"/>
+                <constraint firstItem="AT1-Hd-erZ" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="16" id="QP1-yO-mXZ"/>
+                <constraint firstAttribute="trailing" secondItem="wPD-ym-brY" secondAttribute="trailing" id="VWA-kO-Fvv"/>
+                <constraint firstAttribute="bottom" secondItem="wPD-ym-brY" secondAttribute="bottom" id="VmV-8s-MPw"/>
+                <constraint firstItem="AT1-Hd-erZ" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="a5n-xw-zRo"/>
+                <constraint firstItem="wPD-ym-brY" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="sXT-sb-Rc6"/>
+                <constraint firstAttribute="trailing" secondItem="ZOw-Zz-d0L" secondAttribute="trailing" constant="16" id="vqZ-fV-F58"/>
+            </constraints>
+            <nil key="simulatedTopBarMetrics"/>
+            <nil key="simulatedBottomBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="121.73913043478262" y="-152.00892857142856"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="Dictation" width="12" height="19"/>
+        <image name="Search" width="14" height="14"/>
+        <image name="filter" width="20" height="20"/>
+    </resources>
+</document>
