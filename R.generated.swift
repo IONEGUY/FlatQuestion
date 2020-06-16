@@ -90,14 +90,27 @@ struct R: Rswift.Validatable {
   }
 
   #if os(iOS) || os(tvOS)
-  /// This `R.storyboard` struct is generated, and contains static references to 3 storyboards.
+  /// This `R.storyboard` struct is generated, and contains static references to 6 storyboards.
   struct storyboard {
+    /// Storyboard `Chat`.
+    static let chat = _R.storyboard.chat()
     /// Storyboard `LaunchScreen`.
     static let launchScreen = _R.storyboard.launchScreen()
     /// Storyboard `Main`.
     static let main = _R.storyboard.main()
     /// Storyboard `Map`.
     static let map = _R.storyboard.map()
+    /// Storyboard `Notifications`.
+    static let notifications = _R.storyboard.notifications()
+    /// Storyboard `Profile`.
+    static let profile = _R.storyboard.profile()
+
+    #if os(iOS) || os(tvOS)
+    /// `UIStoryboard(name: "Chat", bundle: ...)`
+    static func chat(_: Void = ()) -> UIKit.UIStoryboard {
+      return UIKit.UIStoryboard(resource: R.storyboard.chat)
+    }
+    #endif
 
     #if os(iOS) || os(tvOS)
     /// `UIStoryboard(name: "LaunchScreen", bundle: ...)`
@@ -117,6 +130,20 @@ struct R: Rswift.Validatable {
     /// `UIStoryboard(name: "Map", bundle: ...)`
     static func map(_: Void = ()) -> UIKit.UIStoryboard {
       return UIKit.UIStoryboard(resource: R.storyboard.map)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIStoryboard(name: "Notifications", bundle: ...)`
+    static func notifications(_: Void = ()) -> UIKit.UIStoryboard {
+      return UIKit.UIStoryboard(resource: R.storyboard.notifications)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIStoryboard(name: "Profile", bundle: ...)`
+    static func profile(_: Void = ()) -> UIKit.UIStoryboard {
+      return UIKit.UIStoryboard(resource: R.storyboard.profile)
     }
     #endif
 
@@ -969,6 +996,9 @@ struct _R: Rswift.Validatable {
   struct storyboard: Rswift.Validatable {
     static func validate() throws {
       #if os(iOS) || os(tvOS)
+      try chat.validate()
+      #endif
+      #if os(iOS) || os(tvOS)
       try launchScreen.validate()
       #endif
       #if os(iOS) || os(tvOS)
@@ -977,7 +1007,30 @@ struct _R: Rswift.Validatable {
       #if os(iOS) || os(tvOS)
       try map.validate()
       #endif
+      #if os(iOS) || os(tvOS)
+      try notifications.validate()
+      #endif
+      #if os(iOS) || os(tvOS)
+      try profile.validate()
+      #endif
     }
+
+    #if os(iOS) || os(tvOS)
+    struct chat: Rswift.StoryboardResourceWithInitialControllerType, Rswift.Validatable {
+      typealias InitialController = UIKit.UIViewController
+
+      let bundle = R.hostingBundle
+      let name = "Chat"
+
+      static func validate() throws {
+        if UIKit.UIImage(named: "chat", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'chat' is used in storyboard 'Chat', but couldn't be loaded.") }
+        if #available(iOS 11.0, tvOS 11.0, *) {
+        }
+      }
+
+      fileprivate init() {}
+    }
+    #endif
 
     #if os(iOS) || os(tvOS)
     struct launchScreen: Rswift.StoryboardResourceWithInitialControllerType, Rswift.Validatable {
@@ -1003,10 +1056,7 @@ struct _R: Rswift.Validatable {
       let name = "Main"
 
       static func validate() throws {
-        if UIKit.UIImage(named: "bell", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'bell' is used in storyboard 'Main', but couldn't be loaded.") }
         if UIKit.UIImage(named: "centered_button", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'centered_button' is used in storyboard 'Main', but couldn't be loaded.") }
-        if UIKit.UIImage(named: "chat", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'chat' is used in storyboard 'Main', but couldn't be loaded.") }
-        if UIKit.UIImage(named: "user", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'user' is used in storyboard 'Main', but couldn't be loaded.") }
         if #available(iOS 11.0, tvOS 11.0, *) {
         }
       }
@@ -1024,6 +1074,40 @@ struct _R: Rswift.Validatable {
 
       static func validate() throws {
         if UIKit.UIImage(named: "global", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'global' is used in storyboard 'Map', but couldn't be loaded.") }
+        if #available(iOS 11.0, tvOS 11.0, *) {
+        }
+      }
+
+      fileprivate init() {}
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    struct notifications: Rswift.StoryboardResourceWithInitialControllerType, Rswift.Validatable {
+      typealias InitialController = ViewController
+
+      let bundle = R.hostingBundle
+      let name = "Notifications"
+
+      static func validate() throws {
+        if UIKit.UIImage(named: "bell", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'bell' is used in storyboard 'Notifications', but couldn't be loaded.") }
+        if #available(iOS 11.0, tvOS 11.0, *) {
+        }
+      }
+
+      fileprivate init() {}
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    struct profile: Rswift.StoryboardResourceWithInitialControllerType, Rswift.Validatable {
+      typealias InitialController = UIKit.UIViewController
+
+      let bundle = R.hostingBundle
+      let name = "Profile"
+
+      static func validate() throws {
+        if UIKit.UIImage(named: "user", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'user' is used in storyboard 'Profile', but couldn't be loaded.") }
         if #available(iOS 11.0, tvOS 11.0, *) {
         }
       }

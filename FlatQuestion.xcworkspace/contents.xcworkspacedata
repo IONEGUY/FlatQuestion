@@ -2,9 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:/Users/andrejolesov/Documents/FlatQuestion/FlatQuestion/Profile.storyboard">
-   </FileRef>
-   <FileRef
       location = "group:FlatQuestion.xcodeproj">
    </FileRef>
    <FileRef

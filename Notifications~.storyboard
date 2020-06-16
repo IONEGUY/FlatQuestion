@@ -7,6 +7,22 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
+        <!--Сообщения-->
+        <scene sceneID="Urj-yF-xta">
+            <objects>
+                <viewController id="FRd-Wm-v2Q" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="K8o-bB-dgt">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="z77-IK-HwO"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Сообщения" image="chat" id="Kmh-KF-yDO"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="CQZ-uv-Guy" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2841" y="586"/>
+        </scene>
         <!--Main Tab Bar Controller-->
         <scene sceneID="fro-zS-JAU">
             <objects>
@@ -19,9 +35,9 @@
                     </tabBar>
                     <connections>
                         <outlet property="centerButton" destination="Koy-Hn-qi2" id="yeu-Qt-Z6A"/>
-                        <segue destination="ocB-4b-RHz" kind="relationship" relationship="viewControllers" id="xcE-a3-Fex"/>
+                        <segue destination="FRd-Wm-v2Q" kind="relationship" relationship="viewControllers" id="xcE-a3-Fex"/>
                         <segue destination="QgN-AD-qiP" kind="relationship" relationship="viewControllers" id="ljN-sH-9yw"/>
-                        <segue destination="DIF-Af-YPq" kind="relationship" relationship="viewControllers" id="0bH-N5-1K7"/>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="viewControllers" id="0bH-N5-1K7"/>
                         <segue destination="RSk-cX-Iyc" kind="relationship" relationship="viewControllers" id="9gP-0U-xam"/>
                     </connections>
                 </tabBarController>
@@ -53,6 +69,24 @@
             </objects>
             <point key="canvasLocation" x="-620" y="-139"/>
         </scene>
+        <!--Уведомления-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="FlatQuestion" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Уведомления" image="bell" id="FMW-Hk-RJ3">
+                        <offsetWrapper key="titlePositionAdjustment" horizontal="20" vertical="0.0"/>
+                    </tabBarItem>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-514" y="586"/>
+        </scene>
         <!--Map-->
         <scene sceneID="5Wj-EB-1L9">
             <objects>
@@ -71,30 +105,12 @@
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dxu-HU-awk" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1554" y="280"/>
-        </scene>
-        <!--Notifications-->
-        <scene sceneID="JTd-Wv-XVd">
-            <objects>
-                <viewControllerPlaceholder storyboardName="Notifications" id="DIF-Af-YPq" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="9ON-I1-zF6"/>
-                </viewControllerPlaceholder>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="6Lb-w8-ET5" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-1387" y="280"/>
-        </scene>
-        <!--Chat-->
-        <scene sceneID="W8b-zN-ZzB">
-            <objects>
-                <viewControllerPlaceholder storyboardName="Chat" id="ocB-4b-RHz" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="c9k-DH-rxI"/>
-                </viewControllerPlaceholder>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="cNy-Os-fpQ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-1695" y="280"/>
+            <point key="canvasLocation" x="-1445" y="627"/>
         </scene>
     </scenes>
     <resources>
+        <image name="bell" width="24" height="24"/>
         <image name="centered_button" width="61" height="61"/>
+        <image name="chat" width="24" height="24"/>
     </resources>
 </document>

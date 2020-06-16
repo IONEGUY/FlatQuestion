@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		0556E73A068B953DFDAAED9B /* Pods_FlatQuestion_FlatQuestionUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD97DF30063FF9D4556F8955 /* Pods_FlatQuestion_FlatQuestionUITests.framework */; };
 		3E262A8E5859B4E5978E52ED /* Pods_FlatQuestionTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 47ACFFE37D36DDED35D76A8F /* Pods_FlatQuestionTests.framework */; };
+		585B9BD32499730900976A05 /* Profile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 585B9BD12499730900976A05 /* Profile.storyboard */; };
+		585B9BD5249973A800976A05 /* Notifications.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 585B9BD4249973A800976A05 /* Notifications.storyboard */; };
+		585B9BD8249973CD00976A05 /* Chat.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 585B9BD6249973CD00976A05 /* Chat.storyboard */; };
 		586B69EB247F2070008B456D /* TopMapFilterCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 586B69E9247F2070008B456D /* TopMapFilterCollectionViewCell.swift */; };
 		586B69EC247F2070008B456D /* TopMapFilterCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 586B69EA247F2070008B456D /* TopMapFilterCollectionViewCell.xib */; };
 		5890182324774CF1001FBA21 /* TopMapSearchView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5890182224774CF1001FBA21 /* TopMapSearchView.xib */; };
@@ -94,8 +97,9 @@
 		4954ACF5F255F19985DC1012 /* Pods-FlatQuestion.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FlatQuestion.release.xcconfig"; path = "Target Support Files/Pods-FlatQuestion/Pods-FlatQuestion.release.xcconfig"; sourceTree = "<group>"; };
 		4B12B0AC463ED6DC74DFB6B5 /* Pods-FlatQuestion.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FlatQuestion.debug.xcconfig"; path = "Target Support Files/Pods-FlatQuestion/Pods-FlatQuestion.debug.xcconfig"; sourceTree = "<group>"; };
 		583F5FCF2471E923000F9ACF /* Alamofire.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Alamofire.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		585B9BCE24996C6600976A05 /* Profile.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Profile.storyboard; path = /Users/andrejolesov/Documents/FlatQuestion/FlatQuestion/Profile.storyboard; sourceTree = "<absolute>"; };
-		585B9BD024996D2C00976A05 /* Profile.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Profile.storyboard; path = /Users/andrejolesov/Documents/FlatQuestion/FlatQuestion/Profile.storyboard; sourceTree = "<absolute>"; };
+		585B9BD22499730900976A05 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Profile.storyboard; sourceTree = "<group>"; };
+		585B9BD4249973A800976A05 /* Notifications.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Notifications.storyboard; sourceTree = SOURCE_ROOT; };
+		585B9BD7249973CD00976A05 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Chat.storyboard; sourceTree = "<group>"; };
 		586B69E9247F2070008B456D /* TopMapFilterCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopMapFilterCollectionViewCell.swift; sourceTree = "<group>"; };
 		586B69EA247F2070008B456D /* TopMapFilterCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TopMapFilterCollectionViewCell.xib; sourceTree = "<group>"; };
 		5890182224774CF1001FBA21 /* TopMapSearchView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TopMapSearchView.xib; sourceTree = "<group>"; };
@@ -246,10 +250,11 @@
 				58B8DAD1246B474100584B20 /* AppDelegate.swift */,
 				58B8DAD3246B474100584B20 /* SceneDelegate.swift */,
 				58B8DAD5246B474100584B20 /* ViewController.swift */,
+				585B9BD4249973A800976A05 /* Notifications.storyboard */,
+				585B9BD12499730900976A05 /* Profile.storyboard */,
 				58B8DAD7246B474100584B20 /* Main.storyboard */,
-				585B9BD024996D2C00976A05 /* Profile.storyboard */,
 				58B8DB04246B4D6C00584B20 /* Map.storyboard */,
-				585B9BCE24996C6600976A05 /* Profile.storyboard */,
+				585B9BD6249973CD00976A05 /* Chat.storyboard */,
 				58B8DADA246B474200584B20 /* Assets.xcassets */,
 				58B8DADC246B474200584B20 /* LaunchScreen.storyboard */,
 				58B8DADF246B474200584B20 /* Info.plist */,
@@ -534,11 +539,13 @@
 				58B8DB29246CA00600584B20 /* SFProDisplay-Regular.ttf in Resources */,
 				58B8DB24246CA00600584B20 /* SFProDisplay-Medium.ttf in Resources */,
 				58B8DB13246C9C8400584B20 /* FlatCardCollectionViewCell.xib in Resources */,
+				585B9BD5249973A800976A05 /* Notifications.storyboard in Resources */,
 				58B8DB2C246CA00600584B20 /* SFProDisplay-Light.ttf in Resources */,
 				589CC3B0246DEAF200D4E400 /* FlatModalViewController.xib in Resources */,
 				FADD4DBB247F12FD0055FCB1 /* ResetPasswordViewController.xib in Resources */,
 				58B8DAD9246B474100584B20 /* Main.storyboard in Resources */,
 				58B8DB23246CA00600584B20 /* SFProDisplay-LightItalic.ttf in Resources */,
+				585B9BD8249973CD00976A05 /* Chat.storyboard in Resources */,
 				5890182324774CF1001FBA21 /* TopMapSearchView.xib in Resources */,
 				58B8DB26246CA00600584B20 /* SFProDisplay-MediumItalic.ttf in Resources */,
 				58B8DB0B246B66E100584B20 /* map.json in Resources */,
@@ -548,6 +555,7 @@
 				FAC45F3B2474459A00BBA016 /* GoogleService-Info.plist in Resources */,
 				586B69EC247F2070008B456D /* TopMapFilterCollectionViewCell.xib in Resources */,
 				58B8DB28246CA00600584B20 /* SFProDisplay-BoldItalic.ttf in Resources */,
+				585B9BD32499730900976A05 /* Profile.storyboard in Resources */,
 				58B8DB2B246CA00600584B20 /* SFProDisplay-Black.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -795,6 +803,22 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		585B9BD12499730900976A05 /* Profile.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				585B9BD22499730900976A05 /* Base */,
+			);
+			name = Profile.storyboard;
+			sourceTree = "<group>";
+		};
+		585B9BD6249973CD00976A05 /* Chat.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				585B9BD7249973CD00976A05 /* Base */,
+			);
+			name = Chat.storyboard;
+			sourceTree = "<group>";
+		};
 		58B8DAD7246B474100584B20 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
