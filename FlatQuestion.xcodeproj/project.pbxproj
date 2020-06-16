@@ -53,7 +53,21 @@
 		58F241CB2475F05100F56681 /* FlatDescriptionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58F241C92475F05100F56681 /* FlatDescriptionTableViewCell.swift */; };
 		58F241CC2475F05100F56681 /* FlatDescriptionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 58F241CA2475F05100F56681 /* FlatDescriptionTableViewCell.xib */; };
 		8B69C140BCB0FC9EF701D193 /* Pods_FlatQuestion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2480035DB96377F75447C64A /* Pods_FlatQuestion.framework */; };
-		FAFACBE324706C9E00BBCB60 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FAFACBE224706C9E00BBCB60 /* GoogleService-Info.plist */; };
+		FA063E6D247D820300CBF52A /* VkUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA063E6C247D820300CBF52A /* VkUser.swift */; };
+		FA063E6F247D8AA900CBF52A /* AppUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA063E6E247D8AA900CBF52A /* AppUser.swift */; };
+		FA063E71247D90AA00CBF52A /* UIViewControllerExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA063E70247D90AA00CBF52A /* UIViewControllerExtensions.swift */; };
+		FA3766C1247328930052DB9B /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3766BF247328930052DB9B /* LoginViewController.swift */; };
+		FA3766C2247328930052DB9B /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA3766C0247328930052DB9B /* LoginViewController.xib */; };
+		FA3766C524732DEC0052DB9B /* RegistrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3766C324732DEC0052DB9B /* RegistrationViewController.swift */; };
+		FA3766C624732DEC0052DB9B /* RegistrationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA3766C424732DEC0052DB9B /* RegistrationViewController.xib */; };
+		FA88D4E72475DDB9005DA624 /* SwiftyJson.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA88D4E62475DDB9005DA624 /* SwiftyJson.swift */; };
+		FAC45F3B2474459A00BBA016 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FAC45F3A2474459A00BBA016 /* GoogleService-Info.plist */; };
+		FADD4DB7247F11F10055FCB1 /* R.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADD4DB6247F11F10055FCB1 /* R.generated.swift */; };
+		FADD4DBA247F12FD0055FCB1 /* ResetPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADD4DB8247F12FD0055FCB1 /* ResetPasswordViewController.swift */; };
+		FADD4DBB247F12FD0055FCB1 /* ResetPasswordViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FADD4DB9247F12FD0055FCB1 /* ResetPasswordViewController.xib */; };
+		FAE40EF72482ED850097879E /* PaddedTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE40EF62482ED850097879E /* PaddedTextField.swift */; };
+		FAE40EF92482EFBE0097879E /* UIViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE40EF82482EFBE0097879E /* UIViewExtensions.swift */; };
+		FAE40EFB2482FBEA0097879E /* UIColorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE40EFA2482FBEA0097879E /* UIColorExtensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -135,7 +149,22 @@
 		DD97DF30063FF9D4556F8955 /* Pods_FlatQuestion_FlatQuestionUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FlatQuestion_FlatQuestionUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EF0E1634935991A5CE481015 /* Pods-FlatQuestion-FlatQuestionUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FlatQuestion-FlatQuestionUITests.debug.xcconfig"; path = "Target Support Files/Pods-FlatQuestion-FlatQuestionUITests/Pods-FlatQuestion-FlatQuestionUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		F5F0FB1E3BEB54F5531A977A /* Pods-FlatQuestion-FlatQuestionUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FlatQuestion-FlatQuestionUITests.release.xcconfig"; path = "Target Support Files/Pods-FlatQuestion-FlatQuestionUITests/Pods-FlatQuestion-FlatQuestionUITests.release.xcconfig"; sourceTree = "<group>"; };
-		FAFACBE224706C9E00BBCB60 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		FA063E6C247D820300CBF52A /* VkUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VkUser.swift; sourceTree = "<group>"; };
+		FA063E6E247D8AA900CBF52A /* AppUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppUser.swift; sourceTree = "<group>"; };
+		FA063E70247D90AA00CBF52A /* UIViewControllerExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerExtensions.swift; sourceTree = "<group>"; };
+		FA3766BF247328930052DB9B /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		FA3766C0247328930052DB9B /* LoginViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoginViewController.xib; sourceTree = "<group>"; };
+		FA3766C324732DEC0052DB9B /* RegistrationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewController.swift; sourceTree = "<group>"; };
+		FA3766C424732DEC0052DB9B /* RegistrationViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RegistrationViewController.xib; sourceTree = "<group>"; };
+		FA88D4E62475DDB9005DA624 /* SwiftyJson.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftyJson.swift; sourceTree = "<group>"; };
+		FAC45F39247441CF00BBA016 /* FlatQuestionDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = FlatQuestionDebug.entitlements; sourceTree = "<group>"; };
+		FAC45F3A2474459A00BBA016 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		FADD4DB6247F11F10055FCB1 /* R.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = R.generated.swift; sourceTree = SOURCE_ROOT; };
+		FADD4DB8247F12FD0055FCB1 /* ResetPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordViewController.swift; sourceTree = "<group>"; };
+		FADD4DB9247F12FD0055FCB1 /* ResetPasswordViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ResetPasswordViewController.xib; sourceTree = "<group>"; };
+		FAE40EF62482ED850097879E /* PaddedTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaddedTextField.swift; sourceTree = "<group>"; };
+		FAE40EF82482EFBE0097879E /* UIViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtensions.swift; sourceTree = "<group>"; };
+		FAE40EFA2482FBEA0097879E /* UIColorExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtensions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -204,7 +233,9 @@
 		58B8DAD0246B474100584B20 /* FlatQuestion */ = {
 			isa = PBXGroup;
 			children = (
-				FAFACBE224706C9E00BBCB60 /* GoogleService-Info.plist */,
+				FAE40EF52482ED6B0097879E /* Extended Controls */,
+				FAC45F3A2474459A00BBA016 /* GoogleService-Info.plist */,
+				FAC45F39247441CF00BBA016 /* FlatQuestionDebug.entitlements */,
 				58B8DB31246CAD8B00584B20 /* Extensions */,
 				58B8DB09246B66B600584B20 /* Resources */,
 				58B8DB03246B493600584B20 /* Models */,
@@ -218,6 +249,7 @@
 				58B8DADA246B474200584B20 /* Assets.xcassets */,
 				58B8DADC246B474200584B20 /* LaunchScreen.storyboard */,
 				58B8DADF246B474200584B20 /* Info.plist */,
+				FA88D4E62475DDB9005DA624 /* SwiftyJson.swift */,
 			);
 			path = FlatQuestion;
 			sourceTree = "<group>";
@@ -243,6 +275,9 @@
 		58B8DB01246B490C00584B20 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				FAE40EF42482918F0097879E /* Reset Password */,
+				FAE40EF3248291850097879E /* Registration */,
+				FAE40EF22482917B0097879E /* Login */,
 				58B8DB07246B60F100584B20 /* MapViewController.swift */,
 				589CC3AD246DEAF200D4E400 /* FlatModalViewController.swift */,
 				589CC3AE246DEAF200D4E400 /* FlatModalViewController.xib */,
@@ -272,6 +307,8 @@
 			isa = PBXGroup;
 			children = (
 				58B8DB2F246CA99000584B20 /* Flat.swift */,
+				FA063E6C247D820300CBF52A /* VkUser.swift */,
+				FA063E6E247D8AA900CBF52A /* AppUser.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -279,6 +316,7 @@
 		58B8DB09246B66B600584B20 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				FADD4DB6247F11F10055FCB1 /* R.generated.swift */,
 				58B8DB16246C9FF300584B20 /* Fonts */,
 				58B8DB0A246B66E100584B20 /* map.json */,
 			);
@@ -308,6 +346,9 @@
 			isa = PBXGroup;
 			children = (
 				58B8DB32246CADA700584B20 /* ReuseIdentifierProtocol.swift */,
+				FA063E70247D90AA00CBF52A /* UIViewControllerExtensions.swift */,
+				FAE40EF82482EFBE0097879E /* UIViewExtensions.swift */,
+				FAE40EFA2482FBEA0097879E /* UIColorExtensions.swift */,
 				58E62CB22492D9F0006B0DCF /* GradientButton.swift */,
 				58E62CB42492DBF4006B0DCF /* UIView+gradient.swift */,
 				58E62CB62492DDE1006B0DCF /* UIColor+Hex.swift */,
@@ -330,6 +371,41 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		FAE40EF22482917B0097879E /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				FA3766BF247328930052DB9B /* LoginViewController.swift */,
+				FA3766C0247328930052DB9B /* LoginViewController.xib */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		FAE40EF3248291850097879E /* Registration */ = {
+			isa = PBXGroup;
+			children = (
+				FA3766C324732DEC0052DB9B /* RegistrationViewController.swift */,
+				FA3766C424732DEC0052DB9B /* RegistrationViewController.xib */,
+			);
+			path = Registration;
+			sourceTree = "<group>";
+		};
+		FAE40EF42482918F0097879E /* Reset Password */ = {
+			isa = PBXGroup;
+			children = (
+				FADD4DB8247F12FD0055FCB1 /* ResetPasswordViewController.swift */,
+				FADD4DB9247F12FD0055FCB1 /* ResetPasswordViewController.xib */,
+			);
+			path = "Reset Password";
+			sourceTree = "<group>";
+		};
+		FAE40EF52482ED6B0097879E /* Extended Controls */ = {
+			isa = PBXGroup;
+			children = (
+				FAE40EF62482ED850097879E /* PaddedTextField.swift */,
+			);
+			path = "Extended Controls";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -338,6 +414,7 @@
 			buildConfigurationList = 58B8DAF8246B474200584B20 /* Build configuration list for PBXNativeTarget "FlatQuestion" */;
 			buildPhases = (
 				CF3DA0A34977A5204BAE7357 /* [CP] Check Pods Manifest.lock */,
+				FADD4DB2247F09430055FCB1 /* R.Swift */,
 				FAFACBE624708CE800BBCB60 /* ShellScript */,
 				58B8DACA246B474100584B20 /* Sources */,
 				58B8DACB246B474100584B20 /* Frameworks */,
@@ -448,13 +525,16 @@
 				58B8DB27246CA00600584B20 /* SFProDisplay-HeavyItalic.ttf in Resources */,
 				58F241C124749DB200F56681 /* Assets.xcassets in Resources */,
 				58B8DB2D246CA00600584B20 /* SFProDisplay-Heavy.ttf in Resources */,
+				FA3766C624732DEC0052DB9B /* RegistrationViewController.xib in Resources */,
+				FA3766C2247328930052DB9B /* LoginViewController.xib in Resources */,
 				58B8DADE246B474200584B20 /* LaunchScreen.storyboard in Resources */,
 				58B8DB29246CA00600584B20 /* SFProDisplay-Regular.ttf in Resources */,
 				58B8DB24246CA00600584B20 /* SFProDisplay-Medium.ttf in Resources */,
 				58B8DB13246C9C8400584B20 /* FlatCardCollectionViewCell.xib in Resources */,
-				FAFACBE324706C9E00BBCB60 /* GoogleService-Info.plist in Resources */,
 				58B8DB2C246CA00600584B20 /* SFProDisplay-Light.ttf in Resources */,
 				589CC3B0246DEAF200D4E400 /* FlatModalViewController.xib in Resources */,
+				58B8DADB246B474200584B20 /* Assets.xcassets in Resources */,
+				FADD4DBB247F12FD0055FCB1 /* ResetPasswordViewController.xib in Resources */,
 				58B8DAD9246B474100584B20 /* Main.storyboard in Resources */,
 				58B8DB23246CA00600584B20 /* SFProDisplay-LightItalic.ttf in Resources */,
 				5890182324774CF1001FBA21 /* TopMapSearchView.xib in Resources */,
@@ -463,6 +543,7 @@
 				58F241CC2475F05100F56681 /* FlatDescriptionTableViewCell.xib in Resources */,
 				58F241B324734E8100F56681 /* FlatPhotoCollectionViewCell.xib in Resources */,
 				58B8DB06246B4D6C00584B20 /* Map.storyboard in Resources */,
+				FAC45F3B2474459A00BBA016 /* GoogleService-Info.plist in Resources */,
 				586B69EC247F2070008B456D /* TopMapFilterCollectionViewCell.xib in Resources */,
 				58B8DB28246CA00600584B20 /* SFProDisplay-BoldItalic.ttf in Resources */,
 				58B8DB2B246CA00600584B20 /* SFProDisplay-Black.ttf in Resources */,
@@ -620,7 +701,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		FAFACBE624708CE800BBCB60 /* ShellScript */ = {
+		FADD4DB2247F09430055FCB1 /* R.Swift */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -628,14 +709,17 @@
 			inputFileListPaths = (
 			);
 			inputPaths = (
+				"$TEMP_DIR/rswift-lastrun",
 			);
+			name = R.Swift;
 			outputFileListPaths = (
 			);
 			outputPaths = (
+				$SRCROOT/R.generated.swift,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "${PODS_ROOT}/SwiftLint/swiftlint\n";
+			shellScript = "\n\"$PODS_ROOT/R.swift/rswift\" generate \"$SRCROOT/R.generated.swift\"\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -644,12 +728,23 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FA3766C1247328930052DB9B /* LoginViewController.swift in Sources */,
+				FA063E6F247D8AA900CBF52A /* AppUser.swift in Sources */,
+				FAE40EF72482ED850097879E /* PaddedTextField.swift in Sources */,
+				FADD4DB7247F11F10055FCB1 /* R.generated.swift in Sources */,
+				FADD4DBA247F12FD0055FCB1 /* ResetPasswordViewController.swift in Sources */,
+				FA88D4E72475DDB9005DA624 /* SwiftyJson.swift in Sources */,
+				FAE40EFB2482FBEA0097879E /* UIColorExtensions.swift in Sources */,
+				58B8DB33246CADA700584B20 /* ReuseIdentifierProtocol.swift in Sources */,
+				FA063E6D247D820300CBF52A /* VkUser.swift in Sources */,
 				58F241B224734E8100F56681 /* FlatPhotoCollectionViewCell.swift in Sources */,
 				58B8DB33246CADA700584B20 /* ReuseIdentifierProtocol.swift in Sources */,
 				58BA65CD2496CB8D0001BE1E /* MainTabBarController.swift in Sources */,
 				58E62CB52492DBF4006B0DCF /* UIView+gradient.swift in Sources */,
 				58B8DAD6246B474100584B20 /* ViewController.swift in Sources */,
+				FA063E71247D90AA00CBF52A /* UIViewControllerExtensions.swift in Sources */,
 				58B8DAD2246B474100584B20 /* AppDelegate.swift in Sources */,
+				FA3766C524732DEC0052DB9B /* RegistrationViewController.swift in Sources */,
 				58F241CB2475F05100F56681 /* FlatDescriptionTableViewCell.swift in Sources */,
 				589CC3AF246DEAF200D4E400 /* FlatModalViewController.swift in Sources */,
 				58E62CB92492E459006B0DCF /* UIView+CornerShadow.swift in Sources */,
@@ -661,6 +756,7 @@
 				586B69EB247F2070008B456D /* TopMapFilterCollectionViewCell.swift in Sources */,
 				58E62CB32492D9F0006B0DCF /* GradientButton.swift in Sources */,
 				58B8DB30246CA99000584B20 /* Flat.swift in Sources */,
+				FAE40EF92482EFBE0097879E /* UIViewExtensions.swift in Sources */,
 				58B8DB12246C9C8400584B20 /* FlatCardCollectionViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -843,17 +939,18 @@
 			baseConfigurationReference = 4B12B0AC463ED6DC74DFB6B5 /* Pods-FlatQuestion.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = TT6B98BUL8;
+				CODE_SIGN_ENTITLEMENTS = FlatQuestion/FlatQuestionDebug.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = Y7M3387D8Q;
 				INFOPLIST_FILE = FlatQuestion/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.FlatQuestion;
+				PRODUCT_BUNDLE_IDENTIFIER = com.flatquestion.FlatQuestion;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE_SPECIFIER = "Dev Provision Profile";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -864,9 +961,9 @@
 			baseConfigurationReference = 4954ACF5F255F19985DC1012 /* Pods-FlatQuestion.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = TT6B98BUL8;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = QR8H234NQZ;
 				INFOPLIST_FILE = FlatQuestion/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -874,7 +971,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.FlatQuestion;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE_SPECIFIER = "VS: WildCard Development";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};

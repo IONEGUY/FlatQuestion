@@ -9,13 +9,15 @@
 import UIKit
 import GoogleMaps
 import Firebase
+import IQKeyboardManagerSwift
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {        
         setupGoogleAPIs()
         FirebaseApp.configure()
+        IQKeyboardManager.shared.enable = true
         return true
     }
 

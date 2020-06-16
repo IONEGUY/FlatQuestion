@@ -286,6 +286,7 @@ PODS:
     - nanopb (~> 0.3)
   - gRPC-Core/Interface (1.21.0)
   - GTMSessionFetcher/Core (1.3.1)
+  - IQKeyboardManagerSwift (6.5.5)
   - leveldb-library (1.22)
   - nanopb (0.3.9011):
     - nanopb/decode (= 0.3.9011)
@@ -293,6 +294,9 @@ PODS:
   - nanopb/decode (0.3.9011)
   - nanopb/encode (0.3.9011)
   - PromisesObjC (1.2.8)
+  - R.swift (5.2.2):
+    - R.swift.Library (~> 5.2.0)
+  - R.swift.Library (5.2.0)
   - Realm (5.0.0):
     - Realm/Headers (= 5.0.0)
   - Realm/Headers (5.0.0)
@@ -301,7 +305,7 @@ PODS:
   - SDWebImage (5.5.2):
     - SDWebImage/Core (= 5.5.2)
   - SDWebImage/Core (5.5.2)
-  - SwiftLint (0.39.2)
+  - SwiftyVK (3.4.2)
 
 DEPENDENCIES:
   - Alamofire
@@ -313,9 +317,11 @@ DEPENDENCIES:
   - Firebase/Firestore
   - GoogleMaps
   - GooglePlaces
+  - IQKeyboardManagerSwift
+  - R.swift
   - RealmSwift
   - SDWebImage (~> 5.0)
-  - SwiftLint
+  - SwiftyVK
 
 SPEC REPOS:
   trunk:
@@ -343,13 +349,16 @@ SPEC REPOS:
     - "gRPC-C++"
     - gRPC-Core
     - GTMSessionFetcher
+    - IQKeyboardManagerSwift
     - leveldb-library
     - nanopb
     - PromisesObjC
+    - R.swift
+    - R.swift.Library
     - Realm
     - RealmSwift
     - SDWebImage
-    - SwiftLint
+    - SwiftyVK
 
 SPEC CHECKSUMS:
   abseil: 18063d773f5366ff8736a050fe035a28f635fd27
@@ -376,14 +385,17 @@ SPEC CHECKSUMS:
   "gRPC-C++": 9dfe7b44821e7b3e44aacad2af29d2c21f7cde83
   gRPC-Core: c9aef9a261a1247e881b18059b84d597293c9947
   GTMSessionFetcher: cea130bbfe5a7edc8d06d3f0d17288c32ffe9925
+  IQKeyboardManagerSwift: 0fb93310284665245591f50f7a5e38de615960b7
   leveldb-library: 55d93ee664b4007aac644a782d11da33fba316f7
   nanopb: 18003b5e52dab79db540fe93fe9579f399bd1ccd
   PromisesObjC: c119f3cd559f50b7ae681fa59dc1acd19173b7e6
+  R.swift: 7c52cdc57a66840ffe6cbd8a823d732059d42a32
+  R.swift.Library: 5ba4f1631300caf9a4d890186930da85d540769d
   Realm: 76066d333de26f97e9caedaa85ee3ff4a62ca265
   RealmSwift: c1bdff09b422569dc6881410d9ccf712bcdb79b0
   SDWebImage: 4d5c027c935438f341ed33dbac53ff9f479922ca
-  SwiftLint: 22ccbbe3b8008684be5955693bab135e0ed6a447
+  SwiftyVK: 5005dac6e85f7b0fd44e21ed2f021a397dff4cab
 
-PODFILE CHECKSUM: 881a3720571978be9bf4bd6c770bea673962e6d7
+PODFILE CHECKSUM: 4afea09c1eb42c10b8c1c6c656c614b92a4c9cbb
 
 COCOAPODS: 1.8.4

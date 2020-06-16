@@ -11,12 +11,12 @@ import UIKit
 
 extension UIView {
     @discardableResult
-    func applyGradient(colours: [UIColor]) -> CAGradientLayer {
-        return self.applyGradient(colours: colours, locations: nil)
+    func applyGradientV2(colours: [UIColor]) -> CAGradientLayer {
+        return self.applyGradientV2(colours: colours, locations: nil)
     }
 
     @discardableResult
-    func applyGradient(colours: [UIColor], locations: [NSNumber]?) -> CAGradientLayer {
+    func applyGradientV2(colours: [UIColor], locations: [NSNumber]?) -> CAGradientLayer {
         let gradient: CAGradientLayer = CAGradientLayer()
         gradient.frame = self.bounds
         gradient.colors = colours.map { $0.cgColor }
