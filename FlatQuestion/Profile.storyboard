@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="oBQ-Ce-8h1">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Профиль-->
+        <scene sceneID="2NE-bF-7Wf">
+            <objects>
+                <viewController id="oBQ-Ce-8h1" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="zed-0n-vpE">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="7H6-qz-9kM"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Профиль" image="user" id="8Xe-0i-29T"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="olP-9q-N4w" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="551" y="586"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="user" width="24" height="24"/>
+    </resources>
+</document>

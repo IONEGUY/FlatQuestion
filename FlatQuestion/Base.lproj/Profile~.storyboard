@@ -38,7 +38,7 @@
                         <segue destination="FRd-Wm-v2Q" kind="relationship" relationship="viewControllers" id="xcE-a3-Fex"/>
                         <segue destination="QgN-AD-qiP" kind="relationship" relationship="viewControllers" id="ljN-sH-9yw"/>
                         <segue destination="BYZ-38-t0r" kind="relationship" relationship="viewControllers" id="0bH-N5-1K7"/>
-                        <segue destination="yfD-qc-pMt" kind="relationship" relationship="viewControllers" id="20j-bC-9UI"/>
+                        <segue destination="oBQ-Ce-8h1" kind="relationship" relationship="viewControllers" id="20j-bC-9UI"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Bef-nC-MmM" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -87,6 +87,22 @@
             </objects>
             <point key="canvasLocation" x="-514" y="586"/>
         </scene>
+        <!--Профиль-->
+        <scene sceneID="2NE-bF-7Wf">
+            <objects>
+                <viewController id="oBQ-Ce-8h1" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="zed-0n-vpE">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="7H6-qz-9kM"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Профиль" image="user" id="8Xe-0i-29T"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="olP-9q-N4w" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="551" y="586"/>
+        </scene>
         <!--Map-->
         <scene sceneID="5Wj-EB-1L9">
             <objects>
@@ -97,20 +113,11 @@
             </objects>
             <point key="canvasLocation" x="-1877" y="280"/>
         </scene>
-        <!--Profile-->
-        <scene sceneID="7sO-At-ep9">
-            <objects>
-                <viewControllerPlaceholder storyboardName="Profile" id="yfD-qc-pMt" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="tpZ-Hb-NDu"/>
-                </viewControllerPlaceholder>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Khl-uO-nJl" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="551" y="586"/>
-        </scene>
     </scenes>
     <resources>
         <image name="bell" width="24" height="24"/>
         <image name="centered_button" width="61" height="61"/>
         <image name="chat" width="24" height="24"/>
+        <image name="user" width="24" height="24"/>
     </resources>
 </document>
