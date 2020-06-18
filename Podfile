@@ -9,7 +9,7 @@ target 'FlatQuestion' do
   pod 'GoogleMaps'
   pod 'GooglePlaces'
   pod 'Firebase/Analytics' 
-  pod 'Alamofire', '~> 4.5'
+  pod 'Alamofire'
   pod 'SDWebImage', '~> 5.0'
   pod 'AlamofireNetworkActivityLogger', '~> 2.0'
   pod 'Firebase/Analytics'

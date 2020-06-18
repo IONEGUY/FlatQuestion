@@ -90,14 +90,27 @@ struct R: Rswift.Validatable {
   }
 
   #if os(iOS) || os(tvOS)
-  /// This `R.storyboard` struct is generated, and contains static references to 3 storyboards.
+  /// This `R.storyboard` struct is generated, and contains static references to 6 storyboards.
   struct storyboard {
+    /// Storyboard `Chat`.
+    static let chat = _R.storyboard.chat()
     /// Storyboard `LaunchScreen`.
     static let launchScreen = _R.storyboard.launchScreen()
     /// Storyboard `Main`.
     static let main = _R.storyboard.main()
     /// Storyboard `Map`.
     static let map = _R.storyboard.map()
+    /// Storyboard `Notifications`.
+    static let notifications = _R.storyboard.notifications()
+    /// Storyboard `Profile`.
+    static let profile = _R.storyboard.profile()
+
+    #if os(iOS) || os(tvOS)
+    /// `UIStoryboard(name: "Chat", bundle: ...)`
+    static func chat(_: Void = ()) -> UIKit.UIStoryboard {
+      return UIKit.UIStoryboard(resource: R.storyboard.chat)
+    }
+    #endif
 
     #if os(iOS) || os(tvOS)
     /// `UIStoryboard(name: "LaunchScreen", bundle: ...)`
@@ -117,6 +130,20 @@ struct R: Rswift.Validatable {
     /// `UIStoryboard(name: "Map", bundle: ...)`
     static func map(_: Void = ()) -> UIKit.UIStoryboard {
       return UIKit.UIStoryboard(resource: R.storyboard.map)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIStoryboard(name: "Notifications", bundle: ...)`
+    static func notifications(_: Void = ()) -> UIKit.UIStoryboard {
+      return UIKit.UIStoryboard(resource: R.storyboard.notifications)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIStoryboard(name: "Profile", bundle: ...)`
+    static func profile(_: Void = ()) -> UIKit.UIStoryboard {
+      return UIKit.UIStoryboard(resource: R.storyboard.profile)
     }
     #endif
 
@@ -387,29 +414,119 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
 
-  /// This `R.image` struct is generated, and contains static references to 8 images.
+  /// This `R.image` struct is generated, and contains static references to 25 images.
   struct image {
+    /// Image `Dictation`.
+    static let dictation = Rswift.ImageResource(bundle: R.hostingBundle, name: "Dictation")
+    /// Image `Search`.
+    static let search = Rswift.ImageResource(bundle: R.hostingBundle, name: "Search")
+    /// Image `bell`.
+    static let bell = Rswift.ImageResource(bundle: R.hostingBundle, name: "bell")
+    /// Image `centered_button`.
+    static let centered_button = Rswift.ImageResource(bundle: R.hostingBundle, name: "centered_button")
+    /// Image `chat`.
+    static let chat = Rswift.ImageResource(bundle: R.hostingBundle, name: "chat")
     /// Image `clock`.
     static let clock = Rswift.ImageResource(bundle: R.hostingBundle, name: "clock")
+    /// Image `compas`.
+    static let compas = Rswift.ImageResource(bundle: R.hostingBundle, name: "compas")
+    /// Image `cross`.
+    static let cross = Rswift.ImageResource(bundle: R.hostingBundle, name: "cross")
+    /// Image `filter`.
+    static let filter = Rswift.ImageResource(bundle: R.hostingBundle, name: "filter")
     /// Image `flat_image`.
     static let flat_image = Rswift.ImageResource(bundle: R.hostingBundle, name: "flat_image")
+    /// Image `global`.
+    static let global = Rswift.ImageResource(bundle: R.hostingBundle, name: "global")
     /// Image `google_icon`.
     static let google_icon = Rswift.ImageResource(bundle: R.hostingBundle, name: "google_icon")
+    /// Image `heart_icon`.
+    static let heart_icon = Rswift.ImageResource(bundle: R.hostingBundle, name: "heart_icon")
+    /// Image `heart`.
+    static let heart = Rswift.ImageResource(bundle: R.hostingBundle, name: "heart")
     /// Image `login_background`.
     static let login_background = Rswift.ImageResource(bundle: R.hostingBundle, name: "login_background")
+    /// Image `person_button`.
+    static let person_button = Rswift.ImageResource(bundle: R.hostingBundle, name: "person_button")
     /// Image `person`.
     static let person = Rswift.ImageResource(bundle: R.hostingBundle, name: "person")
+    /// Image `play_button`.
+    static let play_button = Rswift.ImageResource(bundle: R.hostingBundle, name: "play_button")
     /// Image `register_background`.
     static let register_background = Rswift.ImageResource(bundle: R.hostingBundle, name: "register_background")
     /// Image `reset_password_background`.
     static let reset_password_background = Rswift.ImageResource(bundle: R.hostingBundle, name: "reset_password_background")
+    /// Image `shape`.
+    static let shape = Rswift.ImageResource(bundle: R.hostingBundle, name: "shape")
+    /// Image `share_icon`.
+    static let share_icon = Rswift.ImageResource(bundle: R.hostingBundle, name: "share_icon")
+    /// Image `upload`.
+    static let upload = Rswift.ImageResource(bundle: R.hostingBundle, name: "upload")
+    /// Image `user`.
+    static let user = Rswift.ImageResource(bundle: R.hostingBundle, name: "user")
     /// Image `vk_icon`.
     static let vk_icon = Rswift.ImageResource(bundle: R.hostingBundle, name: "vk_icon")
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "Dictation", bundle: ..., traitCollection: ...)`
+    static func dictation(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.dictation, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "Search", bundle: ..., traitCollection: ...)`
+    static func search(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.search, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "bell", bundle: ..., traitCollection: ...)`
+    static func bell(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.bell, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "centered_button", bundle: ..., traitCollection: ...)`
+    static func centered_button(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.centered_button, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "chat", bundle: ..., traitCollection: ...)`
+    static func chat(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.chat, compatibleWith: traitCollection)
+    }
+    #endif
 
     #if os(iOS) || os(tvOS)
     /// `UIImage(named: "clock", bundle: ..., traitCollection: ...)`
     static func clock(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.clock, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "compas", bundle: ..., traitCollection: ...)`
+    static func compas(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.compas, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "cross", bundle: ..., traitCollection: ...)`
+    static func cross(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.cross, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "filter", bundle: ..., traitCollection: ...)`
+    static func filter(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.filter, compatibleWith: traitCollection)
     }
     #endif
 
@@ -421,9 +538,30 @@ struct R: Rswift.Validatable {
     #endif
 
     #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "global", bundle: ..., traitCollection: ...)`
+    static func global(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.global, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
     /// `UIImage(named: "google_icon", bundle: ..., traitCollection: ...)`
     static func google_icon(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.google_icon, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "heart", bundle: ..., traitCollection: ...)`
+    static func heart(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.heart, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "heart_icon", bundle: ..., traitCollection: ...)`
+    static func heart_icon(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.heart_icon, compatibleWith: traitCollection)
     }
     #endif
 
@@ -442,6 +580,20 @@ struct R: Rswift.Validatable {
     #endif
 
     #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "person_button", bundle: ..., traitCollection: ...)`
+    static func person_button(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.person_button, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "play_button", bundle: ..., traitCollection: ...)`
+    static func play_button(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.play_button, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
     /// `UIImage(named: "register_background", bundle: ..., traitCollection: ...)`
     static func register_background(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.register_background, compatibleWith: traitCollection)
@@ -452,6 +604,34 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "reset_password_background", bundle: ..., traitCollection: ...)`
     static func reset_password_background(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.reset_password_background, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "shape", bundle: ..., traitCollection: ...)`
+    static func shape(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.shape, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "share_icon", bundle: ..., traitCollection: ...)`
+    static func share_icon(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.share_icon, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "upload", bundle: ..., traitCollection: ...)`
+    static func upload(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.upload, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "user", bundle: ..., traitCollection: ...)`
+    static func user(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.user, compatibleWith: traitCollection)
     }
     #endif
 
@@ -496,18 +676,26 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
 
-  /// This `R.nib` struct is generated, and contains static references to 5 nibs.
+  /// This `R.nib` struct is generated, and contains static references to 9 nibs.
   struct nib {
     /// Nib `FlatCardCollectionViewCell`.
     static let flatCardCollectionViewCell = _R.nib._FlatCardCollectionViewCell()
+    /// Nib `FlatDescriptionTableViewCell`.
+    static let flatDescriptionTableViewCell = _R.nib._FlatDescriptionTableViewCell()
     /// Nib `FlatModalViewController`.
     static let flatModalViewController = _R.nib._FlatModalViewController()
+    /// Nib `FlatPhotoCollectionViewCell`.
+    static let flatPhotoCollectionViewCell = _R.nib._FlatPhotoCollectionViewCell()
     /// Nib `LoginViewController`.
     static let loginViewController = _R.nib._LoginViewController()
     /// Nib `RegistrationViewController`.
     static let registrationViewController = _R.nib._RegistrationViewController()
     /// Nib `ResetPasswordViewController`.
     static let resetPasswordViewController = _R.nib._ResetPasswordViewController()
+    /// Nib `TopMapFilterCollectionViewCell`.
+    static let topMapFilterCollectionViewCell = _R.nib._TopMapFilterCollectionViewCell()
+    /// Nib `TopMapSearchView`.
+    static let topMapSearchView = _R.nib._TopMapSearchView()
 
     #if os(iOS) || os(tvOS)
     /// `UINib(name: "FlatCardCollectionViewCell", in: bundle)`
@@ -518,10 +706,26 @@ struct R: Rswift.Validatable {
     #endif
 
     #if os(iOS) || os(tvOS)
+    /// `UINib(name: "FlatDescriptionTableViewCell", in: bundle)`
+    @available(*, deprecated, message: "Use UINib(resource: R.nib.flatDescriptionTableViewCell) instead")
+    static func flatDescriptionTableViewCell(_: Void = ()) -> UIKit.UINib {
+      return UIKit.UINib(resource: R.nib.flatDescriptionTableViewCell)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
     /// `UINib(name: "FlatModalViewController", in: bundle)`
     @available(*, deprecated, message: "Use UINib(resource: R.nib.flatModalViewController) instead")
     static func flatModalViewController(_: Void = ()) -> UIKit.UINib {
       return UIKit.UINib(resource: R.nib.flatModalViewController)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UINib(name: "FlatPhotoCollectionViewCell", in: bundle)`
+    @available(*, deprecated, message: "Use UINib(resource: R.nib.flatPhotoCollectionViewCell) instead")
+    static func flatPhotoCollectionViewCell(_: Void = ()) -> UIKit.UINib {
+      return UIKit.UINib(resource: R.nib.flatPhotoCollectionViewCell)
     }
     #endif
 
@@ -549,12 +753,36 @@ struct R: Rswift.Validatable {
     }
     #endif
 
+    #if os(iOS) || os(tvOS)
+    /// `UINib(name: "TopMapFilterCollectionViewCell", in: bundle)`
+    @available(*, deprecated, message: "Use UINib(resource: R.nib.topMapFilterCollectionViewCell) instead")
+    static func topMapFilterCollectionViewCell(_: Void = ()) -> UIKit.UINib {
+      return UIKit.UINib(resource: R.nib.topMapFilterCollectionViewCell)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UINib(name: "TopMapSearchView", in: bundle)`
+    @available(*, deprecated, message: "Use UINib(resource: R.nib.topMapSearchView) instead")
+    static func topMapSearchView(_: Void = ()) -> UIKit.UINib {
+      return UIKit.UINib(resource: R.nib.topMapSearchView)
+    }
+    #endif
+
     static func flatCardCollectionViewCell(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> FlatCardCollectionViewCell? {
       return R.nib.flatCardCollectionViewCell.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? FlatCardCollectionViewCell
     }
 
+    static func flatDescriptionTableViewCell(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> FlatDescriptionTableViewCell? {
+      return R.nib.flatDescriptionTableViewCell.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? FlatDescriptionTableViewCell
+    }
+
     static func flatModalViewController(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
       return R.nib.flatModalViewController.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
+    }
+
+    static func flatPhotoCollectionViewCell(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> FlatPhotoCollectionViewCell? {
+      return R.nib.flatPhotoCollectionViewCell.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? FlatPhotoCollectionViewCell
     }
 
     static func loginViewController(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
@@ -569,13 +797,25 @@ struct R: Rswift.Validatable {
       return R.nib.resetPasswordViewController.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
     }
 
+    static func topMapFilterCollectionViewCell(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> TopMapFilterCollectionViewCell? {
+      return R.nib.topMapFilterCollectionViewCell.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? TopMapFilterCollectionViewCell
+    }
+
+    static func topMapSearchView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
+      return R.nib.topMapSearchView.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
+    }
+
     fileprivate init() {}
   }
 
-  /// This `R.reuseIdentifier` struct is generated, and contains static references to 1 reuse identifiers.
+  /// This `R.reuseIdentifier` struct is generated, and contains static references to 3 reuse identifiers.
   struct reuseIdentifier {
     /// Reuse identifier `FlatCardCollectionViewCell`.
     static let flatCardCollectionViewCell: Rswift.ReuseIdentifier<FlatCardCollectionViewCell> = Rswift.ReuseIdentifier(identifier: "FlatCardCollectionViewCell")
+    /// Reuse identifier `FlatDescriptionTableViewCell`.
+    static let flatDescriptionTableViewCell: Rswift.ReuseIdentifier<FlatDescriptionTableViewCell> = Rswift.ReuseIdentifier(identifier: "FlatDescriptionTableViewCell")
+    /// Reuse identifier `FlatPhotoCollectionViewCell`.
+    static let flatPhotoCollectionViewCell: Rswift.ReuseIdentifier<FlatPhotoCollectionViewCell> = Rswift.ReuseIdentifier(identifier: "FlatPhotoCollectionViewCell")
 
     fileprivate init() {}
   }
@@ -607,9 +847,12 @@ struct _R: Rswift.Validatable {
   struct nib: Rswift.Validatable {
     static func validate() throws {
       try _FlatCardCollectionViewCell.validate()
+      try _FlatModalViewController.validate()
+      try _FlatPhotoCollectionViewCell.validate()
       try _LoginViewController.validate()
       try _RegistrationViewController.validate()
       try _ResetPasswordViewController.validate()
+      try _TopMapSearchView.validate()
     }
 
     struct _FlatCardCollectionViewCell: Rswift.NibResourceType, Rswift.ReuseIdentifierType, Rswift.Validatable {
@@ -624,9 +867,7 @@ struct _R: Rswift.Validatable {
       }
 
       static func validate() throws {
-        if UIKit.UIImage(named: "clock", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'clock' is used in nib 'FlatCardCollectionViewCell', but couldn't be loaded.") }
         if UIKit.UIImage(named: "flat_image", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'flat_image' is used in nib 'FlatCardCollectionViewCell', but couldn't be loaded.") }
-        if UIKit.UIImage(named: "person", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'person' is used in nib 'FlatCardCollectionViewCell', but couldn't be loaded.") }
         if #available(iOS 11.0, tvOS 11.0, *) {
         }
       }
@@ -634,12 +875,58 @@ struct _R: Rswift.Validatable {
       fileprivate init() {}
     }
 
-    struct _FlatModalViewController: Rswift.NibResourceType {
+    struct _FlatDescriptionTableViewCell: Rswift.NibResourceType, Rswift.ReuseIdentifierType {
+      typealias ReusableType = FlatDescriptionTableViewCell
+
+      let bundle = R.hostingBundle
+      let identifier = "FlatDescriptionTableViewCell"
+      let name = "FlatDescriptionTableViewCell"
+
+      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> FlatDescriptionTableViewCell? {
+        return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? FlatDescriptionTableViewCell
+      }
+
+      fileprivate init() {}
+    }
+
+    struct _FlatModalViewController: Rswift.NibResourceType, Rswift.Validatable {
       let bundle = R.hostingBundle
       let name = "FlatModalViewController"
 
       func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
         return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
+      }
+
+      static func validate() throws {
+        if UIKit.UIImage(named: "clock", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'clock' is used in nib 'FlatModalViewController', but couldn't be loaded.") }
+        if UIKit.UIImage(named: "cross", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'cross' is used in nib 'FlatModalViewController', but couldn't be loaded.") }
+        if UIKit.UIImage(named: "global", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'global' is used in nib 'FlatModalViewController', but couldn't be loaded.") }
+        if UIKit.UIImage(named: "heart", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'heart' is used in nib 'FlatModalViewController', but couldn't be loaded.") }
+        if UIKit.UIImage(named: "shape", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'shape' is used in nib 'FlatModalViewController', but couldn't be loaded.") }
+        if UIKit.UIImage(named: "upload", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'upload' is used in nib 'FlatModalViewController', but couldn't be loaded.") }
+        if UIKit.UIImage(named: "user", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'user' is used in nib 'FlatModalViewController', but couldn't be loaded.") }
+        if #available(iOS 11.0, tvOS 11.0, *) {
+        }
+      }
+
+      fileprivate init() {}
+    }
+
+    struct _FlatPhotoCollectionViewCell: Rswift.NibResourceType, Rswift.ReuseIdentifierType, Rswift.Validatable {
+      typealias ReusableType = FlatPhotoCollectionViewCell
+
+      let bundle = R.hostingBundle
+      let identifier = "FlatPhotoCollectionViewCell"
+      let name = "FlatPhotoCollectionViewCell"
+
+      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> FlatPhotoCollectionViewCell? {
+        return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? FlatPhotoCollectionViewCell
+      }
+
+      static func validate() throws {
+        if UIKit.UIImage(named: "flat_image", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'flat_image' is used in nib 'FlatPhotoCollectionViewCell', but couldn't be loaded.") }
+        if #available(iOS 11.0, tvOS 11.0, *) {
+        }
       }
 
       fileprivate init() {}
@@ -701,6 +988,36 @@ struct _R: Rswift.Validatable {
       fileprivate init() {}
     }
 
+    struct _TopMapFilterCollectionViewCell: Rswift.NibResourceType {
+      let bundle = R.hostingBundle
+      let name = "TopMapFilterCollectionViewCell"
+
+      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> TopMapFilterCollectionViewCell? {
+        return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? TopMapFilterCollectionViewCell
+      }
+
+      fileprivate init() {}
+    }
+
+    struct _TopMapSearchView: Rswift.NibResourceType, Rswift.Validatable {
+      let bundle = R.hostingBundle
+      let name = "TopMapSearchView"
+
+      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
+        return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
+      }
+
+      static func validate() throws {
+        if UIKit.UIImage(named: "Dictation", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'Dictation' is used in nib 'TopMapSearchView', but couldn't be loaded.") }
+        if UIKit.UIImage(named: "Search", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'Search' is used in nib 'TopMapSearchView', but couldn't be loaded.") }
+        if UIKit.UIImage(named: "filter", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'filter' is used in nib 'TopMapSearchView', but couldn't be loaded.") }
+        if #available(iOS 11.0, tvOS 11.0, *) {
+        }
+      }
+
+      fileprivate init() {}
+    }
+
     fileprivate init() {}
   }
   #endif
@@ -708,6 +1025,9 @@ struct _R: Rswift.Validatable {
   #if os(iOS) || os(tvOS)
   struct storyboard: Rswift.Validatable {
     static func validate() throws {
+      #if os(iOS) || os(tvOS)
+      try chat.validate()
+      #endif
       #if os(iOS) || os(tvOS)
       try launchScreen.validate()
       #endif
@@ -717,7 +1037,30 @@ struct _R: Rswift.Validatable {
       #if os(iOS) || os(tvOS)
       try map.validate()
       #endif
+      #if os(iOS) || os(tvOS)
+      try notifications.validate()
+      #endif
+      #if os(iOS) || os(tvOS)
+      try profile.validate()
+      #endif
     }
+
+    #if os(iOS) || os(tvOS)
+    struct chat: Rswift.StoryboardResourceWithInitialControllerType, Rswift.Validatable {
+      typealias InitialController = UIKit.UIViewController
+
+      let bundle = R.hostingBundle
+      let name = "Chat"
+
+      static func validate() throws {
+        if UIKit.UIImage(named: "chat", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'chat' is used in storyboard 'Chat', but couldn't be loaded.") }
+        if #available(iOS 11.0, tvOS 11.0, *) {
+        }
+      }
+
+      fileprivate init() {}
+    }
+    #endif
 
     #if os(iOS) || os(tvOS)
     struct launchScreen: Rswift.StoryboardResourceWithInitialControllerType, Rswift.Validatable {
@@ -737,7 +1080,7 @@ struct _R: Rswift.Validatable {
 
     #if os(iOS) || os(tvOS)
     struct main: Rswift.StoryboardResourceWithInitialControllerType, Rswift.Validatable {
-      typealias InitialController = UIKit.UITabBarController
+      typealias InitialController = MainTabBarController
 
       let bundle = R.hostingBundle
       let main = StoryboardViewControllerResource<UIKit.UITabBarController>(identifier: "main")
@@ -748,6 +1091,7 @@ struct _R: Rswift.Validatable {
       }
 
       static func validate() throws {
+        if UIKit.UIImage(named: "centered_button", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'centered_button' is used in storyboard 'Main', but couldn't be loaded.") }
         if #available(iOS 11.0, tvOS 11.0, *) {
         }
         if _R.storyboard.main().main() == nil { throw Rswift.ValidationError(description:"[R.swift] ViewController with identifier 'main' could not be loaded from storyboard 'Main' as 'UIKit.UITabBarController'.") }
@@ -765,8 +1109,41 @@ struct _R: Rswift.Validatable {
       let name = "Map"
 
       static func validate() throws {
-        if UIKit.UIImage(named: "map", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'map' is used in storyboard 'Map', but couldn't be loaded.") }
-        if UIKit.UIImage(named: "mappin.and.ellipse", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'mappin.and.ellipse' is used in storyboard 'Map', but couldn't be loaded.") }
+        if UIKit.UIImage(named: "global", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'global' is used in storyboard 'Map', but couldn't be loaded.") }
+        if #available(iOS 11.0, tvOS 11.0, *) {
+        }
+      }
+
+      fileprivate init() {}
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    struct notifications: Rswift.StoryboardResourceWithInitialControllerType, Rswift.Validatable {
+      typealias InitialController = ViewController
+
+      let bundle = R.hostingBundle
+      let name = "Notifications"
+
+      static func validate() throws {
+        if UIKit.UIImage(named: "bell", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'bell' is used in storyboard 'Notifications', but couldn't be loaded.") }
+        if #available(iOS 11.0, tvOS 11.0, *) {
+        }
+      }
+
+      fileprivate init() {}
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    struct profile: Rswift.StoryboardResourceWithInitialControllerType, Rswift.Validatable {
+      typealias InitialController = UIKit.UIViewController
+
+      let bundle = R.hostingBundle
+      let name = "Profile"
+
+      static func validate() throws {
+        if UIKit.UIImage(named: "user", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'user' is used in storyboard 'Profile', but couldn't be loaded.") }
         if #available(iOS 11.0, tvOS 11.0, *) {
         }
       }
