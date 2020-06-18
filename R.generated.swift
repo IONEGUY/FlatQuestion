@@ -369,6 +369,21 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
 
+    struct registrationViewController {
+      /// Accessibility identifier `confirmPassword`.
+      static let confirmPassword: String = "confirmPassword"
+      /// Accessibility identifier `email`.
+      static let email: String = "email"
+      /// Accessibility identifier `firstName`.
+      static let firstName: String = "firstName"
+      /// Accessibility identifier `lastName`.
+      static let lastName: String = "lastName"
+      /// Accessibility identifier `password`.
+      static let password: String = "password"
+
+      fileprivate init() {}
+    }
+
     fileprivate init() {}
   }
 
@@ -593,6 +608,8 @@ struct _R: Rswift.Validatable {
     static func validate() throws {
       try _FlatCardCollectionViewCell.validate()
       try _LoginViewController.validate()
+      try _RegistrationViewController.validate()
+      try _ResetPasswordViewController.validate()
     }
 
     struct _FlatCardCollectionViewCell: Rswift.NibResourceType, Rswift.ReuseIdentifierType, Rswift.Validatable {
@@ -649,7 +666,7 @@ struct _R: Rswift.Validatable {
       fileprivate init() {}
     }
 
-    struct _RegistrationViewController: Rswift.NibResourceType {
+    struct _RegistrationViewController: Rswift.NibResourceType, Rswift.Validatable {
       let bundle = R.hostingBundle
       let name = "RegistrationViewController"
 
@@ -657,15 +674,28 @@ struct _R: Rswift.Validatable {
         return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
       }
 
+      static func validate() throws {
+        if UIKit.UIImage(named: "eye.fill", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'eye.fill' is used in nib 'RegistrationViewController', but couldn't be loaded.") }
+        if UIKit.UIImage(named: "register_background", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'register_background' is used in nib 'RegistrationViewController', but couldn't be loaded.") }
+        if #available(iOS 11.0, tvOS 11.0, *) {
+        }
+      }
+
       fileprivate init() {}
     }
 
-    struct _ResetPasswordViewController: Rswift.NibResourceType {
+    struct _ResetPasswordViewController: Rswift.NibResourceType, Rswift.Validatable {
       let bundle = R.hostingBundle
       let name = "ResetPasswordViewController"
 
       func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
         return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
+      }
+
+      static func validate() throws {
+        if UIKit.UIImage(named: "reset_password_background", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'reset_password_background' is used in nib 'ResetPasswordViewController', but couldn't be loaded.") }
+        if #available(iOS 11.0, tvOS 11.0, *) {
+        }
       }
 
       fileprivate init() {}
@@ -710,11 +740,17 @@ struct _R: Rswift.Validatable {
       typealias InitialController = UIKit.UITabBarController
 
       let bundle = R.hostingBundle
+      let main = StoryboardViewControllerResource<UIKit.UITabBarController>(identifier: "main")
       let name = "Main"
+
+      func main(_: Void = ()) -> UIKit.UITabBarController? {
+        return UIKit.UIStoryboard(resource: self).instantiateViewController(withResource: main)
+      }
 
       static func validate() throws {
         if #available(iOS 11.0, tvOS 11.0, *) {
         }
+        if _R.storyboard.main().main() == nil { throw Rswift.ValidationError(description:"[R.swift] ViewController with identifier 'main' could not be loaded from storyboard 'Main' as 'UIKit.UITabBarController'.") }
       }
 
       fileprivate init() {}

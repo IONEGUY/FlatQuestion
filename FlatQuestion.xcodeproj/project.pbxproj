@@ -46,7 +46,11 @@
 		FA3766C2247328930052DB9B /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA3766C0247328930052DB9B /* LoginViewController.xib */; };
 		FA3766C524732DEC0052DB9B /* RegistrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3766C324732DEC0052DB9B /* RegistrationViewController.swift */; };
 		FA3766C624732DEC0052DB9B /* RegistrationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA3766C424732DEC0052DB9B /* RegistrationViewController.xib */; };
+		FA3E30252492CFAE0089290F /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3E30242492CFAE0089290F /* Constants.swift */; };
 		FA88D4E72475DDB9005DA624 /* SwiftyJson.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA88D4E62475DDB9005DA624 /* SwiftyJson.swift */; };
+		FAA22EB624903A80004C4ACC /* ActivityIndicatorHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA22EB524903A80004C4ACC /* ActivityIndicatorHelper.swift */; };
+		FAAB900B249AC7C000E38C98 /* UserSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAAB900A249AC7C000E38C98 /* UserSettings.swift */; };
+		FAAB900D249AC97700E38C98 /* DecodeHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAAB900C249AC97700E38C98 /* DecodeHelper.swift */; };
 		FAC45F3B2474459A00BBA016 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FAC45F3A2474459A00BBA016 /* GoogleService-Info.plist */; };
 		FADD4DB7247F11F10055FCB1 /* R.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADD4DB6247F11F10055FCB1 /* R.generated.swift */; };
 		FADD4DBA247F12FD0055FCB1 /* ResetPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADD4DB8247F12FD0055FCB1 /* ResetPasswordViewController.swift */; };
@@ -127,7 +131,11 @@
 		FA3766C0247328930052DB9B /* LoginViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoginViewController.xib; sourceTree = "<group>"; };
 		FA3766C324732DEC0052DB9B /* RegistrationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewController.swift; sourceTree = "<group>"; };
 		FA3766C424732DEC0052DB9B /* RegistrationViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RegistrationViewController.xib; sourceTree = "<group>"; };
+		FA3E30242492CFAE0089290F /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		FA88D4E62475DDB9005DA624 /* SwiftyJson.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftyJson.swift; sourceTree = "<group>"; };
+		FAA22EB524903A80004C4ACC /* ActivityIndicatorHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicatorHelper.swift; sourceTree = "<group>"; };
+		FAAB900A249AC7C000E38C98 /* UserSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettings.swift; sourceTree = "<group>"; };
+		FAAB900C249AC97700E38C98 /* DecodeHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecodeHelper.swift; sourceTree = "<group>"; };
 		FAC45F39247441CF00BBA016 /* FlatQuestionDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = FlatQuestionDebug.entitlements; sourceTree = "<group>"; };
 		FAC45F3A2474459A00BBA016 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		FADD4DB6247F11F10055FCB1 /* R.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = R.generated.swift; sourceTree = SOURCE_ROOT; };
@@ -204,6 +212,7 @@
 		58B8DAD0246B474100584B20 /* FlatQuestion */ = {
 			isa = PBXGroup;
 			children = (
+				FAA22EB424903A48004C4ACC /* Helpers */,
 				FAE40EF52482ED6B0097879E /* Extended Controls */,
 				FAC45F3A2474459A00BBA016 /* GoogleService-Info.plist */,
 				FAC45F39247441CF00BBA016 /* FlatQuestionDebug.entitlements */,
@@ -281,6 +290,7 @@
 				FADD4DB6247F11F10055FCB1 /* R.generated.swift */,
 				58B8DB16246C9FF300584B20 /* Fonts */,
 				58B8DB0A246B66E100584B20 /* map.json */,
+				FA3E30242492CFAE0089290F /* Constants.swift */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -325,6 +335,16 @@
 				47ACFFE37D36DDED35D76A8F /* Pods_FlatQuestionTests.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		FAA22EB424903A48004C4ACC /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				FAA22EB524903A80004C4ACC /* ActivityIndicatorHelper.swift */,
+				FAAB900A249AC7C000E38C98 /* UserSettings.swift */,
+				FAAB900C249AC97700E38C98 /* DecodeHelper.swift */,
+			);
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 		FAE40EF22482917B0097879E /* Login */ = {
@@ -680,6 +700,7 @@
 			files = (
 				FA3766C1247328930052DB9B /* LoginViewController.swift in Sources */,
 				FA063E6F247D8AA900CBF52A /* AppUser.swift in Sources */,
+				FAA22EB624903A80004C4ACC /* ActivityIndicatorHelper.swift in Sources */,
 				FAE40EF72482ED850097879E /* PaddedTextField.swift in Sources */,
 				FADD4DB7247F11F10055FCB1 /* R.generated.swift in Sources */,
 				FADD4DBA247F12FD0055FCB1 /* ResetPasswordViewController.swift in Sources */,
@@ -688,6 +709,7 @@
 				58B8DB33246CADA700584B20 /* ReuseIdentifierProtocol.swift in Sources */,
 				FA063E6D247D820300CBF52A /* VkUser.swift in Sources */,
 				58B8DAD6246B474100584B20 /* ViewController.swift in Sources */,
+				FA3E30252492CFAE0089290F /* Constants.swift in Sources */,
 				FA063E71247D90AA00CBF52A /* UIViewControllerExtensions.swift in Sources */,
 				58B8DAD2246B474100584B20 /* AppDelegate.swift in Sources */,
 				FA3766C524732DEC0052DB9B /* RegistrationViewController.swift in Sources */,
@@ -696,7 +718,9 @@
 				58B8DB08246B60F100584B20 /* MapViewController.swift in Sources */,
 				58B8DB30246CA99000584B20 /* Flat.swift in Sources */,
 				FAE40EF92482EFBE0097879E /* UIViewExtensions.swift in Sources */,
+				FAAB900D249AC97700E38C98 /* DecodeHelper.swift in Sources */,
 				58B8DB12246C9C8400584B20 /* FlatCardCollectionViewCell.swift in Sources */,
+				FAAB900B249AC7C000E38C98 /* UserSettings.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

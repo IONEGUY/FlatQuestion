@@ -10,14 +10,22 @@ import UIKit
 import Firebase
 
 class ResetPasswordViewController: UIViewController {
-    @IBOutlet weak var emailTextField: UITextField!
+    @IBOutlet weak var emailTextField: PaddedTextField!
+    @IBOutlet weak var emailErrorMessage: UILabel!
+    @IBOutlet weak var resetPasswordButton: UIButton!
     
     @IBAction func resetPasswordButtonTapped(_ sender: Any) {
+        guard validateCredantials() else { return; }
+        ActivityIndicatorHelper.show(in: self.view)
         Auth.auth().sendPasswordReset(withEmail: emailTextField.text!) { error in
+            ActivityIndicatorHelper.dismiss()
             if error != nil {
                 self.showErrorAlert(message: error!.localizedDescription)
             } else {
-                self.showAlert(title: "Alert", message: "Email with reset password link was sent")
+                self.showAlert(title: "", message: "Ссылка для сброса пароля отправлена на указанный email") { (UIAlertAction)
+                    in
+                    self.dismiss(animated: true, completion: nil)
+                }
             }
         }
     }
@@ -25,17 +33,73 @@ class ResetPasswordViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        emailTextField.delegate = self
+        
+        addStylesTo(emailTextField)
+        setupShadow(resetPasswordButton, UIColor(hex: "#615CBF"))
+        
+        resetPasswordButton.applyGradient(colours: [UIColor(hex: "#615CBF"), UIColor(hex: "#1C2F4B")])
+        
+        let tapGestureBackground = UITapGestureRecognizer(target: self, action: #selector(self.backgroundTapped(_:)))
+        self.view.addGestureRecognizer(tapGestureBackground)
     }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    
+    @objc func backgroundTapped(_ sender: UITapGestureRecognizer)
+    {
+        emailTextField.endEditing(true)
     }
-    */
+    
+    private func addStylesTo(_ paddedTextField: PaddedTextField, _ rightTextMargin: CGFloat = 10) {
+        setupShadow(paddedTextField)
+        paddedTextField.frame.size.height = 40
+        paddedTextField.layer.cornerRadius = 10
+        paddedTextField.layer.borderWidth = 1
+        paddedTextField.layer.borderColor = UIColor.clear.cgColor
+        paddedTextField.textInsets = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: rightTextMargin)
+    }
+    
+    private func setupShadow(_ view: UIView, _ color: UIColor = UIColor.gray, _ cornerRadius: CGFloat = 25) {
+        view.layer.cornerRadius = cornerRadius
+        view.addShadow(shadowColor: color.cgColor,
+                         shadowOffset: CGSize(width: 0, height: 20),
+                         shadowOpacity: 0.3,
+                         shadowRadius: 20.0)
+    }
+    
+    private func isEmailHasValidFormat(_ email: String?) -> Bool {
+        let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
+        let emailPred = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
+        return emailPred.evaluate(with: email)
+    }
+    
+    private func validateCredantials() -> Bool {
+        var validationStatus = true;
+        emailErrorMessage.isHidden = true
+        emailTextField.layer.borderColor = UIColor.clear.cgColor
+        if (emailTextField.text ?? "").isEmpty {
+            validationStatus = false
+            emailTextField.layer.borderColor = UIColor.red.cgColor
+            emailErrorMessage.isHidden = false
+            emailErrorMessage.text = "Email не должен быть пустым"
+        } else if !isEmailHasValidFormat(emailTextField.text) {
+            validationStatus = false
+            emailTextField.layer.borderColor = UIColor.red.cgColor
+            emailErrorMessage.isHidden = false
+            emailErrorMessage.text = "Неверный формат email"
+        }
+        
+        return validationStatus;
+    }
+}
 
+extension ResetPasswordViewController : UITextFieldDelegate {
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        (textField as! PaddedTextField).layer.borderColor = UIColor(hex: "#5B58B4").cgColor
+        emailErrorMessage.isHidden = true
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        (textField as! PaddedTextField).layer.borderColor = UIColor.clear.cgColor
+        emailErrorMessage.isHidden = true
+    }
 }

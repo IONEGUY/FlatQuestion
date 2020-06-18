@@ -21,6 +21,7 @@ target 'FlatQuestion' do
   pod 'SwiftyVK'
   pod 'R.swift'
   pod 'IQKeyboardManagerSwift'
+  pod 'JGProgressHUD'
 
   target 'FlatQuestionTests' do
     inherit! :search_paths

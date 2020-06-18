@@ -9,9 +9,9 @@
 import UIKit
 
 extension UIViewController {
-    func showAlert(title: String, message: String) {
+    func showAlert(title: String, message: String, handler: ((UIAlertAction) -> Void)? = nil) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default))
+        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: handler))
         self.present(alert, animated: true, completion: nil)
     }
     
@@ -20,7 +20,14 @@ extension UIViewController {
     }
     
     func pushModalVC(name: String) {
-        let vc = RegistrationViewController(nibName: name, bundle: nil)
+        let vc = UIViewController(nibName: name, bundle: nil)
         self.present(vc, animated:true, completion:nil)
+    }
+    
+    func navigateToMainVC() {
+        let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        let newViewController = storyBoard.instantiateViewController(withIdentifier: "main")
+        newViewController.modalPresentationStyle = .fullScreen
+        self.present(newViewController, animated: true, completion: nil)
     }
 }

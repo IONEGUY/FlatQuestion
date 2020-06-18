@@ -8,6 +8,7 @@
 
 import UIKit
 import FirebaseAuth
+import Firebase
 import AuthenticationServices
 import SwiftyVK
 
@@ -21,31 +22,39 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var passwordErrorMessage: UILabel!
     
     @IBAction func eyeButtonPressed(_ sender: Any) {
-        passwordTextField.isSecureTextEntry = !passwordTextField.isSecureTextEntry
         let imageName = passwordTextField.isSecureTextEntry ? "eye.slash.fill" : "eye.fill"
         (sender as! UIButton).setImage(UIImage(systemName: imageName), for: .normal)
+        passwordTextField.isSecureTextEntry = !passwordTextField.isSecureTextEntry
     }
     
     @IBAction func signInButtonTapped(_ sender: Any) {
         guard validateCredantials() else { return; }
-        
+        ActivityIndicatorHelper.show(in: self.view)
         Auth.auth().signIn(withEmail: emailTextField.text!, password: passwordTextField.text!) {
-            [weak self] authResult, error in
-            guard let strongSelf = self else { return }
+            authResult, error in
+            ActivityIndicatorHelper.dismiss()
             if error != nil {
-                strongSelf.showErrorAlert(message: error!.localizedDescription)
+                self.showErrorAlert(message: error!.localizedDescription)
             } else {
-                //fetch first, last name and avatar url, fill AppUser and navigate to tab view controller
+                self.showAlert(title: "", message: "Авторизация прошла успешно") { (UIAlertAction) in
+                    self.fetchUser(id: authResult!.user.uid) { () in
+                        self.navigateToMainVC()
+                    }
+                }
             }
         }
     }
     
     @IBAction func forgotPasswordTapped(_ sender: Any) {
-        pushModalVC(name: R.nib.resetPasswordViewController.name)
+        unfocusAllTextFields()
+        let vc = ResetPasswordViewController(nibName: "ResetPasswordViewController", bundle: nil)
+        self.present(vc, animated:true, completion:nil)
     }
     
     @IBAction func createNewAccountTapped(_ sender: Any) {
-        pushModalVC(name: R.nib.registrationViewController.name)
+        unfocusAllTextFields()
+        let vc = RegistrationViewController(nibName: "RegistrationViewController", bundle: nil)
+        self.present(vc, animated:true, completion:nil)
     }
     
     @IBAction func authWithVk(_ sender: Any) {
@@ -83,6 +92,26 @@ class LoginViewController: UIViewController {
     
     @objc func backgroundTapped(_ sender: UITapGestureRecognizer)
     {
+        unfocusAllTextFields()
+    }
+    
+    private func fetchUser(id: String, completion: @escaping () -> Void) {
+        Firestore.firestore().collection("users").whereField("id", isEqualTo: id)
+          .getDocuments() { (querySnapshot, err) in
+            if let err = err {
+                print("Error getting documents: \(err)")
+            } else {
+                let data = querySnapshot!.documents.first!.data()
+                let user = DecodeHelper.decodeFromDictionary(dictionary: data, type: AppUser.self)
+                
+                UserSettings.appUser = user
+                
+                completion()
+            }
+        }
+    }
+    
+    private func unfocusAllTextFields() {
         emailTextField.endEditing(true)
         passwordTextField.endEditing(true)
     }
@@ -160,22 +189,22 @@ extension LoginViewController : SwiftyVKDelegate {
     }
     
     private func handleVkAuth() {
-        VK.sessions.default.logOut()
-        VK.sessions.default.logIn(
-            onSuccess: { _ in
-                VK.API.Account.getProfileInfo([.firstName: "firstName", .lastName: "lastName"])
-                    .configure(with: Config.init(httpMethod: .POST))
-                    .onSuccess {
-                        let vkUser = try JSONDecoder().decode(VkUser.self, from: $0)
-                        self.handleDataFromAuthProviders(appUser:
-                            AppUser(firstName: vkUser.firstName, lastName: vkUser.lastName));
-                    }
-                    .send()
-            },
-            onError: { error in
-                self.showAlert(title: "VK login error", message: error.localizedDescription)
-            }
-        )
+//        VK.sessions.default.logOut()
+//        VK.sessions.default.logIn(
+//            onSuccess: { _ in
+//                VK.API.Account.getProfileInfo([.firstName: "firstName", .lastName: "lastName"])
+//                    .configure(with: Config.init(httpMethod: .POST))
+//                    .onSuccess {
+//                        let vkUser = try JSONDecoder().decode(VkUser.self, from: $0)
+//                        self.handleDataFromAuthProviders(appUser:
+//                            AppUser(firstName: vkUser.firstName, lastName: vkUser.lastName));
+//                    }
+//                    .send()
+//            },
+//            onError: { error in
+//                self.showAlert(title: "VK login error", message: error.localizedDescription)
+//            }
+//        )
     }
 }
 
