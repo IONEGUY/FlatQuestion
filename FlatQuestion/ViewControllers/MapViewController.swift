@@ -12,7 +12,10 @@ import GoogleMaps
 class MapViewController: UIViewController {
     private var collectionView: UICollectionView?
     private var flatModalVC: FlatModalViewController!
-    private var flats = [Flat]()
+    private var flats = [FlatModel]()
+    private var markers = [GMSMarker]()
+    private var mapView:GMSMapView?
+    private var priveousSelectedIndex = 0
     private var spacing: CGFloat {
         return self.view.frame.width - 283
     }
@@ -22,6 +25,11 @@ class MapViewController: UIViewController {
         setupMapView()
         setupCollectionView()
         setupSearchView()
+    }
+
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         getFlats()
     }
 
@@ -34,6 +42,9 @@ class MapViewController: UIViewController {
         self.view.layoutIfNeeded()
     }
 
+    func updateFlats() {
+        getFlats()
+    }
     func setupSearchView() {
         let view = TopMapSearchView(frame: CGRect(x: 0, y: UIApplication.shared.statusBarFrame.height + 10, width: self.view.frame.size.width, height: 82))
         self.view.addSubview(view)
@@ -53,32 +64,22 @@ class MapViewController: UIViewController {
     }
 
     func getFlats() {
-        self.flats.append(Flat(title: "Party name here",
-                               address: "st. Ulyanovskaya 8", numberOfPersons: 12, dateToCome: "Tomorrow",
-                               arrayWithDescription:
-            [FlatDescription(name: "Description", description: "Best party ever just click to button"),
-             FlatDescription(name: "Информация", description: "Всем привет)) Если вам скучно и не знсебя заайте - потусим вместе)) мы компания из 4 человек ждем адекватных, веселых девчонок))")]))
-        self.flats.append(Flat(title: "Party name here",
-                           address: "st. Ulyanovskaya 8 sdsffsfsdfsf", numberOfPersons: 12, dateToCome: "Tomorrow",
-                           arrayWithDescription:
-        [FlatDescription(name: "Description", description: "Best party ever i seen. If u want to join us, just click to button"),
-         FlatDescription(name: "Information", description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore e.")]))
-        self.flats.append(Flat(title: "Party name here",
-                               address: "st. Ulyanovskaya 8", numberOfPersons: 12, dateToCome: "Tomorrow",
-                               arrayWithDescription:
-            [FlatDescription(name: "Description", description: "Best party ever i seen. If u want to join us, just click to button"),
-             FlatDescription(name: "Information", description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore e.Lorem ipsum dolor sit amet")]))
-        self.flats.append(Flat(title: "Party name here",
-                           address: "st. Ulyanovskaya 8", numberOfPersons: 12, dateToCome: "Tomorrow",
-                           arrayWithDescription:
-        [FlatDescription(name: "Description", description: "Best party ever i seen. If u want to join us, just click to button"),
-         FlatDescription(name: "Information", description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore e.")]))
-   
+        showLoadingIndicator()
+        FireBaseHelper().get { (flats) in
+            self.flats = flats
+            self.hideLoadingableIndicator()
+            self.addMarkers(flats: self.flats)
+            self.collectionView?.reloadData()
+            
+        }
+        
     }
 
     func setupMapView() {
         let camera = GMSCameraPosition(latitude: 37, longitude: -122, zoom: 10)
-        let mapView = GMSMapView(frame: self.view.frame, camera: camera)
+        mapView = GMSMapView(frame: self.view.frame, camera: camera)
+        mapView?.delegate = self
+        guard let mapView = mapView else { return }
         do {
             if let styleURL = Bundle.main.url(forResource: "map", withExtension: "json") {
                 mapView.mapStyle = try GMSMapStyle(contentsOfFileURL: styleURL)
@@ -91,7 +92,7 @@ class MapViewController: UIViewController {
         self.view.addSubview(mapView)
     }
 
-    func addModalFlatView(flat: Flat) {
+    func addModalFlatView(flat: FlatModel) {
         flatModalVC = FlatModalViewController(nibName: "FlatModalViewController", bundle: nil)
         flatModalVC.flat = flat
         flatModalVC.delegate = self
@@ -142,7 +143,28 @@ extension MapViewController: UICollectionViewDelegateFlowLayout {
     }
 
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        let index = self.collectionView!.contentOffset.x / self.collectionView!.frame.size.width
+        let index: Int = Int(self.collectionView!.contentOffset.x / self.collectionView!.frame.size.width)
+        let flat = flats[index]
+        
+        mapView?.animate(to: GMSCameraPosition(latitude: flat.x, longitude: flat.y, zoom: 10))
+        
+        let marker = markers[index]
+        
+        let iconView = IconView(frame: CGRect(x: 0, y: 0, width: 128, height: 128))
+        
+        if flat.images?.count != 0, let url = URL(string: (flat.images?.first)!) {
+            iconView.photoView.sd_setImage(with: url, completed: nil)
+        } else {
+            iconView.photoView.image = UIImage(named: "compas")
+        }
+        marker.icon = UIImage(view: iconView)
+        
+        if priveousSelectedIndex != index {
+            let marker = markers[priveousSelectedIndex]
+            marker.icon = UIImage(named: "default_marker")
+        }
+        
+        priveousSelectedIndex = index
         print(index)
     }
 }
@@ -155,3 +177,57 @@ extension MapViewController: RemovableDelegate {
         flatModalVC.removeFromParent()
     }
 }
+
+
+extension MapViewController {
+    func addMarkers(flats: [FlatModel]) {
+        flats.map { (flat) -> () in
+            addMarker(flat: flat, withTag: flats.firstIndex(where: { (flatModel) -> Bool in
+                flat.id == flatModel.id
+            })!)
+        }
+    }
+    func addMarker(flat: FlatModel, withTag tag: Int) {
+        DispatchQueue.main.async
+        {
+            var position = CLLocationCoordinate2DMake(flat.x, flat.y)
+            var marker = GMSMarker(position: position)
+            marker.title = flat.address
+            marker.map = self.mapView
+            marker.userData = tag
+            marker.icon = UIImage(named: "default_marker")
+            self.markers.append(marker)
+            
+        }
+    }
+}
+
+extension MapViewController: GMSMapViewDelegate {
+    func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
+        guard let index = marker.userData as? Int else { return false}
+        
+        let marker = markers[index]
+        let flat = flats[index]
+        let iconView = IconView(frame: CGRect(x: 0, y: 0, width: 128, height: 128))
+        
+        if flat.images?.count != 0, let url = URL(string: (flat.images?.first)!) {
+            iconView.photoView.sd_setImage(with: url, completed: nil)
+        } else {
+            iconView.photoView.image = UIImage(named: "compas")
+        }
+        marker.icon = UIImage(view: iconView)
+        
+        if priveousSelectedIndex != index {
+            let marker = markers[priveousSelectedIndex]
+            marker.icon = UIImage(named: "default_marker")
+        }
+        
+        priveousSelectedIndex = index
+        
+        
+        collectionView?.scrollToItem(at: IndexPath(row: index, section: 0), at: .centeredHorizontally, animated: true)
+        return true
+    }
+}
+
+

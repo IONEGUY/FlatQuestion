@@ -23,6 +23,9 @@ target 'FlatQuestion' do
   pod 'IQKeyboardManagerSwift'
   pod 'JGProgressHUD'
 
+  pod 'Firebase/Database'
+  pod 'FirebaseFirestoreSwift'
+  pod 'Firebase/Storage'
   target 'FlatQuestionTests' do
     inherit! :search_paths
     # Pods for testing

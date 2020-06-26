@@ -16,10 +16,15 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="FlatModalViewController" customModule="FlatQuestion" customModuleProvider="target">
             <connections>
+                <outlet property="addressLabel" destination="kJo-1S-Wr6" id="hib-4z-7r3"/>
                 <outlet property="collectionView" destination="phx-XM-Das" id="M3v-Yf-by6"/>
+                <outlet property="dateLabel" destination="0uq-JN-q5N" id="bwV-Zt-Rc5"/>
                 <outlet property="favoriteView" destination="HP9-73-pP8" id="De9-Ek-AyW"/>
                 <outlet property="mapView" destination="yQA-PY-psz" id="Dve-AS-cWo"/>
+                <outlet property="nameLabel" destination="yXh-xH-v7K" id="IKa-Um-OGX"/>
+                <outlet property="placesLabel" destination="JGC-ww-uOO" id="OJy-ff-s6T"/>
                 <outlet property="profileView" destination="iEj-2t-iDE" id="O8a-Hr-PA2"/>
+                <outlet property="sendInviteButton" destination="VYO-qn-9Sj" id="fOd-PW-vzo"/>
                 <outlet property="shareView" destination="NZC-UO-6Wg" id="9PH-K3-7M9"/>
                 <outlet property="tableView" destination="MXB-9A-a0a" id="cfZ-Ns-ItQ"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -37,7 +42,7 @@
                         <constraint firstAttribute="width" constant="36" id="joF-CU-rFa"/>
                     </constraints>
                 </imageView>
-                <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VYO-qn-9Sj" customClass="GradientButton" customModule="FlatQuestion" customModuleProvider="target">
+                <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VYO-qn-9Sj" customClass="DarkGradientButton">
                     <rect key="frame" x="15" y="111" width="384" height="34"/>
                     <color key="backgroundColor" systemColor="systemGray3Color" red="0.78039215689999997" green="0.78039215689999997" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
@@ -72,6 +77,9 @@
                     <state key="normal" image="cross">
                         <color key="titleColor" red="0.82352941180000006" green="0.20392156859999999" blue="0.18039215689999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </state>
+                    <connections>
+                        <action selector="close:" destination="-1" eventType="touchUpInside" id="9FO-Kc-VFq"/>
+                    </connections>
                 </button>
                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="phx-XM-Das">
                     <rect key="frame" x="15" y="153" width="383" height="191"/>

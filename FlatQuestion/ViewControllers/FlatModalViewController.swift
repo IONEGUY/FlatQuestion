@@ -17,7 +17,7 @@ extension FlatModalViewController {
 
     private enum Constant {
         static let fullViewYPosition: CGFloat = 50
-        static let noneYPosition: CGFloat = 900
+        static let noneYPosition: CGFloat = UIScreen.main.bounds.height
         static func getPartialViewPosition(tabBarHeight: CGFloat) -> CGFloat {
             return UIScreen.main.bounds.height - 335 - tabBarHeight
         }
@@ -32,16 +32,22 @@ class FlatModalViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     weak var delegate: RemovableDelegate?
     private var currentState: State?
-    var flat: Flat?
+    var flat: FlatModel?
     @IBOutlet weak var collectionView: UICollectionView!
     
+    @IBOutlet weak var sendInviteButton: DarkGradientButton!
     @IBOutlet weak var profileView: UIView!
     @IBOutlet weak var mapView: UIView!
     @IBOutlet weak var favoriteView: UIView!
     @IBOutlet weak var shareView: UIView!
+    @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var addressLabel: UILabel!
+    @IBOutlet weak var dateLabel: UILabel!
+    @IBOutlet weak var placesLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupView()
         setupGesture()
         setupCollectionView()
         setupTableView()
@@ -60,6 +66,13 @@ class FlatModalViewController: UIViewController {
       let gesture = UIPanGestureRecognizer.init(target: self, action: #selector(panGesture))
         view.addGestureRecognizer(gesture)
         view.isUserInteractionEnabled = true
+    }
+    
+    private func setupView() {
+        nameLabel.text = flat?.name
+        addressLabel.text = flat?.address
+        dateLabel.text = DateFormatterHelper().getStringFromDate_MMM_yyyy_HH_mm(date: flat?.date ?? Date())
+        placesLabel.text = "Свободно \(String(describing: flat!.emptyPlacesCount!)) из \(String(describing: flat!.allPlacesCount!))"
     }
 
     private func setupTableView() {
@@ -105,6 +118,8 @@ class FlatModalViewController: UIViewController {
     }
 
     func roundViews() {
+        sendInviteButton.setupButtonView()
+        
         profileView.addCorner(with: 10, with: .black)
         mapView.addCorner(with: 10, with: .black)
         favoriteView.addCorner(with: 10, with: .black)
@@ -115,6 +130,15 @@ class FlatModalViewController: UIViewController {
         view.clipsToBounds = true
     }
 
+    @IBAction func close(_ sender: Any) {
+
+        UIView.animate(withDuration: 0.6, animations: {
+            self.view.frame = CGRect(x: 0, y: 900, width: self.view.frame.width, height: self.view.frame.height)
+        }) { (Bool) in
+            self.delegate?.shouldRemoveFromSuperView()
+        }
+    }
+    
     private func setupCollectionView() {
         self.collectionView.collectionViewLayout = generateLayout()
         collectionView.register(UINib(nibName: FlatPhotoCollectionViewCell.identifier, bundle: nil),
@@ -182,7 +206,7 @@ class FlatModalViewController: UIViewController {
 
 extension FlatModalViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        return flat?.images?.count ?? 0
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -191,7 +215,10 @@ extension FlatModalViewController: UICollectionViewDelegate {
         guard let photoCell = cell else {
             return UICollectionViewCell()
         }
-        photoCell.image.image = UIImage(named: "flat_image")
+        guard let url = URL(string: (flat?.images?[indexPath.row])!) else {
+            return photoCell
+        }
+        photoCell.image.sd_setImage(with: url, completed: nil)
         return photoCell
     }
 }
@@ -200,7 +227,7 @@ extension FlatModalViewController: UICollectionViewDataSource {}
 
 extension FlatModalViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return flat?.arrayWithDescription.count ?? 0
+        return 1
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -210,8 +237,8 @@ extension FlatModalViewController: UITableViewDelegate {
             return UITableViewCell()
         }
 
-        flatDescriptionCell.setupTitle(title: flat?.arrayWithDescription[indexPath.row].name ?? "",
-                                       description: "\(flat?.arrayWithDescription[indexPath.row].description ?? "")")
+        flatDescriptionCell.setupTitle(title: "Информация",
+                                       description: flat?.additionalInfo ?? "")
         return flatDescriptionCell
     }
 }

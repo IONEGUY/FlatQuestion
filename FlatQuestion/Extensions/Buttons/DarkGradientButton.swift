@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class GradientButton: UIButton {
+class DarkGradientButton: UIButton {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupButtonView()
@@ -21,9 +21,9 @@ class GradientButton: UIButton {
     }
 }
 
-private extension GradientButton {
+extension DarkGradientButton {
 
-    private func setupButtonView() {
+    func setupButtonView() {
         applyGradientV2(colours: [UIColor(hexString: "0x615CBF")!, UIColor(hexString: "0x1C2F4B")!])
         titleLabel?.font = UIFont(name: "SFProDisplay-Regular", size: 16)
         layer.cornerRadius = 20

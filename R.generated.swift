@@ -162,10 +162,36 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
 
-  /// This `R.file` struct is generated, and contains static references to 14 files.
+  /// This `R.file` struct is generated, and contains static references to 27 files.
   struct file {
+    /// Resource file `Apache License.txt`.
+    static let apacheLicenseTxt = Rswift.FileResource(bundle: R.hostingBundle, name: "Apache License", pathExtension: "txt")
     /// Resource file `GoogleService-Info.plist`.
     static let googleServiceInfoPlist = Rswift.FileResource(bundle: R.hostingBundle, name: "GoogleService-Info", pathExtension: "plist")
+    /// Resource file `Roboto-Black.ttf`.
+    static let robotoBlackTtf = Rswift.FileResource(bundle: R.hostingBundle, name: "Roboto-Black", pathExtension: "ttf")
+    /// Resource file `Roboto-BlackItalic.ttf`.
+    static let robotoBlackItalicTtf = Rswift.FileResource(bundle: R.hostingBundle, name: "Roboto-BlackItalic", pathExtension: "ttf")
+    /// Resource file `Roboto-Bold.ttf`.
+    static let robotoBoldTtf = Rswift.FileResource(bundle: R.hostingBundle, name: "Roboto-Bold", pathExtension: "ttf")
+    /// Resource file `Roboto-BoldItalic.ttf`.
+    static let robotoBoldItalicTtf = Rswift.FileResource(bundle: R.hostingBundle, name: "Roboto-BoldItalic", pathExtension: "ttf")
+    /// Resource file `Roboto-Italic.ttf`.
+    static let robotoItalicTtf = Rswift.FileResource(bundle: R.hostingBundle, name: "Roboto-Italic", pathExtension: "ttf")
+    /// Resource file `Roboto-Light.ttf`.
+    static let robotoLightTtf = Rswift.FileResource(bundle: R.hostingBundle, name: "Roboto-Light", pathExtension: "ttf")
+    /// Resource file `Roboto-LightItalic.ttf`.
+    static let robotoLightItalicTtf = Rswift.FileResource(bundle: R.hostingBundle, name: "Roboto-LightItalic", pathExtension: "ttf")
+    /// Resource file `Roboto-Medium.ttf`.
+    static let robotoMediumTtf = Rswift.FileResource(bundle: R.hostingBundle, name: "Roboto-Medium", pathExtension: "ttf")
+    /// Resource file `Roboto-MediumItalic.ttf`.
+    static let robotoMediumItalicTtf = Rswift.FileResource(bundle: R.hostingBundle, name: "Roboto-MediumItalic", pathExtension: "ttf")
+    /// Resource file `Roboto-Regular.ttf`.
+    static let robotoRegularTtf = Rswift.FileResource(bundle: R.hostingBundle, name: "Roboto-Regular", pathExtension: "ttf")
+    /// Resource file `Roboto-Thin.ttf`.
+    static let robotoThinTtf = Rswift.FileResource(bundle: R.hostingBundle, name: "Roboto-Thin", pathExtension: "ttf")
+    /// Resource file `Roboto-ThinItalic.ttf`.
+    static let robotoThinItalicTtf = Rswift.FileResource(bundle: R.hostingBundle, name: "Roboto-ThinItalic", pathExtension: "ttf")
     /// Resource file `SFProDisplay-Black.ttf`.
     static let sfProDisplayBlackTtf = Rswift.FileResource(bundle: R.hostingBundle, name: "SFProDisplay-Black", pathExtension: "ttf")
     /// Resource file `SFProDisplay-BlackItalic.ttf`.
@@ -193,9 +219,87 @@ struct R: Rswift.Validatable {
     /// Resource file `map.json`.
     static let mapJson = Rswift.FileResource(bundle: R.hostingBundle, name: "map", pathExtension: "json")
 
+    /// `bundle.url(forResource: "Apache License", withExtension: "txt")`
+    static func apacheLicenseTxt(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.apacheLicenseTxt
+      return fileResource.bundle.url(forResource: fileResource)
+    }
+
     /// `bundle.url(forResource: "GoogleService-Info", withExtension: "plist")`
     static func googleServiceInfoPlist(_: Void = ()) -> Foundation.URL? {
       let fileResource = R.file.googleServiceInfoPlist
+      return fileResource.bundle.url(forResource: fileResource)
+    }
+
+    /// `bundle.url(forResource: "Roboto-Black", withExtension: "ttf")`
+    static func robotoBlackTtf(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.robotoBlackTtf
+      return fileResource.bundle.url(forResource: fileResource)
+    }
+
+    /// `bundle.url(forResource: "Roboto-BlackItalic", withExtension: "ttf")`
+    static func robotoBlackItalicTtf(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.robotoBlackItalicTtf
+      return fileResource.bundle.url(forResource: fileResource)
+    }
+
+    /// `bundle.url(forResource: "Roboto-Bold", withExtension: "ttf")`
+    static func robotoBoldTtf(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.robotoBoldTtf
+      return fileResource.bundle.url(forResource: fileResource)
+    }
+
+    /// `bundle.url(forResource: "Roboto-BoldItalic", withExtension: "ttf")`
+    static func robotoBoldItalicTtf(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.robotoBoldItalicTtf
+      return fileResource.bundle.url(forResource: fileResource)
+    }
+
+    /// `bundle.url(forResource: "Roboto-Italic", withExtension: "ttf")`
+    static func robotoItalicTtf(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.robotoItalicTtf
+      return fileResource.bundle.url(forResource: fileResource)
+    }
+
+    /// `bundle.url(forResource: "Roboto-Light", withExtension: "ttf")`
+    static func robotoLightTtf(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.robotoLightTtf
+      return fileResource.bundle.url(forResource: fileResource)
+    }
+
+    /// `bundle.url(forResource: "Roboto-LightItalic", withExtension: "ttf")`
+    static func robotoLightItalicTtf(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.robotoLightItalicTtf
+      return fileResource.bundle.url(forResource: fileResource)
+    }
+
+    /// `bundle.url(forResource: "Roboto-Medium", withExtension: "ttf")`
+    static func robotoMediumTtf(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.robotoMediumTtf
+      return fileResource.bundle.url(forResource: fileResource)
+    }
+
+    /// `bundle.url(forResource: "Roboto-MediumItalic", withExtension: "ttf")`
+    static func robotoMediumItalicTtf(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.robotoMediumItalicTtf
+      return fileResource.bundle.url(forResource: fileResource)
+    }
+
+    /// `bundle.url(forResource: "Roboto-Regular", withExtension: "ttf")`
+    static func robotoRegularTtf(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.robotoRegularTtf
+      return fileResource.bundle.url(forResource: fileResource)
+    }
+
+    /// `bundle.url(forResource: "Roboto-Thin", withExtension: "ttf")`
+    static func robotoThinTtf(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.robotoThinTtf
+      return fileResource.bundle.url(forResource: fileResource)
+    }
+
+    /// `bundle.url(forResource: "Roboto-ThinItalic", withExtension: "ttf")`
+    static func robotoThinItalicTtf(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.robotoThinItalicTtf
       return fileResource.bundle.url(forResource: fileResource)
     }
 
@@ -280,8 +384,32 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
 
-  /// This `R.font` struct is generated, and contains static references to 12 fonts.
+  /// This `R.font` struct is generated, and contains static references to 24 fonts.
   struct font: Rswift.Validatable {
+    /// Font `Roboto-BlackItalic`.
+    static let robotoBlackItalic = Rswift.FontResource(fontName: "Roboto-BlackItalic")
+    /// Font `Roboto-Black`.
+    static let robotoBlack = Rswift.FontResource(fontName: "Roboto-Black")
+    /// Font `Roboto-BoldItalic`.
+    static let robotoBoldItalic = Rswift.FontResource(fontName: "Roboto-BoldItalic")
+    /// Font `Roboto-Bold`.
+    static let robotoBold = Rswift.FontResource(fontName: "Roboto-Bold")
+    /// Font `Roboto-Italic`.
+    static let robotoItalic = Rswift.FontResource(fontName: "Roboto-Italic")
+    /// Font `Roboto-LightItalic`.
+    static let robotoLightItalic = Rswift.FontResource(fontName: "Roboto-LightItalic")
+    /// Font `Roboto-Light`.
+    static let robotoLight = Rswift.FontResource(fontName: "Roboto-Light")
+    /// Font `Roboto-MediumItalic`.
+    static let robotoMediumItalic = Rswift.FontResource(fontName: "Roboto-MediumItalic")
+    /// Font `Roboto-Medium`.
+    static let robotoMedium = Rswift.FontResource(fontName: "Roboto-Medium")
+    /// Font `Roboto-Regular`.
+    static let robotoRegular = Rswift.FontResource(fontName: "Roboto-Regular")
+    /// Font `Roboto-ThinItalic`.
+    static let robotoThinItalic = Rswift.FontResource(fontName: "Roboto-ThinItalic")
+    /// Font `Roboto-Thin`.
+    static let robotoThin = Rswift.FontResource(fontName: "Roboto-Thin")
     /// Font `SFProDisplay-BlackItalic`.
     static let sfProDisplayBlackItalic = Rswift.FontResource(fontName: "SFProDisplay-BlackItalic")
     /// Font `SFProDisplay-Black`.
@@ -306,6 +434,66 @@ struct R: Rswift.Validatable {
     static let sfProDisplayRegularItalic = Rswift.FontResource(fontName: "SFProDisplay-RegularItalic")
     /// Font `SFProDisplay-Regular`.
     static let sfProDisplayRegular = Rswift.FontResource(fontName: "SFProDisplay-Regular")
+
+    /// `UIFont(name: "Roboto-Black", size: ...)`
+    static func robotoBlack(size: CGFloat) -> UIKit.UIFont? {
+      return UIKit.UIFont(resource: robotoBlack, size: size)
+    }
+
+    /// `UIFont(name: "Roboto-BlackItalic", size: ...)`
+    static func robotoBlackItalic(size: CGFloat) -> UIKit.UIFont? {
+      return UIKit.UIFont(resource: robotoBlackItalic, size: size)
+    }
+
+    /// `UIFont(name: "Roboto-Bold", size: ...)`
+    static func robotoBold(size: CGFloat) -> UIKit.UIFont? {
+      return UIKit.UIFont(resource: robotoBold, size: size)
+    }
+
+    /// `UIFont(name: "Roboto-BoldItalic", size: ...)`
+    static func robotoBoldItalic(size: CGFloat) -> UIKit.UIFont? {
+      return UIKit.UIFont(resource: robotoBoldItalic, size: size)
+    }
+
+    /// `UIFont(name: "Roboto-Italic", size: ...)`
+    static func robotoItalic(size: CGFloat) -> UIKit.UIFont? {
+      return UIKit.UIFont(resource: robotoItalic, size: size)
+    }
+
+    /// `UIFont(name: "Roboto-Light", size: ...)`
+    static func robotoLight(size: CGFloat) -> UIKit.UIFont? {
+      return UIKit.UIFont(resource: robotoLight, size: size)
+    }
+
+    /// `UIFont(name: "Roboto-LightItalic", size: ...)`
+    static func robotoLightItalic(size: CGFloat) -> UIKit.UIFont? {
+      return UIKit.UIFont(resource: robotoLightItalic, size: size)
+    }
+
+    /// `UIFont(name: "Roboto-Medium", size: ...)`
+    static func robotoMedium(size: CGFloat) -> UIKit.UIFont? {
+      return UIKit.UIFont(resource: robotoMedium, size: size)
+    }
+
+    /// `UIFont(name: "Roboto-MediumItalic", size: ...)`
+    static func robotoMediumItalic(size: CGFloat) -> UIKit.UIFont? {
+      return UIKit.UIFont(resource: robotoMediumItalic, size: size)
+    }
+
+    /// `UIFont(name: "Roboto-Regular", size: ...)`
+    static func robotoRegular(size: CGFloat) -> UIKit.UIFont? {
+      return UIKit.UIFont(resource: robotoRegular, size: size)
+    }
+
+    /// `UIFont(name: "Roboto-Thin", size: ...)`
+    static func robotoThin(size: CGFloat) -> UIKit.UIFont? {
+      return UIKit.UIFont(resource: robotoThin, size: size)
+    }
+
+    /// `UIFont(name: "Roboto-ThinItalic", size: ...)`
+    static func robotoThinItalic(size: CGFloat) -> UIKit.UIFont? {
+      return UIKit.UIFont(resource: robotoThinItalic, size: size)
+    }
 
     /// `UIFont(name: "SFProDisplay-Black", size: ...)`
     static func sfProDisplayBlack(size: CGFloat) -> UIKit.UIFont? {
@@ -368,6 +556,18 @@ struct R: Rswift.Validatable {
     }
 
     static func validate() throws {
+      if R.font.robotoBlack(size: 42) == nil { throw Rswift.ValidationError(description:"[R.swift] Font 'Roboto-Black' could not be loaded, is 'Roboto-Black.ttf' added to the UIAppFonts array in this targets Info.plist?") }
+      if R.font.robotoBlackItalic(size: 42) == nil { throw Rswift.ValidationError(description:"[R.swift] Font 'Roboto-BlackItalic' could not be loaded, is 'Roboto-BlackItalic.ttf' added to the UIAppFonts array in this targets Info.plist?") }
+      if R.font.robotoBold(size: 42) == nil { throw Rswift.ValidationError(description:"[R.swift] Font 'Roboto-Bold' could not be loaded, is 'Roboto-Bold.ttf' added to the UIAppFonts array in this targets Info.plist?") }
+      if R.font.robotoBoldItalic(size: 42) == nil { throw Rswift.ValidationError(description:"[R.swift] Font 'Roboto-BoldItalic' could not be loaded, is 'Roboto-BoldItalic.ttf' added to the UIAppFonts array in this targets Info.plist?") }
+      if R.font.robotoItalic(size: 42) == nil { throw Rswift.ValidationError(description:"[R.swift] Font 'Roboto-Italic' could not be loaded, is 'Roboto-Italic.ttf' added to the UIAppFonts array in this targets Info.plist?") }
+      if R.font.robotoLight(size: 42) == nil { throw Rswift.ValidationError(description:"[R.swift] Font 'Roboto-Light' could not be loaded, is 'Roboto-Light.ttf' added to the UIAppFonts array in this targets Info.plist?") }
+      if R.font.robotoLightItalic(size: 42) == nil { throw Rswift.ValidationError(description:"[R.swift] Font 'Roboto-LightItalic' could not be loaded, is 'Roboto-LightItalic.ttf' added to the UIAppFonts array in this targets Info.plist?") }
+      if R.font.robotoMedium(size: 42) == nil { throw Rswift.ValidationError(description:"[R.swift] Font 'Roboto-Medium' could not be loaded, is 'Roboto-Medium.ttf' added to the UIAppFonts array in this targets Info.plist?") }
+      if R.font.robotoMediumItalic(size: 42) == nil { throw Rswift.ValidationError(description:"[R.swift] Font 'Roboto-MediumItalic' could not be loaded, is 'Roboto-MediumItalic.ttf' added to the UIAppFonts array in this targets Info.plist?") }
+      if R.font.robotoRegular(size: 42) == nil { throw Rswift.ValidationError(description:"[R.swift] Font 'Roboto-Regular' could not be loaded, is 'Roboto-Regular.ttf' added to the UIAppFonts array in this targets Info.plist?") }
+      if R.font.robotoThin(size: 42) == nil { throw Rswift.ValidationError(description:"[R.swift] Font 'Roboto-Thin' could not be loaded, is 'Roboto-Thin.ttf' added to the UIAppFonts array in this targets Info.plist?") }
+      if R.font.robotoThinItalic(size: 42) == nil { throw Rswift.ValidationError(description:"[R.swift] Font 'Roboto-ThinItalic' could not be loaded, is 'Roboto-ThinItalic.ttf' added to the UIAppFonts array in this targets Info.plist?") }
       if R.font.sfProDisplayBlack(size: 42) == nil { throw Rswift.ValidationError(description:"[R.swift] Font 'SFProDisplay-Black' could not be loaded, is 'SFProDisplay-Black.ttf' added to the UIAppFonts array in this targets Info.plist?") }
       if R.font.sfProDisplayBlackItalic(size: 42) == nil { throw Rswift.ValidationError(description:"[R.swift] Font 'SFProDisplay-BlackItalic' could not be loaded, is 'SFProDisplay-BlackItalic.ttf' added to the UIAppFonts array in this targets Info.plist?") }
       if R.font.sfProDisplayBold(size: 42) == nil { throw Rswift.ValidationError(description:"[R.swift] Font 'SFProDisplay-Bold' could not be loaded, is 'SFProDisplay-Bold.ttf' added to the UIAppFonts array in this targets Info.plist?") }
@@ -414,12 +614,20 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
 
-  /// This `R.image` struct is generated, and contains static references to 25 images.
+  /// This `R.image` struct is generated, and contains static references to 31 images.
   struct image {
     /// Image `Dictation`.
     static let dictation = Rswift.ImageResource(bundle: R.hostingBundle, name: "Dictation")
+    /// Image `Ellipse-white`.
+    static let ellipseWhite = Rswift.ImageResource(bundle: R.hostingBundle, name: "Ellipse-white")
+    /// Image `Ellipse`.
+    static let ellipse = Rswift.ImageResource(bundle: R.hostingBundle, name: "Ellipse")
     /// Image `Search`.
     static let search = Rswift.ImageResource(bundle: R.hostingBundle, name: "Search")
+    /// Image `arrow-down`.
+    static let arrowDown = Rswift.ImageResource(bundle: R.hostingBundle, name: "arrow-down")
+    /// Image `back_button`.
+    static let back_button = Rswift.ImageResource(bundle: R.hostingBundle, name: "back_button")
     /// Image `bell`.
     static let bell = Rswift.ImageResource(bundle: R.hostingBundle, name: "bell")
     /// Image `centered_button`.
@@ -432,6 +640,8 @@ struct R: Rswift.Validatable {
     static let compas = Rswift.ImageResource(bundle: R.hostingBundle, name: "compas")
     /// Image `cross`.
     static let cross = Rswift.ImageResource(bundle: R.hostingBundle, name: "cross")
+    /// Image `default_marker`.
+    static let default_marker = Rswift.ImageResource(bundle: R.hostingBundle, name: "default_marker")
     /// Image `filter`.
     static let filter = Rswift.ImageResource(bundle: R.hostingBundle, name: "filter")
     /// Image `flat_image`.
@@ -450,6 +660,8 @@ struct R: Rswift.Validatable {
     static let person_button = Rswift.ImageResource(bundle: R.hostingBundle, name: "person_button")
     /// Image `person`.
     static let person = Rswift.ImageResource(bundle: R.hostingBundle, name: "person")
+    /// Image `photo_cross`.
+    static let photo_cross = Rswift.ImageResource(bundle: R.hostingBundle, name: "photo_cross")
     /// Image `play_button`.
     static let play_button = Rswift.ImageResource(bundle: R.hostingBundle, name: "play_button")
     /// Image `register_background`.
@@ -475,9 +687,37 @@ struct R: Rswift.Validatable {
     #endif
 
     #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "Ellipse", bundle: ..., traitCollection: ...)`
+    static func ellipse(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ellipse, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "Ellipse-white", bundle: ..., traitCollection: ...)`
+    static func ellipseWhite(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ellipseWhite, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
     /// `UIImage(named: "Search", bundle: ..., traitCollection: ...)`
     static func search(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.search, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "arrow-down", bundle: ..., traitCollection: ...)`
+    static func arrowDown(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.arrowDown, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "back_button", bundle: ..., traitCollection: ...)`
+    static func back_button(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.back_button, compatibleWith: traitCollection)
     }
     #endif
 
@@ -520,6 +760,13 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "cross", bundle: ..., traitCollection: ...)`
     static func cross(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.cross, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "default_marker", bundle: ..., traitCollection: ...)`
+    static func default_marker(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.default_marker, compatibleWith: traitCollection)
     }
     #endif
 
@@ -583,6 +830,13 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "person_button", bundle: ..., traitCollection: ...)`
     static func person_button(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.person_button, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "photo_cross", bundle: ..., traitCollection: ...)`
+    static func photo_cross(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.photo_cross, compatibleWith: traitCollection)
     }
     #endif
 
@@ -676,7 +930,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
 
-  /// This `R.nib` struct is generated, and contains static references to 9 nibs.
+  /// This `R.nib` struct is generated, and contains static references to 11 nibs.
   struct nib {
     /// Nib `FlatCardCollectionViewCell`.
     static let flatCardCollectionViewCell = _R.nib._FlatCardCollectionViewCell()
@@ -686,12 +940,16 @@ struct R: Rswift.Validatable {
     static let flatModalViewController = _R.nib._FlatModalViewController()
     /// Nib `FlatPhotoCollectionViewCell`.
     static let flatPhotoCollectionViewCell = _R.nib._FlatPhotoCollectionViewCell()
+    /// Nib `IconView`.
+    static let iconView = _R.nib._IconView()
     /// Nib `LoginViewController`.
     static let loginViewController = _R.nib._LoginViewController()
     /// Nib `RegistrationViewController`.
     static let registrationViewController = _R.nib._RegistrationViewController()
     /// Nib `ResetPasswordViewController`.
     static let resetPasswordViewController = _R.nib._ResetPasswordViewController()
+    /// Nib `SearchViewController`.
+    static let searchViewController = _R.nib._SearchViewController()
     /// Nib `TopMapFilterCollectionViewCell`.
     static let topMapFilterCollectionViewCell = _R.nib._TopMapFilterCollectionViewCell()
     /// Nib `TopMapSearchView`.
@@ -730,6 +988,14 @@ struct R: Rswift.Validatable {
     #endif
 
     #if os(iOS) || os(tvOS)
+    /// `UINib(name: "IconView", in: bundle)`
+    @available(*, deprecated, message: "Use UINib(resource: R.nib.iconView) instead")
+    static func iconView(_: Void = ()) -> UIKit.UINib {
+      return UIKit.UINib(resource: R.nib.iconView)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
     /// `UINib(name: "LoginViewController", in: bundle)`
     @available(*, deprecated, message: "Use UINib(resource: R.nib.loginViewController) instead")
     static func loginViewController(_: Void = ()) -> UIKit.UINib {
@@ -750,6 +1016,14 @@ struct R: Rswift.Validatable {
     @available(*, deprecated, message: "Use UINib(resource: R.nib.resetPasswordViewController) instead")
     static func resetPasswordViewController(_: Void = ()) -> UIKit.UINib {
       return UIKit.UINib(resource: R.nib.resetPasswordViewController)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UINib(name: "SearchViewController", in: bundle)`
+    @available(*, deprecated, message: "Use UINib(resource: R.nib.searchViewController) instead")
+    static func searchViewController(_: Void = ()) -> UIKit.UINib {
+      return UIKit.UINib(resource: R.nib.searchViewController)
     }
     #endif
 
@@ -785,6 +1059,10 @@ struct R: Rswift.Validatable {
       return R.nib.flatPhotoCollectionViewCell.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? FlatPhotoCollectionViewCell
     }
 
+    static func iconView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
+      return R.nib.iconView.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
+    }
+
     static func loginViewController(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
       return R.nib.loginViewController.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
     }
@@ -795,6 +1073,10 @@ struct R: Rswift.Validatable {
 
     static func resetPasswordViewController(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
       return R.nib.resetPasswordViewController.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
+    }
+
+    static func searchViewController(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
+      return R.nib.searchViewController.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
     }
 
     static func topMapFilterCollectionViewCell(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> TopMapFilterCollectionViewCell? {
@@ -846,16 +1128,16 @@ struct _R: Rswift.Validatable {
   #if os(iOS) || os(tvOS)
   struct nib: Rswift.Validatable {
     static func validate() throws {
-      try _FlatCardCollectionViewCell.validate()
       try _FlatModalViewController.validate()
       try _FlatPhotoCollectionViewCell.validate()
+      try _IconView.validate()
       try _LoginViewController.validate()
       try _RegistrationViewController.validate()
       try _ResetPasswordViewController.validate()
       try _TopMapSearchView.validate()
     }
 
-    struct _FlatCardCollectionViewCell: Rswift.NibResourceType, Rswift.ReuseIdentifierType, Rswift.Validatable {
+    struct _FlatCardCollectionViewCell: Rswift.NibResourceType, Rswift.ReuseIdentifierType {
       typealias ReusableType = FlatCardCollectionViewCell
 
       let bundle = R.hostingBundle
@@ -864,12 +1146,6 @@ struct _R: Rswift.Validatable {
 
       func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> FlatCardCollectionViewCell? {
         return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? FlatCardCollectionViewCell
-      }
-
-      static func validate() throws {
-        if UIKit.UIImage(named: "flat_image", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'flat_image' is used in nib 'FlatCardCollectionViewCell', but couldn't be loaded.") }
-        if #available(iOS 11.0, tvOS 11.0, *) {
-        }
       }
 
       fileprivate init() {}
@@ -924,7 +1200,25 @@ struct _R: Rswift.Validatable {
       }
 
       static func validate() throws {
-        if UIKit.UIImage(named: "flat_image", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'flat_image' is used in nib 'FlatPhotoCollectionViewCell', but couldn't be loaded.") }
+        if UIKit.UIImage(named: "photo_cross", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'photo_cross' is used in nib 'FlatPhotoCollectionViewCell', but couldn't be loaded.") }
+        if #available(iOS 11.0, tvOS 11.0, *) {
+        }
+      }
+
+      fileprivate init() {}
+    }
+
+    struct _IconView: Rswift.NibResourceType, Rswift.Validatable {
+      let bundle = R.hostingBundle
+      let name = "IconView"
+
+      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
+        return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
+      }
+
+      static func validate() throws {
+        if UIKit.UIImage(named: "Ellipse", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'Ellipse' is used in nib 'IconView', but couldn't be loaded.") }
+        if UIKit.UIImage(named: "Ellipse-white", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'Ellipse-white' is used in nib 'IconView', but couldn't be loaded.") }
         if #available(iOS 11.0, tvOS 11.0, *) {
         }
       }
@@ -983,6 +1277,17 @@ struct _R: Rswift.Validatable {
         if UIKit.UIImage(named: "reset_password_background", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'reset_password_background' is used in nib 'ResetPasswordViewController', but couldn't be loaded.") }
         if #available(iOS 11.0, tvOS 11.0, *) {
         }
+      }
+
+      fileprivate init() {}
+    }
+
+    struct _SearchViewController: Rswift.NibResourceType {
+      let bundle = R.hostingBundle
+      let name = "SearchViewController"
+
+      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
+        return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
       }
 
       fileprivate init() {}
@@ -1083,18 +1388,26 @@ struct _R: Rswift.Validatable {
       typealias InitialController = MainTabBarController
 
       let bundle = R.hostingBundle
-      let main = StoryboardViewControllerResource<UIKit.UITabBarController>(identifier: "main")
+      let createFlatViewController = StoryboardViewControllerResource<CreateFlatViewController>(identifier: "CreateFlatViewController")
+      let main = StoryboardViewControllerResource<MainTabBarController>(identifier: "main")
       let name = "Main"
 
-      func main(_: Void = ()) -> UIKit.UITabBarController? {
+      func createFlatViewController(_: Void = ()) -> CreateFlatViewController? {
+        return UIKit.UIStoryboard(resource: self).instantiateViewController(withResource: createFlatViewController)
+      }
+
+      func main(_: Void = ()) -> MainTabBarController? {
         return UIKit.UIStoryboard(resource: self).instantiateViewController(withResource: main)
       }
 
       static func validate() throws {
+        if UIKit.UIImage(named: "arrow-down", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'arrow-down' is used in storyboard 'Main', but couldn't be loaded.") }
+        if UIKit.UIImage(named: "back_button", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'back_button' is used in storyboard 'Main', but couldn't be loaded.") }
         if UIKit.UIImage(named: "centered_button", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'centered_button' is used in storyboard 'Main', but couldn't be loaded.") }
         if #available(iOS 11.0, tvOS 11.0, *) {
         }
-        if _R.storyboard.main().main() == nil { throw Rswift.ValidationError(description:"[R.swift] ViewController with identifier 'main' could not be loaded from storyboard 'Main' as 'UIKit.UITabBarController'.") }
+        if _R.storyboard.main().createFlatViewController() == nil { throw Rswift.ValidationError(description:"[R.swift] ViewController with identifier 'createFlatViewController' could not be loaded from storyboard 'Main' as 'CreateFlatViewController'.") }
+        if _R.storyboard.main().main() == nil { throw Rswift.ValidationError(description:"[R.swift] ViewController with identifier 'main' could not be loaded from storyboard 'Main' as 'MainTabBarController'.") }
       }
 
       fileprivate init() {}
