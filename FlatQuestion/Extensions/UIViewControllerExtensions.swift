@@ -24,6 +24,11 @@ extension UIViewController {
         self.present(vc, animated:true, completion:nil)
     }
     
+    func pushFullContextVC(name: String) {
+        let vc = UIViewController(nibName: name, bundle: nil)
+        self.present(vc, animated:true, completion:nil)
+    }
+    
     func navigateToMainVC() {
         let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
         let newViewController = storyBoard.instantiateViewController(withIdentifier: "main")

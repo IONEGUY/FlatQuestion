@@ -38,4 +38,15 @@ class AppUser: NSObject, NSCoding, Codable {
     var lastName: String?
     var email: String?
     var avatarUrl: String?
+    
+    var sex: Int?
+    var date: Date?
+    var x: Int?
+    var y: Int?
+    var location: String?
+    var aboutMe: String?
+    var vkLink: String?
+    var instLink: String?
+    var flats: [String]?
+    
 }
