@@ -25,6 +25,9 @@ class EditProfileViewController: UIViewController {
     @IBOutlet fileprivate weak var sexView: UIView!
     @IBOutlet fileprivate weak var nameView: UIView!
     @IBOutlet fileprivate weak var photoImageView: UIImageView!
+    @IBOutlet weak var instLinkLaabel: UITextField!
+    @IBOutlet weak var vkLinkLabel: UITextField!
+    
     
     @IBOutlet fileprivate weak var aboutmeView: UIView!
     @IBOutlet fileprivate weak var textView: UITextView!
@@ -47,14 +50,12 @@ class EditProfileViewController: UIViewController {
         setupView()
         setupPickers()
         setupData()
-        print(UserSettings.appUser.id)
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         view.layoutIfNeeded()
     }
-
 }
 
 private extension EditProfileViewController {
@@ -100,6 +101,26 @@ private extension EditProfileViewController {
 }
 
 private extension EditProfileViewController {
+    @IBAction func createProfile(_ sender: Any) {
+        let user = UserSettings.appUser
+        user?.aboutMe = textView.text
+        user?.date = currentDate
+        user?.flats = []
+        user?.instLink = instLinkLaabel.text
+        user?.vkLink = vkLinkLabel.text
+        user?.location = addressTextField.text
+        
+        user!.sex = sexTextField.text == "Мужской" ? true : false
+        user?.x = place?.coordinate.latitude ?? 0
+        user?.y = place?.coordinate.longitude ?? 0
+        FireBaseHelper().updateUserInfoWithImage(user: user!, profileImage: photoImage!) { (result) in
+           switch result {
+                case .success():
+                    self.close()
+                case .failure(let _): self.showErrorAlert(message: "Ошибка создания мероприятия")
+                }
+        }
+    }
     @IBAction func backButtonPressed(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
     }

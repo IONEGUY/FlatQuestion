@@ -35,13 +35,13 @@ class MainTabBarController: UITabBarController {
   }
 
     @objc func buttonAction(sender: UIButton!) {
-//        let vc = storyboard!.instantiateViewController(withIdentifier: "CreateFlatViewController") as! CreateFlatViewController
-//        vc.delegate = self
-//        vc.modalPresentationStyle = .overFullScreen
-//        self.present(vc, animated: true, completion: nil)
-        let vc = EditProfileViewController(nibName: "EditProfileViewController", bundle: nil)
-        vc.modalPresentationStyle = .fullScreen
+        let vc = storyboard!.instantiateViewController(withIdentifier: "CreateFlatViewController") as! CreateFlatViewController
+        vc.delegate = self
+        vc.modalPresentationStyle = .overFullScreen
         self.present(vc, animated: true, completion: nil)
+//        let vc = EditProfileViewController(nibName: "EditProfileViewController", bundle: nil)
+//        vc.modalPresentationStyle = .fullScreen
+//        self.present(vc, animated: true, completion: nil)
        }
     
   @IBAction fileprivate func unwindToMainViewController(_ segue: UIStoryboardSegue) {}
