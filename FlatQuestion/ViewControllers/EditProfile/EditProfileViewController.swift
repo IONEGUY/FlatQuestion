@@ -27,6 +27,17 @@ class EditProfileViewController: UIViewController {
     @IBOutlet fileprivate weak var photoImageView: UIImageView!
     @IBOutlet weak var instLinkLaabel: UITextField!
     @IBOutlet weak var vkLinkLabel: UITextField!
+    @IBOutlet weak var nameTextField: UITextField!
+    
+    
+    @IBOutlet weak var imagesErrorLabel: UILabel!
+    @IBOutlet weak var nameErrorLabel: UILabel!
+    @IBOutlet weak var sexErrorLabel: UILabel!
+    @IBOutlet weak var locationErrorLabel: UILabel!
+    @IBOutlet weak var aboutMeErrorLabel: UILabel!
+    @IBOutlet weak var dateErrorLabel: UILabel!
+    @IBOutlet weak var instErrorLabel: UILabel!
+    @IBOutlet weak var vkErrorLabel: UILabel!
     
     
     @IBOutlet fileprivate weak var aboutmeView: UIView!
@@ -36,7 +47,7 @@ class EditProfileViewController: UIViewController {
     @IBOutlet fileprivate weak var dateTextField: UITextField!
     fileprivate let datePicker = UIDatePicker()
     fileprivate let pickerSex = UIPickerView()
-    fileprivate var currentDate = Date()
+    fileprivate var currentDate: Date?
     fileprivate var place:GMSPlace? {
         didSet {
             addressTextField.text = place?.name
@@ -101,10 +112,130 @@ private extension EditProfileViewController {
 }
 
 private extension EditProfileViewController {
+    func dateFiledIsValid() -> Bool {
+        guard currentDate != nil else {
+            dateView.layer.borderWidth = 1
+            dateView.layer.borderColor = UIColor.red.cgColor
+            dateErrorLabel.text = "Пожалуйста, заполните поле"
+            dateErrorLabel.isHidden = false
+            return false
+        }
+        dateErrorLabel.isHidden = true
+        dateView.layer.borderWidth = 0
+        return true
+    }
+    
+    func nameFieldIsValid() -> Bool {
+        guard let name = nameTextField.text, !name.isEmpty else {
+            nameView.layer.borderWidth = 1
+            nameView.layer.borderColor = UIColor.red.cgColor
+            nameErrorLabel.text = "Пожалуйста, заполните поле"
+            nameErrorLabel.isHidden = false
+            return false
+        }
+        nameErrorLabel.isHidden = true
+        nameView.layer.borderWidth = 0
+        return true
+    }
+    
+    func addressFieldIsValid() -> Bool {
+        guard let address = addressTextField.text, !address.isEmpty else {
+                  locationView.layer.borderWidth = 1
+                  locationView.layer.borderColor = UIColor.red.cgColor
+                  locationErrorLabel.text = "Пожалуйста, заполните поле"
+                  locationErrorLabel.isHidden = false
+                  return false
+              }
+              locationErrorLabel.isHidden = true
+              locationView.layer.borderWidth = 0
+        return true
+    }
+    
+    func sexTextFieldIsValid() -> Bool {
+        guard let sex = sexTextField.text, !sex.isEmpty else {
+                  sexView.layer.borderWidth = 1
+                  sexView.layer.borderColor = UIColor.red.cgColor
+                  sexErrorLabel.text = "Пожалуйста, заполните поле"
+                  sexErrorLabel.isHidden = false
+                  return false
+              }
+              sexErrorLabel.isHidden = true
+              sexView.layer.borderWidth = 0
+        return true
+    }
+    
+    func vkTextFieldIsValid() -> Bool {
+        guard let vk = vkLinkLabel.text, !vk.isEmpty else {
+                  VKView.layer.borderWidth = 1
+                  VKView.layer.borderColor = UIColor.red.cgColor
+                  vkErrorLabel.text = "Пожалуйста, заполните поле"
+                  vkErrorLabel.isHidden = false
+                  return false
+              }
+              vkErrorLabel.isHidden = true
+              VKView.layer.borderWidth = 0
+        return true
+    }
+    
+    func instTextFieldIsValid() -> Bool {
+        guard let inst = instLinkLaabel.text, !inst.isEmpty else {
+                  instagramView.layer.borderWidth = 1
+                  instagramView.layer.borderColor = UIColor.red.cgColor
+                  instErrorLabel.text = "Пожалуйста, заполните поле"
+                  instErrorLabel.isHidden = false
+                  return false
+              }
+              instErrorLabel.isHidden = true
+              instagramView.layer.borderWidth = 0
+        return true
+    }
+    
+
+    
+    func aboutMeIsValid() -> Bool {
+        guard let info = textView.text, !info.isEmpty else {
+                   aboutmeView.layer.borderWidth = 1
+                   aboutmeView.layer.borderColor = UIColor.red.cgColor
+            aboutMeErrorLabel.text = "Пожалуйста, заполните поле"
+            aboutMeErrorLabel.isHidden = false
+                   return false
+        }
+        aboutMeErrorLabel.isHidden = true
+               aboutmeView.layer.borderWidth = 0
+        return true
+    }
+    
+    func imageIsValid() -> Bool {
+        guard photoImage != nil else {
+            imagesErrorLabel.text = "Пожалуйста, добавьте картинку"
+            imagesErrorLabel.isHidden = false
+            underPhotoView.layer.borderWidth = 1
+            underPhotoView.layer.borderColor = UIColor.red.cgColor
+            return false
+        }
+        imagesErrorLabel.isHidden = true
+        underPhotoView.layer.borderWidth = 0
+        return true
+    }
+    
+    func allFiledsAreValid() -> Bool{
+        let nameIsValid = nameFieldIsValid()
+        let dateIsValid = dateFiledIsValid()
+        let addressIsValid = addressFieldIsValid()
+        let imagesIsValid = imageIsValid()
+        let sexIsValid = sexTextFieldIsValid()
+        let infoAboutMeIsValid = aboutMeIsValid()
+        let instIsValid = instTextFieldIsValid()
+        let vkIsValid = vkTextFieldIsValid()
+        
+        return vkIsValid && instIsValid && infoAboutMeIsValid && sexIsValid && imagesIsValid && addressIsValid && dateIsValid && nameIsValid
+    }
+    
     @IBAction func createProfile(_ sender: Any) {
+        guard allFiledsAreValid() else { return }
         let user = UserSettings.appUser
         user?.aboutMe = textView.text
-        user?.date = currentDate.timeIntervalSince1970
+        user?.date = currentDate!.timeIntervalSince1970
         user?.flats = []
         user?.instLink = instLinkLaabel.text
         user?.vkLink = vkLinkLabel.text
@@ -135,7 +266,7 @@ private extension EditProfileViewController {
     }
     @objc func datePickerValueChanged() {
         currentDate = datePicker.date
-        dateTextField.text = DateFormatterHelper().getStringFromDate_dd_MM_yyyy_HH_mm(date: currentDate)
+        dateTextField.text = DateFormatterHelper().getStringFromDate_dd_MM_yyyy_HH_mm(date: currentDate!)
     }
     @objc func datePickerClose() {
         view.endEditing(true)

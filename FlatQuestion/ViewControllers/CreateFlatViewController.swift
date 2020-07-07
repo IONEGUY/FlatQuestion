@@ -35,12 +35,21 @@ class CreateFlatViewController: UIViewController{
     @IBOutlet fileprivate weak var collectionView: UICollectionView!
     @IBOutlet fileprivate weak var collectionViewHeightConstraint: NSLayoutConstraint!
     
+    
+    @IBOutlet weak var nameErrorLabel: UILabel!
+    @IBOutlet weak var dateErrorLabel: UILabel!
+    @IBOutlet weak var locationErrorLabel: UILabel!
+    @IBOutlet weak var emptyErrorLabel: UILabel!
+    @IBOutlet weak var allPlacesErrorLabel: UILabel!
+    @IBOutlet weak var additionalInfoErrorLabel: UILabel!
+    @IBOutlet weak var imagesErrorLabel: UILabel!
+    
     fileprivate var arrayWithImages = [UIImage]()
     weak var delegate: CreateFlatProtocol?
     private let datePicker = UIDatePicker()
     private let pickerViewEmptyPlaces = UIPickerView()
     private let pickerViewAllPlaces = UIPickerView()
-    private var currentDate = Date()
+    private var currentDate: Date?
     private var place:GMSPlace? {
         didSet {
             addressTextField.text = place?.name
@@ -172,7 +181,7 @@ private extension CreateFlatViewController {
     
     @objc func datePickerValueChanged() {
         currentDate = datePicker.date
-        dateTextField.text = DateFormatterHelper().getStringFromDate_dd_MM_yyyy_HH_mm(date: currentDate)
+        dateTextField.text = DateFormatterHelper().getStringFromDate_dd_MM_yyyy_HH_mm(date: currentDate!)
     }
     
     @objc func datePickerClose() {
@@ -183,6 +192,104 @@ private extension CreateFlatViewController {
         textView.delegate = self
     }
     
+    func dateFiledIsValid() -> Bool {
+        guard currentDate != nil else {
+            dateView.layer.borderWidth = 1
+            dateView.layer.borderColor = UIColor.red.cgColor
+            dateErrorLabel.text = "Пожалуйста, заполните поле"
+            dateErrorLabel.isHidden = false
+            return false
+        }
+        dateErrorLabel.isHidden = true
+        dateView.layer.borderWidth = 0
+        return true
+    }
+    
+    func nameFieldIsValid() -> Bool {
+        guard let name = nameTextField.text, !name.isEmpty else {
+            nameView.layer.borderWidth = 1
+            nameView.layer.borderColor = UIColor.red.cgColor
+            nameErrorLabel.text = "Пожалуйста, заполните поле"
+            nameErrorLabel.isHidden = false
+            return false
+        }
+        nameErrorLabel.isHidden = true
+        nameView.layer.borderWidth = 0
+        return true
+    }
+    
+    func addressFieldIsValid() -> Bool {
+        guard let address = addressTextField.text, !address.isEmpty else {
+                  placeView.layer.borderWidth = 1
+                  placeView.layer.borderColor = UIColor.red.cgColor
+                  locationErrorLabel.text = "Пожалуйста, заполните поле"
+                  locationErrorLabel.isHidden = false
+                  return false
+              }
+              locationErrorLabel.isHidden = true
+              placeView.layer.borderWidth = 0
+        return true
+    }
+    
+    func allPlacesIsValid() -> Bool {
+        guard let allPlaces = allPlacesTextField.text, !allPlaces.isEmpty else {
+            allCountOfPeopleView.layer.borderWidth = 1
+            allCountOfPeopleView.layer.borderColor = UIColor.red.cgColor
+            allPlacesErrorLabel.text = "Пожалуйста, заполните поле"
+            allPlacesErrorLabel.isHidden = false
+            return false
+        }
+        allPlacesErrorLabel.isHidden = true
+        allCountOfPeopleView.layer.borderWidth = 0
+        return true
+    }
+    
+    func emptyPlacesIsValid() -> Bool {
+        guard let emprtPlaces = emptyPlacesTextfield.text, !emprtPlaces.isEmpty else {
+            emptyPlacesView.layer.borderWidth = 1
+            emptyPlacesView.layer.borderColor = UIColor.red.cgColor
+            emptyErrorLabel.text = "Пожалуйста, заполните поле"
+            emptyErrorLabel.isHidden = false
+            return false
+        }
+        emptyErrorLabel.isHidden = true
+        emptyPlacesView.layer.borderWidth = 0
+        return true
+    }
+    
+    func additionalInfoIsValid() -> Bool {
+        guard let info = textView.text, !info.isEmpty else {
+                   additionalInfoView.layer.borderWidth = 1
+                   additionalInfoView.layer.borderColor = UIColor.red.cgColor
+            additionalInfoErrorLabel.text = "Пожалуйста, заполните поле"
+            additionalInfoErrorLabel.isHidden = false
+                   return false
+        }
+        additionalInfoErrorLabel.isHidden = true
+               additionalInfoView.layer.borderWidth = 0
+        return true
+    }
+    
+    func imagesIsValid() -> Bool {
+        guard arrayWithImages.count > 0 else {
+            imagesErrorLabel.text = "Пожалуйста, добавьте картинку"
+            imagesErrorLabel.isHidden = false
+            return false
+        }
+        imagesErrorLabel.isHidden = true
+        return true
+    }
+    
+    func allFiledsAreValid() -> Bool{
+        let nameIsValid = nameFieldIsValid()
+        let dateIsValid = dateFiledIsValid()
+        let addressIsValid = addressFieldIsValid()
+        let emptyIsValid = emptyPlacesIsValid()
+        let allIsValid = allPlacesIsValid()
+        let infoIsValid = additionalInfoIsValid()
+        let imageIsValid = imagesIsValid()
+        return nameIsValid && dateIsValid && addressIsValid && emptyIsValid && allIsValid && infoIsValid && imageIsValid
+    }
 
     
     func setupView() {
@@ -206,8 +313,9 @@ private extension CreateFlatViewController {
     
     
     @IBAction func createFlat(_ sender: Any) {
+        guard allFiledsAreValid() else { return }
         self.showLoadingIndicator()
-        FireBaseHelper().createFlatWithImage(name: nameTextField.text!, address: self.addressTextField.text!, additionalInfo: textView.text, allPlacesCount: Int(allPlacesTextField.text!)!, emptyPlacesCount: Int(emptyPlacesTextfield.text!)!, date: currentDate, id: Int(Date().timeIntervalSince1970), x: place?.coordinate.latitude ?? 0, y: place?.coordinate.longitude ?? 0, images: arrayWithImages) { (result) in
+        FireBaseHelper().createFlatWithImage(name: nameTextField.text!, address: self.addressTextField.text!, additionalInfo: textView.text, allPlacesCount: Int(allPlacesTextField.text!)!, emptyPlacesCount: Int(emptyPlacesTextfield.text!)!, date: currentDate!, id: Int(Date().timeIntervalSince1970), x: place?.coordinate.latitude ?? 0, y: place?.coordinate.longitude ?? 0, images: arrayWithImages) { (result) in
             self.hideLoadingableIndicator()
             switch result {
             case .success(): self.delegate?.flatWasCreated()
