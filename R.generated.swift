@@ -614,7 +614,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
 
-  /// This `R.image` struct is generated, and contains static references to 31 images.
+  /// This `R.image` struct is generated, and contains static references to 32 images.
   struct image {
     /// Image `Dictation`.
     static let dictation = Rswift.ImageResource(bundle: R.hostingBundle, name: "Dictation")
@@ -664,6 +664,8 @@ struct R: Rswift.Validatable {
     static let photo_cross = Rswift.ImageResource(bundle: R.hostingBundle, name: "photo_cross")
     /// Image `play_button`.
     static let play_button = Rswift.ImageResource(bundle: R.hostingBundle, name: "play_button")
+    /// Image `plus`.
+    static let plus = Rswift.ImageResource(bundle: R.hostingBundle, name: "plus")
     /// Image `register_background`.
     static let register_background = Rswift.ImageResource(bundle: R.hostingBundle, name: "register_background")
     /// Image `reset_password_background`.
@@ -848,6 +850,13 @@ struct R: Rswift.Validatable {
     #endif
 
     #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "plus", bundle: ..., traitCollection: ...)`
+    static func plus(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.plus, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
     /// `UIImage(named: "register_background", bundle: ..., traitCollection: ...)`
     static func register_background(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.register_background, compatibleWith: traitCollection)
@@ -930,8 +939,10 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
 
-  /// This `R.nib` struct is generated, and contains static references to 11 nibs.
+  /// This `R.nib` struct is generated, and contains static references to 12 nibs.
   struct nib {
+    /// Nib `EditProfileViewController`.
+    static let editProfileViewController = _R.nib._EditProfileViewController()
     /// Nib `FlatCardCollectionViewCell`.
     static let flatCardCollectionViewCell = _R.nib._FlatCardCollectionViewCell()
     /// Nib `FlatDescriptionTableViewCell`.
@@ -954,6 +965,14 @@ struct R: Rswift.Validatable {
     static let topMapFilterCollectionViewCell = _R.nib._TopMapFilterCollectionViewCell()
     /// Nib `TopMapSearchView`.
     static let topMapSearchView = _R.nib._TopMapSearchView()
+
+    #if os(iOS) || os(tvOS)
+    /// `UINib(name: "EditProfileViewController", in: bundle)`
+    @available(*, deprecated, message: "Use UINib(resource: R.nib.editProfileViewController) instead")
+    static func editProfileViewController(_: Void = ()) -> UIKit.UINib {
+      return UIKit.UINib(resource: R.nib.editProfileViewController)
+    }
+    #endif
 
     #if os(iOS) || os(tvOS)
     /// `UINib(name: "FlatCardCollectionViewCell", in: bundle)`
@@ -1043,6 +1062,10 @@ struct R: Rswift.Validatable {
     }
     #endif
 
+    static func editProfileViewController(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
+      return R.nib.editProfileViewController.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
+    }
+
     static func flatCardCollectionViewCell(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> FlatCardCollectionViewCell? {
       return R.nib.flatCardCollectionViewCell.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? FlatCardCollectionViewCell
     }
@@ -1128,6 +1151,7 @@ struct _R: Rswift.Validatable {
   #if os(iOS) || os(tvOS)
   struct nib: Rswift.Validatable {
     static func validate() throws {
+      try _EditProfileViewController.validate()
       try _FlatModalViewController.validate()
       try _FlatPhotoCollectionViewCell.validate()
       try _IconView.validate()
@@ -1135,6 +1159,25 @@ struct _R: Rswift.Validatable {
       try _RegistrationViewController.validate()
       try _ResetPasswordViewController.validate()
       try _TopMapSearchView.validate()
+    }
+
+    struct _EditProfileViewController: Rswift.NibResourceType, Rswift.Validatable {
+      let bundle = R.hostingBundle
+      let name = "EditProfileViewController"
+
+      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
+        return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
+      }
+
+      static func validate() throws {
+        if UIKit.UIImage(named: "arrow-down", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'arrow-down' is used in nib 'EditProfileViewController', but couldn't be loaded.") }
+        if UIKit.UIImage(named: "back_button", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'back_button' is used in nib 'EditProfileViewController', but couldn't be loaded.") }
+        if UIKit.UIImage(named: "plus", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'plus' is used in nib 'EditProfileViewController', but couldn't be loaded.") }
+        if #available(iOS 11.0, tvOS 11.0, *) {
+        }
+      }
+
+      fileprivate init() {}
     }
 
     struct _FlatCardCollectionViewCell: Rswift.NibResourceType, Rswift.ReuseIdentifierType {

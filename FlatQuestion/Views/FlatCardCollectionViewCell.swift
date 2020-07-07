@@ -23,7 +23,7 @@ class FlatCardCollectionViewCell: UICollectionViewCell {
     func fillCellData(with flat: FlatModel) {
         self.titleLabel.text = flat.name
         setupViewOfAddressLabel(address: flat.address)
-        dateLabel.text = DateFormatterHelper().getStringFromDate_MMM_yyyy_HH_mm(date: flat.date ?? Date())
+        dateLabel.text = DateFormatterHelper().getStringFromDate_MMM_yyyy_HH_mm(date: flat.date?.date() ?? Date())
         placesLabel.text = "Свободно \(String(describing: flat.emptyPlacesCount!)) из \(String(describing: flat.allPlacesCount!))"
         guard let url = URL(string: (flat.images?[0])!) else {return}
         imageView.sd_setImage(with: url, completed: nil)

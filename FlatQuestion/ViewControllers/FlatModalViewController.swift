@@ -71,7 +71,7 @@ class FlatModalViewController: UIViewController {
     private func setupView() {
         nameLabel.text = flat?.name
         addressLabel.text = flat?.address
-        dateLabel.text = DateFormatterHelper().getStringFromDate_MMM_yyyy_HH_mm(date: flat?.date ?? Date())
+        dateLabel.text = DateFormatterHelper().getStringFromDate_MMM_yyyy_HH_mm(date: flat?.date?.date() ?? Date())
         placesLabel.text = "Свободно \(String(describing: flat!.emptyPlacesCount!)) из \(String(describing: flat!.allPlacesCount!))"
     }
 

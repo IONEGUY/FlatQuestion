@@ -14,6 +14,38 @@ import FirebaseFirestoreSwift
 import FirebaseStorage
 
 class FireBaseHelper {
+    
+    func updateUserInfoWithImage(user: AppUser, profileImage: UIImage, completion: @escaping (_ result: Result<Void,Error>) -> ()) {
+        var urlString: String?
+        uploadImageOfPerson(toPerson: String(user.id!), image: profileImage) { (result) in
+            switch result {
+            case .success(let url): urlString = url.absoluteString
+                user.avatarUrl = urlString
+            self.updateUserInfo(user: user) { (result) in
+                completion(result)
+                }
+            case .failure(let error): completion(.failure(error))
+            }
+        }
+    }
+    
+    func updateUserInfo(user: AppUser, completion: @escaping (_ result: Result<Void,Error>) -> ()) {
+        let db = Firestore.firestore()
+        do {
+            db.collection("users").whereField("id", isEqualTo: user.id as Any).getDocuments { (snapshot, error) in
+                guard error == nil else { return }
+                let document = snapshot?.documents.first
+                db.collection("users").document(document!.documentID).updateData(user.asDictionary) { (error) in
+                    guard let error = error else {
+                        completion(.success(()))
+                        return
+                    }
+                    completion(.failure(error))
+                }
+            }
+        }
+    }
+
     func download(urlString: String) {
         let ref = Storage.storage().reference(forURL: urlString)
         let megaByte = Int64(1 * 1024 * 1024)
@@ -46,14 +78,24 @@ class FireBaseHelper {
             print(index)
         }
         
+        
         for index in 0..<images.count {
-            upload(toFlat: id, image: images[index]) { (result) in
+            uploadImageOfFlat(toFlat: id, image: images[index]) { (result) in
                 switch result {
                 case .success(let url): urlStrings.append(url.absoluteString)
                 if urlStrings.count ==  images.count {
-                    let flat = FlatModel(name: name, additionalInfo: additionalInfo, allPlacesCount: allPlacesCount, emptyPlacesCount: emptyPlacesCount, date: date, id: id, images: urlStrings, x: x, y: y, address: address)
+                    let flat = FlatModel(name: name, additionalInfo: additionalInfo, allPlacesCount: allPlacesCount, emptyPlacesCount: emptyPlacesCount, date: date.timeIntervalSince1970, id: id, images: urlStrings, x: x, y: y, address: address)
                     self.createFlat(flat: flat) { (result) in
-                        completion(result)
+                        switch result {
+                        case .success(()): let user = UserSettings.appUser
+                        var userFlats = user?.flats
+                        userFlats?.append(flat.id)
+                        user?.flats = userFlats
+                        self.updateUserInfo(user: user!) { (result) in
+                            completion(result)
+                            }
+                        case .failure(let error): completion(.failure(error))
+                        }
                     }
                     }
                 case .failure(let error): completion(.failure(error))
@@ -75,14 +117,29 @@ class FireBaseHelper {
 }
 
 private extension FireBaseHelper {
-//    upload(toFlat: 1, image: UIImage(named: "flat_image")!) { (result) in
-//        switch result {
-//        case .success(let url): print(url)
-//        case .failure(let error): print(error)
-//        }
-//    }
-    func upload(toFlat flatId: Int, image: UIImage, completion: @escaping (Result<URL,Error>) -> ()) {
+    func uploadImageOfFlat(toFlat flatId: Int, image: UIImage, completion: @escaping (Result<URL,Error>) -> ()) {
         let ref = Storage.storage().reference().child("flats").child(String(flatId)).child(String(Date().timeIntervalSince1970))
+        
+        guard let data = image.jpegData(compressionQuality: 0.4) else { return }
+        let metaData = StorageMetadata()
+        metaData.contentType = "image/jpeg"
+        ref.putData(data, metadata: metaData) { (metaData, error) in
+            guard error == nil else {
+                completion(.failure(error!))
+                return
+            }
+            ref.downloadURL { (url, error) in
+                guard let url = url else {
+                    completion(.failure(error!))
+                    return
+                }
+                completion(.success(url))
+            }
+        }
+    }
+    
+    func uploadImageOfPerson(toPerson personId: String, image: UIImage, completion: @escaping (Result<URL,Error>) -> ()) {
+        let ref = Storage.storage().reference().child("users").child(personId).child(String(Date().timeIntervalSince1970))
         
         guard let data = image.jpegData(compressionQuality: 0.4) else { return }
         let metaData = StorageMetadata()

@@ -63,6 +63,7 @@ class CreateFlatViewController: UIViewController{
 }
 
 private extension CreateFlatViewController {
+    
    private func setupCollectionView() {
         self.collectionView.collectionViewLayout = generateLayout()
         collectionView.register(UINib(nibName: FlatPhotoCollectionViewCell.identifier, bundle: nil),
@@ -182,6 +183,8 @@ private extension CreateFlatViewController {
         textView.delegate = self
     }
     
+
+    
     func setupView() {
         navigationBarView.applyGradientV2(colours: [UIColor(hex: "0x615CBF"), UIColor(hex: "0x1C2F4B")])
         nameView.addCorner(with: 10, with: .black)
@@ -190,7 +193,7 @@ private extension CreateFlatViewController {
         emptyPlacesView.addCorner(with: 10, with: .black)
         allCountOfPeopleView.addCorner(with: 10, with: .black)
         additionalInfoView.addCorner(with: 10, with: .black)
-        cancelButton.addCorner(with: 28, with: .black)
+        cancelButton.addCorner(with: 20, with: .black)
     }
     
     @IBAction func downloadImage(_ sender: Any) {

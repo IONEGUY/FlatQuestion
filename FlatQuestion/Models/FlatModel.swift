@@ -15,7 +15,7 @@ public struct FlatModel: Codable {
     let additionalInfo: String?
     let allPlacesCount: Int?
     let emptyPlacesCount: Int?
-    let date: Date?
+    let date: TimeInterval?
     let id: Int
     var images: [String]?
     let x: Double

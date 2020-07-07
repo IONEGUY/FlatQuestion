@@ -124,7 +124,11 @@ extension MapViewController: UICollectionViewDataSource {
             .dequeueReusableCell(withReuseIdentifier: FlatCardCollectionViewCell.self.identifier,
                                                                 for: indexPath) as? FlatCardCollectionViewCell
         guard let cell = flatCell else {return UICollectionViewCell()}
-        cell.fillCellData(with: self.flats[indexPath.item])
+        let flat = self.flats[indexPath.item]
+        cell.fillCellData(with: flat)
+        if let flats = UserSettings.appUser.flats, flats.contains(flat.id) {
+            cell.backgroundColor = .yellow
+        }
         return cell
     }
 }
