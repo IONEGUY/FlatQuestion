@@ -35,6 +35,7 @@
 		586B69EC247F2070008B456D /* TopMapFilterCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 586B69EA247F2070008B456D /* TopMapFilterCollectionViewCell.xib */; };
 		5882CFC624AA87FD00D8417E /* EditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5882CFC424AA87FC00D8417E /* EditProfileViewController.swift */; };
 		5882CFC724AA87FD00D8417E /* EditProfileViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5882CFC524AA87FC00D8417E /* EditProfileViewController.xib */; };
+		58877A5824B3E509005138B8 /* TimeIntervalExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58877A5724B3E509005138B8 /* TimeIntervalExtension.swift */; };
 		588ED8A324A1777800659512 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 588ED8A124A1777800659512 /* SearchViewController.swift */; };
 		588ED8A424A1777800659512 /* SearchViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 588ED8A224A1777800659512 /* SearchViewController.xib */; };
 		5890182324774CF1001FBA21 /* TopMapSearchView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5890182224774CF1001FBA21 /* TopMapSearchView.xib */; };
@@ -155,6 +156,7 @@
 		586B69EA247F2070008B456D /* TopMapFilterCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TopMapFilterCollectionViewCell.xib; sourceTree = "<group>"; };
 		5882CFC424AA87FC00D8417E /* EditProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewController.swift; sourceTree = "<group>"; };
 		5882CFC524AA87FC00D8417E /* EditProfileViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EditProfileViewController.xib; sourceTree = "<group>"; };
+		58877A5724B3E509005138B8 /* TimeIntervalExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeIntervalExtension.swift; sourceTree = "<group>"; };
 		588ED8A124A1777800659512 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		588ED8A224A1777800659512 /* SearchViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchViewController.xib; sourceTree = "<group>"; };
 		5890182224774CF1001FBA21 /* TopMapSearchView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TopMapSearchView.xib; sourceTree = "<group>"; };
@@ -479,6 +481,7 @@
 				5811AFEC24A2AED300BF8321 /* Loadingable.swift */,
 				5811AFF424A2B7B100BF8321 /* Closable.swift */,
 				58BAFE6D24A4012600B9A4A8 /* UIViewControllerExtentions.swift */,
+				58877A5724B3E509005138B8 /* TimeIntervalExtension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -932,6 +935,7 @@
 				58E62CB32492D9F0006B0DCF /* DarkGradientButton.swift in Sources */,
 				58B8DB30246CA99000584B20 /* Flat.swift in Sources */,
 				FAE40EF92482EFBE0097879E /* UIViewExtensions.swift in Sources */,
+				58877A5824B3E509005138B8 /* TimeIntervalExtension.swift in Sources */,
 				FAAB900D249AC97700E38C98 /* DecodeHelper.swift in Sources */,
 				58B8DB12246C9C8400584B20 /* FlatCardCollectionViewCell.swift in Sources */,
 				FAAB900B249AC7C000E38C98 /* UserSettings.swift in Sources */,

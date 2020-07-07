@@ -34,7 +34,7 @@ class AppUser: NSObject, NSCoding, Codable {
         avatarUrl = coder.decodeObject(forKey: "avatarUrl") as? String ?? ""
         
         sex = coder.decodeObject(forKey: "sex") as? Bool
-        date = coder.decodeObject(forKey: "date") as? Date
+        date = coder.decodeObject(forKey: "date") as? TimeInterval
         x = coder.decodeObject(forKey: "x") as? Double
         y = coder.decodeObject(forKey: "y") as? Double
         location = coder.decodeObject(forKey: "location") as? String
@@ -59,7 +59,7 @@ class AppUser: NSObject, NSCoding, Codable {
     var avatarUrl: String?
     
     var sex: Bool?
-    var date: Date?
+    var date: TimeInterval?
     var x: Double?
     var y: Double?
     var location: String?

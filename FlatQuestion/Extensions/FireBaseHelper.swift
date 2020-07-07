@@ -78,14 +78,24 @@ class FireBaseHelper {
             print(index)
         }
         
+        
         for index in 0..<images.count {
             uploadImageOfFlat(toFlat: id, image: images[index]) { (result) in
                 switch result {
                 case .success(let url): urlStrings.append(url.absoluteString)
                 if urlStrings.count ==  images.count {
-                    let flat = FlatModel(name: name, additionalInfo: additionalInfo, allPlacesCount: allPlacesCount, emptyPlacesCount: emptyPlacesCount, date: date, id: id, images: urlStrings, x: x, y: y, address: address)
+                    let flat = FlatModel(name: name, additionalInfo: additionalInfo, allPlacesCount: allPlacesCount, emptyPlacesCount: emptyPlacesCount, date: date.timeIntervalSince1970, id: id, images: urlStrings, x: x, y: y, address: address)
                     self.createFlat(flat: flat) { (result) in
-                        completion(result)
+                        switch result {
+                        case .success(()): let user = UserSettings.appUser
+                        var userFlats = user?.flats
+                        userFlats?.append(flat.id)
+                        user?.flats = userFlats
+                        self.updateUserInfo(user: user!) { (result) in
+                            completion(result)
+                            }
+                        case .failure(let error): completion(.failure(error))
+                        }
                     }
                     }
                 case .failure(let error): completion(.failure(error))

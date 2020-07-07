@@ -104,7 +104,7 @@ private extension EditProfileViewController {
     @IBAction func createProfile(_ sender: Any) {
         let user = UserSettings.appUser
         user?.aboutMe = textView.text
-        user?.date = currentDate
+        user?.date = currentDate.timeIntervalSince1970
         user?.flats = []
         user?.instLink = instLinkLaabel.text
         user?.vkLink = vkLinkLabel.text
