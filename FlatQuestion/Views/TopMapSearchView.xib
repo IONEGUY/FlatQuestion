@@ -9,6 +9,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="TopMapSearchView" customModule="FlatQuestion" customModuleProvider="target">
             <connections>
                 <outlet property="collectionView" destination="wPD-ym-brY" id="wpl-Na-NzZ"/>
+                <outlet property="searchTextField" destination="KAX-GS-QYz" id="IPS-FA-DJu"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>

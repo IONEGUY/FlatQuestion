@@ -19,20 +19,27 @@
             <connections>
                 <outlet property="VKView" destination="1VR-mf-T8n" id="yAU-2M-5o8"/>
                 <outlet property="aboutMeErrorLabel" destination="6yC-6n-3mw" id="Cf6-WH-f9T"/>
+                <outlet property="aboutMeLabel" destination="WeX-Nq-hD7" id="kJC-Nu-swJ"/>
                 <outlet property="aboutView" destination="mtO-Fr-aIg" id="bff-5l-52g"/>
                 <outlet property="aboutmeView" destination="mtO-Fr-aIg" id="qQ6-u9-WyU"/>
                 <outlet property="addPhotoButton" destination="9W4-xL-sFS" id="1r2-Q3-e2L"/>
                 <outlet property="addressTextField" destination="E7C-Za-h4V" id="AGT-Sw-ZEB"/>
+                <outlet property="birthDateLabel" destination="bJT-Gz-ctk" id="XUX-4c-dMF"/>
                 <outlet property="cancelButton" destination="5XE-Jh-oz1" id="kdf-oS-FR4"/>
+                <outlet property="createButton" destination="4ad-Jh-AMB" id="CX6-TX-gUx"/>
                 <outlet property="dateErrorLabel" destination="kZT-Ls-4pk" id="8dg-nF-pQ7"/>
                 <outlet property="dateTextField" destination="TBZ-lx-Si9" id="lOM-Zo-2pT"/>
                 <outlet property="dateView" destination="TVm-d7-jWh" id="4nY-7u-p5N"/>
+                <outlet property="downloadImageDescription" destination="LCB-Vl-CmV" id="l3l-gd-Tuc"/>
+                <outlet property="editProfileLabel" destination="8eX-Bk-g7N" id="9Mw-bt-Ene"/>
+                <outlet property="fullNameLabel" destination="nQY-TS-NxP" id="BLB-Mx-8gE"/>
                 <outlet property="imagesErrorLabel" destination="u1J-Gn-0wN" id="FtL-hC-9tI"/>
                 <outlet property="instErrorLabel" destination="Yep-mA-bob" id="nmY-CI-CQW"/>
                 <outlet property="instLinkLaabel" destination="i9D-nR-B8O" id="YwS-zZ-RGS"/>
                 <outlet property="instagramView" destination="ocr-US-tIb" id="gYj-Sn-zDC"/>
                 <outlet property="label" destination="LCB-Vl-CmV" id="ROR-uf-kcv"/>
                 <outlet property="locationErrorLabel" destination="Vof-uy-aT3" id="G6b-ou-Sk5"/>
+                <outlet property="locationLabel" destination="804-Vr-ety" id="yIv-iu-dkT"/>
                 <outlet property="locationView" destination="gXS-LD-a66" id="60m-3W-lgS"/>
                 <outlet property="nameErrorLabel" destination="ctH-cJ-Zg4" id="nj5-W3-kZw"/>
                 <outlet property="nameTextField" destination="fY6-Z4-LS8" id="EDn-Y2-lyp"/>
@@ -41,6 +48,7 @@
                 <outlet property="photoImageView" destination="9ws-du-XMf" id="kI3-E8-EAK"/>
                 <outlet property="plusImageView" destination="9W4-xL-sFS" id="Rg8-gg-bH7"/>
                 <outlet property="sexErrorLabel" destination="fA4-g1-dFO" id="YHc-WA-GAV"/>
+                <outlet property="sexLabel" destination="zCw-3K-2Jf" id="UJa-QB-16r"/>
                 <outlet property="sexTextField" destination="XZS-mT-k8h" id="nxc-oS-cqZ"/>
                 <outlet property="sexView" destination="QLF-jQ-Bdh" id="VoS-P7-xd1"/>
                 <outlet property="textView" destination="ZbN-Rw-1b0" id="KZl-tY-QiF"/>

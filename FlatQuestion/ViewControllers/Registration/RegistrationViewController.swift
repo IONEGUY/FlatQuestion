@@ -23,6 +23,13 @@ class RegistrationViewController: UIViewController {
     @IBOutlet weak var confirmPasswordErrorMessage: UILabel!
     @IBOutlet weak var registerButton: UIButton!
     
+    @IBOutlet weak var registrationLabel: UILabel!
+    @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var secondNameLabel: UILabel!
+    @IBOutlet weak var passwordLabel: UILabel!
+    @IBOutlet weak var confirmPassword: UILabel!
+    @IBOutlet weak var registrationButton: UIButton!
+    
     @IBAction func passwordEyeButtonTapped(_ sender: UIButton) {
         changeEyeButtonAppearance(sender, passwordTextField)
     }
@@ -50,7 +57,7 @@ class RegistrationViewController: UIViewController {
                     if error != nil {
                         self.showErrorAlert(message: error!.localizedDescription)
                     } else {
-                        self.showAlert(title: "", message: "Регистрация прошла успешно") { (UIAlertAction) in
+                        self.showAlert(title: "", message: "Регистрация прошла успешно".localized) { (UIAlertAction) in
                             UserSettings.appUser = user
                             
                             self.navigateToMainVC()
@@ -63,7 +70,7 @@ class RegistrationViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        localize()
         firstNameTextField.delegate = self
         lastNameTextField.delegate = self
         emailTextField.delegate = self
@@ -82,6 +89,15 @@ class RegistrationViewController: UIViewController {
         
         let tapGestureBackground = UITapGestureRecognizer(target: self, action: #selector(self.backgroundTapped(_:)))
         self.view.addGestureRecognizer(tapGestureBackground)
+    }
+    
+    func localize() {
+        registrationLabel.text = "Регистрация".localized
+        nameLabel.text = "Имя".localized
+        secondNameLabel.text = "Фамилия".localized
+        passwordLabel.text = "Пароль".localized
+        confirmPassword.text = "Подтверждение пароля".localized
+        registrationButton.titleLabel?.text = "Регистрация".localized
     }
     
      private func createUser(user: AppUser, completion: @escaping ((Error?) -> Void)) {
@@ -142,41 +158,41 @@ class RegistrationViewController: UIViewController {
             validationStatus = false
             firstNameTextField.layer.borderColor = UIColor.red.cgColor
             firstNameErrorMessage.isHidden = false
-            firstNameErrorMessage.text = "Имя не должен быть пустым"
+            firstNameErrorMessage.text = "Имя не должен быть пустым".localized
         }
         if (lastNameTextField.text ?? "").isEmpty {
             validationStatus = false
             lastNameTextField.layer.borderColor = UIColor.red.cgColor
             lastNameErrorMessage.isHidden = false
-            lastNameErrorMessage.text = "Фамилия не должна быть пустой"
+            lastNameErrorMessage.text = "Фамилия не должна быть пустой".localized
         }
         if (emailTextField.text ?? "").isEmpty {
             validationStatus = false
             emailTextField.layer.borderColor = UIColor.red.cgColor
             emailErrorMessage.isHidden = false
-            emailErrorMessage.text = "Email не должен быть пустым"
+            emailErrorMessage.text = "Email не должен быть пустым".localized
         } else if !isEmailHasValidFormat(emailTextField.text) {
             validationStatus = false
             emailTextField.layer.borderColor = UIColor.red.cgColor
             emailErrorMessage.isHidden = false
-            emailErrorMessage.text = "Неверный формат email"
+            emailErrorMessage.text = "Неверный формат email".localized
         }
         if (passwordTextField.text ?? "").isEmpty {
             validationStatus = false
             passwordTextField.layer.borderColor = UIColor.red.cgColor
             passwordErrorMessage.isHidden = false
-            passwordErrorMessage.text = "Пароль не должен быть пустым"
+            passwordErrorMessage.text = "Пароль не должен быть пустым".localized
         }
         if (confirmPasswordTextField.text ?? "").isEmpty {
             validationStatus = false
             confirmPasswordTextField.layer.borderColor = UIColor.red.cgColor
             confirmPasswordErrorMessage.isHidden = false
-            confirmPasswordErrorMessage.text = "Пароль не должен быть пустым"
+            confirmPasswordErrorMessage.text = "Пароль не должен быть пустым".localized
         } else if passwordTextField.text != confirmPasswordTextField.text {
             validationStatus = false
             confirmPasswordTextField.layer.borderColor = UIColor.red.cgColor
             confirmPasswordErrorMessage.isHidden = false
-            confirmPasswordErrorMessage.text = "Пароли не совпадают"
+            confirmPasswordErrorMessage.text = "Пароли не совпадают".localized
         }
         
         return validationStatus;

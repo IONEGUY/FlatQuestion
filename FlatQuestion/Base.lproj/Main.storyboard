@@ -532,25 +532,34 @@
                     <navigationItem key="navigationItem" id="mzP-4w-xqZ"/>
                     <size key="freeformSize" width="414" height="1070"/>
                     <connections>
+                        <outlet property="addFlatNavLabel" destination="s8S-zx-v3b" id="62I-sd-J6v"/>
                         <outlet property="additionalInfoErrorLabel" destination="wGx-WB-XA7" id="VNT-eS-veq"/>
+                        <outlet property="additionalInfoLabel" destination="tQO-Oo-UBP" id="DsP-WY-MAC"/>
                         <outlet property="additionalInfoView" destination="RWz-yx-erI" id="CZ7-ab-BbM"/>
                         <outlet property="addressTextField" destination="T9H-wd-5h7" id="CVD-Ta-xTS"/>
                         <outlet property="allCountOfPeopleView" destination="tWo-V3-KbM" id="BeO-UV-boi"/>
                         <outlet property="allPlacesErrorLabel" destination="S7Z-Lh-hqi" id="b7a-go-ElQ"/>
+                        <outlet property="allPlacesLabel" destination="DGC-oz-Zwl" id="YRo-61-d58"/>
                         <outlet property="allPlacesTextField" destination="0UO-pT-Kdf" id="zoW-D5-nL6"/>
-                        <outlet property="cancelButton" destination="tBM-Zo-0Bk" id="9fT-jp-lnD"/>
+                        <outlet property="cancelButton" destination="tBM-Zo-0Bk" id="lVe-eN-DqL"/>
                         <outlet property="collectionView" destination="w8Z-dc-SDT" id="1rK-2e-VCR"/>
                         <outlet property="collectionViewHeightConstraint" destination="jtv-ge-fjk" id="7jX-Ep-tLX"/>
+                        <outlet property="createButton" destination="ZGP-Yb-wEA" id="nNe-ki-5ZG"/>
+                        <outlet property="dateAndTimeLabel" destination="EAX-nA-8F5" id="eaU-UB-5A2"/>
                         <outlet property="dateErrorLabel" destination="JbU-og-x6A" id="XQm-HZ-1eG"/>
                         <outlet property="dateTextField" destination="Qju-me-eJj" id="V1U-3e-D1h"/>
                         <outlet property="dateView" destination="mep-9I-Tgb" id="fWe-n0-lFi"/>
-                        <outlet property="downloadImageButton" destination="9Xo-aQ-GqD" id="8FQ-GW-ZyL"/>
+                        <outlet property="downloadImageButton" destination="9Xo-aQ-GqD" id="pTl-Uo-9EF"/>
                         <outlet property="emptyErrorLabel" destination="GPL-2E-8ny" id="py9-xV-mk0"/>
+                        <outlet property="emptyPlacesLabel" destination="paR-SX-3R3" id="1kx-mG-qPC"/>
                         <outlet property="emptyPlacesTextfield" destination="H9g-Kv-41A" id="dFr-dI-uCH"/>
                         <outlet property="emptyPlacesView" destination="BMS-hV-YsT" id="0FD-L5-riJ"/>
+                        <outlet property="imageDescriptionLabel" destination="yYQ-70-faH" id="dZd-ks-ji9"/>
                         <outlet property="imagesErrorLabel" destination="XaO-n3-46T" id="83T-eD-1B7"/>
+                        <outlet property="lcoationLabel" destination="sPQ-xp-9HA" id="FiH-Lh-2VZ"/>
                         <outlet property="locationErrorLabel" destination="IcB-0Y-VEg" id="xzQ-fE-gDd"/>
                         <outlet property="nameErrorLabel" destination="1Pb-NO-ehy" id="Xa3-9F-QqM"/>
+                        <outlet property="nameLabel" destination="fY7-4E-Egs" id="ofM-1d-A9W"/>
                         <outlet property="nameTextField" destination="dn0-pS-paQ" id="xjO-Nd-Q6k"/>
                         <outlet property="nameView" destination="zZq-ns-DBP" id="5kA-7R-KWr"/>
                         <outlet property="navigationBarView" destination="92M-CP-Byq" id="JbI-Fy-weF"/>

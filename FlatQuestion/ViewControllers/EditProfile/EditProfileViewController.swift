@@ -39,6 +39,14 @@ class EditProfileViewController: UIViewController {
     @IBOutlet weak var instErrorLabel: UILabel!
     @IBOutlet weak var vkErrorLabel: UILabel!
     
+    @IBOutlet weak var editProfileLabel: UILabel!
+    @IBOutlet weak var downloadImageDescription: UILabel!
+    @IBOutlet weak var fullNameLabel: UILabel!
+    @IBOutlet weak var sexLabel: UILabel!
+    @IBOutlet weak var birthDateLabel: UILabel!
+    @IBOutlet weak var locationLabel: UILabel!
+    @IBOutlet weak var aboutMeLabel: UILabel!
+    @IBOutlet weak var createButton: DarkGradientButton!
     
     @IBOutlet fileprivate weak var aboutmeView: UIView!
     @IBOutlet fileprivate weak var textView: UITextView!
@@ -66,6 +74,18 @@ class EditProfileViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         view.layoutIfNeeded()
+    }
+    
+    func localize() {
+        cancelButton.titleLabel?.text = "Отмена".localized
+        editProfileLabel.text = "Редактировать профиль".localized
+        downloadImageDescription.text = "PNG, JPG или JPEG с максимальным размером 5Mb.".localized
+        fullNameLabel.text = "Имя Фамилия".localized
+        sexLabel.text = "Пол".localized
+        birthDateLabel.text = "Дата рождения".localized
+        locationLabel.text = "Население".localized
+        aboutMeLabel.text = "Обо мне".localized
+        createButton.titleLabel?.text = "Создать".localized
     }
 }
 
@@ -116,7 +136,7 @@ private extension EditProfileViewController {
         guard currentDate != nil else {
             dateView.layer.borderWidth = 1
             dateView.layer.borderColor = UIColor.red.cgColor
-            dateErrorLabel.text = "Пожалуйста, заполните поле"
+            dateErrorLabel.text = "Пожалуйста, заполните поле".localized
             dateErrorLabel.isHidden = false
             return false
         }
@@ -129,7 +149,7 @@ private extension EditProfileViewController {
         guard let name = nameTextField.text, !name.isEmpty else {
             nameView.layer.borderWidth = 1
             nameView.layer.borderColor = UIColor.red.cgColor
-            nameErrorLabel.text = "Пожалуйста, заполните поле"
+            nameErrorLabel.text = "Пожалуйста, заполните поле".localized
             nameErrorLabel.isHidden = false
             return false
         }
@@ -142,7 +162,7 @@ private extension EditProfileViewController {
         guard let address = addressTextField.text, !address.isEmpty else {
                   locationView.layer.borderWidth = 1
                   locationView.layer.borderColor = UIColor.red.cgColor
-                  locationErrorLabel.text = "Пожалуйста, заполните поле"
+                  locationErrorLabel.text = "Пожалуйста, заполните поле".localized
                   locationErrorLabel.isHidden = false
                   return false
               }
@@ -155,7 +175,7 @@ private extension EditProfileViewController {
         guard let sex = sexTextField.text, !sex.isEmpty else {
                   sexView.layer.borderWidth = 1
                   sexView.layer.borderColor = UIColor.red.cgColor
-                  sexErrorLabel.text = "Пожалуйста, заполните поле"
+                  sexErrorLabel.text = "Пожалуйста, заполните поле".localized
                   sexErrorLabel.isHidden = false
                   return false
               }
@@ -168,7 +188,7 @@ private extension EditProfileViewController {
         guard let vk = vkLinkLabel.text, !vk.isEmpty else {
                   VKView.layer.borderWidth = 1
                   VKView.layer.borderColor = UIColor.red.cgColor
-                  vkErrorLabel.text = "Пожалуйста, заполните поле"
+                  vkErrorLabel.text = "Пожалуйста, заполните поле".localized
                   vkErrorLabel.isHidden = false
                   return false
               }
@@ -181,7 +201,7 @@ private extension EditProfileViewController {
         guard let inst = instLinkLaabel.text, !inst.isEmpty else {
                   instagramView.layer.borderWidth = 1
                   instagramView.layer.borderColor = UIColor.red.cgColor
-                  instErrorLabel.text = "Пожалуйста, заполните поле"
+                  instErrorLabel.text = "Пожалуйста, заполните поле".localized
                   instErrorLabel.isHidden = false
                   return false
               }
@@ -196,7 +216,7 @@ private extension EditProfileViewController {
         guard let info = textView.text, !info.isEmpty else {
                    aboutmeView.layer.borderWidth = 1
                    aboutmeView.layer.borderColor = UIColor.red.cgColor
-            aboutMeErrorLabel.text = "Пожалуйста, заполните поле"
+            aboutMeErrorLabel.text = "Пожалуйста, заполните поле".localized
             aboutMeErrorLabel.isHidden = false
                    return false
         }
@@ -207,7 +227,7 @@ private extension EditProfileViewController {
     
     func imageIsValid() -> Bool {
         guard photoImage != nil else {
-            imagesErrorLabel.text = "Пожалуйста, добавьте картинку"
+            imagesErrorLabel.text = "Пожалуйста, добавьте картинку".localized
             imagesErrorLabel.isHidden = false
             underPhotoView.layer.borderWidth = 1
             underPhotoView.layer.borderColor = UIColor.red.cgColor
@@ -241,14 +261,14 @@ private extension EditProfileViewController {
         user?.vkLink = vkLinkLabel.text
         user?.location = addressTextField.text
         
-        user!.sex = sexTextField.text == "Мужской" ? true : false
+        user!.sex = sexTextField.text == "Мужской".localized ? true : false
         user?.x = place?.coordinate.latitude ?? 0
         user?.y = place?.coordinate.longitude ?? 0
         FireBaseHelper().updateUserInfoWithImage(user: user!, profileImage: photoImage!) { (result) in
            switch result {
                 case .success():
                     self.close()
-                case .failure(let _): self.showErrorAlert(message: "Ошибка создания мероприятия")
+           case .failure(let _): self.showErrorAlert(message: "Ошибка создания профиля".localized)
                 }
         }
     }
@@ -305,11 +325,11 @@ extension EditProfileViewController: UIPickerViewDelegate, UIPickerViewDataSourc
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return row == 0 ? "Мужской" : "Женский"
+        return row == 0 ? "Мужской".localized : "Женский".localized
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        sexTextField.text = row == 0 ? "Мужской" : "Женский"
+        sexTextField.text = row == 0 ? "Мужской".localized : "Женский".localized
     }
     
     

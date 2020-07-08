@@ -19,12 +19,16 @@
                 <outlet property="addressLabel" destination="kJo-1S-Wr6" id="hib-4z-7r3"/>
                 <outlet property="collectionView" destination="phx-XM-Das" id="M3v-Yf-by6"/>
                 <outlet property="dateLabel" destination="0uq-JN-q5N" id="bwV-Zt-Rc5"/>
+                <outlet property="favoriteLabel" destination="Nqy-U0-mVa" id="SG3-BC-EVa"/>
                 <outlet property="favoriteView" destination="HP9-73-pP8" id="De9-Ek-AyW"/>
+                <outlet property="mapLabel" destination="ET7-qT-iGi" id="Vt2-6g-HzH"/>
                 <outlet property="mapView" destination="yQA-PY-psz" id="Dve-AS-cWo"/>
                 <outlet property="nameLabel" destination="yXh-xH-v7K" id="IKa-Um-OGX"/>
                 <outlet property="placesLabel" destination="JGC-ww-uOO" id="OJy-ff-s6T"/>
+                <outlet property="profileLabel" destination="EYg-JE-uN2" id="abE-HG-H5h"/>
                 <outlet property="profileView" destination="iEj-2t-iDE" id="O8a-Hr-PA2"/>
                 <outlet property="sendInviteButton" destination="VYO-qn-9Sj" id="fOd-PW-vzo"/>
+                <outlet property="shareLabel" destination="jwq-vZ-TlO" id="2fg-QK-dwC"/>
                 <outlet property="shareView" destination="NZC-UO-6Wg" id="9PH-K3-7M9"/>
                 <outlet property="tableView" destination="MXB-9A-a0a" id="cfZ-Ns-ItQ"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>

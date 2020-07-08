@@ -15,7 +15,6 @@ protocol CreateFlatProtocol: class {
 
 class CreateFlatViewController: UIViewController{
     
-    @IBOutlet fileprivate weak var cancelButton: UIButton!
     @IBOutlet fileprivate weak var additionalInfoView: UIView!
     @IBOutlet fileprivate weak var allCountOfPeopleView: UIView!
     @IBOutlet fileprivate weak var emptyPlacesView: UIView!
@@ -31,7 +30,6 @@ class CreateFlatViewController: UIViewController{
     @IBOutlet fileprivate weak var addressTextField: UITextField!
     @IBOutlet fileprivate weak var emptyPlacesTextfield: UITextField!
     @IBOutlet fileprivate weak var allPlacesTextField: UITextField!
-    @IBOutlet fileprivate weak var downloadImageButton: UIButton!
     @IBOutlet fileprivate weak var collectionView: UICollectionView!
     @IBOutlet fileprivate weak var collectionViewHeightConstraint: NSLayoutConstraint!
     
@@ -43,6 +41,18 @@ class CreateFlatViewController: UIViewController{
     @IBOutlet weak var allPlacesErrorLabel: UILabel!
     @IBOutlet weak var additionalInfoErrorLabel: UILabel!
     @IBOutlet weak var imagesErrorLabel: UILabel!
+    
+    @IBOutlet weak var addFlatNavLabel: UILabel!
+    @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var dateAndTimeLabel: UILabel!
+    @IBOutlet weak var lcoationLabel: UILabel!
+    @IBOutlet weak var emptyPlacesLabel: UILabel!
+    @IBOutlet weak var allPlacesLabel: UILabel!
+    @IBOutlet weak var additionalInfoLabel: UILabel!
+    @IBOutlet weak var downloadImageButton: UIButton!
+    @IBOutlet weak var imageDescriptionLabel: UILabel!
+    @IBOutlet weak var cancelButton: UIButton!
+    @IBOutlet weak var createButton: DarkGradientButton!
     
     fileprivate var arrayWithImages = [UIImage]()
     weak var delegate: CreateFlatProtocol?
@@ -58,6 +68,7 @@ class CreateFlatViewController: UIViewController{
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        localize()
         setupView()
         setupData()
         setupPickers()
@@ -68,6 +79,20 @@ class CreateFlatViewController: UIViewController{
         super.viewDidAppear(animated)
         collectionViewHeightConstraint.constant = 0
         view.layoutIfNeeded()
+    }
+    
+    func localize() {
+        addFlatNavLabel.text = "Добавить вечеринку".localized
+        nameLabel.text = "Название".localized
+        dateAndTimeLabel.text = "Дата и время".localized
+        lcoationLabel.text = "Местоположение".localized
+        emptyPlacesLabel.text = "Свободных мест".localized
+        allPlacesLabel.text = "Общее количество".localized
+        additionalInfoLabel.text = "Дополнительная информация".localized
+        downloadImageButton.titleLabel?.text = "Загрузить фото".localized
+        imageDescriptionLabel.text = "PNG, JPG или JPEG с максимальным размером 5Mb.".localized
+        cancelButton.titleLabel?.text = "Отмена".localized
+        createButton.titleLabel?.text = "Создать".localized
     }
 }
 
@@ -196,7 +221,7 @@ private extension CreateFlatViewController {
         guard currentDate != nil else {
             dateView.layer.borderWidth = 1
             dateView.layer.borderColor = UIColor.red.cgColor
-            dateErrorLabel.text = "Пожалуйста, заполните поле"
+            dateErrorLabel.text = "Пожалуйста, заполните поле".localized
             dateErrorLabel.isHidden = false
             return false
         }
@@ -209,7 +234,7 @@ private extension CreateFlatViewController {
         guard let name = nameTextField.text, !name.isEmpty else {
             nameView.layer.borderWidth = 1
             nameView.layer.borderColor = UIColor.red.cgColor
-            nameErrorLabel.text = "Пожалуйста, заполните поле"
+            nameErrorLabel.text = "Пожалуйста, заполните поле".localized
             nameErrorLabel.isHidden = false
             return false
         }
@@ -222,7 +247,7 @@ private extension CreateFlatViewController {
         guard let address = addressTextField.text, !address.isEmpty else {
                   placeView.layer.borderWidth = 1
                   placeView.layer.borderColor = UIColor.red.cgColor
-                  locationErrorLabel.text = "Пожалуйста, заполните поле"
+                  locationErrorLabel.text = "Пожалуйста, заполните поле".localized
                   locationErrorLabel.isHidden = false
                   return false
               }
@@ -235,7 +260,7 @@ private extension CreateFlatViewController {
         guard let allPlaces = allPlacesTextField.text, !allPlaces.isEmpty else {
             allCountOfPeopleView.layer.borderWidth = 1
             allCountOfPeopleView.layer.borderColor = UIColor.red.cgColor
-            allPlacesErrorLabel.text = "Пожалуйста, заполните поле"
+            allPlacesErrorLabel.text = "Пожалуйста, заполните поле".localized
             allPlacesErrorLabel.isHidden = false
             return false
         }
@@ -248,7 +273,7 @@ private extension CreateFlatViewController {
         guard let emprtPlaces = emptyPlacesTextfield.text, !emprtPlaces.isEmpty else {
             emptyPlacesView.layer.borderWidth = 1
             emptyPlacesView.layer.borderColor = UIColor.red.cgColor
-            emptyErrorLabel.text = "Пожалуйста, заполните поле"
+            emptyErrorLabel.text = "Пожалуйста, заполните поле".localized
             emptyErrorLabel.isHidden = false
             return false
         }
@@ -261,7 +286,7 @@ private extension CreateFlatViewController {
         guard let info = textView.text, !info.isEmpty else {
                    additionalInfoView.layer.borderWidth = 1
                    additionalInfoView.layer.borderColor = UIColor.red.cgColor
-            additionalInfoErrorLabel.text = "Пожалуйста, заполните поле"
+            additionalInfoErrorLabel.text = "Пожалуйста, заполните поле".localized
             additionalInfoErrorLabel.isHidden = false
                    return false
         }
@@ -272,7 +297,7 @@ private extension CreateFlatViewController {
     
     func imagesIsValid() -> Bool {
         guard arrayWithImages.count > 0 else {
-            imagesErrorLabel.text = "Пожалуйста, добавьте картинку"
+            imagesErrorLabel.text = "Пожалуйста, добавьте картинку".localized
             imagesErrorLabel.isHidden = false
             return false
         }
@@ -320,7 +345,7 @@ private extension CreateFlatViewController {
             switch result {
             case .success(): self.delegate?.flatWasCreated()
                 self.close()
-            case .failure(let _): self.showErrorAlert(message: "Ошибка создания мероприятия")
+            case .failure( _): self.showErrorAlert(message: "Ошибка создания мероприятия".localized)
             }
         }
     }

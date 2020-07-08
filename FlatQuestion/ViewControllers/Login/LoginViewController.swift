@@ -21,6 +21,14 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var emailErrorMessage: UILabel!
     @IBOutlet weak var passwordErrorMessage: UILabel!
     
+    @IBOutlet weak var enterLabel: UILabel!
+    @IBOutlet weak var passwordLabel: UILabel!
+    @IBOutlet weak var orLabel: UILabel!
+    @IBOutlet weak var dontHaveAccountLabel: UILabel!
+    @IBOutlet weak var registrationLabel: UIButton!
+    @IBOutlet weak var forgetPassButton: UIButton!
+    
+    
     @IBAction func eyeButtonPressed(_ sender: Any) {
         let imageName = passwordTextField.isSecureTextEntry ? "eye.slash.fill" : "eye.fill"
         (sender as! UIButton).setImage(UIImage(systemName: imageName), for: .normal)
@@ -36,7 +44,7 @@ class LoginViewController: UIViewController {
             if error != nil {
                 self.showErrorAlert(message: error!.localizedDescription)
             } else {
-                self.showAlert(title: "", message: "Авторизация прошла успешно") { (UIAlertAction) in
+                self.showAlert(title: "", message: "Авторизация прошла успешно".localized) { (UIAlertAction) in
                     self.fetchUser(id: authResult!.user.uid) { () in
                         self.navigateToMainVC()
                     }
@@ -69,8 +77,17 @@ class LoginViewController: UIViewController {
         
     }
     
+    func localize() {
+        enterLabel.text = "Вход".localized
+        passwordLabel.text = "Пароль".localized
+        orLabel.text = "Или".localized
+        dontHaveAccountLabel.text = "Еще нет аккаунта?".localized
+        registrationLabel.titleLabel?.text = "Регистрация".localized
+        forgetPassButton.titleLabel?.text = "Забыли пароль?".localized
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
+        localize()
         
         configureVkAuthProvider()
         
@@ -126,19 +143,19 @@ class LoginViewController: UIViewController {
             validationStatus = false
             emailTextField.layer.borderColor = UIColor.red.cgColor
             emailErrorMessage.isHidden = false
-            emailErrorMessage.text = "Email не должен быть пустым"
+            emailErrorMessage.text = "Email не должен быть пустым".localized
         } else if !isEmailHasValidFormat(emailTextField.text) {
             validationStatus = false
             emailTextField.layer.borderColor = UIColor.red.cgColor
             emailErrorMessage.isHidden = false
-            emailErrorMessage.text = "Неверный формат email"
+            emailErrorMessage.text = "Неверный формат email".localized
         }
         
         if (passwordTextField.text ?? "").isEmpty {
             validationStatus = false
             passwordTextField.layer.borderColor = UIColor.red.cgColor
             passwordErrorMessage.isHidden = false
-            passwordErrorMessage.text = "Пароль не должен быть пустым"
+            passwordErrorMessage.text = "Пароль не должен быть пустым".localized
         }
         
         return validationStatus;

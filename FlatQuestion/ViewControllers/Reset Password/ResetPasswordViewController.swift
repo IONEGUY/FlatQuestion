@@ -13,6 +13,7 @@ class ResetPasswordViewController: UIViewController {
     @IBOutlet weak var emailTextField: PaddedTextField!
     @IBOutlet weak var emailErrorMessage: UILabel!
     @IBOutlet weak var resetPasswordButton: UIButton!
+    @IBOutlet weak var resetPasswordLabel: UILabel!
     
     @IBAction func resetPasswordButtonTapped(_ sender: Any) {
         guard validateCredantials() else { return; }
@@ -22,7 +23,7 @@ class ResetPasswordViewController: UIViewController {
             if error != nil {
                 self.showErrorAlert(message: error!.localizedDescription)
             } else {
-                self.showAlert(title: "", message: "Ссылка для сброса пароля отправлена на указанный email") { (UIAlertAction)
+                self.showAlert(title: "", message: "Ссылка для сброса пароля отправлена на указанный email".localized) { (UIAlertAction)
                     in
                     self.dismiss(animated: true, completion: nil)
                 }
@@ -44,6 +45,9 @@ class ResetPasswordViewController: UIViewController {
         self.view.addGestureRecognizer(tapGestureBackground)
     }
     
+    func localize() {
+        resetPasswordLabel.text = "Восстановление пароля".localized
+    }
     @objc func backgroundTapped(_ sender: UITapGestureRecognizer)
     {
         emailTextField.endEditing(true)
@@ -80,12 +84,12 @@ class ResetPasswordViewController: UIViewController {
             validationStatus = false
             emailTextField.layer.borderColor = UIColor.red.cgColor
             emailErrorMessage.isHidden = false
-            emailErrorMessage.text = "Email не должен быть пустым"
+            emailErrorMessage.text = "Email не должен быть пустым".localized
         } else if !isEmailHasValidFormat(emailTextField.text) {
             validationStatus = false
             emailTextField.layer.borderColor = UIColor.red.cgColor
             emailErrorMessage.isHidden = false
-            emailErrorMessage.text = "Неверный формат email"
+            emailErrorMessage.text = "Неверный формат email".localized
         }
         
         return validationStatus;

@@ -45,6 +45,11 @@ class FlatModalViewController: UIViewController {
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var placesLabel: UILabel!
     
+    @IBOutlet weak var profileLabel: UILabel!
+    @IBOutlet weak var mapLabel: UILabel!
+    @IBOutlet weak var favoriteLabel: UILabel!
+    @IBOutlet weak var shareLabel: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
@@ -72,7 +77,7 @@ class FlatModalViewController: UIViewController {
         nameLabel.text = flat?.name
         addressLabel.text = flat?.address
         dateLabel.text = DateFormatterHelper().getStringFromDate_MMM_yyyy_HH_mm(date: flat?.date?.date() ?? Date())
-        placesLabel.text = "Свободно \(String(describing: flat!.emptyPlacesCount!)) из \(String(describing: flat!.allPlacesCount!))"
+        placesLabel.text = "Свободно".localized + " \(String(describing: flat!.emptyPlacesCount!))" + "из".localized + " \(String(describing: flat!.allPlacesCount!))"
     }
 
     private func setupTableView() {
@@ -115,6 +120,14 @@ class FlatModalViewController: UIViewController {
                 self.moveView(state: state)
             }, completion: nil)
         }
+    }
+    
+    func localize() {
+        sendInviteButton.titleLabel?.text = "Присоедениться".localized
+        profileLabel.text = "Профиль".localized
+        mapLabel.text = "Карта".localized
+        favoriteLabel.text = "Избранные".localized
+        shareLabel.text = "Поделиться".localized
     }
 
     func roundViews() {
@@ -237,7 +250,7 @@ extension FlatModalViewController: UITableViewDelegate {
             return UITableViewCell()
         }
 
-        flatDescriptionCell.setupTitle(title: "Информация",
+        flatDescriptionCell.setupTitle(title: "Информация".localized,
                                        description: flat?.additionalInfo ?? "")
         return flatDescriptionCell
     }

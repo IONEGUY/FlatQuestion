@@ -9,6 +9,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="RegistrationViewController" customModule="FlatQuestion" customModuleProvider="target">
             <connections>
+                <outlet property="confirmPassword" destination="oNP-Lz-LzV" id="jyV-gu-JRe"/>
                 <outlet property="confirmPasswordErrorMessage" destination="j4K-WQ-cw2" id="AKV-Gm-pEn"/>
                 <outlet property="confirmPasswordTextField" destination="Qw0-x5-fee" id="Eow-MG-QeY"/>
                 <outlet property="emailErrorMessage" destination="cnP-Q1-4cC" id="LqE-eE-Ca1"/>
@@ -17,9 +18,14 @@
                 <outlet property="firstNameTextField" destination="ShE-D4-dUw" id="YKZ-sF-aeq"/>
                 <outlet property="lastNameErrorMessage" destination="N7X-83-bh4" id="yDW-7a-5rh"/>
                 <outlet property="lastNameTextField" destination="gjg-3m-1sJ" id="lt1-5t-fOM"/>
+                <outlet property="nameLabel" destination="7Rc-sK-dey" id="OhV-aP-ThA"/>
                 <outlet property="passwordErrorMessage" destination="hQo-HG-1Ec" id="5B0-Cc-Jn6"/>
+                <outlet property="passwordLabel" destination="r6k-J0-BvF" id="ge7-vu-9Cf"/>
                 <outlet property="passwordTextField" destination="qe2-6W-GqR" id="8ta-KW-PZi"/>
                 <outlet property="registerButton" destination="aIS-GA-BIp" id="50a-fi-xfE"/>
+                <outlet property="registrationButton" destination="aIS-GA-BIp" id="dm3-Yx-xsy"/>
+                <outlet property="registrationLabel" destination="yb9-1J-zg4" id="dtk-Bw-EgB"/>
+                <outlet property="secondNameLabel" destination="YQ7-fQ-MlB" id="bGU-sm-9uj"/>
                 <outlet property="view" destination="n98-Eb-0jT" id="Q9h-0q-5FL"/>
             </connections>
         </placeholder>

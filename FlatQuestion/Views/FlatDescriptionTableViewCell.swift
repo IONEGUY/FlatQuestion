@@ -21,6 +21,7 @@ class FlatDescriptionTableViewCell: UITableViewCell {
         self.titleLabel.text = title
         self.descriptionLabel.text = description
     }
+    
 }
 
 extension FlatDescriptionTableViewCell: ReuseIdentifierProtocol {
