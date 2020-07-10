@@ -1127,7 +1127,7 @@ struct R: Rswift.Validatable {
 
   /// This `R.string` struct is generated, and contains static references to 1 localization tables.
   struct string {
-    /// This `R.string.localizable` struct is generated, and contains static references to 51 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 53 localization keys.
     struct localizable {
       /// en translation: Email не должен быть пустым
       ///
@@ -1165,6 +1165,10 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: en
       static let дополнительнаяИнформация = Rswift.StringResource(key: "Дополнительная информация", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Доступ к геолокации запрещен
+      ///
+      /// Locales: en
+      static let доступКГеолокацииЗапрещен = Rswift.StringResource(key: "Доступ к геолокации запрещен", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Еще нет аккаунта?
       ///
       /// Locales: en
@@ -1225,6 +1229,10 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: en
       static let население = Rswift.StringResource(key: "Население", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Настройки
+      ///
+      /// Locales: en
+      static let настройки = Rswift.StringResource(key: "Настройки", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Неверный формат email
       ///
       /// Locales: en
@@ -1469,6 +1477,21 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("Дополнительная информация", bundle: bundle, comment: "")
       }
 
+      /// en translation: Доступ к геолокации запрещен
+      ///
+      /// Locales: en
+      static func доступКГеолокацииЗапрещен(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("Доступ к геолокации запрещен", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Localizable", preferredLanguages: preferredLanguages) else {
+          return "Доступ к геолокации запрещен"
+        }
+
+        return NSLocalizedString("Доступ к геолокации запрещен", bundle: bundle, comment: "")
+      }
+
       /// en translation: Еще нет аккаунта?
       ///
       /// Locales: en
@@ -1692,6 +1715,21 @@ struct R: Rswift.Validatable {
         }
 
         return NSLocalizedString("Население", bundle: bundle, comment: "")
+      }
+
+      /// en translation: Настройки
+      ///
+      /// Locales: en
+      static func настройки(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("Настройки", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Localizable", preferredLanguages: preferredLanguages) else {
+          return "Настройки"
+        }
+
+        return NSLocalizedString("Настройки", bundle: bundle, comment: "")
       }
 
       /// en translation: Неверный формат email

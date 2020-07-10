@@ -8,14 +8,16 @@
 
 import UIKit
 import GoogleMaps
+import GooglePlaces
 
-class MapViewController: UIViewController {
+class MapViewController: UIViewController, CLLocationManagerDelegate {
     private var collectionView: UICollectionView?
     private var flatModalVC: FlatModalViewController!
     private var flats = [FlatModel]()
     private var markers = [GMSMarker]()
     private var mapView:GMSMapView?
     private var priveousSelectedIndex = 0
+    private let locationManager = CLLocationManager()
     private var spacing: CGFloat {
         return self.view.frame.width - 283
     }
@@ -25,9 +27,78 @@ class MapViewController: UIViewController {
         setupMapView()
         setupCollectionView()
         setupSearchView()
+        locationManager.requestWhenInUseAuthorization()
+        locationManager.startUpdatingLocation()
+        locationManager.delegate = self
+        NotificationCenter.default.addObserver(self, selector: #selector(didBecomeActive), name: UIApplication.didBecomeActiveNotification, object: nil)
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        if let location = locations.last {
+            let camera = GMSCameraPosition.camera(withLatitude: (location.coordinate.latitude), longitude: (location.coordinate.longitude), zoom: 17.0)
+
+            self.mapView?.animate(to: camera)
+           self.locationManager.stopUpdatingLocation()
+        }
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true)
+        checkAccess()
     }
 
+    @objc func didBecomeActive() {
+        checkAccess()
+    }
     
+    
+    func didTapMyLocationButton(for mapView: GMSMapView) -> Bool {
+        checkAccess()
+        return false
+    }
+    
+    func checkAccess() {
+        if CLLocationManager.locationServicesEnabled() {
+            switch CLLocationManager.authorizationStatus() {
+                case .notDetermined, .restricted:
+                    locationManager.delegate = self
+                    locationManager.requestWhenInUseAuthorization()
+                    print("No access")
+            case .denied: showAlertWithMessage(message: "Доступ к геолокации запрещен".localized)
+                                self.mapView?.isMyLocationEnabled = false;
+                case .authorizedAlways, .authorizedWhenInUse:
+                    self.mapView?.isMyLocationEnabled = true;
+                    print("Access")
+                @unknown default:
+                break
+            }
+            } else {
+                print("Location services are not enabled")
+        }
+    }
+    
+    func showAlertWithMessage(message: String) {
+        guard let settingsUrl = URL(string: UIApplication.openSettingsURLString) else {
+            return
+        }
+        let alert = UIAlertController(title: "Ошибка".localized, message: message, preferredStyle: .alert)
+        let cancelAction = UIAlertAction(title: "Отмена".localized, style: .cancel) { (action) in
+            alert.dismiss(animated: true, completion: nil)
+        }
+        let settingsAction = UIAlertAction(title: "Настройки".localized, style: .default) { (action) in
+            alert.dismiss(animated: true, completion: nil)
+            UIApplication.shared.open(settingsUrl, options: [:]) { (success) in
+                if success {
+                    print("Settings opened: \(success)")
+                }
+            }
+        }
+        alert.addAction(cancelAction)
+        alert.addAction(settingsAction)
+        self.present(alert, animated: true, completion: nil)
+    }
+
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         getFlats()
@@ -79,6 +150,9 @@ class MapViewController: UIViewController {
         let camera = GMSCameraPosition(latitude: 37, longitude: -122, zoom: 10)
         mapView = GMSMapView(frame: self.view.frame, camera: camera)
         mapView?.delegate = self
+        mapView?.isMyLocationEnabled = true
+        mapView!.settings.myLocationButton = true
+        mapView!.settings.compassButton = true
         guard let mapView = mapView else { return }
         do {
             if let styleURL = Bundle.main.url(forResource: "map", withExtension: "json") {
@@ -104,6 +178,8 @@ class MapViewController: UIViewController {
         flatModalVC.view.frame = CGRect(x: 0, y: view.frame.maxY, width: width, height: height)
     }
 }
+
+
 
 extension MapViewController: UICollectionViewDelegate {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
