@@ -21,8 +21,10 @@ public struct FlatModel: Codable {
     let x: Double
     let y: Double
     let address: String
+    let userId: String
     
     enum CodingKeys: CodingKey {
+        case userId
         case name
         case additionalInfo
         case allPlacesCount

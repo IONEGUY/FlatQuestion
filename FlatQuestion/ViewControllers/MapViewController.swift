@@ -9,15 +9,19 @@
 import UIKit
 import GoogleMaps
 import GooglePlaces
+import GoogleMapsUtils
+import GoogleUtilities
 
-class MapViewController: UIViewController, CLLocationManagerDelegate {
+class MapViewController: UIViewController, CLLocationManagerDelegate, GMUClusterManagerDelegate {
     private var collectionView: UICollectionView?
     private var flatModalVC: FlatModalViewController!
     private var flats = [FlatModel]()
     private var markers = [GMSMarker]()
     private var mapView:GMSMapView?
-    private var priveousSelectedIndex = 0
+    private var priveousSelectedIndex = -1
+    private var selectedIndex = -1
     private let locationManager = CLLocationManager()
+    private var clusterManager: GMUClusterManager!
     private var spacing: CGFloat {
         return self.view.frame.width - 283
     }
@@ -27,10 +31,51 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
         setupMapView()
         setupCollectionView()
         setupSearchView()
+        setupLocationManager()
+    }
+    
+    func setupLocationManager() {
         locationManager.requestWhenInUseAuthorization()
         locationManager.startUpdatingLocation()
         locationManager.delegate = self
         NotificationCenter.default.addObserver(self, selector: #selector(didBecomeActive), name: UIApplication.didBecomeActiveNotification, object: nil)
+    }
+    
+    private func generateClusterItems() {
+      let extent = 0.2
+        for index in 0..<flats.count {
+            let lat = flats[index].x
+            let lng = flats[index].y
+        let name = "Item \(index)"
+        let item =
+            POIItem(position: CLLocationCoordinate2DMake(lat, lng), name: name)
+            let marker = StopMarker(position: CLLocationCoordinate2DMake(lat, lng), id: index)
+        clusterManager.add(marker)
+            markers.append(marker)
+      }
+    }
+
+    func clusterManager(clusterManager: GMUClusterManager, didTapCluster cluster: GMUCluster) {
+        let newCamera = GMSCameraPosition.camera(withTarget: cluster.position,
+         zoom: mapView!.camera.zoom + 1)
+       let update = GMSCameraUpdate.setCamera(newCamera)
+       mapView!.moveCamera(update)
+     }
+
+     // MARK: - GMUMapViewDelegate
+
+     func mapView(mapView: GMSMapView, didTapMarker marker: GMSMarker) -> Bool {
+       if let poiItem = marker.userData as? StopMarker {
+         NSLog("Did tap marker for cluster item ")
+       } else {
+         NSLog("Did tap a normal marker")
+       }
+       return false
+     }
+    
+    /// Returns a random value between -1.0 and 1.0.
+    private func randomScale() -> Double {
+      return Double(arc4random()) / Double(UINT32_MAX) * 2.0 - 1.0
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
@@ -76,27 +121,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
                 print("Location services are not enabled")
         }
     }
-    
-    func showAlertWithMessage(message: String) {
-        guard let settingsUrl = URL(string: UIApplication.openSettingsURLString) else {
-            return
-        }
-        let alert = UIAlertController(title: "Ошибка".localized, message: message, preferredStyle: .alert)
-        let cancelAction = UIAlertAction(title: "Отмена".localized, style: .cancel) { (action) in
-            alert.dismiss(animated: true, completion: nil)
-        }
-        let settingsAction = UIAlertAction(title: "Настройки".localized, style: .default) { (action) in
-            alert.dismiss(animated: true, completion: nil)
-            UIApplication.shared.open(settingsUrl, options: [:]) { (success) in
-                if success {
-                    print("Settings opened: \(success)")
-                }
-            }
-        }
-        alert.addAction(cancelAction)
-        alert.addAction(settingsAction)
-        self.present(alert, animated: true, completion: nil)
-    }
 
 
     override func viewWillAppear(_ animated: Bool) {
@@ -139,13 +163,26 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
         FireBaseHelper().get { (flats) in
             self.flats = flats
             self.hideLoadingableIndicator()
-            self.addMarkers(flats: self.flats)
             self.collectionView?.reloadData()
-            
+            self.initClustering()
         }
-        
+
     }
 
+    func initClustering() {
+        let iconGenerator = GMUDefaultClusterIconGenerator()
+           let algorithm = GMUNonHierarchicalDistanceBasedAlgorithm()
+        let renderer = GMUDefaultClusterRenderer(mapView: self.mapView!,
+                                       clusterIconGenerator: iconGenerator)
+        renderer.delegate = self
+        self.clusterManager = GMUClusterManager(map: self.mapView!, algorithm: algorithm,
+                                                             renderer: renderer)
+        self.clusterManager.clearItems()
+        self.generateClusterItems()
+        self.clusterManager.cluster()
+        self.clusterManager.setDelegate(self, mapDelegate: self)
+    }
+    
     func setupMapView() {
         let camera = GMSCameraPosition(latitude: 37, longitude: -122, zoom: 10)
         mapView = GMSMapView(frame: self.view.frame, camera: camera)
@@ -202,7 +239,7 @@ extension MapViewController: UICollectionViewDataSource {
         guard let cell = flatCell else {return UICollectionViewCell()}
         let flat = self.flats[indexPath.item]
         cell.fillCellData(with: flat)
-        if let flats = UserSettings.appUser.flats, flats.contains(flat.id) {
+        if flat.userId == UserSettings.appUser.id {
             cell.backgroundColor = .yellow
         }
         return cell
@@ -223,28 +260,12 @@ extension MapViewController: UICollectionViewDelegateFlowLayout {
     }
 
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        let index: Int = Int(self.collectionView!.contentOffset.x / self.collectionView!.frame.size.width)
-        let flat = flats[index]
+        selectedIndex = Int(self.collectionView!.contentOffset.x / self.collectionView!.frame.size.width)
+        let flat = flats[selectedIndex]
         
-        mapView?.animate(to: GMSCameraPosition(latitude: flat.x, longitude: flat.y, zoom: 10))
+        mapView?.animate(to: GMSCameraPosition(latitude: flat.x, longitude: flat.y, zoom: 25))
         
-        let marker = markers[index]
-        
-        let iconView = IconView(frame: CGRect(x: 0, y: 0, width: 128, height: 128))
-        
-        if flat.images?.count != 0, let url = URL(string: (flat.images?.first)!) {
-            iconView.photoView.sd_setImage(with: url, completed: nil)
-        } else {
-            iconView.photoView.image = UIImage(named: "compas")
-        }
-        marker.icon = UIImage(view: iconView)
-        
-        if priveousSelectedIndex != index {
-            let marker = markers[priveousSelectedIndex]
-            marker.icon = UIImage(named: "default_marker")
-        }
-        
-        priveousSelectedIndex = index
+        self.clusterManager.cluster()
         print(index)
     }
 }
@@ -258,56 +279,46 @@ extension MapViewController: RemovableDelegate {
     }
 }
 
-
-extension MapViewController {
-    func addMarkers(flats: [FlatModel]) {
-        flats.map { (flat) -> () in
-            addMarker(flat: flat, withTag: flats.firstIndex(where: { (flatModel) -> Bool in
-                flat.id == flatModel.id
-            })!)
-        }
-    }
-    func addMarker(flat: FlatModel, withTag tag: Int) {
-        DispatchQueue.main.async
-        {
-            var position = CLLocationCoordinate2DMake(flat.x, flat.y)
-            var marker = GMSMarker(position: position)
-            marker.title = flat.address
-            marker.map = self.mapView
-            marker.userData = tag
-            marker.icon = UIImage(named: "default_marker")
-            self.markers.append(marker)
-            
-        }
-    }
-}
-
 extension MapViewController: GMSMapViewDelegate {
     func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
-        guard let index = marker.userData as? Int else { return false}
+        guard let markerData = marker.userData as? StopMarker else { return false}
         
-        let marker = markers[index]
-        let flat = flats[index]
-        let iconView = IconView(frame: CGRect(x: 0, y: 0, width: 128, height: 128))
-        
-        if flat.images?.count != 0, let url = URL(string: (flat.images?.first)!) {
-            iconView.photoView.sd_setImage(with: url, completed: nil)
-        } else {
-            iconView.photoView.image = UIImage(named: "compas")
-        }
-        marker.icon = UIImage(view: iconView)
-        
-        if priveousSelectedIndex != index {
-            let marker = markers[priveousSelectedIndex]
-            marker.icon = UIImage(named: "default_marker")
-        }
-        
-        priveousSelectedIndex = index
-        
-        
-        collectionView?.scrollToItem(at: IndexPath(row: index, section: 0), at: .centeredHorizontally, animated: true)
+        selectedIndex = markerData.id!
+        collectionView?.scrollToItem(at: IndexPath(row: selectedIndex, section: 0), at: .centeredHorizontally, animated: true)
+        clusterManager.cluster()
         return true
     }
 }
 
 
+extension MapViewController: GMUClusterRendererDelegate {
+    func renderer(_ renderer: GMUClusterRenderer, willRenderMarker marker: GMSMarker) {
+        if  let markerData = (marker.userData as? StopMarker) {
+            
+            if markerData.id == selectedIndex {
+                priveousSelectedIndex = selectedIndex
+                let flat = flats[selectedIndex]
+                let iconView: IconView
+                if flat.userId == UserSettings.appUser.id {
+                    iconView = IconView(frame: CGRect(x: -64, y: -64, width: 128, height: 128), isMyFlat: true)
+                } else {
+                    iconView = IconView(frame: CGRect(x: -64, y: -64, width: 128, height: 128))
+                }
+
+                if flat.images?.count != 0, let url = URL(string: (flat.images?.first)!) {
+                    iconView.photoView.sd_setImage(with: url, completed: nil)
+                } else {
+                    iconView.photoView.image = UIImage(named: "compas")
+                }
+                marker.icon = UIImage(view: iconView)
+                
+            } else {
+                let flat = flats[markerData.id!]
+                marker.icon = flat.userId == UserSettings.appUser.id ? UIImage(named: "my_marker") : UIImage(named: "default_marker")
+                
+            }
+        }
+
+    }
+        
+}

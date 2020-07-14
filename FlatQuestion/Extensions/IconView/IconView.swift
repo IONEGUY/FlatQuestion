@@ -10,6 +10,7 @@ import UIKit
 
 class IconView: UIView {
 
+    @IBOutlet weak var elipseImageView: UIImageView!
     @IBOutlet weak var photoView: UIImageView!
     
     required init?(coder: NSCoder) {
@@ -20,6 +21,12 @@ class IconView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupView()
+    }
+    
+    init(frame: CGRect, isMyFlat: Bool = false) {
+        super.init(frame: frame)
+        setupView()
+        if isMyFlat { elipseImageView.image = UIImage(named: "Ellipse_my")}
     }
 
     private func loadFromNib() {

@@ -614,12 +614,14 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
 
-  /// This `R.image` struct is generated, and contains static references to 32 images.
+  /// This `R.image` struct is generated, and contains static references to 34 images.
   struct image {
     /// Image `Dictation`.
     static let dictation = Rswift.ImageResource(bundle: R.hostingBundle, name: "Dictation")
     /// Image `Ellipse-white`.
     static let ellipseWhite = Rswift.ImageResource(bundle: R.hostingBundle, name: "Ellipse-white")
+    /// Image `Ellipse_my`.
+    static let ellipse_my = Rswift.ImageResource(bundle: R.hostingBundle, name: "Ellipse_my")
     /// Image `Ellipse`.
     static let ellipse = Rswift.ImageResource(bundle: R.hostingBundle, name: "Ellipse")
     /// Image `Search`.
@@ -656,6 +658,8 @@ struct R: Rswift.Validatable {
     static let heart = Rswift.ImageResource(bundle: R.hostingBundle, name: "heart")
     /// Image `login_background`.
     static let login_background = Rswift.ImageResource(bundle: R.hostingBundle, name: "login_background")
+    /// Image `my_marker`.
+    static let my_marker = Rswift.ImageResource(bundle: R.hostingBundle, name: "my_marker")
     /// Image `person_button`.
     static let person_button = Rswift.ImageResource(bundle: R.hostingBundle, name: "person_button")
     /// Image `person`.
@@ -699,6 +703,13 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "Ellipse-white", bundle: ..., traitCollection: ...)`
     static func ellipseWhite(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.ellipseWhite, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "Ellipse_my", bundle: ..., traitCollection: ...)`
+    static func ellipse_my(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ellipse_my, compatibleWith: traitCollection)
     }
     #endif
 
@@ -818,6 +829,13 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "login_background", bundle: ..., traitCollection: ...)`
     static func login_background(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.login_background, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "my_marker", bundle: ..., traitCollection: ...)`
+    static func my_marker(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.my_marker, compatibleWith: traitCollection)
     }
     #endif
 

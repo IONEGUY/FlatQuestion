@@ -22,7 +22,7 @@ target 'FlatQuestion' do
   pod 'R.swift'
   pod 'IQKeyboardManagerSwift'
   pod 'JGProgressHUD'
-
+  pod 'Google-Maps-iOS-Utils'
   pod 'Firebase/Database'
   pod 'FirebaseFirestoreSwift'
   pod 'Firebase/Storage'

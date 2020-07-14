@@ -9,6 +9,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="IconView" customModule="FlatQuestion" customModuleProvider="target">
             <connections>
+                <outlet property="elipseImageView" destination="PoT-c0-gvi" id="wL6-Fi-yG4"/>
                 <outlet property="photoView" destination="Uwb-ws-3ra" id="cpk-JO-T8r"/>
             </connections>
         </placeholder>

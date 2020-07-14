@@ -13,6 +13,8 @@
 		5811AFED24A2AED300BF8321 /* Loadingable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5811AFEC24A2AED300BF8321 /* Loadingable.swift */; };
 		5811AFEF24A2B11500BF8321 /* LoadingUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5811AFEE24A2B11500BF8321 /* LoadingUtils.swift */; };
 		5811AFF524A2B7B100BF8321 /* Closable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5811AFF424A2B7B100BF8321 /* Closable.swift */; };
+		584DB0BB24BD166500E1AFC9 /* UIViewController+Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 584DB0BA24BD166500E1AFC9 /* UIViewController+Alert.swift */; };
+		584DB0BD24BD16C800E1AFC9 /* GoogleMapsUtilsModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 584DB0BC24BD16C800E1AFC9 /* GoogleMapsUtilsModels.swift */; };
 		585B9BD32499730900976A05 /* Profile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 585B9BD12499730900976A05 /* Profile.storyboard */; };
 		585B9BD5249973A800976A05 /* Notifications.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 585B9BD4249973A800976A05 /* Notifications.storyboard */; };
 		585B9BD8249973CD00976A05 /* Chat.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 585B9BD6249973CD00976A05 /* Chat.storyboard */; };
@@ -136,6 +138,8 @@
 		5811AFEE24A2B11500BF8321 /* LoadingUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingUtils.swift; sourceTree = "<group>"; };
 		5811AFF424A2B7B100BF8321 /* Closable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Closable.swift; sourceTree = "<group>"; };
 		583F5FCF2471E923000F9ACF /* Alamofire.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Alamofire.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		584DB0BA24BD166500E1AFC9 /* UIViewController+Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Alert.swift"; sourceTree = "<group>"; };
+		584DB0BC24BD16C800E1AFC9 /* GoogleMapsUtilsModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleMapsUtilsModels.swift; sourceTree = "<group>"; };
 		585B9BD22499730900976A05 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Profile.storyboard; sourceTree = "<group>"; };
 		585B9BD4249973A800976A05 /* Notifications.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Notifications.storyboard; sourceTree = SOURCE_ROOT; };
 		585B9BD7249973CD00976A05 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Chat.storyboard; sourceTree = "<group>"; };
@@ -490,6 +494,8 @@
 				58BAFE6D24A4012600B9A4A8 /* UIViewControllerExtentions.swift */,
 				58877A5724B3E509005138B8 /* TimeIntervalExtension.swift */,
 				58D5397B24B602B100F1ED4C /* String+Localization.swift */,
+				584DB0BA24BD166500E1AFC9 /* UIViewController+Alert.swift */,
+				584DB0BC24BD16C800E1AFC9 /* GoogleMapsUtilsModels.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -905,6 +911,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FA3766C1247328930052DB9B /* LoginViewController.swift in Sources */,
+				584DB0BD24BD16C800E1AFC9 /* GoogleMapsUtilsModels.swift in Sources */,
 				FA063E6F247D8AA900CBF52A /* AppUser.swift in Sources */,
 				FAA22EB624903A80004C4ACC /* ActivityIndicatorHelper.swift in Sources */,
 				FAE40EF72482ED850097879E /* PaddedTextField.swift in Sources */,
@@ -917,6 +924,7 @@
 				5882CFC624AA87FD00D8417E /* EditProfileViewController.swift in Sources */,
 				58BABF2324A4170100F0C287 /* IconView.swift in Sources */,
 				58B8DB33246CADA700584B20 /* ReuseIdentifierProtocol.swift in Sources */,
+				584DB0BB24BD166500E1AFC9 /* UIViewController+Alert.swift in Sources */,
 				58BAFE6E24A4012600B9A4A8 /* UIViewControllerExtentions.swift in Sources */,
 				5811AFEF24A2B11500BF8321 /* LoadingUtils.swift in Sources */,
 				58D5397C24B602B100F1ED4C /* String+Localization.swift in Sources */,
