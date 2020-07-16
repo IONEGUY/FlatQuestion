@@ -13,6 +13,12 @@
 		5811AFED24A2AED300BF8321 /* Loadingable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5811AFEC24A2AED300BF8321 /* Loadingable.swift */; };
 		5811AFEF24A2B11500BF8321 /* LoadingUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5811AFEE24A2B11500BF8321 /* LoadingUtils.swift */; };
 		5811AFF524A2B7B100BF8321 /* Closable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5811AFF424A2B7B100BF8321 /* Closable.swift */; };
+		583F9EF824BFC4090056A8E5 /* AcceptModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 583F9EF624BFC4090056A8E5 /* AcceptModalViewController.swift */; };
+		583F9EF924BFC4090056A8E5 /* AcceptModalViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 583F9EF724BFC4090056A8E5 /* AcceptModalViewController.xib */; };
+		583F9EFB24BFCBA90056A8E5 /* TransparentBackgrounfModalPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 583F9EFA24BFCBA90056A8E5 /* TransparentBackgrounfModalPresenter.swift */; };
+		583F9EFE24BFD3B30056A8E5 /* SuccessViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 583F9EFC24BFD3B30056A8E5 /* SuccessViewController.swift */; };
+		583F9EFF24BFD3B30056A8E5 /* SuccessViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 583F9EFD24BFD3B30056A8E5 /* SuccessViewController.xib */; };
+		583F9F0124C0B5B60056A8E5 /* FlatRequestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 583F9F0024C0B5B60056A8E5 /* FlatRequestModel.swift */; };
 		584DB0BB24BD166500E1AFC9 /* UIViewController+Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 584DB0BA24BD166500E1AFC9 /* UIViewController+Alert.swift */; };
 		584DB0BD24BD16C800E1AFC9 /* GoogleMapsUtilsModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 584DB0BC24BD16C800E1AFC9 /* GoogleMapsUtilsModels.swift */; };
 		585B9BD32499730900976A05 /* Profile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 585B9BD12499730900976A05 /* Profile.storyboard */; };
@@ -138,6 +144,12 @@
 		5811AFEE24A2B11500BF8321 /* LoadingUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingUtils.swift; sourceTree = "<group>"; };
 		5811AFF424A2B7B100BF8321 /* Closable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Closable.swift; sourceTree = "<group>"; };
 		583F5FCF2471E923000F9ACF /* Alamofire.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Alamofire.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		583F9EF624BFC4090056A8E5 /* AcceptModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcceptModalViewController.swift; sourceTree = "<group>"; };
+		583F9EF724BFC4090056A8E5 /* AcceptModalViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AcceptModalViewController.xib; sourceTree = "<group>"; };
+		583F9EFA24BFCBA90056A8E5 /* TransparentBackgrounfModalPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransparentBackgrounfModalPresenter.swift; sourceTree = "<group>"; };
+		583F9EFC24BFD3B30056A8E5 /* SuccessViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuccessViewController.swift; sourceTree = "<group>"; };
+		583F9EFD24BFD3B30056A8E5 /* SuccessViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SuccessViewController.xib; sourceTree = "<group>"; };
+		583F9F0024C0B5B60056A8E5 /* FlatRequestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlatRequestModel.swift; sourceTree = "<group>"; };
 		584DB0BA24BD166500E1AFC9 /* UIViewController+Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Alert.swift"; sourceTree = "<group>"; };
 		584DB0BC24BD16C800E1AFC9 /* GoogleMapsUtilsModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleMapsUtilsModels.swift; sourceTree = "<group>"; };
 		585B9BD22499730900976A05 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Profile.storyboard; sourceTree = "<group>"; };
@@ -400,6 +412,11 @@
 				589CC3AE246DEAF200D4E400 /* FlatModalViewController.xib */,
 				58BA65CC2496CB8D0001BE1E /* MainTabBarController.swift */,
 				585B9BD92499758200976A05 /* CreateFlatViewController.swift */,
+				583F9EF624BFC4090056A8E5 /* AcceptModalViewController.swift */,
+				583F9EF724BFC4090056A8E5 /* AcceptModalViewController.xib */,
+				583F9EFA24BFCBA90056A8E5 /* TransparentBackgrounfModalPresenter.swift */,
+				583F9EFC24BFD3B30056A8E5 /* SuccessViewController.swift */,
+				583F9EFD24BFD3B30056A8E5 /* SuccessViewController.xib */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -428,6 +445,7 @@
 				FA063E6C247D820300CBF52A /* VkUser.swift */,
 				FA063E6E247D8AA900CBF52A /* AppUser.swift */,
 				58B4E3FB24A00D8A00DBC71F /* FlatModel.swift */,
+				583F9F0024C0B5B60056A8E5 /* FlatRequestModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -718,12 +736,14 @@
 				585B9BEB249990F600976A05 /* Roboto-Italic.ttf in Resources */,
 				58B8DB0B246B66E100584B20 /* map.json in Resources */,
 				58F241CC2475F05100F56681 /* FlatDescriptionTableViewCell.xib in Resources */,
+				583F9EFF24BFD3B30056A8E5 /* SuccessViewController.xib in Resources */,
 				585B9BEF249990F600976A05 /* Roboto-Medium.ttf in Resources */,
 				585B9BEE249990F600976A05 /* Roboto-MediumItalic.ttf in Resources */,
 				58F241B324734E8100F56681 /* FlatPhotoCollectionViewCell.xib in Resources */,
 				58B8DB06246B4D6C00584B20 /* Map.storyboard in Resources */,
 				FAC45F3B2474459A00BBA016 /* GoogleService-Info.plist in Resources */,
 				586B69EC247F2070008B456D /* TopMapFilterCollectionViewCell.xib in Resources */,
+				583F9EF924BFC4090056A8E5 /* AcceptModalViewController.xib in Resources */,
 				58B8DB28246CA00600584B20 /* SFProDisplay-BoldItalic.ttf in Resources */,
 				585B9BD32499730900976A05 /* Profile.storyboard in Resources */,
 				585B9BEA249990F600976A05 /* Apache License.txt in Resources */,
@@ -921,6 +941,7 @@
 				FADD4DBA247F12FD0055FCB1 /* ResetPasswordViewController.swift in Sources */,
 				FA88D4E72475DDB9005DA624 /* SwiftyJson.swift in Sources */,
 				FAE40EFB2482FBEA0097879E /* UIColorExtensions.swift in Sources */,
+				583F9EF824BFC4090056A8E5 /* AcceptModalViewController.swift in Sources */,
 				5882CFC624AA87FD00D8417E /* EditProfileViewController.swift in Sources */,
 				58BABF2324A4170100F0C287 /* IconView.swift in Sources */,
 				58B8DB33246CADA700584B20 /* ReuseIdentifierProtocol.swift in Sources */,
@@ -929,6 +950,7 @@
 				5811AFEF24A2B11500BF8321 /* LoadingUtils.swift in Sources */,
 				58D5397C24B602B100F1ED4C /* String+Localization.swift in Sources */,
 				FA063E6D247D820300CBF52A /* VkUser.swift in Sources */,
+				583F9F0124C0B5B60056A8E5 /* FlatRequestModel.swift in Sources */,
 				58F241B224734E8100F56681 /* FlatPhotoCollectionViewCell.swift in Sources */,
 				58B8DB33246CADA700584B20 /* ReuseIdentifierProtocol.swift in Sources */,
 				5811AFED24A2AED300BF8321 /* Loadingable.swift in Sources */,
@@ -944,6 +966,7 @@
 				585B9BDA2499758200976A05 /* CreateFlatViewController.swift in Sources */,
 				58F241CB2475F05100F56681 /* FlatDescriptionTableViewCell.swift in Sources */,
 				589CC3AF246DEAF200D4E400 /* FlatModalViewController.swift in Sources */,
+				583F9EFE24BFD3B30056A8E5 /* SuccessViewController.swift in Sources */,
 				58E62CB92492E459006B0DCF /* UIView+CornerShadow.swift in Sources */,
 				589018252477501B001FBA21 /* TopMapSearchView.swift in Sources */,
 				58B8DAD4246B474100584B20 /* SceneDelegate.swift in Sources */,
@@ -958,6 +981,7 @@
 				58877A5824B3E509005138B8 /* TimeIntervalExtension.swift in Sources */,
 				FAAB900D249AC97700E38C98 /* DecodeHelper.swift in Sources */,
 				58B8DB12246C9C8400584B20 /* FlatCardCollectionViewCell.swift in Sources */,
+				583F9EFB24BFCBA90056A8E5 /* TransparentBackgrounfModalPresenter.swift in Sources */,
 				FAAB900B249AC7C000E38C98 /* UserSettings.swift in Sources */,
 				586A9316249ABEDB0045CF92 /* WhiteGradientButton.swift in Sources */,
 			);

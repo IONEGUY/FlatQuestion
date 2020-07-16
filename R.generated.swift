@@ -614,7 +614,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
 
-  /// This `R.image` struct is generated, and contains static references to 34 images.
+  /// This `R.image` struct is generated, and contains static references to 35 images.
   struct image {
     /// Image `Dictation`.
     static let dictation = Rswift.ImageResource(bundle: R.hostingBundle, name: "Dictation")
@@ -678,6 +678,8 @@ struct R: Rswift.Validatable {
     static let shape = Rswift.ImageResource(bundle: R.hostingBundle, name: "shape")
     /// Image `share_icon`.
     static let share_icon = Rswift.ImageResource(bundle: R.hostingBundle, name: "share_icon")
+    /// Image `success`.
+    static let success = Rswift.ImageResource(bundle: R.hostingBundle, name: "success")
     /// Image `upload`.
     static let upload = Rswift.ImageResource(bundle: R.hostingBundle, name: "upload")
     /// Image `user`.
@@ -903,6 +905,13 @@ struct R: Rswift.Validatable {
     #endif
 
     #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "success", bundle: ..., traitCollection: ...)`
+    static func success(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.success, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
     /// `UIImage(named: "upload", bundle: ..., traitCollection: ...)`
     static func upload(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.upload, compatibleWith: traitCollection)
@@ -957,8 +966,10 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
 
-  /// This `R.nib` struct is generated, and contains static references to 12 nibs.
+  /// This `R.nib` struct is generated, and contains static references to 14 nibs.
   struct nib {
+    /// Nib `AcceptModalViewController`.
+    static let acceptModalViewController = _R.nib._AcceptModalViewController()
     /// Nib `EditProfileViewController`.
     static let editProfileViewController = _R.nib._EditProfileViewController()
     /// Nib `FlatCardCollectionViewCell`.
@@ -979,10 +990,20 @@ struct R: Rswift.Validatable {
     static let resetPasswordViewController = _R.nib._ResetPasswordViewController()
     /// Nib `SearchViewController`.
     static let searchViewController = _R.nib._SearchViewController()
+    /// Nib `SuccessViewController`.
+    static let successViewController = _R.nib._SuccessViewController()
     /// Nib `TopMapFilterCollectionViewCell`.
     static let topMapFilterCollectionViewCell = _R.nib._TopMapFilterCollectionViewCell()
     /// Nib `TopMapSearchView`.
     static let topMapSearchView = _R.nib._TopMapSearchView()
+
+    #if os(iOS) || os(tvOS)
+    /// `UINib(name: "AcceptModalViewController", in: bundle)`
+    @available(*, deprecated, message: "Use UINib(resource: R.nib.acceptModalViewController) instead")
+    static func acceptModalViewController(_: Void = ()) -> UIKit.UINib {
+      return UIKit.UINib(resource: R.nib.acceptModalViewController)
+    }
+    #endif
 
     #if os(iOS) || os(tvOS)
     /// `UINib(name: "EditProfileViewController", in: bundle)`
@@ -1065,6 +1086,14 @@ struct R: Rswift.Validatable {
     #endif
 
     #if os(iOS) || os(tvOS)
+    /// `UINib(name: "SuccessViewController", in: bundle)`
+    @available(*, deprecated, message: "Use UINib(resource: R.nib.successViewController) instead")
+    static func successViewController(_: Void = ()) -> UIKit.UINib {
+      return UIKit.UINib(resource: R.nib.successViewController)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
     /// `UINib(name: "TopMapFilterCollectionViewCell", in: bundle)`
     @available(*, deprecated, message: "Use UINib(resource: R.nib.topMapFilterCollectionViewCell) instead")
     static func topMapFilterCollectionViewCell(_: Void = ()) -> UIKit.UINib {
@@ -1079,6 +1108,10 @@ struct R: Rswift.Validatable {
       return UIKit.UINib(resource: R.nib.topMapSearchView)
     }
     #endif
+
+    static func acceptModalViewController(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
+      return R.nib.acceptModalViewController.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
+    }
 
     static func editProfileViewController(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
       return R.nib.editProfileViewController.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
@@ -1120,6 +1153,10 @@ struct R: Rswift.Validatable {
       return R.nib.searchViewController.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
     }
 
+    static func successViewController(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
+      return R.nib.successViewController.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
+    }
+
     static func topMapFilterCollectionViewCell(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> TopMapFilterCollectionViewCell? {
       return R.nib.topMapFilterCollectionViewCell.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? TopMapFilterCollectionViewCell
     }
@@ -1145,7 +1182,7 @@ struct R: Rswift.Validatable {
 
   /// This `R.string` struct is generated, and contains static references to 1 localization tables.
   struct string {
-    /// This `R.string.localizable` struct is generated, and contains static references to 53 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 59 localization keys.
     struct localizable {
       /// en translation: Email не должен быть пустым
       ///
@@ -1203,6 +1240,10 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: en
       static let загрузитьФото = Rswift.StringResource(key: "Загрузить фото", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Запрос на тусовку уже был отправлен
+      ///
+      /// Locales: en
+      static let запросНаТусовкуУжеБылОтправлен = Rswift.StringResource(key: "Запрос на тусовку уже был отправлен", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Избранные
       ///
       /// Locales: en
@@ -1243,6 +1284,10 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: en
       static let название = Rswift.StringResource(key: "Название", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Написать сообщение
+      ///
+      /// Locales: en
+      static let написатьСообщение = Rswift.StringResource(key: "Написать сообщение", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Население
       ///
       /// Locales: en
@@ -1255,6 +1300,10 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: en
       static let неверныйФорматEmail = Rswift.StringResource(key: "Неверный формат email", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Неопознанная ошибка
+      ///
+      /// Locales: en
+      static let неопознаннаяОшибка = Rswift.StringResource(key: "Неопознанная ошибка", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Обо мне
       ///
       /// Locales: en
@@ -1263,10 +1312,18 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: en
       static let общееКоличество = Rswift.StringResource(key: "Общее количество", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Организатор получит уведомление о вашем желании присоединиться
+      ///
+      /// Locales: en
+      static let организаторПолучитУведомлениеОВашемЖеланииПрисоединиться = Rswift.StringResource(key: "Организатор получит уведомление о вашем желании присоединиться", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Отмена
       ///
       /// Locales: en
       static let отмена = Rswift.StringResource(key: "Отмена", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Отправить
+      ///
+      /// Locales: en
+      static let отправить = Rswift.StringResource(key: "Отправить", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Ошибка создания мероприятия
       ///
       /// Locales: en
@@ -1315,6 +1372,10 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: en
       static let присоедениться = Rswift.StringResource(key: "Присоедениться", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Присоединиться к вечеринке
+      ///
+      /// Locales: en
+      static let присоединитьсяКВечеринке = Rswift.StringResource(key: "Присоединиться к вечеринке", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Профиль
       ///
       /// Locales: en
@@ -1570,6 +1631,21 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("Загрузить фото", bundle: bundle, comment: "")
       }
 
+      /// en translation: Запрос на тусовку уже был отправлен
+      ///
+      /// Locales: en
+      static func запросНаТусовкуУжеБылОтправлен(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("Запрос на тусовку уже был отправлен", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Localizable", preferredLanguages: preferredLanguages) else {
+          return "Запрос на тусовку уже был отправлен"
+        }
+
+        return NSLocalizedString("Запрос на тусовку уже был отправлен", bundle: bundle, comment: "")
+      }
+
       /// en translation: Избранные
       ///
       /// Locales: en
@@ -1720,6 +1796,21 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("Название", bundle: bundle, comment: "")
       }
 
+      /// en translation: Написать сообщение
+      ///
+      /// Locales: en
+      static func написатьСообщение(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("Написать сообщение", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Localizable", preferredLanguages: preferredLanguages) else {
+          return "Написать сообщение"
+        }
+
+        return NSLocalizedString("Написать сообщение", bundle: bundle, comment: "")
+      }
+
       /// en translation: Население
       ///
       /// Locales: en
@@ -1765,6 +1856,21 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("Неверный формат email", bundle: bundle, comment: "")
       }
 
+      /// en translation: Неопознанная ошибка
+      ///
+      /// Locales: en
+      static func неопознаннаяОшибка(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("Неопознанная ошибка", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Localizable", preferredLanguages: preferredLanguages) else {
+          return "Неопознанная ошибка"
+        }
+
+        return NSLocalizedString("Неопознанная ошибка", bundle: bundle, comment: "")
+      }
+
       /// en translation: Обо мне
       ///
       /// Locales: en
@@ -1795,6 +1901,21 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("Общее количество", bundle: bundle, comment: "")
       }
 
+      /// en translation: Организатор получит уведомление о вашем желании присоединиться
+      ///
+      /// Locales: en
+      static func организаторПолучитУведомлениеОВашемЖеланииПрисоединиться(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("Организатор получит уведомление о вашем желании присоединиться", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Localizable", preferredLanguages: preferredLanguages) else {
+          return "Организатор получит уведомление о вашем желании присоединиться"
+        }
+
+        return NSLocalizedString("Организатор получит уведомление о вашем желании присоединиться", bundle: bundle, comment: "")
+      }
+
       /// en translation: Отмена
       ///
       /// Locales: en
@@ -1808,6 +1929,21 @@ struct R: Rswift.Validatable {
         }
 
         return NSLocalizedString("Отмена", bundle: bundle, comment: "")
+      }
+
+      /// en translation: Отправить
+      ///
+      /// Locales: en
+      static func отправить(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("Отправить", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Localizable", preferredLanguages: preferredLanguages) else {
+          return "Отправить"
+        }
+
+        return NSLocalizedString("Отправить", bundle: bundle, comment: "")
       }
 
       /// en translation: Ошибка создания мероприятия
@@ -1988,6 +2124,21 @@ struct R: Rswift.Validatable {
         }
 
         return NSLocalizedString("Присоедениться", bundle: bundle, comment: "")
+      }
+
+      /// en translation: Присоединиться к вечеринке
+      ///
+      /// Locales: en
+      static func присоединитьсяКВечеринке(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("Присоединиться к вечеринке", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Localizable", preferredLanguages: preferredLanguages) else {
+          return "Присоединиться к вечеринке"
+        }
+
+        return NSLocalizedString("Присоединиться к вечеринке", bundle: bundle, comment: "")
       }
 
       /// en translation: Профиль
@@ -2194,7 +2345,19 @@ struct _R: Rswift.Validatable {
       try _LoginViewController.validate()
       try _RegistrationViewController.validate()
       try _ResetPasswordViewController.validate()
+      try _SuccessViewController.validate()
       try _TopMapSearchView.validate()
+    }
+
+    struct _AcceptModalViewController: Rswift.NibResourceType {
+      let bundle = R.hostingBundle
+      let name = "AcceptModalViewController"
+
+      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
+        return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
+      }
+
+      fileprivate init() {}
     }
 
     struct _EditProfileViewController: Rswift.NibResourceType, Rswift.Validatable {
@@ -2367,6 +2530,23 @@ struct _R: Rswift.Validatable {
 
       func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
         return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
+      }
+
+      fileprivate init() {}
+    }
+
+    struct _SuccessViewController: Rswift.NibResourceType, Rswift.Validatable {
+      let bundle = R.hostingBundle
+      let name = "SuccessViewController"
+
+      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
+        return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
+      }
+
+      static func validate() throws {
+        if UIKit.UIImage(named: "success", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'success' is used in nib 'SuccessViewController', but couldn't be loaded.") }
+        if #available(iOS 11.0, tvOS 11.0, *) {
+        }
       }
 
       fileprivate init() {}

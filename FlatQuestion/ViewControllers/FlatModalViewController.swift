@@ -74,6 +74,9 @@ class FlatModalViewController: UIViewController {
     }
     
     private func setupView() {
+        if flat?.userId == UserSettings.appUser.id {
+            sendInviteButton.backgroundColor = .gray
+        }
         nameLabel.text = flat?.name
         addressLabel.text = flat?.address
         dateLabel.text = DateFormatterHelper().getStringFromDate_MMM_yyyy_HH_mm(date: flat?.date?.date() ?? Date())
@@ -120,6 +123,12 @@ class FlatModalViewController: UIViewController {
                 self.moveView(state: state)
             }, completion: nil)
         }
+    }
+    
+    @IBAction func sendInviteButtonPressed(_ sender: Any) {
+        let vc = AcceptModalViewController(delegate: self, flatId: self.flat!.id)
+        vc.transitioningDelegate = self
+        present(vc, animated: true, completion: nil)
     }
     
     func localize() {
@@ -302,6 +311,11 @@ class FlatModalViewController: UIViewController {
         return layout
     }
 
+extension FlatModalViewController: AcceptModalViewControllerProtocol {
+    func inviteSuccessfullySended() {
+        print("success")
+    }
+}
 
 extension FlatModalViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -343,3 +357,13 @@ extension FlatModalViewController: UITableViewDelegate {
 }
 
 extension FlatModalViewController: UITableViewDataSource {}
+
+extension FlatModalViewController: UIViewControllerTransitioningDelegate {
+    func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        return TransparentBackgroundModalPresenter(isPush: true, originFrame: UIScreen.main.bounds)
+    }
+    
+    func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        return TransparentBackgroundModalPresenter(isPush: false)
+    }
+}

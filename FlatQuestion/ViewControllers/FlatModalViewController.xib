@@ -56,6 +56,9 @@
                     <state key="normal" title="Присоединиться">
                         <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </state>
+                    <connections>
+                        <action selector="sendInviteButtonPressed:" destination="-1" eventType="touchUpInside" id="QwR-UC-Jrf"/>
+                    </connections>
                 </button>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Party name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yXh-xH-v7K">
                     <rect key="frame" x="16" y="16" width="97" height="24"/>

@@ -13,6 +13,23 @@ import FirebaseFirestore
 import FirebaseFirestoreSwift
 import FirebaseStorage
 
+public enum MyError: Error {
+    case flatRequestAlreadySended
+    case isYourFlat
+    case unrecognizedError
+}
+
+extension MyError: LocalizedError {
+    public var errorDescription: String? {
+        switch self {
+            case .flatRequestAlreadySended:
+                return "Запрос на тусовку уже был отправлен".localized
+            case .isYourFlat: return "Нельзя отправить запрос самому себе".localized
+            case .unrecognizedError: return "Неопознанная ошибка".localized
+        } 
+    }
+}
+
 class FireBaseHelper {
     
     func updateUserInfoWithImage(user: AppUser, profileImage: UIImage, completion: @escaping (_ result: Result<Void,Error>) -> ()) {
@@ -43,6 +60,60 @@ class FireBaseHelper {
                     completion(.failure(error))
                 }
             }
+        }
+    }
+    
+    func updateRequestsForFlat(model: FlatRequestModel, completion: @escaping (_ result: Result<Void,Error>) -> ()) {
+        var model = model
+        let db = Firestore.firestore()
+        do {
+            db.collection("flat_requests").whereField("id", isEqualTo: model.id as Any).getDocuments { (snapshot, error) in
+                if snapshot?.documents.count != 0 {
+                    let document = snapshot?.documents.first
+                    guard var fbModel = try? document!.data(as: FlatRequestModel.self) else {
+                        completion(.failure(MyError.unrecognizedError))
+                        return
+                    }
+                    var isNewRequest = true
+                    fbModel.requests.forEach { (userInfo) in
+                        if userInfo.id == model.requests.first?.id {
+                            isNewRequest = false
+                        }
+                    }
+                    guard isNewRequest else {
+                        completion(.failure(MyError.flatRequestAlreadySended))
+                        return
+                    }
+                    fbModel.requests.append(model.requests.first!)
+                    
+                    let encoder = Firestore.Encoder()
+                    guard let updateData = try? encoder.encode(fbModel) else {
+                        completion(.failure(MyError.unrecognizedError))
+                        return
+                    }
+                    
+                    db.collection("flat_requests").document(document!.documentID).updateData(updateData) { (error) in
+                        error == nil ? completion(.success(())) : completion(.failure(error!))
+                    }
+                    
+                } else {
+                    self.sendNewRequestForFlat(model: model) { (result) in
+                        completion(result)
+                    }
+                }
+            }
+        }
+    }
+    
+    
+    private func sendNewRequestForFlat(model: FlatRequestModel, completion: @escaping (_ result: Result<Void,Error>) -> ()) {
+        let db = Firestore.firestore()
+        do {
+            try db.collection("flat_requests").document().setData(from: model)
+            completion(.success(()))
+        } catch let error {
+            print("Error writing Flat to Firestore: \(error)")
+            completion(.failure(error))
         }
     }
 
