@@ -10,7 +10,7 @@
         <!--Main Tab Bar Controller-->
         <scene sceneID="fro-zS-JAU">
             <objects>
-                <tabBarController id="dL1-bB-xZ8" storyboardIdentifier="main" customClass="MainTabBarController" customModule="FlatQuestion" customModuleProvider="target" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="main" id="dL1-bB-xZ8" customClass="MainTabBarController" customModule="FlatQuestion" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="W4e-kL-C1o" customClass="MainMenuTabBar" customModule="FlatQuestion" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>

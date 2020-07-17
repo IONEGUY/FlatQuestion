@@ -414,7 +414,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
 
-  /// This `R.image` struct is generated, and contains static references to 25 images.
+  /// This `R.image` struct is generated, and contains static references to 27 images.
   struct image {
     /// Image `Dictation`.
     static let dictation = Rswift.ImageResource(bundle: R.hostingBundle, name: "Dictation")
@@ -444,12 +444,16 @@ struct R: Rswift.Validatable {
     static let heart_icon = Rswift.ImageResource(bundle: R.hostingBundle, name: "heart_icon")
     /// Image `heart`.
     static let heart = Rswift.ImageResource(bundle: R.hostingBundle, name: "heart")
+    /// Image `instagram_icon`.
+    static let instagram_icon = Rswift.ImageResource(bundle: R.hostingBundle, name: "instagram_icon")
     /// Image `login_background`.
     static let login_background = Rswift.ImageResource(bundle: R.hostingBundle, name: "login_background")
     /// Image `person_button`.
     static let person_button = Rswift.ImageResource(bundle: R.hostingBundle, name: "person_button")
     /// Image `person`.
     static let person = Rswift.ImageResource(bundle: R.hostingBundle, name: "person")
+    /// Image `pin_icon`.
+    static let pin_icon = Rswift.ImageResource(bundle: R.hostingBundle, name: "pin_icon")
     /// Image `play_button`.
     static let play_button = Rswift.ImageResource(bundle: R.hostingBundle, name: "play_button")
     /// Image `register_background`.
@@ -566,6 +570,13 @@ struct R: Rswift.Validatable {
     #endif
 
     #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "instagram_icon", bundle: ..., traitCollection: ...)`
+    static func instagram_icon(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.instagram_icon, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
     /// `UIImage(named: "login_background", bundle: ..., traitCollection: ...)`
     static func login_background(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.login_background, compatibleWith: traitCollection)
@@ -583,6 +594,13 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "person_button", bundle: ..., traitCollection: ...)`
     static func person_button(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.person_button, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "pin_icon", bundle: ..., traitCollection: ...)`
+    static func pin_icon(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.pin_icon, compatibleWith: traitCollection)
     }
     #endif
 
@@ -676,8 +694,10 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
 
-  /// This `R.nib` struct is generated, and contains static references to 9 nibs.
+  /// This `R.nib` struct is generated, and contains static references to 10 nibs.
   struct nib {
+    /// Nib `CommentTableViewCell`.
+    static let commentTableViewCell = _R.nib._CommentTableViewCell()
     /// Nib `FlatCardCollectionViewCell`.
     static let flatCardCollectionViewCell = _R.nib._FlatCardCollectionViewCell()
     /// Nib `FlatDescriptionTableViewCell`.
@@ -696,6 +716,14 @@ struct R: Rswift.Validatable {
     static let topMapFilterCollectionViewCell = _R.nib._TopMapFilterCollectionViewCell()
     /// Nib `TopMapSearchView`.
     static let topMapSearchView = _R.nib._TopMapSearchView()
+
+    #if os(iOS) || os(tvOS)
+    /// `UINib(name: "CommentTableViewCell", in: bundle)`
+    @available(*, deprecated, message: "Use UINib(resource: R.nib.commentTableViewCell) instead")
+    static func commentTableViewCell(_: Void = ()) -> UIKit.UINib {
+      return UIKit.UINib(resource: R.nib.commentTableViewCell)
+    }
+    #endif
 
     #if os(iOS) || os(tvOS)
     /// `UINib(name: "FlatCardCollectionViewCell", in: bundle)`
@@ -768,6 +796,10 @@ struct R: Rswift.Validatable {
       return UIKit.UINib(resource: R.nib.topMapSearchView)
     }
     #endif
+
+    static func commentTableViewCell(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> CommentTableViewCell? {
+      return R.nib.commentTableViewCell.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? CommentTableViewCell
+    }
 
     static func flatCardCollectionViewCell(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> FlatCardCollectionViewCell? {
       return R.nib.flatCardCollectionViewCell.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? FlatCardCollectionViewCell
@@ -846,6 +878,7 @@ struct _R: Rswift.Validatable {
   #if os(iOS) || os(tvOS)
   struct nib: Rswift.Validatable {
     static func validate() throws {
+      try _CommentTableViewCell.validate()
       try _FlatCardCollectionViewCell.validate()
       try _FlatModalViewController.validate()
       try _FlatPhotoCollectionViewCell.validate()
@@ -853,6 +886,23 @@ struct _R: Rswift.Validatable {
       try _RegistrationViewController.validate()
       try _ResetPasswordViewController.validate()
       try _TopMapSearchView.validate()
+    }
+
+    struct _CommentTableViewCell: Rswift.NibResourceType, Rswift.Validatable {
+      let bundle = R.hostingBundle
+      let name = "CommentTableViewCell"
+
+      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> CommentTableViewCell? {
+        return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? CommentTableViewCell
+      }
+
+      static func validate() throws {
+        if UIKit.UIImage(named: "star.fill", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'star.fill' is used in nib 'CommentTableViewCell', but couldn't be loaded.") }
+        if #available(iOS 11.0, tvOS 11.0, *) {
+        }
+      }
+
+      fileprivate init() {}
     }
 
     struct _FlatCardCollectionViewCell: Rswift.NibResourceType, Rswift.ReuseIdentifierType, Rswift.Validatable {
@@ -1083,10 +1133,10 @@ struct _R: Rswift.Validatable {
       typealias InitialController = MainTabBarController
 
       let bundle = R.hostingBundle
-      let main = StoryboardViewControllerResource<UIKit.UITabBarController>(identifier: "main")
+      let main = StoryboardViewControllerResource<MainTabBarController>(identifier: "main")
       let name = "Main"
 
-      func main(_: Void = ()) -> UIKit.UITabBarController? {
+      func main(_: Void = ()) -> MainTabBarController? {
         return UIKit.UIStoryboard(resource: self).instantiateViewController(withResource: main)
       }
 
@@ -1094,7 +1144,7 @@ struct _R: Rswift.Validatable {
         if UIKit.UIImage(named: "centered_button", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'centered_button' is used in storyboard 'Main', but couldn't be loaded.") }
         if #available(iOS 11.0, tvOS 11.0, *) {
         }
-        if _R.storyboard.main().main() == nil { throw Rswift.ValidationError(description:"[R.swift] ViewController with identifier 'main' could not be loaded from storyboard 'Main' as 'UIKit.UITabBarController'.") }
+        if _R.storyboard.main().main() == nil { throw Rswift.ValidationError(description:"[R.swift] ViewController with identifier 'main' could not be loaded from storyboard 'Main' as 'MainTabBarController'.") }
       }
 
       fileprivate init() {}
@@ -1137,13 +1187,16 @@ struct _R: Rswift.Validatable {
 
     #if os(iOS) || os(tvOS)
     struct profile: Rswift.StoryboardResourceWithInitialControllerType, Rswift.Validatable {
-      typealias InitialController = UIKit.UIViewController
+      typealias InitialController = ProfileViewController
 
       let bundle = R.hostingBundle
       let name = "Profile"
 
       static func validate() throws {
+        if UIKit.UIImage(named: "instagram_icon", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'instagram_icon' is used in storyboard 'Profile', but couldn't be loaded.") }
+        if UIKit.UIImage(named: "pin_icon", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'pin_icon' is used in storyboard 'Profile', but couldn't be loaded.") }
         if UIKit.UIImage(named: "user", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'user' is used in storyboard 'Profile', but couldn't be loaded.") }
+        if UIKit.UIImage(named: "vk_icon", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'vk_icon' is used in storyboard 'Profile', but couldn't be loaded.") }
         if #available(iOS 11.0, tvOS 11.0, *) {
         }
       }

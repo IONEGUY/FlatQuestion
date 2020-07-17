@@ -14,7 +14,7 @@ class UserSettings {
         case appUser
     }
     
-    static var appUser: AppUser! {
+    static var appUser: AppUser? {
         get {
             guard let savedData = UserDefaults.standard.object(forKey: SettingsKeys.appUser.rawValue) as? Data,
             let decodedModel = try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(savedData) as? AppUser else { return nil }

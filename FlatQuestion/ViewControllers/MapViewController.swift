@@ -46,7 +46,6 @@ class MapViewController: UIViewController {
         collectionView?.register(UINib(nibName: FlatCardCollectionViewCell.identifier, bundle: nil),
                                  forCellWithReuseIdentifier: FlatCardCollectionViewCell.identifier)
         collectionView?.showsHorizontalScrollIndicator = false
-        collectionView?.isPagingEnabled = true
         self.view.addSubview(collectionView ?? UICollectionView())
         self.collectionView?.delegate = self
         self.collectionView?.dataSource = self
