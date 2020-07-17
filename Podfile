@@ -19,10 +19,12 @@ target 'FlatQuestion' do
   pod 'Firebase/Crashlytics'
   pod 'RealmSwift'
   pod 'SwiftyVK'
-  pod 'R.swift'
   pod 'IQKeyboardManagerSwift'
   pod 'JGProgressHUD'
-
+  pod 'Google-Maps-iOS-Utils'
+  pod 'Firebase/Database'
+  pod 'FirebaseFirestoreSwift'
+  pod 'Firebase/Storage'
   target 'FlatQuestionTests' do
     inherit! :search_paths
     # Pods for testing

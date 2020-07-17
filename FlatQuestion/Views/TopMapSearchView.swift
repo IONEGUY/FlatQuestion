@@ -11,6 +11,7 @@ import UIKit
 class TopMapSearchView: UIView {
 
     @IBOutlet private weak var collectionView: UICollectionView!
+    @IBOutlet weak var searchTextField: UITextField!
     
     override class func awakeFromNib() {
         super.awakeFromNib()
@@ -38,6 +39,7 @@ class TopMapSearchView: UIView {
     private func setupView() {
         loadFromNib()
         setupFilters()
+        localize()
     }
     
     private func setupFilters() {
@@ -47,6 +49,10 @@ class TopMapSearchView: UIView {
         collectionView.dataSource = self
         collectionView.reloadData()
         layoutIfNeeded()
+    }
+    
+    func localize() {
+        searchTextField.placeholder = "Поиск".localized
     }
 }
 

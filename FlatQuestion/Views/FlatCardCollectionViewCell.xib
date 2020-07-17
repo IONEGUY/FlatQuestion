@@ -67,7 +67,7 @@
                             </userDefinedRuntimeAttribute>
                         </userDefinedRuntimeAttributes>
                     </view>
-                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="flat_image" translatesAutoresizingMaskIntoConstraints="NO" id="aP8-L8-dcs">
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="aP8-L8-dcs">
                         <rect key="frame" x="8" y="8" width="99" height="99"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="99" id="QBC-sX-uMj"/>
@@ -97,13 +97,12 @@
             <size key="customSize" width="275" height="117"/>
             <connections>
                 <outlet property="addressLabel" destination="bbD-Wv-zE3" id="Zhu-zL-akB"/>
+                <outlet property="dateLabel" destination="KuK-C8-zPz" id="4eH-GC-5dp"/>
                 <outlet property="imageView" destination="aP8-L8-dcs" id="lAN-JH-Zh8"/>
+                <outlet property="placesLabel" destination="Zle-6L-6KY" id="T8m-hW-Ovd"/>
                 <outlet property="titleLabel" destination="gwc-hA-udm" id="IMZ-2O-lbZ"/>
             </connections>
             <point key="canvasLocation" x="21.014492753623191" y="113.50446428571428"/>
         </collectionViewCell>
     </objects>
-    <resources>
-        <image name="flat_image" width="230" height="156"/>
-    </resources>
 </document>

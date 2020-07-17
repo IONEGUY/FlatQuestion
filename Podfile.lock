@@ -180,9 +180,15 @@ PODS:
   - Firebase/Crashlytics (6.18.0):
     - Firebase/CoreOnly
     - FirebaseCrashlytics (~> 4.0.0-beta.4)
+  - Firebase/Database (6.18.0):
+    - Firebase/CoreOnly
+    - FirebaseDatabase (~> 6.1.4)
   - Firebase/Firestore (6.18.0):
     - Firebase/CoreOnly
     - FirebaseFirestore (~> 1.11.0)
+  - Firebase/Storage (6.18.0):
+    - Firebase/CoreOnly
+    - FirebaseStorage (~> 3.5.0)
   - FirebaseAnalytics (6.3.0):
     - FirebaseCore (~> 6.6)
     - FirebaseInstallations (~> 1.1)
@@ -217,6 +223,10 @@ PODS:
     - FirebaseCore (~> 6.6)
     - FirebaseInstallations (~> 1.1)
     - PromisesObjC (~> 1.2)
+  - FirebaseDatabase (6.1.4):
+    - FirebaseAuthInterop (~> 1.0)
+    - FirebaseCore (~> 6.0)
+    - leveldb-library (~> 1.22)
   - FirebaseFirestore (1.11.0):
     - abseil/algorithm (= 0.20190808)
     - abseil/base (= 0.20190808)
@@ -230,10 +240,32 @@ PODS:
     - "gRPC-C++ (= 0.0.9)"
     - leveldb-library (~> 1.22)
     - nanopb (~> 0.3.901)
+  - FirebaseFirestoreSwift (0.3.0):
+    - FirebaseFirestore (>= 1.6.1, ~> 1.6)
   - FirebaseInstallations (1.1.0):
     - FirebaseCore (~> 6.6)
     - GoogleUtilities/UserDefaults (~> 6.5)
     - PromisesObjC (~> 1.2)
+  - FirebaseStorage (3.5.0):
+    - FirebaseAuthInterop (~> 1.0)
+    - FirebaseCore (~> 6.0)
+    - GTMSessionFetcher/Core (~> 1.1)
+  - Google-Maps-iOS-Utils (3.1.4):
+    - Google-Maps-iOS-Utils/Clustering (= 3.1.4)
+    - Google-Maps-iOS-Utils/Geometry (= 3.1.4)
+    - Google-Maps-iOS-Utils/Heatmap (= 3.1.4)
+    - Google-Maps-iOS-Utils/QuadTree (= 3.1.4)
+    - GoogleMaps
+  - Google-Maps-iOS-Utils/Clustering (3.1.4):
+    - Google-Maps-iOS-Utils/QuadTree
+    - GoogleMaps
+  - Google-Maps-iOS-Utils/Geometry (3.1.4):
+    - GoogleMaps
+  - Google-Maps-iOS-Utils/Heatmap (3.1.4):
+    - Google-Maps-iOS-Utils/QuadTree
+    - GoogleMaps
+  - Google-Maps-iOS-Utils/QuadTree (3.1.4):
+    - GoogleMaps
   - GoogleAppMeasurement (6.3.0):
     - GoogleUtilities/AppDelegateSwizzler (~> 6.0)
     - GoogleUtilities/MethodSwizzler (~> 6.0)
@@ -295,9 +327,6 @@ PODS:
   - nanopb/decode (0.3.9011)
   - nanopb/encode (0.3.9011)
   - PromisesObjC (1.2.8)
-  - R.swift (5.2.2):
-    - R.swift.Library (~> 5.2.0)
-  - R.swift.Library (5.2.0)
   - Realm (5.0.0):
     - Realm/Headers (= 5.0.0)
   - Realm/Headers (5.0.0)
@@ -315,12 +344,15 @@ DEPENDENCIES:
   - Firebase/Auth
   - Firebase/Core
   - Firebase/Crashlytics
+  - Firebase/Database
   - Firebase/Firestore
+  - Firebase/Storage
+  - FirebaseFirestoreSwift
+  - Google-Maps-iOS-Utils
   - GoogleMaps
   - GooglePlaces
   - IQKeyboardManagerSwift
   - JGProgressHUD
-  - R.swift
   - RealmSwift
   - SDWebImage (~> 5.0)
   - SwiftyVK
@@ -340,8 +372,12 @@ SPEC REPOS:
     - FirebaseCoreDiagnostics
     - FirebaseCoreDiagnosticsInterop
     - FirebaseCrashlytics
+    - FirebaseDatabase
     - FirebaseFirestore
+    - FirebaseFirestoreSwift
     - FirebaseInstallations
+    - FirebaseStorage
+    - Google-Maps-iOS-Utils
     - GoogleAppMeasurement
     - GoogleDataTransport
     - GoogleDataTransportCCTSupport
@@ -356,8 +392,6 @@ SPEC REPOS:
     - leveldb-library
     - nanopb
     - PromisesObjC
-    - R.swift
-    - R.swift.Library
     - Realm
     - RealmSwift
     - SDWebImage
@@ -377,8 +411,12 @@ SPEC CHECKSUMS:
   FirebaseCoreDiagnostics: 2109d10c35e8289b1ee6cabf44d9ffb055620194
   FirebaseCoreDiagnosticsInterop: 296e2c5f5314500a850ad0b83e9e7c10b011a850
   FirebaseCrashlytics: 7c95218730d1debf493e987233c7b41dd7ba1329
+  FirebaseDatabase: 0144e0706a4761f1b0e8679572eba8095ddb59be
   FirebaseFirestore: a23d596ae3a8c13d3b8353b565d2adfb690f9032
+  FirebaseFirestoreSwift: 0cda93628782ca5a817cfecd2a8c0187436c0ae5
   FirebaseInstallations: 575cd32f2aec0feeb0e44f5d0110a09e5e60b47b
+  FirebaseStorage: 6c5263796af3b1be82ed173598aade47535fe125
+  Google-Maps-iOS-Utils: 1e51ca272b4f4befdf3577bf46f58c22ef22062c
   GoogleAppMeasurement: 39ecba10918b21c83877d392246157f65db351cf
   GoogleDataTransport: 653963cf5be60fb59cf051e070f0836fdc305f81
   GoogleDataTransportCCTSupport: 84e4d4bbab642f2e9d83ee65d78aca2b5527d314
@@ -393,13 +431,11 @@ SPEC CHECKSUMS:
   leveldb-library: 55d93ee664b4007aac644a782d11da33fba316f7
   nanopb: 18003b5e52dab79db540fe93fe9579f399bd1ccd
   PromisesObjC: c119f3cd559f50b7ae681fa59dc1acd19173b7e6
-  R.swift: 7c52cdc57a66840ffe6cbd8a823d732059d42a32
-  R.swift.Library: 5ba4f1631300caf9a4d890186930da85d540769d
   Realm: 76066d333de26f97e9caedaa85ee3ff4a62ca265
   RealmSwift: c1bdff09b422569dc6881410d9ccf712bcdb79b0
   SDWebImage: 4d5c027c935438f341ed33dbac53ff9f479922ca
   SwiftyVK: 5005dac6e85f7b0fd44e21ed2f021a397dff4cab
 
-PODFILE CHECKSUM: c355bbfe9a325b4ca6636549f322fb392ef4eff9
+PODFILE CHECKSUM: 222ba98f515416460d794439c2a8a257f1a4b8ef
 
-COCOAPODS: 1.8.4
+COCOAPODS: 1.9.3

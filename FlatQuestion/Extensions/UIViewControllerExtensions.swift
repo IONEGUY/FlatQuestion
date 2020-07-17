@@ -24,10 +24,32 @@ extension UIViewController {
         self.present(vc, animated:true, completion:nil)
     }
     
+    func pushFullContextVC(name: String) {
+        let vc = UIViewController(nibName: name, bundle: nil)
+        self.present(vc, animated:true, completion:nil)
+    }
+    
     func navigateToMainVC() {
         let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
         let newViewController = storyBoard.instantiateViewController(withIdentifier: "main")
         newViewController.modalPresentationStyle = .fullScreen
-        self.present(newViewController, animated: true, completion: nil)
+        if UserSettings.appUser.sex != nil {
+            self.present(newViewController, animated: true, completion: nil)
+        } else {
+            self.present(newViewController, animated: false) {
+                let vc = EditProfileViewController(nibName: "EditProfileViewController", bundle: nil)
+                vc.modalPresentationStyle = .fullScreen
+                self.present(vc, animated: true, completion: nil)
+                newViewController.present(vc, animated: true, completion: nil)
+            }
+        }
+        
+        
+    }
+    
+    func navigateToRegistrationVC() {
+                let vc = EditProfileViewController(nibName: "EditProfileViewController", bundle: nil)
+                vc.modalPresentationStyle = .fullScreen
+                self.present(vc, animated: true, completion: nil)
     }
 }

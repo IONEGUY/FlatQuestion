@@ -23,6 +23,7 @@ class MainTabBarController: UITabBarController {
         setupCenterButton()
     }
 
+    
   fileprivate func setupCenterButton() {
     tabBar.addSubview(centerButton)
     centerButton.translatesAutoresizingMaskIntoConstraints = false
@@ -30,8 +31,28 @@ class MainTabBarController: UITabBarController {
     centerButton.centerXAnchor.constraint(equalTo: tabBar.centerXAnchor).isActive = true
     guard let customTabbar = tabBar as? MainMenuTabBar else { return }
     customTabbar.centerButton = centerButton
+    customTabbar.centerButton?.addTarget(self, action: #selector(buttonAction), for: .touchUpInside)
   }
 
+    @objc func buttonAction(sender: UIButton!) {
+        let vc = storyboard!.instantiateViewController(withIdentifier: "CreateFlatViewController") as! CreateFlatViewController
+        vc.delegate = self
+        vc.modalPresentationStyle = .overFullScreen
+        self.present(vc, animated: true, completion: nil)
+//        let vc = EditProfileViewController(nibName: "EditProfileViewController", bundle: nil)
+//        vc.modalPresentationStyle = .fullScreen
+//        self.present(vc, animated: true, completion: nil)
+       }
+    
   @IBAction fileprivate func unwindToMainViewController(_ segue: UIStoryboardSegue) {}
 
+}
+
+extension MainTabBarController: CreateFlatProtocol {
+    func flatWasCreated() {
+        if let vc = topMostViewController() as? MapViewController {
+             vc.updateFlats()
+            
+        }
+    }
 }

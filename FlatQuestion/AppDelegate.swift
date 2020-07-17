@@ -10,7 +10,8 @@ import UIKit
 import GoogleMaps
 import Firebase
 import IQKeyboardManagerSwift
-
+import GooglePlaces
+import SDWebImage
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
@@ -37,6 +38,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     private func setupGoogleAPIs() {
-        GMSServices.provideAPIKey("AIzaSyB9IQNhIotsJgRUVctYkQSRhnw-qkx80iI")
+        GMSPlacesClient.provideAPIKey("AIzaSyCmJ1VuRvdCDWlwOy1JqnY6y8cQmV1MTxs")
+        GMSServices.provideAPIKey("AIzaSyCmJ1VuRvdCDWlwOy1JqnY6y8cQmV1MTxs")
     }
 }

@@ -9,11 +9,17 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LoginViewController" customModule="FlatQuestion" customModuleProvider="target">
             <connections>
+                <outlet property="dontHaveAccountLabel" destination="kxa-aE-SMD" id="ERm-B4-Qkf"/>
                 <outlet property="emailErrorMessage" destination="yaq-As-cfU" id="1JI-wb-MaS"/>
                 <outlet property="emailTextField" destination="FJs-jy-MYc" id="YV7-Qx-L8L"/>
+                <outlet property="enterLabel" destination="GG9-n2-yIq" id="xO4-jE-CTB"/>
+                <outlet property="forgetPassButton" destination="YVT-SE-cb1" id="4au-LK-Ufb"/>
                 <outlet property="googleView" destination="SLc-8G-2E8" id="KlO-fg-IHx"/>
+                <outlet property="orLabel" destination="5RI-BR-gVy" id="YMv-CV-m2R"/>
                 <outlet property="passwordErrorMessage" destination="Q72-gn-pml" id="8sO-Ny-Nhw"/>
+                <outlet property="passwordLabel" destination="tfh-Lr-XhU" id="47w-MK-mPQ"/>
                 <outlet property="passwordTextField" destination="h2e-Ce-dCg" id="AfX-Ls-gGP"/>
+                <outlet property="registrationLabel" destination="H59-C1-N9K" id="pB8-6y-GGH"/>
                 <outlet property="signInButton" destination="aSv-tk-Fdn" id="AFI-bm-jYy"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
                 <outlet property="vkView" destination="iU2-Ei-ni2" id="ksX-zW-L5C"/>
@@ -35,9 +41,9 @@
                             <rect key="frame" x="40" y="80" width="334" height="647"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Вход" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GG9-n2-yIq">
-                                    <rect key="frame" x="0.0" y="0.0" width="79" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="150" height="43"/>
                                     <constraints>
-                                        <constraint firstAttribute="width" constant="79" id="fbS-Zq-O2i"/>
+                                        <constraint firstAttribute="width" constant="150" id="fbS-Zq-O2i"/>
                                         <constraint firstAttribute="height" constant="43" id="zLr-dy-2KS"/>
                                     </constraints>
                                     <fontDescription key="fontDescription" type="system" weight="light" pointSize="36"/>

@@ -17,7 +17,7 @@ extension FlatModalViewController {
 
     private enum Constant {
         static let fullViewYPosition: CGFloat = 50
-        static let noneYPosition: CGFloat = 900
+        static let noneYPosition: CGFloat = UIScreen.main.bounds.height
         static func getPartialViewPosition(tabBarHeight: CGFloat) -> CGFloat {
             return UIScreen.main.bounds.height - 335 - tabBarHeight
         }
@@ -32,16 +32,27 @@ class FlatModalViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     weak var delegate: RemovableDelegate?
     private var currentState: State?
-    var flat: Flat?
+    var flat: FlatModel?
     @IBOutlet weak var collectionView: UICollectionView!
     
+    @IBOutlet weak var sendInviteButton: DarkGradientButton!
     @IBOutlet weak var profileView: UIView!
     @IBOutlet weak var mapView: UIView!
     @IBOutlet weak var favoriteView: UIView!
     @IBOutlet weak var shareView: UIView!
+    @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var addressLabel: UILabel!
+    @IBOutlet weak var dateLabel: UILabel!
+    @IBOutlet weak var placesLabel: UILabel!
+    
+    @IBOutlet weak var profileLabel: UILabel!
+    @IBOutlet weak var mapLabel: UILabel!
+    @IBOutlet weak var favoriteLabel: UILabel!
+    @IBOutlet weak var shareLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupView()
         setupGesture()
         setupCollectionView()
         setupTableView()
@@ -60,6 +71,16 @@ class FlatModalViewController: UIViewController {
       let gesture = UIPanGestureRecognizer.init(target: self, action: #selector(panGesture))
         view.addGestureRecognizer(gesture)
         view.isUserInteractionEnabled = true
+    }
+    
+    private func setupView() {
+        if flat?.userId == UserSettings.appUser.id {
+            sendInviteButton.backgroundColor = .gray
+        }
+        nameLabel.text = flat?.name
+        addressLabel.text = flat?.address
+        dateLabel.text = DateFormatterHelper().getStringFromDate_MMM_yyyy_HH_mm(date: flat?.date?.date() ?? Date())
+        placesLabel.text = "Свободно".localized + " \(String(describing: flat!.emptyPlacesCount!))" + "из".localized + " \(String(describing: flat!.allPlacesCount!))"
     }
 
     private func setupTableView() {
@@ -103,8 +124,24 @@ class FlatModalViewController: UIViewController {
             }, completion: nil)
         }
     }
+    
+    @IBAction func sendInviteButtonPressed(_ sender: Any) {
+        let vc = AcceptModalViewController(delegate: self, flatId: self.flat!.id)
+        vc.transitioningDelegate = self
+        present(vc, animated: true, completion: nil)
+    }
+    
+    func localize() {
+        sendInviteButton.titleLabel?.text = "Присоедениться".localized
+        profileLabel.text = "Профиль".localized
+        mapLabel.text = "Карта".localized
+        favoriteLabel.text = "Избранные".localized
+        shareLabel.text = "Поделиться".localized
+    }
 
     func roundViews() {
+        sendInviteButton.setupButtonView()
+        
         profileView.addCorner(with: 10, with: .black)
         mapView.addCorner(with: 10, with: .black)
         favoriteView.addCorner(with: 10, with: .black)
@@ -115,8 +152,23 @@ class FlatModalViewController: UIViewController {
         view.clipsToBounds = true
     }
 
+    @IBAction func close(_ sender: Any) {
+
+        UIView.animate(withDuration: 0.6, animations: {
+            self.view.frame = CGRect(x: 0, y: 900, width: self.view.frame.width, height: self.view.frame.height)
+        }) { (Bool) in
+            self.delegate?.shouldRemoveFromSuperView()
+        }
+    }
+    
     private func setupCollectionView() {
-        self.collectionView.collectionViewLayout = generateLayout()
+        switch flat?.images?.count {
+        case 1: self.collectionView.collectionViewLayout = generateLayoutOnePhoto()
+        case 2: self.collectionView.collectionViewLayout = generateLayoutTwoPhotos()
+        case 3: self.collectionView.collectionViewLayout = generateLayout()
+        default:
+            self.collectionView.collectionViewLayout = generateLayoutOnePhoto()
+        }
         collectionView.register(UINib(nibName: FlatPhotoCollectionViewCell.identifier, bundle: nil),
         forCellWithReuseIdentifier: FlatPhotoCollectionViewCell.identifier)
         collectionView.delegate = self
@@ -180,9 +232,94 @@ class FlatModalViewController: UIViewController {
     }
 }
 
+    func generateLayoutOnePhoto() -> UICollectionViewLayout {
+        let fullPhotoItem = NSCollectionLayoutItem(
+            layoutSize: NSCollectionLayoutSize(
+                widthDimension: .fractionalWidth(1.0),
+                heightDimension: .fractionalWidth(2/3)))
+        fullPhotoItem.contentInsets = NSDirectionalEdgeInsets(
+            top: 0,
+            leading: 2,
+            bottom: 0,
+            trailing: 2)
+        
+        let trailingGroup = NSCollectionLayoutGroup.horizontal(
+        layoutSize: NSCollectionLayoutSize(
+            widthDimension: .fractionalWidth(1.0),
+            heightDimension: .fractionalHeight(1.0)),
+        subitem: fullPhotoItem,
+        count: 1)
+        
+        let section = NSCollectionLayoutSection(group: trailingGroup)
+        let layout = UICollectionViewCompositionalLayout(section: section)
+        return layout
+    }
+
+
+    func generateLayoutTwoPhotos() -> UICollectionViewLayout {
+        let fullPhotoItem = NSCollectionLayoutItem(
+            layoutSize: NSCollectionLayoutSize(
+                widthDimension: .fractionalWidth(1.0),
+                heightDimension: .fractionalWidth(2/3)))
+        fullPhotoItem.contentInsets = NSDirectionalEdgeInsets(
+            top: 0,
+            leading: 2,
+            bottom: 0,
+            trailing: 2)
+        
+        let mainItem = NSCollectionLayoutItem(
+            layoutSize: NSCollectionLayoutSize(
+                widthDimension: .fractionalWidth(2/3),
+                heightDimension: .fractionalHeight(1.0)))
+        mainItem.contentInsets = NSDirectionalEdgeInsets(
+            top: 2,
+            leading: 2,
+            bottom: 2,
+            trailing: 2)
+        let pairItem = NSCollectionLayoutItem(
+            layoutSize: NSCollectionLayoutSize(
+                widthDimension: .fractionalWidth(1.0),
+                heightDimension: .fractionalHeight(0.5)))
+        pairItem.contentInsets = NSDirectionalEdgeInsets(
+            top: 2,
+            leading: 2,
+            bottom: 2,
+            trailing: 2)
+        let trailingGroup = NSCollectionLayoutGroup.vertical(
+            layoutSize: NSCollectionLayoutSize(
+                widthDimension: .fractionalWidth(1/3),
+                heightDimension: .fractionalHeight(1.0)),
+            subitem: pairItem,
+            count: 1)
+        // 1
+        let mainWithPairGroup = NSCollectionLayoutGroup.horizontal(
+            layoutSize: NSCollectionLayoutSize(
+                widthDimension: .fractionalWidth(1.0),
+                heightDimension: .fractionalWidth(5/10)),
+            subitems: [mainItem, trailingGroup])
+        let nestedGroup = NSCollectionLayoutGroup.horizontal(
+            layoutSize: NSCollectionLayoutSize(
+                widthDimension: .fractionalWidth(1.0),
+                heightDimension: .fractionalHeight(1.0)),
+            subitems: [
+                mainWithPairGroup,
+                fullPhotoItem
+            ]
+        )
+        let section = NSCollectionLayoutSection(group: nestedGroup)
+        let layout = UICollectionViewCompositionalLayout(section: section)
+        return layout
+    }
+
+extension FlatModalViewController: AcceptModalViewControllerProtocol {
+    func inviteSuccessfullySended() {
+        print("success")
+    }
+}
+
 extension FlatModalViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        return flat?.images?.count ?? 0
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -191,7 +328,10 @@ extension FlatModalViewController: UICollectionViewDelegate {
         guard let photoCell = cell else {
             return UICollectionViewCell()
         }
-        photoCell.image.image = UIImage(named: "flat_image")
+        guard let url = URL(string: (flat?.images?[indexPath.row])!) else {
+            return photoCell
+        }
+        photoCell.image.sd_setImage(with: url, completed: nil)
         return photoCell
     }
 }
@@ -200,7 +340,7 @@ extension FlatModalViewController: UICollectionViewDataSource {}
 
 extension FlatModalViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return flat?.arrayWithDescription.count ?? 0
+        return 1
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -210,10 +350,20 @@ extension FlatModalViewController: UITableViewDelegate {
             return UITableViewCell()
         }
 
-        flatDescriptionCell.setupTitle(title: flat?.arrayWithDescription[indexPath.row].name ?? "",
-                                       description: "\(flat?.arrayWithDescription[indexPath.row].description ?? "")")
+        flatDescriptionCell.setupTitle(title: "Информация".localized,
+                                       description: flat?.additionalInfo ?? "")
         return flatDescriptionCell
     }
 }
 
 extension FlatModalViewController: UITableViewDataSource {}
+
+extension FlatModalViewController: UIViewControllerTransitioningDelegate {
+    func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        return TransparentBackgroundModalPresenter(isPush: true, originFrame: UIScreen.main.bounds)
+    }
+    
+    func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        return TransparentBackgroundModalPresenter(isPush: false)
+    }
+}
