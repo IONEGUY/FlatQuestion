@@ -50,6 +50,8 @@ class ProfileViewController: UIViewController {
         commentsTableView.separatorStyle = .none
         commentsTableView.delegate = self
         commentsTableView.dataSource = self
+        commentsTableView.reloadData()
+        self.view.layoutIfNeeded()
     }
     
     private func addModalFlatView(flat: Flat) {
