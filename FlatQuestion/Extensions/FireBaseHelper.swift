@@ -155,7 +155,7 @@ class FireBaseHelper {
                 switch result {
                 case .success(let url): urlStrings.append(url.absoluteString)
                 if urlStrings.count ==  images.count {
-                    let flat = FlatModel(name: name, additionalInfo: additionalInfo, allPlacesCount: allPlacesCount, emptyPlacesCount: emptyPlacesCount, date: date.timeIntervalSince1970, id: id, images: urlStrings, x: x, y: y, address: address, userId: UserSettings.appUser.id!)
+                    let flat = FlatModel(name: name, additionalInfo: additionalInfo, allPlacesCount: allPlacesCount, emptyPlacesCount: emptyPlacesCount, date: date.timeIntervalSince1970, id: id, images: urlStrings, x: x, y: y, address: address, userId: UserSettings.appUser!.id!)
                     self.createFlat(flat: flat) { (result) in
                         switch result {
                         case .success(()): let user = UserSettings.appUser

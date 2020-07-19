@@ -56,7 +56,7 @@ class ProfileViewController: UIViewController {
     
     private func addModalFlatView(flat: Flat) {
         flatModalVC = FlatModalViewController(nibName: "FlatModalViewController", bundle: nil)
-        flatModalVC.flat = flat
+        //flatModalVC.flat = flat
         flatModalVC.delegate = self
         self.addChild(flatModalVC)
         self.view.addSubview(flatModalVC.view)
@@ -128,7 +128,7 @@ extension ProfileViewController: UICollectionViewDataSource {
         cell.widthAnchor.constraint(equalToConstant: 283).isActive = true
         cell.clipsToBounds = false
         cell.applyShadow(shadowOffsetHeight: 0)
-        cell.fillCellData(with: self.flats[indexPath.item])
+        //cell.fillCellData(with: self.flats[indexPath.item])
         return cell
     }
 }

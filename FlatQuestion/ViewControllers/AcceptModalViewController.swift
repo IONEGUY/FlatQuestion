@@ -65,7 +65,7 @@ class AcceptModalViewController: UIViewController {
     }
 
     @IBAction func sendRequest(_ sender: Any) {
-        let userInfo = UserInfo(id: UserSettings.appUser.id!, status: .New, message: textView.text)
+        let userInfo = UserInfo(id: UserSettings.appUser!.id!, status: .New, message: textView.text)
 
         let requestModel = FlatRequestModel(id: flatId, requests: [userInfo])
         self.showLoadingIndicator()

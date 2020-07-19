@@ -134,6 +134,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMUCluster
                                        y: self.view.frame.size.height - 150 - tabBarHeight,
                                        width: self.view.frame.width, height: 115)
         collectionView?.backgroundColor = .clear
+        collectionView?.isPagingEnabled = true
         self.view.layoutIfNeeded()
     }
 
@@ -238,7 +239,7 @@ extension MapViewController: UICollectionViewDataSource {
         guard let cell = flatCell else {return UICollectionViewCell()}
         let flat = self.flats[indexPath.item]
         cell.fillCellData(with: flat)
-        if flat.userId == UserSettings.appUser.id {
+        if flat.userId == UserSettings.appUser!.id {
             cell.backgroundColor = .yellow
         }
         return cell
@@ -298,7 +299,7 @@ extension MapViewController: GMUClusterRendererDelegate {
                 priveousSelectedIndex = selectedIndex
                 let flat = flats[selectedIndex]
                 let iconView: IconView
-                if flat.userId == UserSettings.appUser.id {
+                if flat.userId == UserSettings.appUser!.id {
                     iconView = IconView(frame: CGRect(x: -64, y: -64, width: 128, height: 128), isMyFlat: true)
                 } else {
                     iconView = IconView(frame: CGRect(x: -64, y: -64, width: 128, height: 128))
@@ -313,7 +314,7 @@ extension MapViewController: GMUClusterRendererDelegate {
                 
             } else {
                 let flat = flats[markerData.id!]
-                marker.icon = flat.userId == UserSettings.appUser.id ? UIImage(named: "my_marker") : UIImage(named: "default_marker")
+                marker.icon = flat.userId == UserSettings.appUser!.id ? UIImage(named: "my_marker") : UIImage(named: "default_marker")
                 
             }
         }

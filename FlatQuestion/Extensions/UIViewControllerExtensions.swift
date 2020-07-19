@@ -33,7 +33,7 @@ extension UIViewController {
         let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
         let newViewController = storyBoard.instantiateViewController(withIdentifier: "main")
         newViewController.modalPresentationStyle = .fullScreen
-        if UserSettings.appUser.sex != nil {
+        if UserSettings.appUser!.sex != nil {
             self.present(newViewController, animated: true, completion: nil)
         } else {
             self.present(newViewController, animated: false) {

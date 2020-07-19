@@ -74,7 +74,7 @@ class FlatModalViewController: UIViewController {
     }
     
     private func setupView() {
-        if flat?.userId == UserSettings.appUser.id {
+        if flat?.userId == UserSettings.appUser!.id {
             sendInviteButton.backgroundColor = .gray
         }
         nameLabel.text = flat?.name
