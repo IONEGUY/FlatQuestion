@@ -17,6 +17,7 @@ public enum MyError: Error {
     case flatRequestAlreadySended
     case isYourFlat
     case unrecognizedError
+    case userHasNoFlats
 }
 
 extension MyError: LocalizedError {
@@ -26,11 +27,36 @@ extension MyError: LocalizedError {
                 return "Запрос на тусовку уже был отправлен".localized
             case .isYourFlat: return "Нельзя отправить запрос самому себе".localized
             case .unrecognizedError: return "Неопознанная ошибка".localized
+            case .userHasNoFlats: return "У вас нет активных тусовок".localized
         } 
     }
 }
 
 class FireBaseHelper {
+    func getFlatRequests(completion: @escaping (_ result: Result<FlatRequestModel,Error>) -> ()) {
+        guard let flats = UserSettings.appUser!.flats else {
+            completion(.failure(MyError.unrecognizedError))
+            return }
+        guard flats.count > 0 else {
+            completion(.failure(MyError.userHasNoFlats))
+            return }
+        let db = Firestore.firestore()
+        db.collection("flat_requests").whereField("ownerId", isEqualTo: UserSettings.appUser!.id! as Any).getDocuments { (snapshot, error) in
+                if error != nil {
+                    completion(.failure(MyError.unrecognizedError))
+                } else {
+                    guard let documents = snapshot?.documents, documents.count != 0 else { return }
+
+                    documents.forEach({ (snapshot) in
+                        guard var fbModel = try? snapshot.data(as: FlatRequestModel.self) else {
+                            completion(.failure(MyError.unrecognizedError))
+                            return
+                        }
+                        completion(.success(fbModel))
+                    })
+                }
+            }
+    }
     
     func updateUserInfoWithImage(user: AppUser, profileImage: UIImage, completion: @escaping (_ result: Result<Void,Error>) -> ()) {
         var urlString: String?
@@ -188,6 +214,9 @@ class FireBaseHelper {
 }
 
 private extension FireBaseHelper {
+    func getImageOfPersonByUrl() {
+        
+    }
     func uploadImageOfFlat(toFlat flatId: Int, image: UIImage, completion: @escaping (Result<URL,Error>) -> ()) {
         let ref = Storage.storage().reference().child("flats").child(String(flatId)).child(String(Date().timeIntervalSince1970))
         

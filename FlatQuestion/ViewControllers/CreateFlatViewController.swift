@@ -437,8 +437,10 @@ private extension CreateFlatViewController {
         FireBaseHelper().createFlatWithImage(name: nameTextField.text!, address: self.addressTextField.text!, additionalInfo: textView.text, allPlacesCount: Int(allPlacesTextField.text!)!, emptyPlacesCount: Int(emptyPlacesTextfield.text!)!, date: currentDate!, id: Int(Date().timeIntervalSince1970), x: place?.coordinate.latitude ?? 0, y: place?.coordinate.longitude ?? 0, images: arrayWithImages) { (result) in
             self.hideLoadingableIndicator()
             switch result {
-            case .success(): self.delegate?.flatWasCreated()
-                self.close()
+            case .success():
+                let vc = SuccessViewController(delegate: self)
+                vc.transitioningDelegate = self
+                self.present(vc, animated: true, completion: nil)
             case .failure( _): self.showErrorAlert(message: "Ошибка создания мероприятия".localized)
             }
         }
@@ -597,4 +599,21 @@ extension CreateFlatViewController: UIPickerViewDelegate, UIPickerViewDataSource
         }
     }
     
+}
+
+extension CreateFlatViewController: SuccessViewControllerProtocol {
+    func successScreenWillClose() {
+        self.delegate?.flatWasCreated()
+        self.close()
+    }
+}
+
+extension CreateFlatViewController: UIViewControllerTransitioningDelegate {
+    func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        return TransparentBackgroundModalPresenter(isPush: true, originFrame: UIScreen.main.bounds)
+    }
+    
+    func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        return TransparentBackgroundModalPresenter(isPush: false)
+    }
 }

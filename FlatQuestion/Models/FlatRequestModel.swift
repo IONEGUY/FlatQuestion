@@ -11,6 +11,7 @@ import Foundation
 struct FlatRequestModel: Codable {
     let id: Int
     var requests: [UserInfo]
+    var ownerId: String
     
     var asDictionary : [String:Any] {
       let mirror = Mirror(reflecting: self)
@@ -26,4 +27,6 @@ struct UserInfo: Codable {
     let id: String
     let status: RequestStatus
     let message: String
+    let fullName: String
+    let photoLink: String
 }

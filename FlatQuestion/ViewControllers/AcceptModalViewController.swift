@@ -29,7 +29,7 @@ class AcceptModalViewController: UIViewController {
     @IBOutlet fileprivate weak var writeMessageView: UIView!
     @IBOutlet fileprivate weak var textView: UITextView!
     
-    fileprivate var flatId: Int!
+    fileprivate var flat: FlatModel!
     
     weak var delegate: AcceptModalViewControllerProtocol?
     
@@ -39,11 +39,11 @@ class AcceptModalViewController: UIViewController {
         localize()
     }
     
-    init(delegate: AcceptModalViewControllerProtocol?, flatId: Int) {
+    init(delegate: AcceptModalViewControllerProtocol?, flat: FlatModel) {
         super.init(nibName: String(describing: AcceptModalViewController.self), bundle: nil)
         self.modalPresentationStyle = .custom
         self.delegate = delegate
-        self.flatId = flatId
+        self.flat = flat
     }
     
     required init?(coder: NSCoder) {
@@ -65,9 +65,9 @@ class AcceptModalViewController: UIViewController {
     }
 
     @IBAction func sendRequest(_ sender: Any) {
-        let userInfo = UserInfo(id: UserSettings.appUser!.id!, status: .New, message: textView.text)
+        let userInfo = UserInfo(id: UserSettings.appUser!.id!, status: .New, message: textView.text, fullName: "\(String(describing: UserSettings.appUser!.lastName!)) \(String(describing: UserSettings.appUser!.firstName!))", photoLink: UserSettings.appUser!.avatarUrl!)
 
-        let requestModel = FlatRequestModel(id: flatId, requests: [userInfo])
+        let requestModel = FlatRequestModel(id: flat.id, requests: [userInfo], ownerId: flat.userId)
         self.showLoadingIndicator()
         FireBaseHelper.init().updateRequestsForFlat(model: requestModel) { (result) in
             self.hideLoadingableIndicator()

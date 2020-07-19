@@ -126,7 +126,7 @@ class FlatModalViewController: UIViewController {
     }
     
     @IBAction func sendInviteButtonPressed(_ sender: Any) {
-        let vc = AcceptModalViewController(delegate: self, flatId: self.flat!.id)
+        let vc = AcceptModalViewController(delegate: self, flat: flat!)
         vc.transitioningDelegate = self
         present(vc, animated: true, completion: nil)
     }

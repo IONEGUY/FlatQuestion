@@ -24,5 +24,14 @@ extension UIView {
         gradient.cornerRadius = self.layer.cornerRadius
         self.layer.insertSublayer(gradient, at: 0)
         return gradient
+        
+    }
+    
+    func removeSublayers() {
+        guard let allSublayers = self.layer.sublayers else { return }
+        layer.cornerRadius = 0
+        clipsToBounds = false
+        let layerToRemove = allSublayers[0]
+        layerToRemove.removeFromSuperlayer()
     }
 }
