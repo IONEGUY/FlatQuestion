@@ -685,7 +685,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1130;
-				LastUpgradeCheck = 1130;
+				LastUpgradeCheck = 1160;
 				ORGANIZATIONNAME = "Андрей Олесов";
 				TargetAttributes = {
 					58B8DACD246B474100584B20 = {
@@ -962,7 +962,6 @@
 				FA35BCB624C0F82A00703FAE /* NSObjectExtensions.swift in Sources */,
 				583F9F0124C0B5B60056A8E5 /* FlatRequestModel.swift in Sources */,
 				58F241B224734E8100F56681 /* FlatPhotoCollectionViewCell.swift in Sources */,
-				58B8DB33246CADA700584B20 /* ReuseIdentifierProtocol.swift in Sources */,
 				5811AFED24A2AED300BF8321 /* Loadingable.swift in Sources */,
 				58BA65CD2496CB8D0001BE1E /* MainTabBarController.swift in Sources */,
 				58E62CB52492DBF4006B0DCF /* UIView+gradient.swift in Sources */,

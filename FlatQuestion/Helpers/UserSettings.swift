@@ -33,4 +33,8 @@ class UserSettings {
             }
         }
     }
+    
+    class func clearAppUser() {
+        appUser = nil
+    }
 }

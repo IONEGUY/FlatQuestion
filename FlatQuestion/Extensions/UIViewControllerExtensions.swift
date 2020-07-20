@@ -43,13 +43,11 @@ extension UIViewController {
                 newViewController.present(vc, animated: true, completion: nil)
             }
         }
-        
-        
     }
     
-    func navigateToRegistrationVC() {
-                let vc = EditProfileViewController(nibName: "EditProfileViewController", bundle: nil)
-                vc.modalPresentationStyle = .fullScreen
-                self.present(vc, animated: true, completion: nil)
+    func navigateToLoginVC() {
+        let vc = LoginViewController(nibName: LoginViewController.typeName, bundle: nil)
+        vc.modalPresentationStyle = .fullScreen
+        self.present(vc, animated: true, completion: nil)
     }
 }

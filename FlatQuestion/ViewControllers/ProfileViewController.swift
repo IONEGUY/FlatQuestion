@@ -26,8 +26,13 @@ class ProfileViewController: UIViewController {
     @IBAction func appCommentButtonPressed() {
     }
     
+    @IBAction func logOutPressed() {
+        UserSettings.clearAppUser()
+        navigateToLoginVC()
+    }
+    
     private let commentsTableViewRowSpacing: CGFloat = 15
-    private var flats = [Flat]()
+    private var flats = [FlatModel]()
     private var comments = [Comment]()
     private var flatModalVC: FlatModalViewController!
     
@@ -37,14 +42,14 @@ class ProfileViewController: UIViewController {
         writeMessageButton.applyShadow()
         userAvatar.layer.cornerRadius = 15
         userAvatar.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
-        
-        setupMockData()
-        
+
+        setupData()
+
         partiesCollectionView.register(UINib(nibName: FlatCardCollectionViewCell.typeName, bundle: nil),
             forCellWithReuseIdentifier: FlatCardCollectionViewCell.typeName)
         partiesCollectionView.delegate = self
         partiesCollectionView.dataSource = self
-        
+
         commentsTableView.register(UINib(nibName: CommentTableViewCell.typeName, bundle: nil), forCellReuseIdentifier: CommentTableViewCell.typeName)
         commentsTableView.autoresizesSubviews = true
         commentsTableView.separatorStyle = .none
@@ -54,9 +59,9 @@ class ProfileViewController: UIViewController {
         self.view.layoutIfNeeded()
     }
     
-    private func addModalFlatView(flat: Flat) {
+    private func addModalFlatView(flat: FlatModel) {
         flatModalVC = FlatModalViewController(nibName: "FlatModalViewController", bundle: nil)
-        //flatModalVC.flat = flat
+        flatModalVC.flat = flat
         flatModalVC.delegate = self
         self.addChild(flatModalVC)
         self.view.addSubview(flatModalVC.view)
@@ -66,27 +71,10 @@ class ProfileViewController: UIViewController {
         flatModalVC.view.frame = CGRect(x: 0, y: view.frame.maxY, width: width, height: height)
     }
     
-     private func setupMockData() {
-         self.flats.append(Flat(title: "Party name here",
-                                address: "st. Ulyanovskaya 8", numberOfPersons: 12, dateToCome: "Tomorrow",
-                                arrayWithDescription:
-             [FlatDescription(name: "Description", description: "Best party ever just click to button"),
-              FlatDescription(name: "Информация", description: "Всем привет)) Если вам скучно и не знсебя заайте - потусим вместе)) мы компания из 4 человек ждем адекватных, веселых девчонок))")]))
-         self.flats.append(Flat(title: "Party name here",
-                            address: "st. Ulyanovskaya 8 sdsffsfsdfsf", numberOfPersons: 12, dateToCome: "Tomorrow",
-                            arrayWithDescription:
-         [FlatDescription(name: "Description", description: "Best party ever i seen. If u want to join us, just click to button"),
-          FlatDescription(name: "Information", description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore e.")]))
-         self.flats.append(Flat(title: "Party name here",
-                                address: "st. Ulyanovskaya 8", numberOfPersons: 12, dateToCome: "Tomorrow",
-                                arrayWithDescription:
-             [FlatDescription(name: "Description", description: "Best party ever i seen. If u want to join us, just click to button"),
-              FlatDescription(name: "Information", description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore e.Lorem ipsum dolor sit amet")]))
-         self.flats.append(Flat(title: "Party name here",
-                            address: "st. Ulyanovskaya 8", numberOfPersons: 12, dateToCome: "Tomorrow",
-                            arrayWithDescription:
-         [FlatDescription(name: "Description", description: "Best party ever i seen. If u want to join us, just click to button"),
-          FlatDescription(name: "Information", description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore e.")]))
+    private func setupData() {
+        FireBaseHelper().get { (flats) in
+            self.flats = flats
+        }
         
         userAvatar.sd_setImage(with: URL(string: "https://avatars.mds.yandex.net/get-zen_doc/30884/pub_5d5221ff1ee34f00ac7e6a14_5d524bb8ae56cc00ac1b5953/scale_1200"), completed: nil)
         fullName.text = "Константин Константинопольский"
@@ -128,7 +116,7 @@ extension ProfileViewController: UICollectionViewDataSource {
         cell.widthAnchor.constraint(equalToConstant: 283).isActive = true
         cell.clipsToBounds = false
         cell.applyShadow(shadowOffsetHeight: 0)
-        //cell.fillCellData(with: self.flats[indexPath.item])
+        cell.fillCellData(with: self.flats[indexPath.item])
         return cell
     }
 }
