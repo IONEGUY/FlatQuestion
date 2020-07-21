@@ -24,6 +24,8 @@
                 <outlet property="aboutmeView" destination="mtO-Fr-aIg" id="qQ6-u9-WyU"/>
                 <outlet property="addPhotoButton" destination="9W4-xL-sFS" id="1r2-Q3-e2L"/>
                 <outlet property="addressTextField" destination="E7C-Za-h4V" id="AGT-Sw-ZEB"/>
+                <outlet property="backButon" destination="KXh-VR-WWV" id="XnU-1g-jVZ"/>
+                <outlet property="backButtonImageButton" destination="WlM-Q7-5lO" id="mMY-sU-nLO"/>
                 <outlet property="birthDateLabel" destination="bJT-Gz-ctk" id="XUX-4c-dMF"/>
                 <outlet property="cancelButton" destination="5XE-Jh-oz1" id="kdf-oS-FR4"/>
                 <outlet property="createButton" destination="4ad-Jh-AMB" id="CX6-TX-gUx"/>
@@ -291,7 +293,7 @@
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="42" id="oYN-7Y-BmA"/>
                                             </constraints>
-                                            <state key="normal" title="Создать">
+                                            <state key="normal">
                                                 <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             </state>
                                             <connections>

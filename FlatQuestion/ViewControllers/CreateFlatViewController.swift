@@ -66,6 +66,8 @@ class CreateFlatViewController: UIViewController{
         }
     }
     
+    var isEditingFlat: Bool = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         localize()
@@ -98,7 +100,7 @@ class CreateFlatViewController: UIViewController{
 
 private extension CreateFlatViewController {
     
-   private func setupCollectionView() {
+   func setupCollectionView() {
         self.collectionView.collectionViewLayout = generateLayout()
         collectionView.register(UINib(nibName: FlatPhotoCollectionViewCell.identifier, bundle: nil),
         forCellWithReuseIdentifier: FlatPhotoCollectionViewCell.identifier)

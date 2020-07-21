@@ -52,9 +52,11 @@ class ProfileViewController: UIViewController {
         let height = max (y, 180)
         profileView?.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: height)
         if height == 180 {
-                self.profileView?.profileView.image = nil
-                self.profileView?.profileView.backgroundColor = UIColor(hex: 0x1C2F4B)
+            let gradientView = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: 300))
+            gradientView.applyGradientV2(colours: [UIColor(hexString: "0x615CBF")!, UIColor(hexString: "0x1C2F4B")!])
+                self.profileView?.profileView.image = UIImage(view: gradientView)
                 self.profileView?.showSmallView()
+            
         } else {
             guard let user = isYourAccount ? UserSettings.appUser : self.appUser else { return }
                 self.profileView?.profileView.sd_setImage(with: URL(string: user.avatarUrl!), completed: nil)
@@ -66,19 +68,7 @@ class ProfileViewController: UIViewController {
         scrollView.delegate = self
         scrollView.contentInset = UIEdgeInsets(top: 300, left: 0, bottom: 0, right: 0)
         
-        
-        let profileView = ProfileView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: 300))
-        profileView.profileView.contentMode = .scaleAspectFill
-        profileView.profileView.clipsToBounds = true
-        profileView.writeMessageButton.addCorner(with: 20, with: .black)
-        view.addSubview(profileView)
-        self.profileView = profileView
-        
-        
-        
-        profileView.profileView.layer.cornerRadius = 15
-        profileView.profileView.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
-
+        addTopProfileView()
         setupData()
 
         partiesCollectionView.register(UINib(nibName: FlatCardCollectionViewCell.typeName, bundle: nil),
@@ -97,6 +87,19 @@ class ProfileViewController: UIViewController {
         self.view.layoutIfNeeded()
     }
     
+    func addTopProfileView() {
+        let profileView = ProfileView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: 300))
+        profileView.profileView.contentMode = .scaleAspectFill
+        //profileView.profileView.clipsToBounds = true
+        profileView.writeMessageButton.addCorner(with: 20, with: .black)
+        view.addSubview(profileView)
+        self.profileView = profileView
+        profileView.delegate = self
+        
+        profileView.profileView.layer.cornerRadius = 15
+        profileView.profileView.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
+    }
+    
     private func addModalFlatView(flat: FlatModel) {
         flatModalVC = FlatModalViewController(nibName: "FlatModalViewController", bundle: nil)
         flatModalVC.flat = flat
@@ -113,7 +116,7 @@ class ProfileViewController: UIViewController {
         
         guard let user = isYourAccount ? UserSettings.appUser : self.appUser else { return }
         let title = !isYourAccount ? "Написать сообщение" : "Редактировать профиль"
-        //writeMessageButton.setTitle(title, for: .normal)
+        self.profileView?.writeMessageButton.setTitle(title, for: .normal)
         FireBaseHelper().getFlatsById(userId: (user.id!)) { (flats) in
             self.flats = flats
             UIView.animate(withDuration: 1) {
@@ -124,7 +127,6 @@ class ProfileViewController: UIViewController {
                 self.view.layoutIfNeeded()
             }
         }
-        
         
         profileView!.profileView.sd_setImage(with: URL(string: user.avatarUrl!), completed: nil)
         profileView?.fullName.text = "\(user.firstName!) \(user.lastName!)"
@@ -156,9 +158,11 @@ class ProfileViewController: UIViewController {
     }
     
     func showEditFlatVC() {
-        
+        let vc = storyboard!.instantiateViewController(withIdentifier: "CreateFlatViewController") as! CreateFlatViewController
+        vc.modalPresentationStyle = .overFullScreen
+        vc.isEditingFlat = true
+        self.present(vc, animated: true, completion: nil)
     }
-
 }
 
 
@@ -218,5 +222,36 @@ extension ProfileViewController: RemovableDelegate {
         flatModalVC.willMove(toParent: nil)
         flatModalVC.view.removeFromSuperview()
         flatModalVC.removeFromParent()
+    }
+}
+
+extension ProfileViewController: ProfileViewProtocol {
+    func didButtonPressed() {
+        isYourAccount ? showEditProfileScreen() : writeMessage()
+    }
+    
+    private func showEditProfileScreen() {
+        let vc = EditProfileViewController(nibName: "EditProfileViewController", bundle: nil)
+        vc.isEditingProfile = true
+        vc.delegate = self
+        vc.modalPresentationStyle = .fullScreen
+        self.present(vc, animated: true, completion: nil)
+    }
+    
+    private func writeMessage() {
+        // TODO: go to CHAT
+    }
+}
+
+extension ProfileViewController: EditProfileViewControllerProtocol {
+    func successEditingProfile() {
+        setupData()
+        
+        partiesCollectionView.delegate = self
+        partiesCollectionView.dataSource = self
+        commentsTableView.reloadData()
+        
+        self.collectionViewHeightConstraint.constant = 0
+        self.view.layoutIfNeeded()
     }
 }

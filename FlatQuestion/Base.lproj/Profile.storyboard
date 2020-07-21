@@ -19,10 +19,10 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="619"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WYc-uQ-bEM">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="734"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="714"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="o5Y-sr-3tE">
-                                                <rect key="frame" x="20" y="50" width="374" height="44"/>
+                                                <rect key="frame" x="20" y="30" width="374" height="44"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Обо мне:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NnW-zc-cAu">
                                                         <rect key="frame" x="0.0" y="0.0" width="58" height="16"/>
@@ -55,7 +55,7 @@
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rB4-jc-1JK">
-                                                <rect key="frame" x="20" y="117" width="374" height="68"/>
+                                                <rect key="frame" x="20" y="97" width="374" height="68"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Я в социальных сетях:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BFh-YO-LB3">
                                                         <rect key="frame" x="0.0" y="0.0" width="139" height="16"/>
@@ -146,7 +146,7 @@
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2dX-Iq-YFI">
-                                                <rect key="frame" x="20" y="193" width="374" height="24"/>
+                                                <rect key="frame" x="20" y="173" width="374" height="24"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Мои вечеринки:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a6i-dk-qOJ">
                                                         <rect key="frame" x="0.0" y="0.0" width="101" height="16"/>
@@ -184,7 +184,7 @@
                                                 </constraints>
                                             </view>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Отзывы обо мне:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f7e-gR-YAt">
-                                                <rect key="frame" x="20" y="232" width="107" height="16"/>
+                                                <rect key="frame" x="20" y="212" width="107" height="16"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="16" id="Ybo-O7-wzJ"/>
                                                     <constraint firstAttribute="width" constant="107" id="ein-CQ-eqW"/>
@@ -194,7 +194,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nQf-hN-6cJ">
-                                                <rect key="frame" x="266" y="225" width="128" height="30"/>
+                                                <rect key="frame" x="266" y="205" width="128" height="30"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="30" id="xb9-2B-G7W"/>
                                                     <constraint firstAttribute="width" constant="128" id="zAq-hY-oE2"/>
@@ -205,7 +205,7 @@
                                                 </connections>
                                             </button>
                                             <tableView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" bouncesZoom="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ZSm-6G-Hht">
-                                                <rect key="frame" x="20" y="263" width="374" height="321"/>
+                                                <rect key="frame" x="20" y="243" width="374" height="321"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="321" id="tdV-UG-Bdr"/>
@@ -231,7 +231,7 @@
                                             <constraint firstItem="rB4-jc-1JK" firstAttribute="leading" secondItem="WYc-uQ-bEM" secondAttribute="leading" constant="20" id="q1S-7f-xZp"/>
                                             <constraint firstAttribute="bottom" secondItem="ZSm-6G-Hht" secondAttribute="bottom" constant="150" id="qXK-MA-z1U"/>
                                             <constraint firstAttribute="trailing" secondItem="nQf-hN-6cJ" secondAttribute="trailing" constant="20" id="rRj-Ue-L4t"/>
-                                            <constraint firstItem="o5Y-sr-3tE" firstAttribute="top" secondItem="WYc-uQ-bEM" secondAttribute="top" constant="50" id="wYV-mJ-azN"/>
+                                            <constraint firstItem="o5Y-sr-3tE" firstAttribute="top" secondItem="WYc-uQ-bEM" secondAttribute="top" constant="30" id="wYV-mJ-azN"/>
                                         </constraints>
                                     </view>
                                 </subviews>

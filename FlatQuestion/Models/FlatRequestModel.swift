@@ -25,7 +25,7 @@ struct FlatRequestModel: Codable {
 
 struct UserInfo: Codable {
     let id: String
-    let status: RequestStatus
+    var status: RequestStatus
     let message: String
     let fullName: String
     let photoLink: String

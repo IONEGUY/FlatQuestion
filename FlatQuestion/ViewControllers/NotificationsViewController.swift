@@ -34,6 +34,7 @@ class NotificationsViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         initTableView()
+        getRequests()
     }
     
     func localize() {
@@ -45,15 +46,14 @@ class NotificationsViewController: UIViewController {
         tableView.register(UINib(nibName: NotificationsTableViewCell.identifier, bundle: nil), forCellReuseIdentifier: NotificationsTableViewCell.identifier)
         tableView.delegate = self
         tableView.dataSource = self
-        getRequests()
     }
  
     func getRequests() {
         FireBaseHelper().getFlatRequests { (result) in
+            self.flatRequests.removeAll()
             switch result {
             case .success(let flatModel): self.flatRequests.append(flatModel)
             DispatchQueue.main.async {
-                print("1dfdf")
                 self.tableView.reloadData()
                 self.view.layoutIfNeeded()
             }
@@ -78,10 +78,17 @@ extension NotificationsViewController: UITableViewDelegate, UITableViewDataSourc
         guard let cell = tableView.dequeueReusableCell(withIdentifier: NotificationsTableViewCell.identifier, for: indexPath) as? NotificationsTableViewCell else {
             return UITableViewCell()
         }
+        cell.delegate = self
         cell.setupCell(flatId: userRequest.flatId, userInfo: userRequest.userInfo)
         return cell
     }
     
     
     
+}
+
+extension NotificationsViewController: NotificationsTableViewCellProtocol {
+    func statusOfRequestWasChanged(result: Result<Void, Error>) {
+        getRequests()
+    }
 }

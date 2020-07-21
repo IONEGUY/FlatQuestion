@@ -51,7 +51,7 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bNz-GB-L9j" customClass="DarkGradientButton" customModule="FlatQuestion" customModuleProvider="target">
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bNz-GB-L9j">
                         <rect key="frame" x="154" y="99" width="150" height="42"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="150" id="q53-mw-HqX"/>

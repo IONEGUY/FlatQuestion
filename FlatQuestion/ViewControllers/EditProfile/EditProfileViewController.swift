@@ -9,7 +9,12 @@
 import UIKit
 import GooglePlaces
 
+protocol EditProfileViewControllerProtocol: AnyObject {
+    func successEditingProfile()
+}
 class EditProfileViewController: UIViewController {
+    
+    weak var delegate: EditProfileViewControllerProtocol?
     
     @IBOutlet fileprivate weak var addPhotoButton: UIImageView!
     @IBOutlet fileprivate weak var plusImageView: UIImageView!
@@ -29,6 +34,8 @@ class EditProfileViewController: UIViewController {
     @IBOutlet weak var vkLinkLabel: UITextField!
     @IBOutlet weak var nameTextField: UITextField!
     
+    @IBOutlet weak var backButon: UIButton!
+    @IBOutlet weak var backButtonImageButton: UIButton!
     
     @IBOutlet weak var imagesErrorLabel: UILabel!
     @IBOutlet weak var nameErrorLabel: UILabel!
@@ -53,6 +60,11 @@ class EditProfileViewController: UIViewController {
     @IBOutlet fileprivate weak var addressTextField: UITextField!
     @IBOutlet fileprivate weak var sexTextField: UITextField!
     @IBOutlet fileprivate weak var dateTextField: UITextField!
+    
+    var isEditingProfile: Bool = false
+    fileprivate var sex: Bool?
+    fileprivate var latitude: Double?
+    fileprivate var longtitude: Double?
     fileprivate let datePicker = UIDatePicker()
     fileprivate let pickerSex = UIPickerView()
     fileprivate var currentDate: Date?
@@ -69,6 +81,9 @@ class EditProfileViewController: UIViewController {
         setupView()
         setupPickers()
         setupData()
+        localize()
+        isEditingProfile ? displayUserInfo() : disableCancel()
+
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -77,7 +92,7 @@ class EditProfileViewController: UIViewController {
     }
     
     func localize() {
-        cancelButton.titleLabel?.text = "Отмена".localized
+        cancelButton.setTitle("Отмена".localized, for: .normal)
         editProfileLabel.text = "Редактировать профиль".localized
         downloadImageDescription.text = "PNG, JPG или JPEG с максимальным размером 5Mb.".localized
         fullNameLabel.text = "Имя Фамилия".localized
@@ -85,11 +100,37 @@ class EditProfileViewController: UIViewController {
         birthDateLabel.text = "Дата рождения".localized
         locationLabel.text = "Население".localized
         aboutMeLabel.text = "Обо мне".localized
-        createButton.titleLabel?.text = "Создать".localized
+        let titleForButtonCreate = isEditingProfile ? "Редактировать".localized : "Создать".localized
+        createButton.setTitle(titleForButtonCreate, for: .normal)
     }
 }
 
 private extension EditProfileViewController {
+    func disableCancel() {
+        backButon.isHidden = true
+        backButtonImageButton.isHidden = true
+        cancelButton.isHidden = true
+    }
+    func displayUserInfo() {
+        guard let user = UserSettings.appUser else { return }
+    
+        photoImageView.sd_setImage(with: URL(string: user.avatarUrl!)) { (image, error, cache, url) in
+            self.photoImage = image
+        }
+        nameTextField.text = "\(user.firstName!) \(user.lastName!)"
+        addressTextField.text = user.location
+        textView.text = user.aboutMe
+        instLinkLaabel.text = user.instLink
+        vkLinkLabel.text = user.vkLink
+        sex = user.sex
+        sexTextField.text = sex! ? "Мужской".localized : "Женский".localized
+        currentDate = user.date?.date()
+        dateTextField.text = DateFormatterHelper().getStringFromDate_MMM_yyyy(date: currentDate!)
+        latitude = user.x
+        longtitude = user.y
+        plusImageView.tintColor = .white
+    }
+    
     func setupView() {
         navigationView.applyGradientV2(colours: [UIColor(hex: "0x615CBF"), UIColor(hex: "0x1C2F4B")])
         nameView.addCorner(with: 10, with: .black)
@@ -122,7 +163,6 @@ private extension EditProfileViewController {
         sexTextField.inputAccessoryView = toolbar
         pickerSex.delegate = self
         pickerSex.dataSource = self
-        
         
     }
     
@@ -261,14 +301,18 @@ private extension EditProfileViewController {
         user?.vkLink = vkLinkLabel.text
         user?.location = addressTextField.text
         
-        user!.sex = sexTextField.text == "Мужской".localized ? true : false
-        user?.x = place?.coordinate.latitude ?? 0
-        user?.y = place?.coordinate.longitude ?? 0
+        user!.sex = sex
+        user?.x = place?.coordinate.latitude ?? latitude ?? 0
+        user?.y = place?.coordinate.longitude ?? longtitude ?? 0
+        showLoadingIndicator()
         FireBaseHelper().updateUserInfoWithImage(user: user!, profileImage: photoImage!) { (result) in
+            self.hideLoadingableIndicator()
            switch result {
                 case .success():
                     UserSettings.appUser = user
-                    self.close()
+                    let vc = SuccessViewController(delegate: self)
+                    vc.transitioningDelegate = self
+                    self.present(vc, animated: true, completion: nil)
            case .failure(let _): self.showErrorAlert(message: "Ошибка создания профиля".localized)
                 }
         }
@@ -287,7 +331,7 @@ private extension EditProfileViewController {
     }
     @objc func datePickerValueChanged() {
         currentDate = datePicker.date
-        dateTextField.text = DateFormatterHelper().getStringFromDate_dd_MM_yyyy_HH_mm(date: currentDate!)
+        dateTextField.text = DateFormatterHelper().getStringFromDate_MMM_yyyy(date: currentDate!)
     }
     @objc func datePickerClose() {
         view.endEditing(true)
@@ -331,6 +375,7 @@ extension EditProfileViewController: UIPickerViewDelegate, UIPickerViewDataSourc
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         sexTextField.text = row == 0 ? "Мужской".localized : "Женский".localized
+        sex = row == 0 ? true : false
     }
     
     
@@ -403,5 +448,22 @@ extension EditProfileViewController: UINavigationControllerDelegate, UIImagePick
         plusImageView.tintColor = .white
         
         self.dismiss(animated: true, completion: nil)
+    }
+}
+
+extension EditProfileViewController: SuccessViewControllerProtocol {
+    func successScreenWillClose() {
+        self.delegate?.successEditingProfile()
+        self.close()
+    }
+}
+
+extension EditProfileViewController: UIViewControllerTransitioningDelegate {
+    func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        return TransparentBackgroundModalPresenter(isPush: true, originFrame: UIScreen.main.bounds)
+    }
+    
+    func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        return TransparentBackgroundModalPresenter(isPush: false)
     }
 }

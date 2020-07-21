@@ -58,6 +58,74 @@ class FireBaseHelper {
             }
     }
     
+    func updateFlatRequestStatus(flatId: Int, userInformation: UserInfo,completion: @escaping (_ result: Result<Void,Error>) -> ()) {
+        let db = Firestore.firestore()
+        db.collection("flat_requests").whereField("id", isEqualTo: flatId as Any).getDocuments { (snapshot, error) in
+            if error != nil {
+                completion(.failure(MyError.unrecognizedError))
+            } else {
+                guard let document = snapshot?.documents.first else { return }
+                guard var fbModel = try? document.data(as: FlatRequestModel.self) else {
+                    completion(.failure(MyError.unrecognizedError))
+                    return
+                }
+                
+                guard var userInfoToChange = fbModel.requests.first(where: { (userInfo) -> Bool in
+                    return userInfo.id == userInformation.id
+                }) else {
+                    completion(.failure(MyError.unrecognizedError))
+                    return
+                }
+               
+                let index = fbModel.requests.firstIndex { (userInfo) -> Bool in
+                    return userInfo.id == userInformation.id
+                }
+                userInfoToChange.status = userInformation.status
+                
+                fbModel.requests[index!] = userInfoToChange
+                
+                let encoder = Firestore.Encoder()
+                guard let updateData = try? encoder.encode(fbModel) else {
+                    completion(.failure(MyError.unrecognizedError))
+                    return
+                }
+                
+                db.collection("flat_requests").document(document.documentID).updateData(updateData) { (error) in
+                    error == nil ? completion(.success(())) : completion(.failure(error!))
+                }
+                
+            }
+        }
+    }
+    
+    func removeFlatRequestUserInfo(flatId: Int, userInformation: UserInfo,completion: @escaping (_ result: Result<Void,Error>) -> ()) {
+        let db = Firestore.firestore()
+        db.collection("flat_requests").whereField("id", isEqualTo: flatId as Any).getDocuments { (snapshot, error) in
+            if error != nil {
+                completion(.failure(MyError.unrecognizedError))
+            }
+            guard let document = snapshot?.documents.first else { return }
+            guard var fbModel = try? document.data(as: FlatRequestModel.self) else {
+                completion(.failure(MyError.unrecognizedError))
+                return
+            }
+            let index = fbModel.requests.firstIndex { (userInfo) -> Bool in
+                return userInfo.id == userInformation.id
+            }
+            fbModel.requests.remove(at: index!)
+            
+            let encoder = Firestore.Encoder()
+            guard let updateData = try? encoder.encode(fbModel) else {
+                completion(.failure(MyError.unrecognizedError))
+                return
+            }
+            
+            db.collection("flat_requests").document(document.documentID).updateData(updateData) { (error) in
+                error == nil ? completion(.success(())) : completion(.failure(error!))
+            }
+        }
+    }
+    
     func updateUserInfoWithImage(user: AppUser, profileImage: UIImage, completion: @escaping (_ result: Result<Void,Error>) -> ()) {
         var urlString: String?
         uploadImageOfPerson(toPerson: String(user.id!), image: profileImage) { (result) in
