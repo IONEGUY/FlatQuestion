@@ -13,6 +13,8 @@
 		5811AFED24A2AED300BF8321 /* Loadingable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5811AFEC24A2AED300BF8321 /* Loadingable.swift */; };
 		5811AFEF24A2B11500BF8321 /* LoadingUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5811AFEE24A2B11500BF8321 /* LoadingUtils.swift */; };
 		5811AFF524A2B7B100BF8321 /* Closable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5811AFF424A2B7B100BF8321 /* Closable.swift */; };
+		583F80CA24C70CB2004BD87B /* ProfileView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 583F80C924C70CB2004BD87B /* ProfileView.xib */; };
+		583F80CC24C70E42004BD87B /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 583F80CB24C70E42004BD87B /* ProfileView.swift */; };
 		583F9EF824BFC4090056A8E5 /* AcceptModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 583F9EF624BFC4090056A8E5 /* AcceptModalViewController.swift */; };
 		583F9EF924BFC4090056A8E5 /* AcceptModalViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 583F9EF724BFC4090056A8E5 /* AcceptModalViewController.xib */; };
 		583F9EFB24BFCBA90056A8E5 /* TransparentBackgrounfModalPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 583F9EFA24BFCBA90056A8E5 /* TransparentBackgrounfModalPresenter.swift */; };
@@ -153,6 +155,8 @@
 		5811AFEE24A2B11500BF8321 /* LoadingUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingUtils.swift; sourceTree = "<group>"; };
 		5811AFF424A2B7B100BF8321 /* Closable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Closable.swift; sourceTree = "<group>"; };
 		583F5FCF2471E923000F9ACF /* Alamofire.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Alamofire.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		583F80C924C70CB2004BD87B /* ProfileView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProfileView.xib; sourceTree = "<group>"; };
+		583F80CB24C70E42004BD87B /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		583F9EF624BFC4090056A8E5 /* AcceptModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcceptModalViewController.swift; sourceTree = "<group>"; };
 		583F9EF724BFC4090056A8E5 /* AcceptModalViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AcceptModalViewController.xib; sourceTree = "<group>"; };
 		583F9EFA24BFCBA90056A8E5 /* TransparentBackgrounfModalPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransparentBackgrounfModalPresenter.swift; sourceTree = "<group>"; };
@@ -459,6 +463,8 @@
 				584E8C8F24C3160E00B4EAE6 /* NotificationsTableViewCell.xib */,
 				FAA64E1D24BFAA9D0080FAE1 /* CommentTableViewCell.swift */,
 				FAA64E1E24BFAA9D0080FAE1 /* CommentTableViewCell.xib */,
+				583F80C924C70CB2004BD87B /* ProfileView.xib */,
+				583F80CB24C70E42004BD87B /* ProfileView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -760,6 +766,7 @@
 				FADD4DBB247F12FD0055FCB1 /* ResetPasswordViewController.xib in Resources */,
 				58B8DAD9246B474100584B20 /* Main.storyboard in Resources */,
 				58B8DB23246CA00600584B20 /* SFProDisplay-LightItalic.ttf in Resources */,
+				583F80CA24C70CB2004BD87B /* ProfileView.xib in Resources */,
 				585B9BD8249973CD00976A05 /* Chat.storyboard in Resources */,
 				5890182324774CF1001FBA21 /* TopMapSearchView.xib in Resources */,
 				58B8DB26246CA00600584B20 /* SFProDisplay-MediumItalic.ttf in Resources */,
@@ -961,6 +968,7 @@
 				FA063E6D247D820300CBF52A /* VkUser.swift in Sources */,
 				FA35BCB624C0F82A00703FAE /* NSObjectExtensions.swift in Sources */,
 				583F9F0124C0B5B60056A8E5 /* FlatRequestModel.swift in Sources */,
+				583F80CC24C70E42004BD87B /* ProfileView.swift in Sources */,
 				58F241B224734E8100F56681 /* FlatPhotoCollectionViewCell.swift in Sources */,
 				5811AFED24A2AED300BF8321 /* Loadingable.swift in Sources */,
 				58BA65CD2496CB8D0001BE1E /* MainTabBarController.swift in Sources */,

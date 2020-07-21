@@ -10,14 +10,10 @@ import UIKit
 import SDWebImage
 
 class ProfileViewController: UIViewController {
-    @IBOutlet weak var userAvatar: UIImageView!
-    @IBOutlet weak var writeMessageButton: UIButton!
+    @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var aboutMeLabel: UILabel!
     @IBOutlet weak var instagramButton: UIView!
     @IBOutlet weak var vkButton: UIView!
-    @IBOutlet weak var locationLabel: UILabel!
-    @IBOutlet weak var genderAndYearsLabel: UILabel!
-    @IBOutlet weak var fullName: UILabel!
     @IBOutlet weak var instagramNick: UILabel!
     @IBOutlet weak var vkNick: UILabel!
     @IBOutlet weak var commentsTableView: UITableView!
@@ -25,6 +21,9 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var tableViewHeightConstraint: NSLayoutConstraint!
     
     @IBOutlet weak var collectionViewHeightConstraint: NSLayoutConstraint!
+    
+    var imageView: UIImageView?
+    var profileView: ProfileView?
     
     var isYourAccount = true
     var appUser: AppUser?
@@ -48,13 +47,37 @@ class ProfileViewController: UIViewController {
     private var comments = [Comment]()
     private var flatModalVC: FlatModalViewController!
     
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let y = -scrollView.contentOffset.y
+        let height = max (y, 180)
+        profileView?.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: height)
+        if height == 180 {
+                self.profileView?.profileView.image = nil
+                self.profileView?.profileView.backgroundColor = UIColor(hex: 0x1C2F4B)
+                self.profileView?.showSmallView()
+        } else {
+            guard let user = isYourAccount ? UserSettings.appUser : self.appUser else { return }
+                self.profileView?.profileView.sd_setImage(with: URL(string: user.avatarUrl!), completed: nil)
+                self.profileView?.hideSmallView()
+        }
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        scrollView.delegate = self
+        scrollView.contentInset = UIEdgeInsets(top: 300, left: 0, bottom: 0, right: 0)
         
-        writeMessageButton.applyShadow()
-        userAvatar.layer.cornerRadius = 15
-        userAvatar.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
+        
+        let profileView = ProfileView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: 300))
+        profileView.profileView.contentMode = .scaleAspectFill
+        profileView.profileView.clipsToBounds = true
+        profileView.writeMessageButton.addCorner(with: 20, with: .black)
+        view.addSubview(profileView)
+        self.profileView = profileView
+        
+        
+        
+        profileView.profileView.layer.cornerRadius = 15
+        profileView.profileView.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
 
         setupData()
 
@@ -90,7 +113,7 @@ class ProfileViewController: UIViewController {
         
         guard let user = isYourAccount ? UserSettings.appUser : self.appUser else { return }
         let title = !isYourAccount ? "Написать сообщение" : "Редактировать профиль"
-        writeMessageButton.setTitle(title, for: .normal)
+        //writeMessageButton.setTitle(title, for: .normal)
         FireBaseHelper().getFlatsById(userId: (user.id!)) { (flats) in
             self.flats = flats
             UIView.animate(withDuration: 1) {
@@ -103,17 +126,19 @@ class ProfileViewController: UIViewController {
         }
         
         
-        userAvatar.sd_setImage(with: URL(string: user.avatarUrl!), completed: nil)
-        fullName.text = "\(user.firstName!) \(user.lastName!)"
+        profileView!.profileView.sd_setImage(with: URL(string: user.avatarUrl!), completed: nil)
+        profileView?.fullName.text = "\(user.firstName!) \(user.lastName!)"
         
-        
-        
-        genderAndYearsLabel.text = "\(user.sex! ? "Парень" : "Девушка"), \(getYearsFromDate(date: user.date?.date()))"
-        
-        locationLabel.text = user.location
+        profileView?.genderAndYearsLabel.text = "\(user.sex! ? "Парень" : "Девушка"), \(getYearsFromDate(date: user.date?.date()))"
+        profileView?.locationLabel.text = user.location
         aboutMeLabel.text = user.aboutMe
         instagramNick.text = user.instLink
         vkNick.text = user.vkLink
+        
+        profileView?.smallFullNameLabel.text = "\(user.firstName!) \(user.lastName!)"
+        profileView?.smallGenderAndYearsLabel.text = "\(user.sex! ? "Парень" : "Девушка"), \(getYearsFromDate(date: user.date?.date()))"
+        profileView?.smallLocationLabel.text = user.location
+        profileView?.smallProfileView.sd_setImage(with: URL(string: user.avatarUrl!), completed: nil)
         
         self.comments.append(Comment(text: "Адекватный парень, вечеринка прошла круто)",
                                      createdAt: Date(), rate: Rate.Five, creatorName: "Полина Иванченко"))
