@@ -89,6 +89,24 @@ class FireBaseHelper {
         }
     }
     
+    func getUserById(id: String, completion: @escaping (_ result: Result<AppUser,Error>) -> ()) {
+        let db = Firestore.firestore()
+        do {
+            db.collection("users").whereField("id", isEqualTo: id as Any).getDocuments { (snapshot, error) in
+                guard error == nil else {
+                    completion(.failure(MyError.unrecognizedError))
+                    return
+                }
+                let document = snapshot?.documents.first
+                guard var user = try? document!.data(as: AppUser.self) else {
+                    completion(.failure(MyError.unrecognizedError))
+                    return
+                }
+                completion(.success(user))
+            }
+        }
+    }
+    
     func updateRequestsForFlat(model: FlatRequestModel, completion: @escaping (_ result: Result<Void,Error>) -> ()) {
         var model = model
         let db = Firestore.firestore()
@@ -166,6 +184,21 @@ class FireBaseHelper {
                 completion(flats)
             }
         }
+    }
+    
+    func getFlatsById(userId: String, completion: @escaping ([FlatModel]) -> ()) {
+        let db = Firestore.firestore()
+
+        db.collection("flats").whereField("userId", isEqualTo: userId as Any).getDocuments { (snapshot, error) in
+                   if let error = error {
+                       print(error)
+                   } else if let snapshot = snapshot {
+                      let flats = snapshot.documents.compactMap {
+                       return try? $0.data(as: FlatModel.self)
+                       }
+                       completion(flats)
+                   }
+               }
     }
     
     func createFlatWithImage(name: String, address: String, additionalInfo: String, allPlacesCount: Int, emptyPlacesCount: Int, date: Date, id: Int, x: Double, y: Double, images: [UIImage], completion: @escaping (_ result: Result<Void,Error>) -> ()) {

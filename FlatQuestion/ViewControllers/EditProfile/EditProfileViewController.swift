@@ -267,6 +267,7 @@ private extension EditProfileViewController {
         FireBaseHelper().updateUserInfoWithImage(user: user!, profileImage: photoImage!) { (result) in
            switch result {
                 case .success():
+                    UserSettings.appUser = user
                     self.close()
            case .failure(let _): self.showErrorAlert(message: "Ошибка создания профиля".localized)
                 }

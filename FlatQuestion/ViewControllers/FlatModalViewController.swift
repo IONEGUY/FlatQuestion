@@ -125,6 +125,21 @@ class FlatModalViewController: UIViewController {
         }
     }
     
+    @IBAction func openProfileButtonPressed(_ sender: Any) {
+        let storyboard = UIStoryboard(name: "Profile", bundle: nil)
+        guard let vc = storyboard.instantiateViewController(withIdentifier: "ProfileViewController") as? ProfileViewController else { return }
+        vc.isYourAccount = false
+        FireBaseHelper().getUserById(id: flat!.userId) { (result) in
+            switch result {
+            case .success(let appUser): vc.appUser = appUser
+            self.present(vc, animated: true, completion: nil)
+            case .failure(let error): self.showErrorAlert(message: error.localizedDescription)
+            }
+        }
+        
+    }
+    
+    
     @IBAction func sendInviteButtonPressed(_ sender: Any) {
         let vc = AcceptModalViewController(delegate: self, flat: flat!)
         vc.transitioningDelegate = self

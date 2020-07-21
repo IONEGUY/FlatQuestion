@@ -107,6 +107,12 @@
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iEj-2t-iDE">
                             <rect key="frame" x="0.0" y="0.0" width="88" height="52"/>
                             <subviews>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qXd-kN-69Y">
+                                    <rect key="frame" x="0.0" y="0.0" width="88" height="52"/>
+                                    <connections>
+                                        <action selector="openProfileButtonPressed:" destination="-1" eventType="touchUpInside" id="uXk-YX-vlO"/>
+                                    </connections>
+                                </button>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Профиль" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EYg-JE-uN2">
                                     <rect key="frame" x="22" y="33.5" width="44.5" height="13.5"/>
                                     <fontDescription key="fontDescription" name="SFProDisplay-Regular" family="SF Pro Display" pointSize="11"/>
@@ -127,7 +133,11 @@
                                 <constraint firstItem="EYg-JE-uN2" firstAttribute="centerX" secondItem="iEj-2t-iDE" secondAttribute="centerX" id="FL0-BX-aId"/>
                                 <constraint firstAttribute="bottom" secondItem="EYg-JE-uN2" secondAttribute="bottom" constant="5" id="Ksg-NU-F9z"/>
                                 <constraint firstItem="hhl-EK-0lR" firstAttribute="centerX" secondItem="iEj-2t-iDE" secondAttribute="centerX" id="MUi-TB-JtE"/>
+                                <constraint firstItem="qXd-kN-69Y" firstAttribute="top" secondItem="iEj-2t-iDE" secondAttribute="top" id="YSv-an-PsE"/>
+                                <constraint firstAttribute="trailing" secondItem="qXd-kN-69Y" secondAttribute="trailing" id="jaj-VL-VAd"/>
+                                <constraint firstAttribute="bottom" secondItem="qXd-kN-69Y" secondAttribute="bottom" id="qbO-3L-l4b"/>
                                 <constraint firstAttribute="height" constant="52" id="rA5-vV-f8u"/>
+                                <constraint firstItem="qXd-kN-69Y" firstAttribute="leading" secondItem="iEj-2t-iDE" secondAttribute="leading" id="vs4-ZG-QiT"/>
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yQA-PY-psz">

@@ -22,13 +22,25 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var vkNick: UILabel!
     @IBOutlet weak var commentsTableView: UITableView!
     @IBOutlet weak var partiesCollectionView: UICollectionView!
+    @IBOutlet weak var tableViewHeightConstraint: NSLayoutConstraint!
+    
+    @IBOutlet weak var collectionViewHeightConstraint: NSLayoutConstraint!
+    
+    var isYourAccount = true
+    var appUser: AppUser?
     
     @IBAction func appCommentButtonPressed() {
+        
     }
     
     @IBAction func logOutPressed() {
         UserSettings.clearAppUser()
         navigateToLoginVC()
+    }
+    
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        tableViewHeightConstraint.constant = commentsTableView.contentSize.height
     }
     
     private let commentsTableViewRowSpacing: CGFloat = 15
@@ -39,6 +51,7 @@ class ProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        
         writeMessageButton.applyShadow()
         userAvatar.layer.cornerRadius = 15
         userAvatar.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
@@ -56,6 +69,8 @@ class ProfileViewController: UIViewController {
         commentsTableView.delegate = self
         commentsTableView.dataSource = self
         commentsTableView.reloadData()
+        
+        self.collectionViewHeightConstraint.constant = 0
         self.view.layoutIfNeeded()
     }
     
@@ -72,24 +87,55 @@ class ProfileViewController: UIViewController {
     }
     
     private func setupData() {
-        FireBaseHelper().get { (flats) in
+        
+        guard let user = isYourAccount ? UserSettings.appUser : self.appUser else { return }
+        let title = !isYourAccount ? "Написать сообщение" : "Редактировать профиль"
+        writeMessageButton.setTitle(title, for: .normal)
+        FireBaseHelper().getFlatsById(userId: (user.id!)) { (flats) in
             self.flats = flats
+            UIView.animate(withDuration: 1) {
+                self.collectionViewHeightConstraint.constant = self.flats.count > 0 ? 115 : 0
+            }
+            DispatchQueue.main.async {
+                self.partiesCollectionView.reloadData()
+                self.view.layoutIfNeeded()
+            }
         }
         
-        userAvatar.sd_setImage(with: URL(string: "https://avatars.mds.yandex.net/get-zen_doc/30884/pub_5d5221ff1ee34f00ac7e6a14_5d524bb8ae56cc00ac1b5953/scale_1200"), completed: nil)
-        fullName.text = "Константин Константинопольский"
-        genderAndYearsLabel.text = "Парень, 24 года"
-        locationLabel.text = "Минск"
-        aboutMeLabel.text = "Всем привет) Меня зовут Костя. Я люблю вечеринки, активный отдых и электронную музыку. В свободное время пишу музыку и тусуюсь с друзьями."
-        instagramNick.text = "crazy_bee"
-        vkNick.text = "constantino"
+        
+        userAvatar.sd_setImage(with: URL(string: user.avatarUrl!), completed: nil)
+        fullName.text = "\(user.firstName!) \(user.lastName!)"
+        
+        
+        
+        genderAndYearsLabel.text = "\(user.sex! ? "Парень" : "Девушка"), \(getYearsFromDate(date: user.date?.date()))"
+        
+        locationLabel.text = user.location
+        aboutMeLabel.text = user.aboutMe
+        instagramNick.text = user.instLink
+        vkNick.text = user.vkLink
         
         self.comments.append(Comment(text: "Адекватный парень, вечеринка прошла круто)",
                                      createdAt: Date(), rate: Rate.Five, creatorName: "Полина Иванченко"))
         self.comments.append(Comment(text: "Было много людей, мне ваще не зашло",
                                      createdAt: Date(), rate: Rate.Two, creatorName: "Игорь Ивановский"))
+
      }
+    
+    func getYearsFromDate(date: Date?) -> String{
+        guard let date = date else { return ""}
+        let calanderDate = Calendar.current.dateComponents([.day, .year, .month], from: date)
+        let currentCalanderDate = Calendar.current.dateComponents([.day, .year, .month], from: Date())
+        let years: Int = currentCalanderDate.year! - calanderDate.year!
+        return String(years)
+    }
+    
+    func showEditFlatVC() {
+        
+    }
+
 }
+
 
 extension ProfileViewController: UICollectionViewDelegate {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -101,7 +147,7 @@ extension ProfileViewController: UICollectionViewDelegate {
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        addModalFlatView(flat: self.flats[indexPath.item])
+        !isYourAccount ? addModalFlatView(flat: self.flats[indexPath.item]) : showEditFlatVC()
     }
 }
 
