@@ -19,14 +19,31 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var commentsTableView: UITableView!
     @IBOutlet weak var partiesCollectionView: UICollectionView!
     @IBOutlet weak var tableViewHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var imInSocialLabel: UILabel!
+    @IBOutlet weak var myFlatsLabel: UILabel!
+    @IBOutlet weak var commentsLabel: UILabel!
+    @IBOutlet weak var addCommentButton: UIButton!
     
     @IBOutlet weak var collectionViewHeightConstraint: NSLayoutConstraint!
     
     var imageView: UIImageView?
     var profileView: ProfileView?
-    
     var isYourAccount = true
     var appUser: AppUser?
+    
+    private let commentsTableViewRowSpacing: CGFloat = 15
+    private var flats = [FlatModel]()
+    private var comments = [Comment]()
+    private var flatModalVC: FlatModalViewController!
+    
+    func localize() {
+        aboutMeLabel.text = "Обо мне:".localized
+        imInSocialLabel.text = "Я в социальных сетях:".localized
+        myFlatsLabel.text = "Мои вечеринки:".localized
+        commentsLabel.text = "Отзывы обо мне:".localized
+        addCommentButton.setTitle("+ Добавить отзыв", for: .normal)
+        
+    }
     
     @IBAction func appCommentButtonPressed() {
         
@@ -42,10 +59,6 @@ class ProfileViewController: UIViewController {
         tableViewHeightConstraint.constant = commentsTableView.contentSize.height
     }
     
-    private let commentsTableViewRowSpacing: CGFloat = 15
-    private var flats = [FlatModel]()
-    private var comments = [Comment]()
-    private var flatModalVC: FlatModalViewController!
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let y = -scrollView.contentOffset.y
@@ -70,7 +83,7 @@ class ProfileViewController: UIViewController {
         
         addTopProfileView()
         setupData()
-
+        localize()
         partiesCollectionView.register(UINib(nibName: FlatCardCollectionViewCell.typeName, bundle: nil),
             forCellWithReuseIdentifier: FlatCardCollectionViewCell.typeName)
         partiesCollectionView.delegate = self
@@ -115,7 +128,7 @@ class ProfileViewController: UIViewController {
     private func setupData() {
         
         guard let user = isYourAccount ? UserSettings.appUser : self.appUser else { return }
-        let title = !isYourAccount ? "Написать сообщение" : "Редактировать профиль"
+        let title = !isYourAccount ? "Написать сообщение".localized : "Редактировать профиль".localized
         self.profileView?.writeMessageButton.setTitle(title, for: .normal)
         FireBaseHelper().getFlatsById(userId: (user.id!)) { (flats) in
             self.flats = flats
@@ -131,14 +144,14 @@ class ProfileViewController: UIViewController {
         profileView!.profileView.sd_setImage(with: URL(string: user.avatarUrl!), completed: nil)
         profileView?.fullName.text = "\(user.firstName!) \(user.lastName!)"
         
-        profileView?.genderAndYearsLabel.text = "\(user.sex! ? "Парень" : "Девушка"), \(getYearsFromDate(date: user.date?.date()))"
+        profileView?.genderAndYearsLabel.text = "\(user.sex! ? "Парень".localized : "Девушка".localized), \(getYearsFromDate(date: user.date?.date()))"
         profileView?.locationLabel.text = user.location
         aboutMeLabel.text = user.aboutMe
         instagramNick.text = user.instLink
         vkNick.text = user.vkLink
         
         profileView?.smallFullNameLabel.text = "\(user.firstName!) \(user.lastName!)"
-        profileView?.smallGenderAndYearsLabel.text = "\(user.sex! ? "Парень" : "Девушка"), \(getYearsFromDate(date: user.date?.date()))"
+        profileView?.smallGenderAndYearsLabel.text = "\(user.sex! ? "Парень".localized : "Девушка".localized), \(getYearsFromDate(date: user.date?.date()))"
         profileView?.smallLocationLabel.text = user.location
         profileView?.smallProfileView.sd_setImage(with: URL(string: user.avatarUrl!), completed: nil)
         

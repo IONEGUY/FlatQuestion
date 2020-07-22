@@ -268,11 +268,15 @@
                     <tabBarItem key="tabBarItem" title="Профиль" image="user" id="dca-Vw-Efi"/>
                     <size key="freeformSize" width="414" height="619"/>
                     <connections>
-                        <outlet property="aboutMeLabel" destination="Xfm-Nv-pxm" id="4gz-D6-VLV"/>
+                        <outlet property="aboutMeLabel" destination="NnW-zc-cAu" id="f26-sx-Q7K"/>
+                        <outlet property="addCommentButton" destination="nQf-hN-6cJ" id="96Z-wH-5Qv"/>
                         <outlet property="collectionViewHeightConstraint" destination="G3N-lD-DZW" id="gIm-Cy-d8J"/>
+                        <outlet property="commentsLabel" destination="f7e-gR-YAt" id="IEm-eU-OmF"/>
                         <outlet property="commentsTableView" destination="ZSm-6G-Hht" id="DYq-EN-LDh"/>
+                        <outlet property="imInSocialLabel" destination="BFh-YO-LB3" id="4G5-yh-ipl"/>
                         <outlet property="instagramButton" destination="qpA-Lt-iex" id="8qp-dY-a9o"/>
                         <outlet property="instagramNick" destination="mtW-b3-Xqb" id="GbW-4y-Ruy"/>
+                        <outlet property="myFlatsLabel" destination="a6i-dk-qOJ" id="Hth-Uz-Vdx"/>
                         <outlet property="partiesCollectionView" destination="JSh-HK-DbA" id="2Xj-m2-Uex"/>
                         <outlet property="scrollView" destination="rBi-7c-wlq" id="Nt5-DQ-Cxa"/>
                         <outlet property="tableViewHeightConstraint" destination="tdV-UG-Bdr" id="ArN-Se-LdK"/>
