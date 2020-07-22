@@ -188,6 +188,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMUCluster
         mapView = GMSMapView(frame: self.view.frame, camera: camera)
         mapView?.delegate = self
         mapView?.isMyLocationEnabled = true
+        self.mapView!.padding = UIEdgeInsets(top: 0, left: 0, bottom: 150, right: 0)
         mapView!.settings.myLocationButton = true
         mapView!.settings.compassButton = true
         guard let mapView = mapView else { return }
@@ -201,7 +202,11 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMUCluster
             NSLog("One or more of the map styles failed to load. \(error)")
         }
         self.view.addSubview(mapView)
+        
     }
+    
+
+    
 
     func addModalFlatView(flat: FlatModel) {
         flatModalVC = FlatModalViewController(nibName: "FlatModalViewController", bundle: nil)
@@ -321,4 +326,9 @@ extension MapViewController: GMUClusterRendererDelegate {
 
     }
         
+}
+public extension NSObject {
+public var theClassName: String {
+    return NSStringFromClass(type(of: self))
+}
 }

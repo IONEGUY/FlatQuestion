@@ -53,7 +53,7 @@ class EditProfileViewController: UIViewController {
     @IBOutlet weak var birthDateLabel: UILabel!
     @IBOutlet weak var locationLabel: UILabel!
     @IBOutlet weak var aboutMeLabel: UILabel!
-    @IBOutlet weak var createButton: DarkGradientButton!
+    @IBOutlet weak var createButton: UIButton!
     
     @IBOutlet fileprivate weak var aboutmeView: UIView!
     @IBOutlet fileprivate weak var textView: UITextView!
@@ -107,9 +107,19 @@ class EditProfileViewController: UIViewController {
 
 private extension EditProfileViewController {
     func disableCancel() {
-        backButon.isHidden = true
-        backButtonImageButton.isHidden = true
-        cancelButton.isHidden = true
+        DispatchQueue.main.async {
+            self.backButon.isHidden = true
+            self.backButtonImageButton.isHidden = true
+            self.cancelButton.isHidden = true
+            self.view.layoutIfNeeded()
+        }
+        DispatchQueue.main.async {
+            self.createButton.applyGradientV2(colours: [UIColor(hex: "0x615CBF"), UIColor(hex: "0x1C2F4B")])
+            self.createButton.layer.cornerRadius = 20
+            self.createButton.clipsToBounds = true
+            self.view.layoutIfNeeded()
+        }
+        
     }
     func displayUserInfo() {
         guard let user = UserSettings.appUser else { return }
@@ -132,6 +142,11 @@ private extension EditProfileViewController {
     }
     
     func setupView() {
+        if !isEditingProfile {
+        createButton.applyGradientV2(colours: [UIColor(hex: "0x615CBF"), UIColor(hex: "0x1C2F4B")])
+        createButton.layer.cornerRadius = 20
+        createButton.clipsToBounds = true
+        }
         navigationView.applyGradientV2(colours: [UIColor(hex: "0x615CBF"), UIColor(hex: "0x1C2F4B")])
         nameView.addCorner(with: 10, with: .black)
         dateView.addCorner(with: 10, with: .black)
@@ -147,10 +162,12 @@ private extension EditProfileViewController {
     
     func setupPickers() {
         dateTextField.inputView = datePicker
+        dateTextField.delegate = self
         datePicker.datePickerMode = .dateAndTime
         let localeID = Locale.preferredLanguages.first
         datePicker.locale = Locale(identifier: localeID!)
         datePicker.addTarget(self, action: #selector(datePickerValueChanged), for: .valueChanged)
+        datePicker.datePickerMode = .date
         let toolbar = UIToolbar()
         toolbar.barTintColor = UIColor(hexString: "0x394175")!
         toolbar.sizeToFit()
@@ -160,6 +177,7 @@ private extension EditProfileViewController {
         dateTextField.inputAccessoryView = toolbar
         
         sexTextField.inputView = pickerSex
+        sexTextField.delegate = self
         sexTextField.inputAccessoryView = toolbar
         pickerSex.delegate = self
         pickerSex.dataSource = self
@@ -465,5 +483,20 @@ extension EditProfileViewController: UIViewControllerTransitioningDelegate {
     
     func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         return TransparentBackgroundModalPresenter(isPush: false)
+    }
+}
+
+extension EditProfileViewController: UITextFieldDelegate {
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        switch textField {
+        case dateTextField:
+            currentDate = datePicker.date
+            dateTextField.text = DateFormatterHelper().getStringFromDate_MMM_yyyy(date: currentDate!)
+        case sexTextField:
+            if (sexTextField.text!.isEmpty) {sexTextField.text = "Мужской".localized}
+        default:
+            print("Default")
+        }
+        return true
     }
 }

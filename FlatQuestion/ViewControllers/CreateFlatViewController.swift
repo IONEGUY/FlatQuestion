@@ -323,6 +323,7 @@ private extension CreateFlatViewController {
     }
     
     func setupPickers() {
+        dateTextField.delegate = self
         dateTextField.inputView = datePicker
         datePicker.datePickerMode = .dateAndTime
         let localeID = Locale.preferredLanguages.first
@@ -338,11 +339,13 @@ private extension CreateFlatViewController {
         
         emptyPlacesTextfield.inputView = pickerViewEmptyPlaces
         emptyPlacesTextfield.inputAccessoryView = toolbar
+        emptyPlacesTextfield.delegate = self
         pickerViewEmptyPlaces.delegate = self
         pickerViewEmptyPlaces.dataSource = self
         
         allPlacesTextField.inputView = pickerViewAllPlaces
         allPlacesTextField.inputAccessoryView = toolbar
+        allPlacesTextField.delegate = self
         pickerViewAllPlaces.delegate = self
         pickerViewAllPlaces.dataSource = self
     }
@@ -683,6 +686,7 @@ extension CreateFlatViewController: UIPickerViewDelegate, UIPickerViewDataSource
         }
     }
     
+    
 }
 
 extension CreateFlatViewController: SuccessViewControllerProtocol {
@@ -702,3 +706,19 @@ extension CreateFlatViewController: UIViewControllerTransitioningDelegate {
     }
 }
 
+extension CreateFlatViewController: UITextFieldDelegate {
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        switch textField {
+        case dateTextField:
+            currentDate = datePicker.date
+            dateTextField.text = DateFormatterHelper().getStringFromDate_dd_MM_yyyy_HH_mm(date: currentDate!)
+        case emptyPlacesTextfield:
+            if (emptyPlacesTextfield.text!.isEmpty) {emptyPlacesTextfield.text = "1"}
+        case allPlacesTextField:
+            if (allPlacesTextField.text!.isEmpty) {allPlacesTextField.text = "1"}
+        default:
+            print("Default")
+        }
+        return true
+    }
+}

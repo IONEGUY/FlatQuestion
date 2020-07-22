@@ -69,7 +69,7 @@
                     <rect key="frame" x="0.0" y="0.0" width="414" height="92"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Редактировать профиль" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8eX-Bk-g7N">
-                            <rect key="frame" x="80" y="46" width="254" height="42"/>
+                            <rect key="frame" x="80" y="46" width="254.5" height="42"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="42" id="pze-UU-QLW"/>
                             </constraints>
@@ -116,13 +116,13 @@
                                     <rect key="frame" x="16" y="421.5" width="382" height="66"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Население" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="804-Vr-ety">
-                                            <rect key="frame" x="16" y="12" width="350" height="16"/>
+                                            <rect key="frame" x="16" y="12" width="350" height="15.5"/>
                                             <fontDescription key="fontDescription" name="SFProDisplay-Regular" family="SF Pro Display" pointSize="13"/>
                                             <color key="textColor" red="0.56078431370000004" green="0.56078431370000004" blue="0.56078431370000004" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="E7C-Za-h4V">
-                                            <rect key="frame" x="16" y="32" width="350" height="26"/>
+                                            <rect key="frame" x="16" y="31.5" width="350" height="26.5"/>
                                             <fontDescription key="fontDescription" name="SFProDisplay-Regular" family="SF Pro Display" pointSize="18"/>
                                             <textInputTraits key="textInputTraits"/>
                                         </textField>
@@ -163,13 +163,13 @@
                                     <rect key="frame" x="16" y="257.5" width="382" height="66"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Имя Фамилия" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nQY-TS-NxP">
-                                            <rect key="frame" x="16" y="12" width="350" height="16"/>
+                                            <rect key="frame" x="16" y="12" width="350" height="15.5"/>
                                             <fontDescription key="fontDescription" name="SFProDisplay-Regular" family="SF Pro Display" pointSize="13"/>
                                             <color key="textColor" red="0.56078431370000004" green="0.56078431370000004" blue="0.56078431370000004" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fY6-Z4-LS8">
-                                            <rect key="frame" x="16" y="32" width="350" height="26"/>
+                                            <rect key="frame" x="16" y="31.5" width="350" height="26.5"/>
                                             <fontDescription key="fontDescription" name="SFProDisplay-Regular" family="SF Pro Display" pointSize="18"/>
                                             <textInputTraits key="textInputTraits"/>
                                         </textField>
@@ -222,13 +222,13 @@
                                     <rect key="frame" x="16" y="747.5" width="382" height="66"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="VK" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3dN-HV-Sp6">
-                                            <rect key="frame" x="16" y="12" width="350" height="16"/>
+                                            <rect key="frame" x="16" y="12" width="350" height="15.5"/>
                                             <fontDescription key="fontDescription" name="SFProDisplay-Regular" family="SF Pro Display" pointSize="13"/>
                                             <color key="textColor" red="0.56078431370000004" green="0.56078431370000004" blue="0.56078431370000004" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="pIR-eG-J7x">
-                                            <rect key="frame" x="16" y="32" width="350" height="26"/>
+                                            <rect key="frame" x="16" y="31.5" width="350" height="26.5"/>
                                             <fontDescription key="fontDescription" name="SFProDisplay-Regular" family="SF Pro Display" pointSize="18"/>
                                             <textInputTraits key="textInputTraits"/>
                                         </textField>
@@ -249,13 +249,13 @@
                                     <rect key="frame" x="16" y="665.5" width="382" height="66"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Instagram" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I2i-xF-rjA">
-                                            <rect key="frame" x="16" y="12" width="350" height="16"/>
+                                            <rect key="frame" x="16" y="12" width="350" height="15.5"/>
                                             <fontDescription key="fontDescription" name="SFProDisplay-Regular" family="SF Pro Display" pointSize="13"/>
                                             <color key="textColor" red="0.56078431370000004" green="0.56078431370000004" blue="0.56078431370000004" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="i9D-nR-B8O">
-                                            <rect key="frame" x="16" y="32" width="350" height="26"/>
+                                            <rect key="frame" x="16" y="31.5" width="350" height="26.5"/>
                                             <fontDescription key="fontDescription" name="SFProDisplay-Regular" family="SF Pro Display" pointSize="18"/>
                                             <textInputTraits key="textInputTraits"/>
                                         </textField>
@@ -288,10 +288,11 @@
                                                 <action selector="declineButtonPressed:" destination="-1" eventType="touchUpInside" id="4lQ-A1-5dB"/>
                                             </connections>
                                         </button>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4ad-Jh-AMB" customClass="DarkGradientButton" customModule="FlatQuestion" customModuleProvider="target">
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4ad-Jh-AMB">
                                             <rect key="frame" x="181.5" y="0.0" width="164.5" height="42"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="42" id="oYN-7Y-BmA"/>
+                                                <constraint firstAttribute="width" constant="164.5" id="rvb-9X-8Tb"/>
                                             </constraints>
                                             <state key="normal">
                                                 <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -309,13 +310,13 @@
                                             <rect key="frame" x="0.0" y="0.0" width="183.5" height="66"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Пол" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zCw-3K-2Jf">
-                                                    <rect key="frame" x="16" y="12" width="151.5" height="16"/>
+                                                    <rect key="frame" x="16" y="12" width="151.5" height="15.5"/>
                                                     <fontDescription key="fontDescription" name="SFProDisplay-Regular" family="SF Pro Display" pointSize="13"/>
                                                     <color key="textColor" red="0.56078431370000004" green="0.56078431370000004" blue="0.56078431370000004" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="XZS-mT-k8h">
-                                                    <rect key="frame" x="16" y="32" width="107.5" height="26"/>
+                                                    <rect key="frame" x="16" y="31.5" width="107.5" height="26.5"/>
                                                     <fontDescription key="fontDescription" name="SFProDisplay-Regular" family="SF Pro Display" pointSize="18"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                 </textField>
@@ -356,13 +357,13 @@
                                             <rect key="frame" x="198.5" y="0.0" width="183.5" height="66"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Дата рождения" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bJT-Gz-ctk">
-                                                    <rect key="frame" x="16" y="12" width="151.5" height="16"/>
+                                                    <rect key="frame" x="16" y="12" width="151.5" height="15.5"/>
                                                     <fontDescription key="fontDescription" name="SFProDisplay-Regular" family="SF Pro Display" pointSize="13"/>
                                                     <color key="textColor" red="0.56078431370000004" green="0.56078431370000004" blue="0.56078431370000004" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="TBZ-lx-Si9">
-                                                    <rect key="frame" x="16" y="32" width="151.5" height="26"/>
+                                                    <rect key="frame" x="16" y="31.5" width="151.5" height="26.5"/>
                                                     <fontDescription key="fontDescription" name="SFProDisplay-Regular" family="SF Pro Display" pointSize="18"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                 </textField>
@@ -498,7 +499,7 @@
                                     </connections>
                                 </button>
                                 <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u1J-Gn-0wN">
-                                    <rect key="frame" x="16" y="221" width="382" height="12"/>
+                                    <rect key="frame" x="16" y="238.5" width="382" height="12"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="12" id="qtL-Lk-oBT"/>
                                     </constraints>
@@ -561,7 +562,7 @@
                                 <constraint firstItem="5vg-uj-FPp" firstAttribute="centerY" secondItem="IE2-Ba-cMy" secondAttribute="centerY" id="vXR-XV-cHy"/>
                                 <constraint firstItem="gXS-LD-a66" firstAttribute="top" secondItem="UW2-U3-AYM" secondAttribute="bottom" constant="16" id="vrf-mx-gnp"/>
                                 <constraint firstAttribute="trailing" secondItem="gXS-LD-a66" secondAttribute="trailing" constant="16" id="x1T-tA-UfJ"/>
-                                <constraint firstItem="u1J-Gn-0wN" firstAttribute="top" secondItem="LCB-Vl-CmV" secondAttribute="bottom" constant="-12.5" id="y8j-uT-4Fc"/>
+                                <constraint firstItem="u1J-Gn-0wN" firstAttribute="top" secondItem="LCB-Vl-CmV" secondAttribute="bottom" constant="5" id="y8j-uT-4Fc"/>
                                 <constraint firstItem="ocr-US-tIb" firstAttribute="leading" secondItem="Jqc-TR-O2k" secondAttribute="leading" constant="16" id="yW3-OS-xSk"/>
                                 <constraint firstAttribute="trailing" secondItem="LCB-Vl-CmV" secondAttribute="trailing" constant="24" id="zVF-0Y-9OR"/>
                             </constraints>
