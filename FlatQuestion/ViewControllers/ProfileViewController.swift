@@ -157,10 +157,13 @@ class ProfileViewController: UIViewController {
         return String(years)
     }
     
-    func showEditFlatVC() {
-        let vc = storyboard!.instantiateViewController(withIdentifier: "CreateFlatViewController") as! CreateFlatViewController
+    func showEditFlatVC(flat: FlatModel) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: "CreateFlatViewController") as! CreateFlatViewController
         vc.modalPresentationStyle = .overFullScreen
+        vc.delegate = self
         vc.isEditingFlat = true
+        vc.existedFlatModel = flat
         self.present(vc, animated: true, completion: nil)
     }
 }
@@ -176,7 +179,7 @@ extension ProfileViewController: UICollectionViewDelegate {
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        !isYourAccount ? addModalFlatView(flat: self.flats[indexPath.item]) : showEditFlatVC()
+        !isYourAccount ? addModalFlatView(flat: self.flats[indexPath.item]) : showEditFlatVC(flat: self.flats[indexPath.row])
     }
 }
 
@@ -245,6 +248,19 @@ extension ProfileViewController: ProfileViewProtocol {
 
 extension ProfileViewController: EditProfileViewControllerProtocol {
     func successEditingProfile() {
+        setupData()
+        
+        partiesCollectionView.delegate = self
+        partiesCollectionView.dataSource = self
+        commentsTableView.reloadData()
+        
+        self.collectionViewHeightConstraint.constant = 0
+        self.view.layoutIfNeeded()
+    }
+}
+
+extension ProfileViewController: CreateFlatProtocol {
+    func flatWasCreated() {
         setupData()
         
         partiesCollectionView.delegate = self

@@ -269,6 +269,93 @@ class FireBaseHelper {
                }
     }
     
+    func removeFlat(flat: FlatModel, completion: @escaping (_ result: Result<Void,Error>) -> ()) {
+        let urls = flat.images!
+        DispatchQueue.global(qos: .background).async {
+            urls.forEach { (string) in
+                let storageRef = Storage.storage().reference(forURL: string)
+                storageRef.delete { error in
+                    if let error = error {
+                        print(error.localizedDescription)
+                    } else {
+                        print("File deleted successfully")
+                    }
+                }
+            }
+        }
+        
+        let db = Firestore.firestore()
+        
+        db.collection("flats").whereField("id", isEqualTo: flat.id as Any).getDocuments { (snapshot, error) in
+            guard error == nil else {
+                completion(.failure(MyError.unrecognizedError))
+                return
+            }
+            guard let document = snapshot?.documents.first else {
+                completion(.failure(MyError.unrecognizedError))
+                return
+            }
+            db.collection("flats").document(document.documentID).delete { (error) in
+                guard error == nil else {
+                    completion(.failure(MyError.unrecognizedError))
+                    return
+                }
+                completion(.success(()))         
+            }
+        }
+        
+    }
+    
+    func updateFlatWithImage(name: String, address: String, additionalInfo: String, allPlacesCount: Int, emptyPlacesCount: Int, date: Date, id: Int, x: Double, y: Double, images: [UIImage], flatId: Int, urls: [String], completion: @escaping (_ result: Result<Void,Error>) -> ()) {
+        
+        DispatchQueue.global(qos: .background).async {
+            urls.forEach { (string) in
+                let storageRef = Storage.storage().reference(forURL: string)
+                storageRef.delete { error in
+                    if let error = error {
+                        print(error.localizedDescription)
+                    } else {
+                        print("File deleted successfully")
+                    }
+                }
+            }
+        }
+        
+        var urlStrings = [String]()
+        
+        for index in 0..<images.count {
+            print(index)
+        }
+        
+        
+        for index in 0..<images.count {
+            uploadImageOfFlat(toFlat: id, image: images[index]) { (result) in
+                switch result {
+                case .success(let url): urlStrings.append(url.absoluteString)
+                if urlStrings.count ==  images.count {
+                    let flat = FlatModel(name: name, additionalInfo: additionalInfo, allPlacesCount: allPlacesCount, emptyPlacesCount: emptyPlacesCount, date: date.timeIntervalSince1970, id: id, images: urlStrings, x: x, y: y, address: address, userId: UserSettings.appUser!.id!)
+                    self.updateFlat(flat: flat) { (result) in
+                        switch result {
+                        case .success(()): let user = UserSettings.appUser
+                        var userFlats = user?.flats
+                        userFlats?.append(flat.id)
+                        user?.flats = userFlats
+                        UserSettings.appUser = user
+                        self.updateUserInfo(user: user!) { (result) in
+                            completion(result)
+                            }
+                        case .failure(let error): completion(.failure(error))
+                        }
+                    }
+                    }
+                case .failure(let error): completion(.failure(error))
+                }
+            }
+        }
+        
+  
+        
+    }
     func createFlatWithImage(name: String, address: String, additionalInfo: String, allPlacesCount: Int, emptyPlacesCount: Int, date: Date, id: Int, x: Double, y: Double, images: [UIImage], completion: @escaping (_ result: Result<Void,Error>) -> ()) {
         var urlStrings = [String]()
         
@@ -312,6 +399,26 @@ class FireBaseHelper {
             completion(.failure(error))
         }
     }
+    
+    func updateFlat(flat: FlatModel, completion: @escaping (_ result: Result<Void,Error>) -> ()) {
+        
+        let db = Firestore.firestore()
+       
+            try db.collection("flats").whereField("id", isEqualTo: flat.id as Any).getDocuments(completion: { (snapshot, error) in
+                let document = snapshot?.documents.first
+                let encoder = Firestore.Encoder()
+                guard let updateData = try? encoder.encode(flat) else {
+                    completion(.failure(MyError.unrecognizedError))
+                    return
+                }
+                
+                db.collection("flats").document(document!.documentID).updateData(updateData) { (error) in
+                    error == nil ? completion(.success(())) : completion(.failure(error!))
+                }
+            })
+        
+    }
+
 }
 
 private extension FireBaseHelper {
