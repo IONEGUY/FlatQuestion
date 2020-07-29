@@ -268,7 +268,8 @@
                     <tabBarItem key="tabBarItem" title="Профиль" image="user" id="dca-Vw-Efi"/>
                     <size key="freeformSize" width="414" height="619"/>
                     <connections>
-                        <outlet property="aboutMeLabel" destination="NnW-zc-cAu" id="f26-sx-Q7K"/>
+                        <outlet property="aboutMeLabel" destination="NnW-zc-cAu" id="99u-JF-bgr"/>
+                        <outlet property="aboutMeLabelDescription" destination="Xfm-Nv-pxm" id="8oo-Uq-6dz"/>
                         <outlet property="addCommentButton" destination="nQf-hN-6cJ" id="96Z-wH-5Qv"/>
                         <outlet property="collectionViewHeightConstraint" destination="G3N-lD-DZW" id="gIm-Cy-d8J"/>
                         <outlet property="commentsLabel" destination="f7e-gR-YAt" id="IEm-eU-OmF"/>

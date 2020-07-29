@@ -46,6 +46,7 @@
 		586A9316249ABEDB0045CF92 /* WhiteGradientButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 586A9315249ABEDB0045CF92 /* WhiteGradientButton.swift */; };
 		586B69EB247F2070008B456D /* TopMapFilterCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 586B69E9247F2070008B456D /* TopMapFilterCollectionViewCell.swift */; };
 		586B69EC247F2070008B456D /* TopMapFilterCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 586B69EA247F2070008B456D /* TopMapFilterCollectionViewCell.xib */; };
+		586EAA9124D0EDCD00E5C6F3 /* ThirdPartyApplicationOpenner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 586EAA9024D0EDCD00E5C6F3 /* ThirdPartyApplicationOpenner.swift */; };
 		5882CFC624AA87FD00D8417E /* EditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5882CFC424AA87FC00D8417E /* EditProfileViewController.swift */; };
 		5882CFC724AA87FD00D8417E /* EditProfileViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5882CFC524AA87FC00D8417E /* EditProfileViewController.xib */; };
 		58877A5824B3E509005138B8 /* TimeIntervalExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58877A5724B3E509005138B8 /* TimeIntervalExtension.swift */; };
@@ -99,6 +100,7 @@
 		58F241C124749DB200F56681 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 58B8DADA246B474200584B20 /* Assets.xcassets */; };
 		58F241CB2475F05100F56681 /* FlatDescriptionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58F241C92475F05100F56681 /* FlatDescriptionTableViewCell.swift */; };
 		58F241CC2475F05100F56681 /* FlatDescriptionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 58F241CA2475F05100F56681 /* FlatDescriptionTableViewCell.xib */; };
+		58F3FFCF24D0DC5500725F30 /* SuccessModalPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58F3FFCE24D0DC5500725F30 /* SuccessModalPresenter.swift */; };
 		8B69C140BCB0FC9EF701D193 /* Pods_FlatQuestion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2480035DB96377F75447C64A /* Pods_FlatQuestion.framework */; };
 		FA063E6D247D820300CBF52A /* VkUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA063E6C247D820300CBF52A /* VkUser.swift */; };
 		FA063E6F247D8AA900CBF52A /* AppUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA063E6E247D8AA900CBF52A /* AppUser.swift */; };
@@ -188,6 +190,7 @@
 		586A9315249ABEDB0045CF92 /* WhiteGradientButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhiteGradientButton.swift; sourceTree = "<group>"; };
 		586B69E9247F2070008B456D /* TopMapFilterCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopMapFilterCollectionViewCell.swift; sourceTree = "<group>"; };
 		586B69EA247F2070008B456D /* TopMapFilterCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TopMapFilterCollectionViewCell.xib; sourceTree = "<group>"; };
+		586EAA9024D0EDCD00E5C6F3 /* ThirdPartyApplicationOpenner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThirdPartyApplicationOpenner.swift; sourceTree = "<group>"; };
 		5882CFC424AA87FC00D8417E /* EditProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewController.swift; sourceTree = "<group>"; };
 		5882CFC524AA87FC00D8417E /* EditProfileViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EditProfileViewController.xib; sourceTree = "<group>"; };
 		58877A5724B3E509005138B8 /* TimeIntervalExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeIntervalExtension.swift; sourceTree = "<group>"; };
@@ -251,6 +254,7 @@
 		58F241B124734E8100F56681 /* FlatPhotoCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FlatPhotoCollectionViewCell.xib; sourceTree = "<group>"; };
 		58F241C92475F05100F56681 /* FlatDescriptionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlatDescriptionTableViewCell.swift; sourceTree = "<group>"; };
 		58F241CA2475F05100F56681 /* FlatDescriptionTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FlatDescriptionTableViewCell.xib; sourceTree = "<group>"; };
+		58F3FFCE24D0DC5500725F30 /* SuccessModalPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuccessModalPresenter.swift; sourceTree = "<group>"; };
 		DB325944346686C35CB7D748 /* Pods-FlatQuestionTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FlatQuestionTests.debug.xcconfig"; path = "Target Support Files/Pods-FlatQuestionTests/Pods-FlatQuestionTests.debug.xcconfig"; sourceTree = "<group>"; };
 		DD97DF30063FF9D4556F8955 /* Pods_FlatQuestion_FlatQuestionUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FlatQuestion_FlatQuestionUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EF0E1634935991A5CE481015 /* Pods-FlatQuestion-FlatQuestionUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FlatQuestion-FlatQuestionUITests.debug.xcconfig"; path = "Target Support Files/Pods-FlatQuestion-FlatQuestionUITests/Pods-FlatQuestion-FlatQuestionUITests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -442,6 +446,7 @@
 				583F9EFC24BFD3B30056A8E5 /* SuccessViewController.swift */,
 				583F9EFD24BFD3B30056A8E5 /* SuccessViewController.xib */,
 				584E8C7D24C11C0600B4EAE6 /* NotificationsViewController.swift */,
+				58F3FFCE24D0DC5500725F30 /* SuccessModalPresenter.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -549,6 +554,7 @@
 				58D5397B24B602B100F1ED4C /* String+Localization.swift */,
 				584DB0BA24BD166500E1AFC9 /* UIViewController+Alert.swift */,
 				584DB0BC24BD16C800E1AFC9 /* GoogleMapsUtilsModels.swift */,
+				586EAA9024D0EDCD00E5C6F3 /* ThirdPartyApplicationOpenner.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -979,6 +985,7 @@
 				FA063E71247D90AA00CBF52A /* UIViewControllerExtensions.swift in Sources */,
 				584E8C7E24C11C0600B4EAE6 /* NotificationsViewController.swift in Sources */,
 				5811AFF524A2B7B100BF8321 /* Closable.swift in Sources */,
+				58F3FFCF24D0DC5500725F30 /* SuccessModalPresenter.swift in Sources */,
 				58B8DAD2246B474100584B20 /* AppDelegate.swift in Sources */,
 				FA3766C524732DEC0052DB9B /* RegistrationViewController.swift in Sources */,
 				585B9BDA2499758200976A05 /* CreateFlatViewController.swift in Sources */,
@@ -992,6 +999,7 @@
 				58B8DAD4246B474100584B20 /* SceneDelegate.swift in Sources */,
 				584E8C9024C3160E00B4EAE6 /* NotificationsTableViewCell.swift in Sources */,
 				58F06B3624C4F7B400A23520 /* FlatModel.swift in Sources */,
+				586EAA9124D0EDCD00E5C6F3 /* ThirdPartyApplicationOpenner.swift in Sources */,
 				58E62CB72492DDE1006B0DCF /* UIColor+Hex.swift in Sources */,
 				58BA65CB2496CAE70001BE1E /* MainMenuTabBar.swift in Sources */,
 				58B8DB08246B60F100584B20 /* MapViewController.swift in Sources */,

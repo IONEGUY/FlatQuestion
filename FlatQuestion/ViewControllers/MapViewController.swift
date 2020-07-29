@@ -11,7 +11,7 @@ import GoogleMaps
 import GooglePlaces
 import GoogleMapsUtils
 import GoogleUtilities
-
+import SDWebImage
 class MapViewController: UIViewController, CLLocationManagerDelegate, GMUClusterManagerDelegate {
     private var collectionView: UICollectionView?
     private var flatModalVC: FlatModalViewController!
@@ -159,12 +159,16 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMUCluster
     }
 
     func getFlats() {
-        showLoadingIndicator()
-        FireBaseHelper().get { (flats) in
-            self.flats = flats
-            self.hideLoadingableIndicator()
-            self.collectionView?.reloadData()
-            self.initClustering()
+        DispatchQueue.global(qos: .userInteractive).async {
+            //showLoadingIndicator()
+            FireBaseHelper().get { (flats) in
+                DispatchQueue.main.async {
+                    self.flats = flats
+                    //self.hideLoadingableIndicator()
+                    self.collectionView?.reloadData()
+                    self.initClustering()
+                }
+            }
         }
 
     }
@@ -311,6 +315,7 @@ extension MapViewController: GMUClusterRendererDelegate {
                 }
 
                 if flat.images?.count != 0, let url = URL(string: (flat.images?.first)!) {
+                    iconView.photoView.sd_imageIndicator = SDWebImageActivityIndicator.gray
                     iconView.photoView.sd_setImage(with: url, completed: nil)
                 } else {
                     iconView.photoView.image = UIImage(named: "compas")

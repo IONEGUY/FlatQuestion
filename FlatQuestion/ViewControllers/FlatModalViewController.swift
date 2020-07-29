@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import SDWebImage
 extension FlatModalViewController {
     private enum State {
         case partial
@@ -346,6 +346,7 @@ extension FlatModalViewController: UICollectionViewDelegate {
         guard let url = URL(string: (flat?.images?[indexPath.row])!) else {
             return photoCell
         }
+        photoCell.image.sd_imageIndicator = SDWebImageActivityIndicator.gray
         photoCell.image.sd_setImage(with: url, completed: nil)
         return photoCell
     }
@@ -375,10 +376,18 @@ extension FlatModalViewController: UITableViewDataSource {}
 
 extension FlatModalViewController: UIViewControllerTransitioningDelegate {
     func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        return TransparentBackgroundModalPresenter(isPush: true, originFrame: UIScreen.main.bounds)
+        if presented is AcceptModalViewController {
+            return TransparentBackgroundModalPresenter(isPush: true, originFrame: UIScreen.main.bounds)
+        } else {
+        return SuccessModalPresenter(isPush: true, originFrame: UIScreen.main.bounds)
+        }
     }
     
     func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        if dismissed is AcceptModalViewController {
         return TransparentBackgroundModalPresenter(isPush: false)
+        } else {
+            return SuccessModalPresenter(isPush: false)
+        }
     }
 }

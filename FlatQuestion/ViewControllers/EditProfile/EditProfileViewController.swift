@@ -8,7 +8,7 @@
 
 import UIKit
 import GooglePlaces
-
+import SDWebImage
 protocol EditProfileViewControllerProtocol: AnyObject {
     func successEditingProfile()
 }
@@ -123,7 +123,7 @@ private extension EditProfileViewController {
     }
     func displayUserInfo() {
         guard let user = UserSettings.appUser else { return }
-    
+        photoImageView.sd_imageIndicator = SDWebImageActivityIndicator.gray
         photoImageView.sd_setImage(with: URL(string: user.avatarUrl!)) { (image, error, cache, url) in
             self.photoImage = image
         }
@@ -478,11 +478,19 @@ extension EditProfileViewController: SuccessViewControllerProtocol {
 
 extension EditProfileViewController: UIViewControllerTransitioningDelegate {
     func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        return TransparentBackgroundModalPresenter(isPush: true, originFrame: UIScreen.main.bounds)
+        if presented is AcceptModalViewController {
+            return TransparentBackgroundModalPresenter(isPush: true, originFrame: UIScreen.main.bounds)
+        } else {
+        return SuccessModalPresenter(isPush: true, originFrame: UIScreen.main.bounds)
+        }
     }
     
     func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        if dismissed is AcceptModalViewController {
         return TransparentBackgroundModalPresenter(isPush: false)
+        } else {
+            return SuccessModalPresenter(isPush: false)
+        }
     }
 }
 

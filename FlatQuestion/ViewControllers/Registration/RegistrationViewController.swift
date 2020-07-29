@@ -97,7 +97,7 @@ class RegistrationViewController: UIViewController {
         secondNameLabel.text = "Фамилия".localized
         passwordLabel.text = "Пароль".localized
         confirmPassword.text = "Подтверждение пароля".localized
-        registrationButton.titleLabel?.text = "Регистрация".localized
+        registrationButton.setTitle("Регистрация".localized, for: .normal)
     }
     
      private func createUser(user: AppUser, completion: @escaping ((Error?) -> Void)) {

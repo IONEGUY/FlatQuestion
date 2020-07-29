@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import SDWebImage
 protocol NotificationsTableViewCellProtocol: AnyObject {
    func statusOfRequestWasChanged(result: Result<Void,Error>)
 }
@@ -32,6 +32,7 @@ class NotificationsTableViewCell: UITableViewCell {
     
     func setupCell(flatId: Int, userInfo: UserInfo) {
         fullNameLabel.text = userInfo.fullName
+        photoImage.sd_imageIndicator = SDWebImageActivityIndicator.gray
         photoImage.sd_setImage(with: URL(string: userInfo.photoLink)!, completed: nil)
         messageLabel.text = userInfo.message
         declineButton.addCorner(with: 20, with: .black)

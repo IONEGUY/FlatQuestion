@@ -23,6 +23,7 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var myFlatsLabel: UILabel!
     @IBOutlet weak var commentsLabel: UILabel!
     @IBOutlet weak var addCommentButton: UIButton!
+    @IBOutlet weak var aboutMeLabelDescription: UILabel!
     
     @IBOutlet weak var collectionViewHeightConstraint: NSLayoutConstraint!
     
@@ -72,6 +73,7 @@ class ProfileViewController: UIViewController {
             
         } else {
             guard let user = isYourAccount ? UserSettings.appUser : self.appUser else { return }
+            self.profileView?.profileView.sd_imageIndicator = SDWebImageActivityIndicator.gray
                 self.profileView?.profileView.sd_setImage(with: URL(string: user.avatarUrl!), completed: nil)
                 self.profileView?.hideSmallView()
         }
@@ -146,10 +148,9 @@ class ProfileViewController: UIViewController {
         
         profileView?.genderAndYearsLabel.text = "\(user.sex! ? "Парень".localized : "Девушка".localized), \(getYearsFromDate(date: user.date?.date()))"
         profileView?.locationLabel.text = user.location
-        aboutMeLabel.text = user.aboutMe
         instagramNick.text = user.instLink
         vkNick.text = user.vkLink
-        
+        aboutMeLabelDescription.text = user.aboutMe
         profileView?.smallFullNameLabel.text = "\(user.firstName!) \(user.lastName!)"
         profileView?.smallGenderAndYearsLabel.text = "\(user.sex! ? "Парень".localized : "Девушка".localized), \(getYearsFromDate(date: user.date?.date()))"
         profileView?.smallLocationLabel.text = user.location
@@ -159,8 +160,21 @@ class ProfileViewController: UIViewController {
                                      createdAt: Date(), rate: Rate.Five, creatorName: "Полина Иванченко"))
         self.comments.append(Comment(text: "Было много людей, мне ваще не зашло",
                                      createdAt: Date(), rate: Rate.Two, creatorName: "Игорь Ивановский"))
+        
+        instagramButton.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.openInstagram)))
+        vkButton.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.openVK)))
 
      }
+    
+    @objc func openVK() {
+        guard let user = isYourAccount ? UserSettings.appUser : self.appUser else { return }
+        ThirdPartyApplicationOpenner().openVKWithId(id: user.vkLink)
+    }
+    
+    @objc func openInstagram() {
+        guard let user = isYourAccount ? UserSettings.appUser : self.appUser else { return }
+        ThirdPartyApplicationOpenner().openInstagramWithId(id: user.instLink)
+    }
     
     func getYearsFromDate(date: Date?) -> String{
         guard let date = date else { return ""}

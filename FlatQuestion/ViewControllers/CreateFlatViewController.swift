@@ -698,11 +698,19 @@ extension CreateFlatViewController: SuccessViewControllerProtocol {
 
 extension CreateFlatViewController: UIViewControllerTransitioningDelegate {
     func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        return TransparentBackgroundModalPresenter(isPush: true, originFrame: UIScreen.main.bounds)
+        if presented is AcceptModalViewController {
+            return TransparentBackgroundModalPresenter(isPush: true, originFrame: UIScreen.main.bounds)
+        } else {
+        return SuccessModalPresenter(isPush: true, originFrame: UIScreen.main.bounds)
+        }
     }
     
     func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        if dismissed is AcceptModalViewController {
         return TransparentBackgroundModalPresenter(isPush: false)
+        } else {
+            return SuccessModalPresenter(isPush: false)
+        }
     }
 }
 
