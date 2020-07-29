@@ -49,7 +49,7 @@ class ProfileViewController: UIViewController {
     @IBAction func appCommentButtonPressed() {
         
     }
-    
+
     @IBAction func logOutPressed() {
         UserSettings.clearAppUser()
         navigateToLoginVC()
@@ -127,19 +127,27 @@ class ProfileViewController: UIViewController {
         flatModalVC.view.frame = CGRect(x: 0, y: view.frame.maxY, width: width, height: height)
     }
     
-    private func setupData() {
+     func setupData() {
         
         guard let user = isYourAccount ? UserSettings.appUser : self.appUser else { return }
         let title = !isYourAccount ? "Написать сообщение".localized : "Редактировать профиль".localized
         self.profileView?.writeMessageButton.setTitle(title, for: .normal)
-        FireBaseHelper().getFlatsById(userId: (user.id!)) { (flats) in
-            self.flats = flats
-            UIView.animate(withDuration: 1) {
-                self.collectionViewHeightConstraint.constant = self.flats.count > 0 ? 115 : 0
-            }
-            DispatchQueue.main.async {
-                self.partiesCollectionView.reloadData()
-                self.view.layoutIfNeeded()
+        DispatchQueue.global(qos: .userInteractive).async {
+            FireBaseHelper().getFlatsById(userId: (user.id!)) { (flats) in
+                
+                self.flats = flats
+                
+                DispatchQueue.main.async {
+                     self.partiesCollectionView.alpha = 0
+                    UIView.animate(withDuration: 0.5) {
+                        self.collectionViewHeightConstraint.constant = self.flats.count > 0 ? 115 : 0
+                        self.partiesCollectionView.reloadData()
+                        self.view.layoutIfNeeded()
+                    }
+                    UIView.animate(withDuration: 0, delay: 0.6, options: .allowAnimatedContent, animations: {
+                        self.partiesCollectionView.alpha = 1
+                    }, completion: nil)
+                }
             }
         }
         
