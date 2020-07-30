@@ -32,9 +32,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
-        print(url)
+        print("url")
         return false
     }
+    
 
     private func setupGoogleAPIs() {
         GMSPlacesClient.provideAPIKey("AIzaSyCmJ1VuRvdCDWlwOy1JqnY6y8cQmV1MTxs")

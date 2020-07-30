@@ -125,7 +125,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMUCluster
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        getFlats()
+        getFlats(completion: nil)
     }
 
     override func viewWillLayoutSubviews() {
@@ -139,7 +139,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMUCluster
     }
 
     func updateFlats() {
-        getFlats()
+        getFlats(completion: nil)
     }
     func setupSearchView() {
         let view = TopMapSearchView(frame: CGRect(x: 0, y: UIApplication.shared.statusBarFrame.height + 10, width: self.view.frame.size.width, height: 82))
@@ -158,19 +158,36 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMUCluster
         self.collectionView?.dataSource = self
     }
 
-    func getFlats() {
+    func getFlats(completion : (()->())?) {
         DispatchQueue.global(qos: .userInteractive).async {
-            //showLoadingIndicator()
             FireBaseHelper().get { (flats) in
                 DispatchQueue.main.async {
                     self.flats = flats
-                    //self.hideLoadingableIndicator()
-                    self.collectionView?.reloadData()
+                    UIView.animate(withDuration: 0, delay: 0, options: .allowAnimatedContent, animations: {
+                        self.collectionView?.reloadData()
+                    }) { (finished) in
+                        completion?()
+                    }
                     self.initClustering()
+                    
                 }
             }
         }
-
+    }
+    
+    func openFlatWith(id: Int) {
+        getFlats {
+            DispatchQueue.main.async {
+                self.collectionView?.scrollToItem(at: self.getIndexOfFlatById(id: id), at: .centeredHorizontally, animated: true)
+            }
+        }
+    }
+    
+    func getIndexOfFlatById(id: Int) -> IndexPath {
+        let index = self.flats.firstIndex { (flat) -> Bool in
+            return flat.id == id
+            } ?? 0
+        return IndexPath(item: index, section: 0)
     }
 
     func initClustering() {

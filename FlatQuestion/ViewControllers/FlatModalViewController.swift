@@ -71,6 +71,14 @@ class FlatModalViewController: UIViewController {
       let gesture = UIPanGestureRecognizer.init(target: self, action: #selector(panGesture))
         view.addGestureRecognizer(gesture)
         view.isUserInteractionEnabled = true
+        
+        shareView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(shareFlat)))
+    }
+    
+    @objc private func shareFlat() {
+        let items: [Any] = ["Вот отличный флет, посмотри".localized, URL(string: "flat://\(String(flat!.id))")!]
+        let ac = UIActivityViewController(activityItems: items, applicationActivities: nil)
+        present(ac, animated: true)
     }
     
     private func setupView() {
