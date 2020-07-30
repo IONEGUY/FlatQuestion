@@ -19,15 +19,22 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
         let mainViewController = storyBoard.instantiateViewController(withIdentifier: "main")
         mainViewController.modalPresentationStyle = .fullScreen
-        let viewController = UserSettings.appUser == nil ? LoginViewController() : mainViewController
+        let viewController = UserSettings.appUser == nil || UserSettings.appUser?.sex == nil ? LoginViewController() : mainViewController
         window?.rootViewController = viewController
         window?.makeKeyAndVisible()
         window?.windowScene = windowScene
+        
+        //if UserSettings.appUser?.sex != nil{
         
         let urlinfo = connectionOptions.urlContexts
         if let url = urlinfo.first?.url {
             self.scene(scene, openURLContexts: urlinfo)
         }
+//        } else {
+//            let vc = EditProfileViewController(nibName: "EditProfileViewController", bundle: nil)
+//            vc.modalPresentationStyle = .fullScreen
+//            viewController.present(vc, animated: true, completion: nil)
+//        }
 
     }
 

@@ -114,6 +114,7 @@ private extension EditProfileViewController {
             self.view.layoutIfNeeded()
         }
         DispatchQueue.main.async {
+            self.createButton.removeSublayers()
             self.createButton.applyGradientV2(colours: [UIColor(hex: "0x615CBF"), UIColor(hex: "0x1C2F4B")])
             self.createButton.layer.cornerRadius = 20
             self.createButton.clipsToBounds = true
@@ -142,11 +143,11 @@ private extension EditProfileViewController {
     }
     
     func setupView() {
-        if !isEditingProfile {
+//        if !isEditingProfile {
         createButton.applyGradientV2(colours: [UIColor(hex: "0x615CBF"), UIColor(hex: "0x1C2F4B")])
         createButton.layer.cornerRadius = 20
         createButton.clipsToBounds = true
-        }
+//        }
         navigationView.applyGradientV2(colours: [UIColor(hex: "0x615CBF"), UIColor(hex: "0x1C2F4B")])
         nameView.addCorner(with: 10, with: .black)
         dateView.addCorner(with: 10, with: .black)

@@ -58,13 +58,16 @@ class ProfileView: UIView {
     }
     
     func showSmallView() {
-        guard !isSmallView else { return }
-        self.smallView.isHidden = false
-        self.locationView.isHidden = true
-        self.genderAndYearsLabel.isHidden = true
-        self.fullName.isHidden = true
-        self.isSmallView = true
-        self.layoutSubviews()
+        DispatchQueue.main.async {
+            guard !self.isSmallView else { return }
+            self.smallView.isHidden = false
+            self.locationView.isHidden = true
+            self.genderAndYearsLabel.isHidden = true
+            self.fullName.isHidden = true
+            self.isSmallView = true
+            self.layoutSubviews()
+            self.updateConstraints()
+        }
         
     }
     
