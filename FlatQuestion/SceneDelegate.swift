@@ -23,6 +23,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window?.rootViewController = viewController
         window?.makeKeyAndVisible()
         window?.windowScene = windowScene
+        
+        let urlinfo = connectionOptions.urlContexts
+        if let url = urlinfo.first?.url {
+            self.scene(scene, openURLContexts: urlinfo)
+        }
+
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
@@ -66,6 +72,5 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             }
         }
     }
-    
     
 }
