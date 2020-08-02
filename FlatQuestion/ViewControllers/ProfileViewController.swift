@@ -117,6 +117,7 @@ class ProfileViewController: UIViewController {
     
     private func addModalFlatView(flat: FlatModel) {
         flatModalVC = FlatModalViewController(nibName: "FlatModalViewController", bundle: nil)
+        flatModalVC.isProfileHidden = true
         flatModalVC.flat = flat
         flatModalVC.delegate = self
         self.addChild(flatModalVC)

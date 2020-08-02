@@ -33,6 +33,7 @@ class FlatModalViewController: UIViewController {
     weak var delegate: RemovableDelegate?
     private var currentState: State?
     var flat: FlatModel?
+    var isProfileHidden = false
     @IBOutlet weak var collectionView: UICollectionView!
     
     @IBOutlet weak var sendInviteButton: DarkGradientButton!
@@ -82,6 +83,7 @@ class FlatModalViewController: UIViewController {
     }
     
     private func setupView() {
+        if isProfileHidden { profileView.isHidden = true }
         if flat?.userId == UserSettings.appUser!.id {
             sendInviteButton.backgroundColor = .gray
         }
