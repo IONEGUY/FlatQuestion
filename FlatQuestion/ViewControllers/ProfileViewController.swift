@@ -201,6 +201,12 @@ class ProfileViewController: UIViewController {
         vc.existedFlatModel = flat
         self.present(vc, animated: true, completion: nil)
     }
+    
+    @IBAction func openSettings(_ sender: Any) {
+        let vc = SettingsViewController(nibName: "SettingsViewController", bundle: nil)
+        vc.modalPresentationStyle = .fullScreen
+        self.present(vc, animated: true, completion: nil)
+    }
 }
 
 

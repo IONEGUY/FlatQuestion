@@ -88,6 +88,13 @@
 		58BABF2124A414B400F0C287 /* IconView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 58BABF2024A414B300F0C287 /* IconView.xib */; };
 		58BABF2324A4170100F0C287 /* IconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58BABF2224A4170100F0C287 /* IconView.swift */; };
 		58BAFE6E24A4012600B9A4A8 /* UIViewControllerExtentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58BAFE6D24A4012600B9A4A8 /* UIViewControllerExtentions.swift */; };
+		58BB1E9724D7541E001AF897 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58BB1E9524D7541E001AF897 /* SettingsViewController.swift */; };
+		58BB1E9824D7541E001AF897 /* SettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 58BB1E9624D7541E001AF897 /* SettingsViewController.xib */; };
+		58BB1E9B24D75B31001AF897 /* SettingsReportTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58BB1E9924D75B31001AF897 /* SettingsReportTableViewCell.swift */; };
+		58BB1E9C24D75B31001AF897 /* SettingsReportTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 58BB1E9A24D75B31001AF897 /* SettingsReportTableViewCell.xib */; };
+		58BB1EA024D75FA0001AF897 /* ModalPopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58BB1E9E24D75FA0001AF897 /* ModalPopUpViewController.swift */; };
+		58BB1EA124D75FA0001AF897 /* ModalPopUpViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 58BB1E9F24D75FA0001AF897 /* ModalPopUpViewController.xib */; };
+		58BB1EA524D76B0C001AF897 /* MailHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58BB1EA424D76B0C001AF897 /* MailHelper.swift */; };
 		58D5397624B5FF9D00F1ED4C /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 58D5397824B5FF9D00F1ED4C /* Localizable.strings */; };
 		58D5397C24B602B100F1ED4C /* String+Localization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58D5397B24B602B100F1ED4C /* String+Localization.swift */; };
 		58E62CB32492D9F0006B0DCF /* DarkGradientButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58E62CB22492D9F0006B0DCF /* DarkGradientButton.swift */; };
@@ -242,6 +249,13 @@
 		58BABF2024A414B300F0C287 /* IconView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IconView.xib; sourceTree = "<group>"; };
 		58BABF2224A4170100F0C287 /* IconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconView.swift; sourceTree = "<group>"; };
 		58BAFE6D24A4012600B9A4A8 /* UIViewControllerExtentions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerExtentions.swift; sourceTree = "<group>"; };
+		58BB1E9524D7541E001AF897 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		58BB1E9624D7541E001AF897 /* SettingsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingsViewController.xib; sourceTree = "<group>"; };
+		58BB1E9924D75B31001AF897 /* SettingsReportTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsReportTableViewCell.swift; sourceTree = "<group>"; };
+		58BB1E9A24D75B31001AF897 /* SettingsReportTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingsReportTableViewCell.xib; sourceTree = "<group>"; };
+		58BB1E9E24D75FA0001AF897 /* ModalPopUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalPopUpViewController.swift; sourceTree = "<group>"; };
+		58BB1E9F24D75FA0001AF897 /* ModalPopUpViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ModalPopUpViewController.xib; sourceTree = "<group>"; };
+		58BB1EA424D76B0C001AF897 /* MailHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailHelper.swift; sourceTree = "<group>"; };
 		58D5397724B5FF9D00F1ED4C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		58D5397924B5FFB600F1ED4C /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		58D5397A24B5FFC000F1ED4C /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -429,6 +443,9 @@
 		58B8DB01246B490C00584B20 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				58BB1E9D24D75F73001AF897 /* ModalPopUpViewController */,
+				58BB1E9424D753F3001AF897 /* Settings */,
+				58BB1E9324D753EB001AF897 /* New Group */,
 				5882CFC324AA87DE00D8417E /* EditProfile */,
 				588ED8A024A1772900659512 /* SearchViewController */,
 				FAE40EF42482918F0097879E /* Reset Password */,
@@ -470,6 +487,8 @@
 				FAA64E1E24BFAA9D0080FAE1 /* CommentTableViewCell.xib */,
 				583F80C924C70CB2004BD87B /* ProfileView.xib */,
 				583F80CB24C70E42004BD87B /* ProfileView.swift */,
+				58BB1E9924D75B31001AF897 /* SettingsReportTableViewCell.swift */,
+				58BB1E9A24D75B31001AF897 /* SettingsReportTableViewCell.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -568,6 +587,31 @@
 			path = IconView;
 			sourceTree = "<group>";
 		};
+		58BB1E9324D753EB001AF897 /* New Group */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "New Group";
+			sourceTree = "<group>";
+		};
+		58BB1E9424D753F3001AF897 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				58BB1E9524D7541E001AF897 /* SettingsViewController.swift */,
+				58BB1E9624D7541E001AF897 /* SettingsViewController.xib */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
+		58BB1E9D24D75F73001AF897 /* ModalPopUpViewController */ = {
+			isa = PBXGroup;
+			children = (
+				58BB1E9E24D75FA0001AF897 /* ModalPopUpViewController.swift */,
+				58BB1E9F24D75FA0001AF897 /* ModalPopUpViewController.xib */,
+			);
+			path = ModalPopUpViewController;
+			sourceTree = "<group>";
+		};
 		F30CF10F61453D23C3310F0B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -588,6 +632,7 @@
 				FAAB900A249AC7C000E38C98 /* UserSettings.swift */,
 				FAAB900C249AC97700E38C98 /* DecodeHelper.swift */,
 				5811AFEA24A2A0E200BF8321 /* DateFormatterHelper.swift */,
+				58BB1EA424D76B0C001AF897 /* MailHelper.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -746,13 +791,16 @@
 				585B9BF1249990F600976A05 /* Roboto-Regular.ttf in Resources */,
 				585B9BE9249990F600976A05 /* Roboto-LightItalic.ttf in Resources */,
 				58B8DB2A246CA00600584B20 /* SFProDisplay-RegularItalic.ttf in Resources */,
+				58BB1EA124D75FA0001AF897 /* ModalPopUpViewController.xib in Resources */,
 				58B8DB27246CA00600584B20 /* SFProDisplay-HeavyItalic.ttf in Resources */,
 				58F241C124749DB200F56681 /* Assets.xcassets in Resources */,
 				58BABF2124A414B400F0C287 /* IconView.xib in Resources */,
 				585B9BE8249990F600976A05 /* Roboto-Black.ttf in Resources */,
+				58BB1E9C24D75B31001AF897 /* SettingsReportTableViewCell.xib in Resources */,
 				584E8C9124C3160E00B4EAE6 /* NotificationsTableViewCell.xib in Resources */,
 				585B9BF2249990F600976A05 /* Roboto-BoldItalic.ttf in Resources */,
 				58B8DB2D246CA00600584B20 /* SFProDisplay-Heavy.ttf in Resources */,
+				58BB1E9824D7541E001AF897 /* SettingsViewController.xib in Resources */,
 				FA3766C624732DEC0052DB9B /* RegistrationViewController.xib in Resources */,
 				5882CFC724AA87FD00D8417E /* EditProfileViewController.xib in Resources */,
 				FA3766C2247328930052DB9B /* LoginViewController.xib in Resources */,
@@ -960,6 +1008,7 @@
 				FAE40EF72482ED850097879E /* PaddedTextField.swift in Sources */,
 				58B4E3FA24A0010000DBC71F /* FireBaseHelper.swift in Sources */,
 				FADD4DBA247F12FD0055FCB1 /* ResetPasswordViewController.swift in Sources */,
+				58BB1E9724D7541E001AF897 /* SettingsViewController.swift in Sources */,
 				FA88D4E72475DDB9005DA624 /* SwiftyJson.swift in Sources */,
 				FAB4025024BCEDA500B20653 /* Comment.swift in Sources */,
 				FAE40EFB2482FBEA0097879E /* UIColorExtensions.swift in Sources */,
@@ -991,6 +1040,7 @@
 				585B9BDA2499758200976A05 /* CreateFlatViewController.swift in Sources */,
 				58F241CB2475F05100F56681 /* FlatDescriptionTableViewCell.swift in Sources */,
 				589CC3AF246DEAF200D4E400 /* FlatModalViewController.swift in Sources */,
+				58BB1EA024D75FA0001AF897 /* ModalPopUpViewController.swift in Sources */,
 				FAB4025224BCF12800B20653 /* Rate.swift in Sources */,
 				583F9EFE24BFD3B30056A8E5 /* SuccessViewController.swift in Sources */,
 				58E62CB92492E459006B0DCF /* UIView+CornerShadow.swift in Sources */,
@@ -998,6 +1048,7 @@
 				589018252477501B001FBA21 /* TopMapSearchView.swift in Sources */,
 				58B8DAD4246B474100584B20 /* SceneDelegate.swift in Sources */,
 				584E8C9024C3160E00B4EAE6 /* NotificationsTableViewCell.swift in Sources */,
+				58BB1EA524D76B0C001AF897 /* MailHelper.swift in Sources */,
 				58F06B3624C4F7B400A23520 /* FlatModel.swift in Sources */,
 				586EAA9124D0EDCD00E5C6F3 /* ThirdPartyApplicationOpenner.swift in Sources */,
 				58E62CB72492DDE1006B0DCF /* UIColor+Hex.swift in Sources */,
@@ -1014,6 +1065,7 @@
 				FAA64E1F24BFAA9D0080FAE1 /* CommentTableViewCell.swift in Sources */,
 				58B8DB12246C9C8400584B20 /* FlatCardCollectionViewCell.swift in Sources */,
 				583F9EFB24BFCBA90056A8E5 /* TransparentBackgrounfModalPresenter.swift in Sources */,
+				58BB1E9B24D75B31001AF897 /* SettingsReportTableViewCell.swift in Sources */,
 				FAAB900B249AC7C000E38C98 /* UserSettings.swift in Sources */,
 				586A9316249ABEDB0045CF92 /* WhiteGradientButton.swift in Sources */,
 			);

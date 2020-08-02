@@ -218,6 +218,13 @@
                                                     <action selector="logOutPressed" destination="RXI-b2-udd" eventType="touchUpInside" id="SI4-fP-Qgi"/>
                                                 </connections>
                                             </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hlm-rm-DPe">
+                                                <rect key="frame" x="262" y="572" width="55" height="30"/>
+                                                <state key="normal" title="settings"/>
+                                                <connections>
+                                                    <action selector="openSettings:" destination="RXI-b2-udd" eventType="touchUpInside" id="YQF-Kx-sVX"/>
+                                                </connections>
+                                            </button>
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
@@ -233,8 +240,10 @@
                                             <constraint firstItem="rB4-jc-1JK" firstAttribute="top" secondItem="o5Y-sr-3tE" secondAttribute="bottom" constant="23" id="baE-nG-B4n"/>
                                             <constraint firstItem="ZSm-6G-Hht" firstAttribute="leading" secondItem="WYc-uQ-bEM" secondAttribute="leading" constant="20" id="bvJ-YC-Wyh"/>
                                             <constraint firstItem="eFY-Qz-9ZZ" firstAttribute="centerX" secondItem="WYc-uQ-bEM" secondAttribute="centerX" id="csl-Ww-E2u"/>
+                                            <constraint firstItem="Hlm-rm-DPe" firstAttribute="leading" secondItem="eFY-Qz-9ZZ" secondAttribute="trailing" constant="32" id="diu-Q1-kGw"/>
                                             <constraint firstAttribute="trailing" secondItem="rB4-jc-1JK" secondAttribute="trailing" constant="20" id="eJb-bb-ZPQ"/>
                                             <constraint firstItem="nQf-hN-6cJ" firstAttribute="centerY" secondItem="f7e-gR-YAt" secondAttribute="centerY" id="f4V-gm-hHB"/>
+                                            <constraint firstItem="Hlm-rm-DPe" firstAttribute="top" secondItem="ZSm-6G-Hht" secondAttribute="bottom" constant="8" id="k1X-nl-rtN"/>
                                             <constraint firstItem="eFY-Qz-9ZZ" firstAttribute="top" secondItem="ZSm-6G-Hht" secondAttribute="bottom" constant="8" id="naW-2Y-pUL"/>
                                             <constraint firstAttribute="trailing" secondItem="ZSm-6G-Hht" secondAttribute="trailing" constant="20" id="ob2-fl-DaU"/>
                                             <constraint firstItem="rB4-jc-1JK" firstAttribute="leading" secondItem="WYc-uQ-bEM" secondAttribute="leading" constant="20" id="q1S-7f-xZp"/>
