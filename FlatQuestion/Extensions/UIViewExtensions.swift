@@ -48,4 +48,8 @@ extension UIView {
     func applyMargin(_ insets: UIEdgeInsets) {
         self.frame = self.frame.inset(by: insets)
     }
+    
+    func applyCircledStyle() {
+        self.layer.cornerRadius = self.frame.height / 2
+    }
 }

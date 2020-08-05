@@ -23,7 +23,8 @@ class CommentTableViewCell: UITableViewCell {
     public func fillData(_ comment: Comment?) {
         fullName.text = comment?.creatorName ?? String.empty
         commentText.text = comment?.text
-        setDate(comment?.createdAt ?? Date())
+        createdAt.text = DateTimeConverterHelper
+            .convert(date: comment?.createdAt ?? Date(), toFormat: "dd.MM.yyyy")
         setRate(comment?.rate ?? Rate.None)
     }
     
@@ -32,11 +33,5 @@ class CommentTableViewCell: UITableViewCell {
         for index in (Rate.One.rawValue...rate.rawValue) {
             (stars[Rate.Five.rawValue - index] as? UIImageView)?.tintColor = UIColor.init(hex: "#EAAB09")
         }
-    }
-    
-    private func setDate(_ date: Date) {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd.MM.yyyy"
-        createdAt.text = dateFormatter.string(from: date)
     }
 }

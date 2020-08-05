@@ -88,6 +88,9 @@ class ProfileViewController: UIViewController {
     
     private func setupData() {
         
+        if UserSettings.appUser == nil {
+            navigateToLoginVC()
+        }
         guard let user = isYourAccount ? UserSettings.appUser : self.appUser else { return }
         let title = !isYourAccount ? "Написать сообщение" : "Редактировать профиль"
         writeMessageButton.setTitle(title, for: .normal)

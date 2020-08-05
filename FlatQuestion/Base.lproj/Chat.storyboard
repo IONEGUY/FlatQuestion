@@ -1,29 +1,100 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="FRd-Wm-v2Q">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="FRd-Wm-v2Q">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="Roboto-Regular.ttf">
+            <string>Roboto-Regular</string>
+        </array>
+    </customFonts>
     <scenes>
         <!--Сообщения-->
         <scene sceneID="Urj-yF-xta">
             <objects>
-                <viewController id="FRd-Wm-v2Q" sceneMemberID="viewController">
+                <viewController id="FRd-Wm-v2Q" customClass="ChatViewController" customModule="FlatQuestion" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="K8o-bB-dgt">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Hye-6j-Qtp">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="92"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="G35-cM-gh0">
+                                        <rect key="frame" x="362" y="37" width="52" height="52"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="52" id="TN2-Il-0i9"/>
+                                            <constraint firstAttribute="width" constant="52" id="bna-0a-J1G"/>
+                                        </constraints>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <state key="normal" image="magnifyingglass" catalog="system">
+                                            <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="large" weight="bold"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="searchPressed" destination="FRd-Wm-v2Q" eventType="touchUpInside" id="Wn4-e3-YWi"/>
+                                        </connections>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Сообщения" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QZI-Gk-Ghm">
+                                        <rect key="frame" x="147.5" y="42" width="119" height="42"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="42" id="Jt0-3V-UKh"/>
+                                            <constraint firstAttribute="width" constant="119" id="bLu-f9-L6g"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="22"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" red="0.20784313730000001" green="0.24313725489999999" blue="0.43137254899999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="QZI-Gk-Ghm" secondAttribute="bottom" constant="8" id="4m8-ai-ro2"/>
+                                    <constraint firstItem="G35-cM-gh0" firstAttribute="top" secondItem="Hye-6j-Qtp" secondAttribute="top" constant="37" id="5EO-Sy-StC"/>
+                                    <constraint firstAttribute="trailing" secondItem="G35-cM-gh0" secondAttribute="trailing" id="N8y-b7-wtk"/>
+                                    <constraint firstItem="QZI-Gk-Ghm" firstAttribute="centerX" secondItem="Hye-6j-Qtp" secondAttribute="centerX" id="fyh-Vi-kxb"/>
+                                    <constraint firstAttribute="height" constant="92" id="wJN-0K-kyz"/>
+                                    <constraint firstItem="QZI-Gk-Ghm" firstAttribute="top" secondItem="Hye-6j-Qtp" secondAttribute="top" constant="42" id="y6L-Rp-clP"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="10"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="glj-9Z-UcU">
+                                <rect key="frame" x="0.0" y="122" width="414" height="740"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <inset key="scrollIndicatorInsets" minX="0.0" minY="10" maxX="0.0" maxY="0.0"/>
+                                <color key="separatorColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" red="0.89803921568627454" green="0.89803921568627454" blue="0.89803921568627454" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="glj-9Z-UcU" firstAttribute="top" secondItem="Hye-6j-Qtp" secondAttribute="bottom" constant="30" id="CTB-N2-ng9"/>
+                            <constraint firstItem="Hye-6j-Qtp" firstAttribute="leading" secondItem="z77-IK-HwO" secondAttribute="leading" id="FtJ-2x-6jk"/>
+                            <constraint firstItem="glj-9Z-UcU" firstAttribute="leading" secondItem="z77-IK-HwO" secondAttribute="leading" id="GQa-Jo-gmQ"/>
+                            <constraint firstItem="Hye-6j-Qtp" firstAttribute="top" secondItem="K8o-bB-dgt" secondAttribute="top" id="hSi-Dg-DzY"/>
+                            <constraint firstItem="glj-9Z-UcU" firstAttribute="trailing" secondItem="z77-IK-HwO" secondAttribute="trailing" id="nQ2-Sp-mIa"/>
+                            <constraint firstItem="Hye-6j-Qtp" firstAttribute="trailing" secondItem="z77-IK-HwO" secondAttribute="trailing" id="sP0-zS-tCf"/>
+                            <constraint firstItem="glj-9Z-UcU" firstAttribute="bottom" secondItem="z77-IK-HwO" secondAttribute="bottom" id="xER-4M-Njf"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="z77-IK-HwO"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Сообщения" image="chat" id="Kmh-KF-yDO"/>
+                    <connections>
+                        <outlet property="chatsTableView" destination="glj-9Z-UcU" id="PJE-I0-r8a"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CQZ-uv-Guy" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2841" y="586"/>
+            <point key="canvasLocation" x="-2842.0289855072465" y="585.9375"/>
         </scene>
     </scenes>
     <resources>
         <image name="chat" width="24" height="24"/>
+        <image name="magnifyingglass" catalog="system" width="128" height="115"/>
     </resources>
 </document>
