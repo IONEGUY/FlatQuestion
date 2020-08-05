@@ -29,9 +29,12 @@ extension UIView {
     
     func removeSublayers() {
         guard let allSublayers = self.layer.sublayers else { return }
+        allSublayers.forEach { (layer) in
+            if layer is CAGradientLayer {
+                layer.removeFromSuperlayer()
+            }
+        }
         layer.cornerRadius = 0
         clipsToBounds = false
-        let layerToRemove = allSublayers[0]
-        layerToRemove.removeFromSuperlayer()
     }
 }

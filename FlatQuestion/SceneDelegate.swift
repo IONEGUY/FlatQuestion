@@ -19,11 +19,23 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
         let mainViewController = storyBoard.instantiateViewController(withIdentifier: "main")
         mainViewController.modalPresentationStyle = .fullScreen
-        
-        let viewController = UserSettings.appUser == nil ? LoginViewController() : mainViewController
+        let viewController = UserSettings.appUser == nil || UserSettings.appUser?.sex == nil ? LoginViewController() : mainViewController
         window?.rootViewController = viewController
         window?.makeKeyAndVisible()
         window?.windowScene = windowScene
+        
+        //if UserSettings.appUser?.sex != nil{
+        
+        let urlinfo = connectionOptions.urlContexts
+        if let url = urlinfo.first?.url {
+            self.scene(scene, openURLContexts: urlinfo)
+        }
+//        } else {
+//            let vc = EditProfileViewController(nibName: "EditProfileViewController", bundle: nil)
+//            vc.modalPresentationStyle = .fullScreen
+//            viewController.present(vc, animated: true, completion: nil)
+//        }
+
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
@@ -53,4 +65,19 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Use this method to save data, release shared resources, and store enough scene-specific state information
         // to restore the scene back to its current state.
     }
+    func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
+        if let url = URLContexts.first?.url {
+            print("url")
+            let urlString = url.absoluteString
+            guard let flatString = urlString.components(separatedBy: "//").last, let flatId = Int(flatString) else { return }
+            if UserSettings.appUser != nil {
+                guard let rootVC = window?.rootViewController as? MainTabBarController else { return }
+                rootVC.selectedIndex = 1
+                if let vc = rootVC.topMostViewController() as? MapViewController {
+                    vc.openFlatWith(id: flatId)
+                }
+            }
+        }
+    }
+    
 }

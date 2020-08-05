@@ -30,6 +30,8 @@ class UserSettings {
                 } else {
                     defaults.removeObject(forKey: key)
                 }
+            } else {
+                defaults.removeObject(forKey: key)
             }
         }
     }

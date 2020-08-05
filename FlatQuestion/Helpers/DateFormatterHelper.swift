@@ -26,5 +26,10 @@ class DateFormatterHelper: NSObject {
         dateFormatter.dateFormat = "dd MMM yyyy HH:mm"
         return dateFormatter.string(from: date)
     }
+    
+    func getStringFromDate_MMM_yyyy(date: Date) -> String? {
+        dateFormatter.dateFormat = "dd MMM yyyy"
+        return dateFormatter.string(from: date)
+    }
 }
  

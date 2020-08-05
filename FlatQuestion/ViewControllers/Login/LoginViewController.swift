@@ -83,7 +83,8 @@ class LoginViewController: UIViewController {
         orLabel.text = "Или".localized
         dontHaveAccountLabel.text = "Еще нет аккаунта?".localized
         registrationLabel.titleLabel?.text = "Регистрация".localized
-        forgetPassButton.titleLabel?.text = "Забыли пароль?".localized
+        forgetPassButton.setTitle("Забыли пароль?".localized, for: .normal)
+        signInButton.setTitle("Войти".localized, for: .normal)
     }
     override func viewDidLoad() {
         super.viewDidLoad()

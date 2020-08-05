@@ -8,6 +8,7 @@
 
 import UIKit
 import GooglePlaces
+import SDWebImage
 
 protocol CreateFlatProtocol: class {
     func flatWasCreated()
@@ -34,6 +35,7 @@ class CreateFlatViewController: UIViewController{
     @IBOutlet fileprivate weak var collectionViewHeightConstraint: NSLayoutConstraint!
     
     
+    @IBOutlet weak var removeButton: UIButton!
     @IBOutlet weak var nameErrorLabel: UILabel!
     @IBOutlet weak var dateErrorLabel: UILabel!
     @IBOutlet weak var locationErrorLabel: UILabel!
@@ -66,6 +68,15 @@ class CreateFlatViewController: UIViewController{
         }
     }
     
+    fileprivate var latitude: Double?
+    fileprivate var longtitude: Double?
+    var isEditingFlat: Bool = false
+    var existedFlatModel: FlatModel?
+    var urlsString: [String]?
+    
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         localize()
@@ -73,12 +84,15 @@ class CreateFlatViewController: UIViewController{
         setupData()
         setupPickers()
         setupCollectionView()
+        if isEditingFlat {
+            displayExistedFlat()
+            removeButton.isHidden = false
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        collectionViewHeightConstraint.constant = 0
-        view.layoutIfNeeded()
+        updateCollectionView()
     }
     
     func localize() {
@@ -91,14 +105,67 @@ class CreateFlatViewController: UIViewController{
         additionalInfoLabel.text = "Дополнительная информация".localized
         downloadImageButton.titleLabel?.text = "Загрузить фото".localized
         imageDescriptionLabel.text = "PNG, JPG или JPEG с максимальным размером 5Mb.".localized
-        cancelButton.titleLabel?.text = "Отмена".localized
-        createButton.titleLabel?.text = "Создать".localized
+        cancelButton.setTitle("Отмена".localized, for: .normal)
+
+        removeButton.setTitle("Удалить".localized, for: .normal)
+        let titleForCreateButton = isEditingFlat ? "Редактировать".localized : "Создать".localized
+        createButton.setTitle(titleForCreateButton, for: .normal)
+    }
+    
+    @IBAction func removeFlat(_ sender: Any) {
+        showLoadingIndicator()
+        FireBaseHelper().removeFlat(flat: self.existedFlatModel!) { (result) in
+            self.hideLoadingableIndicator()
+            switch result {
+            case .success(): let vc = SuccessViewController(delegate: self)
+            vc.transitioningDelegate = self
+            self.present(vc, animated: true, completion: nil)
+            case .failure(let error): self.showErrorAlert(message: error.localizedDescription)
+            }
+        }
     }
 }
 
 private extension CreateFlatViewController {
     
-   private func setupCollectionView() {
+    func displayExistedFlat() {
+        guard let flat = existedFlatModel else { return }
+        nameTextField.text = flat.name
+        emptyPlacesTextfield.text = String(flat.emptyPlacesCount!)
+        allPlacesTextField.text = String(flat.allPlacesCount!)
+        textView.text = flat.additionalInfo
+        addressTextField.text = flat.address
+        latitude = flat.x
+        longtitude = flat.y
+        currentDate = flat.date?.date()
+        dateTextField.text = DateFormatterHelper().getStringFromDate_dd_MM_yyyy_HH_mm(date: currentDate!)
+        
+        urlsString = flat.images
+
+
+        flat.images?.forEach({ (stringUrl) in
+            guard let url = URL(string: stringUrl) else { return }
+            DispatchQueue.global(qos: .userInteractive).async {
+                SDWebImageManager.shared.loadImage(
+                  with: url,
+                  options: .highPriority,
+                  progress: nil) { (image, data, error, cacheType, isFinished, imageUrl) in
+                    DispatchQueue.main.async {
+                        self.arrayWithImages.append(image!)
+                        self.view.layoutIfNeeded()
+                        self.updateCollectionView()
+                        self.view.layoutIfNeeded()
+                    }
+                }
+            }
+        })
+        
+        
+        
+    }
+    
+    
+    func setupCollectionView() {
         self.collectionView.collectionViewLayout = generateLayout()
         collectionView.register(UINib(nibName: FlatPhotoCollectionViewCell.identifier, bundle: nil),
         forCellWithReuseIdentifier: FlatPhotoCollectionViewCell.identifier)
@@ -256,6 +323,7 @@ private extension CreateFlatViewController {
     }
     
     func setupPickers() {
+        dateTextField.delegate = self
         dateTextField.inputView = datePicker
         datePicker.datePickerMode = .dateAndTime
         let localeID = Locale.preferredLanguages.first
@@ -271,22 +339,27 @@ private extension CreateFlatViewController {
         
         emptyPlacesTextfield.inputView = pickerViewEmptyPlaces
         emptyPlacesTextfield.inputAccessoryView = toolbar
+        emptyPlacesTextfield.delegate = self
         pickerViewEmptyPlaces.delegate = self
         pickerViewEmptyPlaces.dataSource = self
         
         allPlacesTextField.inputView = pickerViewAllPlaces
         allPlacesTextField.inputAccessoryView = toolbar
+        allPlacesTextField.delegate = self
         pickerViewAllPlaces.delegate = self
         pickerViewAllPlaces.dataSource = self
     }
     
     func updateCollectionView() {
-        if arrayWithImages.count == 0 {
-            self.collectionViewHeightConstraint.constant = 0
-        } else {
-            self.collectionViewHeightConstraint.constant = 191
+        UIView.animate(withDuration: 0) {
+            if self.arrayWithImages.count == 0 {
+                self.collectionViewHeightConstraint.constant = 0
+            } else {
+                self.collectionViewHeightConstraint.constant = 191
+            }
+            self.changeLayout()
+            self.view.layoutIfNeeded()
         }
-        changeLayout()
         
         UIView.animate(withDuration: 0.6) {
             self.view.layoutIfNeeded()
@@ -433,8 +506,9 @@ private extension CreateFlatViewController {
     
     @IBAction func createFlat(_ sender: Any) {
         guard allFiledsAreValid() else { return }
+        if !isEditingFlat {
         self.showLoadingIndicator()
-        FireBaseHelper().createFlatWithImage(name: nameTextField.text!, address: self.addressTextField.text!, additionalInfo: textView.text, allPlacesCount: Int(allPlacesTextField.text!)!, emptyPlacesCount: Int(emptyPlacesTextfield.text!)!, date: currentDate!, id: Int(Date().timeIntervalSince1970), x: place?.coordinate.latitude ?? 0, y: place?.coordinate.longitude ?? 0, images: arrayWithImages) { (result) in
+        FireBaseHelper().createFlatWithImage(name: nameTextField.text!, address: self.addressTextField.text!, additionalInfo: textView.text, allPlacesCount: Int(allPlacesTextField.text!)!, emptyPlacesCount: Int(emptyPlacesTextfield.text!)!, date: currentDate!, id: Int(Date().timeIntervalSince1970), x: place?.coordinate.latitude ?? latitude ?? 0, y: place?.coordinate.longitude ?? longtitude ?? 0, images: arrayWithImages) { (result) in
             self.hideLoadingableIndicator()
             switch result {
             case .success():
@@ -444,13 +518,26 @@ private extension CreateFlatViewController {
             case .failure( _): self.showErrorAlert(message: "Ошибка создания мероприятия".localized)
             }
         }
+        } else {
+             self.showLoadingIndicator()
+            FireBaseHelper().updateFlatWithImage(name: nameTextField.text!, address: self.addressTextField.text!, additionalInfo: textView.text, allPlacesCount: Int(allPlacesTextField.text!)!, emptyPlacesCount: Int(emptyPlacesTextfield.text!)!, date: currentDate!, id: self.existedFlatModel!.id, x: place?.coordinate.latitude ?? latitude ?? 0, y: place?.coordinate.longitude ?? longtitude ?? 0, images: arrayWithImages, flatId: self.existedFlatModel!.id, urls: urlsString!) { (result) in
+                self.hideLoadingableIndicator()
+                switch result {
+                case .success(let user) : let vc = SuccessViewController(delegate: self)
+                vc.transitioningDelegate = self
+                self.present(vc, animated: true, completion: nil)
+                case .failure(let error): self.showErrorAlert(message: error.localizedDescription)
+                }
+            }
+        }
     }
     
     @IBAction func buttonBackPressed(_ sender: Any) {
         close()
     }
     @IBAction func buttonCancelPressed(_ sender: Any) {
-        close()
+        updateCollectionView()
+        //close()
     }
     
     @IBAction func emptyPlacesButtonPressen(_ sender: Any) {
@@ -599,6 +686,7 @@ extension CreateFlatViewController: UIPickerViewDelegate, UIPickerViewDataSource
         }
     }
     
+    
 }
 
 extension CreateFlatViewController: SuccessViewControllerProtocol {
@@ -610,10 +698,35 @@ extension CreateFlatViewController: SuccessViewControllerProtocol {
 
 extension CreateFlatViewController: UIViewControllerTransitioningDelegate {
     func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        return TransparentBackgroundModalPresenter(isPush: true, originFrame: UIScreen.main.bounds)
+        if presented is AcceptModalViewController {
+            return TransparentBackgroundModalPresenter(isPush: true, originFrame: UIScreen.main.bounds)
+        } else {
+        return SuccessModalPresenter(isPush: true, originFrame: UIScreen.main.bounds)
+        }
     }
     
     func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        if dismissed is AcceptModalViewController {
         return TransparentBackgroundModalPresenter(isPush: false)
+        } else {
+            return SuccessModalPresenter(isPush: false)
+        }
+    }
+}
+
+extension CreateFlatViewController: UITextFieldDelegate {
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        switch textField {
+        case dateTextField:
+            currentDate = datePicker.date
+            dateTextField.text = DateFormatterHelper().getStringFromDate_dd_MM_yyyy_HH_mm(date: currentDate!)
+        case emptyPlacesTextfield:
+            if (emptyPlacesTextfield.text!.isEmpty) {emptyPlacesTextfield.text = "1"}
+        case allPlacesTextField:
+            if (allPlacesTextField.text!.isEmpty) {allPlacesTextField.text = "1"}
+        default:
+            print("Default")
+        }
+        return true
     }
 }

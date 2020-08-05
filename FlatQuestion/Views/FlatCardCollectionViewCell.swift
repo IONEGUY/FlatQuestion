@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import SDWebImage
 class FlatCardCollectionViewCell: UICollectionViewCell {
 
     @IBOutlet weak var titleLabel: UILabel!
@@ -16,6 +16,7 @@ class FlatCardCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var placesLabel: UILabel!
     
+
     override func awakeFromNib() {
         super.awakeFromNib()
     }
@@ -26,6 +27,7 @@ class FlatCardCollectionViewCell: UICollectionViewCell {
         dateLabel.text = DateFormatterHelper().getStringFromDate_MMM_yyyy_HH_mm(date: flat.date?.date() ?? Date())
         placesLabel.text = "Свободно".localized + " \(String(describing: flat.emptyPlacesCount!)) " + "из".localized + " \(String(describing: flat.allPlacesCount!))"
         guard let url = URL(string: (flat.images?[0])!) else {return}
+        imageView.sd_imageIndicator = SDWebImageActivityIndicator.gray
         imageView.sd_setImage(with: url, completed: nil)
     }
 }

@@ -28,13 +28,13 @@
                         <rect key="frame" x="0.0" y="0.0" width="283" height="115"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Party тут)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gwc-hA-udm">
-                                <rect key="frame" x="124" y="9" width="72" height="20.5"/>
+                                <rect key="frame" x="124" y="9" width="144" height="21"/>
                                 <fontDescription key="fontDescription" name="SFProDisplay-Medium" family="SF Pro Display" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" alpha="0.80000000000000004" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Партизанский район - ул.Козлова" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bbD-Wv-zE3">
-                                <rect key="frame" x="124" y="35.5" width="151" height="36"/>
+                                <rect key="frame" x="124" y="36" width="151" height="36"/>
                                 <fontDescription key="fontDescription" name="SFProDisplay-Regular" family="SF Pro Display" pointSize="15"/>
                                 <color key="textColor" red="0.54117647058823526" green="0.54117647058823526" blue="0.54117647058823526" alpha="0.84705882352941175" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -57,6 +57,7 @@
                             <constraint firstItem="Zle-6L-6KY" firstAttribute="top" secondItem="KuK-C8-zPz" secondAttribute="bottom" constant="4" id="5Fq-d5-MYk"/>
                             <constraint firstItem="bbD-Wv-zE3" firstAttribute="top" secondItem="gwc-hA-udm" secondAttribute="bottom" constant="6" id="IoC-cH-bDi"/>
                             <constraint firstItem="gwc-hA-udm" firstAttribute="top" secondItem="VjV-o7-F4l" secondAttribute="top" constant="9" id="Kjl-nb-8m4"/>
+                            <constraint firstAttribute="trailing" secondItem="gwc-hA-udm" secondAttribute="trailing" constant="15" id="OPN-77-zwQ"/>
                             <constraint firstAttribute="trailing" secondItem="bbD-Wv-zE3" secondAttribute="trailing" constant="8" id="aLj-8s-zhe"/>
                             <constraint firstAttribute="height" constant="115" id="vpb-gH-vym"/>
                             <constraint firstAttribute="bottom" secondItem="Zle-6L-6KY" secondAttribute="bottom" constant="9" id="ysd-22-6Z8"/>

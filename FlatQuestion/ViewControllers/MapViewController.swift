@@ -11,7 +11,7 @@ import GoogleMaps
 import GooglePlaces
 import GoogleMapsUtils
 import GoogleUtilities
-
+import SDWebImage
 class MapViewController: UIViewController, CLLocationManagerDelegate, GMUClusterManagerDelegate {
     private var collectionView: UICollectionView?
     private var flatModalVC: FlatModalViewController!
@@ -125,7 +125,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMUCluster
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        getFlats()
+        getFlats(completion: nil)
     }
 
     override func viewWillLayoutSubviews() {
@@ -139,7 +139,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMUCluster
     }
 
     func updateFlats() {
-        getFlats()
+        getFlats(completion: nil)
     }
     func setupSearchView() {
         let view = TopMapSearchView(frame: CGRect(x: 0, y: UIApplication.shared.statusBarFrame.height + 10, width: self.view.frame.size.width, height: 82))
@@ -158,15 +158,36 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMUCluster
         self.collectionView?.dataSource = self
     }
 
-    func getFlats() {
-        showLoadingIndicator()
-        FireBaseHelper().get { (flats) in
-            self.flats = flats
-            self.hideLoadingableIndicator()
-            self.collectionView?.reloadData()
-            self.initClustering()
+    func getFlats(completion : (()->())?) {
+        DispatchQueue.global(qos: .userInteractive).async {
+            FireBaseHelper().get { (flats) in
+                DispatchQueue.main.async {
+                    self.flats = flats
+                    UIView.animate(withDuration: 0, delay: 0, options: .allowAnimatedContent, animations: {
+                        self.collectionView?.reloadData()
+                    }) { (finished) in
+                        completion?()
+                    }
+                    self.initClustering()
+                    
+                }
+            }
         }
-
+    }
+    
+    func openFlatWith(id: Int) {
+        getFlats {
+            DispatchQueue.main.async {
+                self.collectionView?.scrollToItem(at: self.getIndexOfFlatById(id: id), at: .centeredHorizontally, animated: true)
+            }
+        }
+    }
+    
+    func getIndexOfFlatById(id: Int) -> IndexPath {
+        let index = self.flats.firstIndex { (flat) -> Bool in
+            return flat.id == id
+            } ?? 0
+        return IndexPath(item: index, section: 0)
     }
 
     func initClustering() {
@@ -188,6 +209,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMUCluster
         mapView = GMSMapView(frame: self.view.frame, camera: camera)
         mapView?.delegate = self
         mapView?.isMyLocationEnabled = true
+        self.mapView!.padding = UIEdgeInsets(top: 0, left: 0, bottom: 150, right: 0)
         mapView!.settings.myLocationButton = true
         mapView!.settings.compassButton = true
         guard let mapView = mapView else { return }
@@ -201,7 +223,11 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMUCluster
             NSLog("One or more of the map styles failed to load. \(error)")
         }
         self.view.addSubview(mapView)
+        
     }
+    
+
+    
 
     func addModalFlatView(flat: FlatModel) {
         flatModalVC = FlatModalViewController(nibName: "FlatModalViewController", bundle: nil)
@@ -306,6 +332,7 @@ extension MapViewController: GMUClusterRendererDelegate {
                 }
 
                 if flat.images?.count != 0, let url = URL(string: (flat.images?.first)!) {
+                    iconView.photoView.sd_imageIndicator = SDWebImageActivityIndicator.gray
                     iconView.photoView.sd_setImage(with: url, completed: nil)
                 } else {
                     iconView.photoView.image = UIImage(named: "compas")
@@ -321,4 +348,9 @@ extension MapViewController: GMUClusterRendererDelegate {
 
     }
         
+}
+public extension NSObject {
+public var theClassName: String {
+    return NSStringFromClass(type(of: self))
+}
 }

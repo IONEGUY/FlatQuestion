@@ -10,29 +10,46 @@ import UIKit
 import SDWebImage
 
 class ProfileViewController: UIViewController {
-    @IBOutlet weak var userAvatar: UIImageView!
-    @IBOutlet weak var writeMessageButton: UIButton!
+    @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var aboutMeLabel: UILabel!
     @IBOutlet weak var instagramButton: UIView!
     @IBOutlet weak var vkButton: UIView!
-    @IBOutlet weak var locationLabel: UILabel!
-    @IBOutlet weak var genderAndYearsLabel: UILabel!
-    @IBOutlet weak var fullName: UILabel!
     @IBOutlet weak var instagramNick: UILabel!
     @IBOutlet weak var vkNick: UILabel!
     @IBOutlet weak var commentsTableView: UITableView!
     @IBOutlet weak var partiesCollectionView: UICollectionView!
     @IBOutlet weak var tableViewHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var imInSocialLabel: UILabel!
+    @IBOutlet weak var myFlatsLabel: UILabel!
+    @IBOutlet weak var commentsLabel: UILabel!
+    @IBOutlet weak var addCommentButton: UIButton!
+    @IBOutlet weak var aboutMeLabelDescription: UILabel!
     
     @IBOutlet weak var collectionViewHeightConstraint: NSLayoutConstraint!
     
+    var imageView: UIImageView?
+    var profileView: ProfileView?
     var isYourAccount = true
     var appUser: AppUser?
+    
+    private let commentsTableViewRowSpacing: CGFloat = 15
+    private var flats = [FlatModel]()
+    private var comments = [Comment]()
+    private var flatModalVC: FlatModalViewController!
+    
+    func localize() {
+        aboutMeLabel.text = "Обо мне:".localized
+        imInSocialLabel.text = "Я в социальных сетях:".localized
+        myFlatsLabel.text = "Мои вечеринки:".localized
+        commentsLabel.text = "Отзывы обо мне:".localized
+        addCommentButton.setTitle("+ Добавить отзыв", for: .normal)
+        
+    }
     
     @IBAction func appCommentButtonPressed() {
         
     }
-    
+
     @IBAction func logOutPressed() {
         UserSettings.clearAppUser()
         navigateToLoginVC()
@@ -43,21 +60,32 @@ class ProfileViewController: UIViewController {
         tableViewHeightConstraint.constant = commentsTableView.contentSize.height
     }
     
-    private let commentsTableViewRowSpacing: CGFloat = 15
-    private var flats = [FlatModel]()
-    private var comments = [Comment]()
-    private var flatModalVC: FlatModalViewController!
     
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let y = -scrollView.contentOffset.y
+        let height = max (y, 180)
+        profileView?.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: height)
+        if height == 180 {
+            let gradientView = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: 300))
+            gradientView.applyGradientV2(colours: [UIColor(hexString: "0x615CBF")!, UIColor(hexString: "0x1C2F4B")!])
+                self.profileView?.profileView.image = UIImage(view: gradientView)
+                self.profileView?.showSmallView()
+            
+        } else {
+            guard let user = isYourAccount ? UserSettings.appUser : self.appUser else { return }
+            self.profileView?.profileView.sd_imageIndicator = SDWebImageActivityIndicator.gray
+                self.profileView?.profileView.sd_setImage(with: URL(string: user.avatarUrl!), completed: nil)
+                self.profileView?.hideSmallView()
+        }
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        scrollView.delegate = self
+        scrollView.contentInset = UIEdgeInsets(top: 300, left: 0, bottom: 0, right: 0)
         
-        writeMessageButton.applyShadow()
-        userAvatar.layer.cornerRadius = 15
-        userAvatar.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
-
+        addTopProfileView()
         setupData()
-
+        localize()
         partiesCollectionView.register(UINib(nibName: FlatCardCollectionViewCell.typeName, bundle: nil),
             forCellWithReuseIdentifier: FlatCardCollectionViewCell.typeName)
         partiesCollectionView.delegate = self
@@ -74,8 +102,22 @@ class ProfileViewController: UIViewController {
         self.view.layoutIfNeeded()
     }
     
+    func addTopProfileView() {
+        let profileView = ProfileView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: 300))
+        profileView.profileView.contentMode = .scaleAspectFill
+        //profileView.profileView.clipsToBounds = true
+        profileView.writeMessageButton.addCorner(with: 20, with: .black)
+        view.addSubview(profileView)
+        self.profileView = profileView
+        profileView.delegate = self
+        
+        profileView.profileView.layer.cornerRadius = 15
+        profileView.profileView.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
+    }
+    
     private func addModalFlatView(flat: FlatModel) {
         flatModalVC = FlatModalViewController(nibName: "FlatModalViewController", bundle: nil)
+        flatModalVC.isProfileHidden = true
         flatModalVC.flat = flat
         flatModalVC.delegate = self
         self.addChild(flatModalVC)
@@ -86,44 +128,65 @@ class ProfileViewController: UIViewController {
         flatModalVC.view.frame = CGRect(x: 0, y: view.frame.maxY, width: width, height: height)
     }
     
-    private func setupData() {
+     func setupData() {
         
         if UserSettings.appUser == nil {
             navigateToLoginVC()
         }
         guard let user = isYourAccount ? UserSettings.appUser : self.appUser else { return }
-        let title = !isYourAccount ? "Написать сообщение" : "Редактировать профиль"
-        writeMessageButton.setTitle(title, for: .normal)
-        FireBaseHelper().getFlatsById(userId: (user.id!)) { (flats) in
-            self.flats = flats
-            UIView.animate(withDuration: 1) {
-                self.collectionViewHeightConstraint.constant = self.flats.count > 0 ? 115 : 0
-            }
-            DispatchQueue.main.async {
-                self.partiesCollectionView.reloadData()
-                self.view.layoutIfNeeded()
+        let title = !isYourAccount ? "Написать сообщение".localized : "Редактировать профиль".localized
+        self.profileView?.writeMessageButton.setTitle(title, for: .normal)
+        DispatchQueue.global(qos: .userInteractive).async {
+            FireBaseHelper().getFlatsById(userId: (user.id!)) { (flats) in
+                
+                self.flats = flats
+                
+                DispatchQueue.main.async {
+                     self.partiesCollectionView.alpha = 0
+                    UIView.animate(withDuration: 0.5) {
+                        self.collectionViewHeightConstraint.constant = self.flats.count > 0 ? 115 : 0
+                        self.partiesCollectionView.reloadData()
+                        self.view.layoutIfNeeded()
+                    }
+                    UIView.animate(withDuration: 0, delay: 0.6, options: .allowAnimatedContent, animations: {
+                        self.partiesCollectionView.alpha = 1
+                    }, completion: nil)
+                }
             }
         }
         
+        profileView!.profileView.sd_setImage(with: URL(string: user.avatarUrl!), completed: nil)
+        profileView?.fullName.text = "\(user.firstName!) \(user.lastName!)"
         
-        userAvatar.sd_setImage(with: URL(string: user.avatarUrl!), completed: nil)
-        fullName.text = "\(user.firstName!) \(user.lastName!)"
-        
-        
-        
-        genderAndYearsLabel.text = "\(user.sex! ? "Парень" : "Девушка"), \(getYearsFromDate(date: user.date?.date()))"
-        
-        locationLabel.text = user.location
-        aboutMeLabel.text = user.aboutMe
+        profileView?.genderAndYearsLabel.text = "\(user.sex! ? "Парень".localized : "Девушка".localized), \(getYearsFromDate(date: user.date?.date()))"
+        profileView?.locationLabel.text = user.location
         instagramNick.text = user.instLink
         vkNick.text = user.vkLink
+        aboutMeLabelDescription.text = user.aboutMe
+        profileView?.smallFullNameLabel.text = "\(user.firstName!) \(user.lastName!)"
+        profileView?.smallGenderAndYearsLabel.text = "\(user.sex! ? "Парень".localized : "Девушка".localized), \(getYearsFromDate(date: user.date?.date()))"
+        profileView?.smallLocationLabel.text = user.location
+        profileView?.smallProfileView.sd_setImage(with: URL(string: user.avatarUrl!), completed: nil)
         
         self.comments.append(Comment(text: "Адекватный парень, вечеринка прошла круто)",
                                      createdAt: Date(), rate: Rate.Five, creatorName: "Полина Иванченко"))
         self.comments.append(Comment(text: "Было много людей, мне ваще не зашло",
                                      createdAt: Date(), rate: Rate.Two, creatorName: "Игорь Ивановский"))
+        
+        instagramButton.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.openInstagram)))
+        vkButton.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.openVK)))
 
      }
+    
+    @objc func openVK() {
+        guard let user = isYourAccount ? UserSettings.appUser : self.appUser else { return }
+        ThirdPartyApplicationOpenner().openVKWithId(id: user.vkLink)
+    }
+    
+    @objc func openInstagram() {
+        guard let user = isYourAccount ? UserSettings.appUser : self.appUser else { return }
+        ThirdPartyApplicationOpenner().openInstagramWithId(id: user.instLink)
+    }
     
     func getYearsFromDate(date: Date?) -> String{
         guard let date = date else { return ""}
@@ -133,10 +196,21 @@ class ProfileViewController: UIViewController {
         return String(years)
     }
     
-    func showEditFlatVC() {
-        
+    func showEditFlatVC(flat: FlatModel) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: "CreateFlatViewController") as! CreateFlatViewController
+        vc.modalPresentationStyle = .overFullScreen
+        vc.delegate = self
+        vc.isEditingFlat = true
+        vc.existedFlatModel = flat
+        self.present(vc, animated: true, completion: nil)
     }
-
+    
+    @IBAction func openSettings(_ sender: Any) {
+        let vc = SettingsViewController(nibName: "SettingsViewController", bundle: nil)
+        vc.modalPresentationStyle = .fullScreen
+        self.present(vc, animated: true, completion: nil)
+    }
 }
 
 
@@ -150,7 +224,7 @@ extension ProfileViewController: UICollectionViewDelegate {
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        !isYourAccount ? addModalFlatView(flat: self.flats[indexPath.item]) : showEditFlatVC()
+        !isYourAccount ? addModalFlatView(flat: self.flats[indexPath.item]) : showEditFlatVC(flat: self.flats[indexPath.row])
     }
 }
 
@@ -196,5 +270,49 @@ extension ProfileViewController: RemovableDelegate {
         flatModalVC.willMove(toParent: nil)
         flatModalVC.view.removeFromSuperview()
         flatModalVC.removeFromParent()
+    }
+}
+
+extension ProfileViewController: ProfileViewProtocol {
+    func didButtonPressed() {
+        isYourAccount ? showEditProfileScreen() : writeMessage()
+    }
+    
+    private func showEditProfileScreen() {
+        let vc = EditProfileViewController(nibName: "EditProfileViewController", bundle: nil)
+        vc.isEditingProfile = true
+        vc.delegate = self
+        vc.modalPresentationStyle = .fullScreen
+        self.present(vc, animated: true, completion: nil)
+    }
+    
+    private func writeMessage() {
+        // TODO: go to CHAT
+    }
+}
+
+extension ProfileViewController: EditProfileViewControllerProtocol {
+    func successEditingProfile() {
+        setupData()
+        
+        partiesCollectionView.delegate = self
+        partiesCollectionView.dataSource = self
+        commentsTableView.reloadData()
+        
+        self.collectionViewHeightConstraint.constant = 0
+        self.view.layoutIfNeeded()
+    }
+}
+
+extension ProfileViewController: CreateFlatProtocol {
+    func flatWasCreated() {
+        setupData()
+        
+        partiesCollectionView.delegate = self
+        partiesCollectionView.dataSource = self
+        commentsTableView.reloadData()
+        
+        self.collectionViewHeightConstraint.constant = 0
+        self.view.layoutIfNeeded()
     }
 }

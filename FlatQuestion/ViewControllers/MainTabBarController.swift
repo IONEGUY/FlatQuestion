@@ -39,9 +39,6 @@ class MainTabBarController: UITabBarController {
         vc.delegate = self
         vc.modalPresentationStyle = .overFullScreen
         self.present(vc, animated: true, completion: nil)
-//        let vc = EditProfileViewController(nibName: "EditProfileViewController", bundle: nil)
-//        vc.modalPresentationStyle = .fullScreen
-//        self.present(vc, animated: true, completion: nil)
        }
     
   @IBAction fileprivate func unwindToMainViewController(_ segue: UIStoryboardSegue) {}
@@ -50,9 +47,17 @@ class MainTabBarController: UITabBarController {
 
 extension MainTabBarController: CreateFlatProtocol {
     func flatWasCreated() {
-        if let vc = topMostViewController() as? MapViewController {
-             vc.updateFlats()
-            
+        let topVC = topMostViewController()
+        switch topVC {
+        case is MapViewController:
+            let vc = topVC as? MapViewController
+            vc?.updateFlats()
+        case is ProfileViewController:
+            let vc = topVC as? ProfileViewController
+            vc?.setupData()
+        default: break
         }
     }
+    
 }
+

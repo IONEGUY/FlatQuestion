@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import SDWebImage
 extension FlatModalViewController {
     private enum State {
         case partial
@@ -33,6 +33,7 @@ class FlatModalViewController: UIViewController {
     weak var delegate: RemovableDelegate?
     private var currentState: State?
     var flat: FlatModel?
+    var isProfileHidden = false
     @IBOutlet weak var collectionView: UICollectionView!
     
     @IBOutlet weak var sendInviteButton: DarkGradientButton!
@@ -71,9 +72,18 @@ class FlatModalViewController: UIViewController {
       let gesture = UIPanGestureRecognizer.init(target: self, action: #selector(panGesture))
         view.addGestureRecognizer(gesture)
         view.isUserInteractionEnabled = true
+        
+        shareView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(shareFlat)))
+    }
+    
+    @objc private func shareFlat() {
+        let items: [Any] = ["Вот отличный флет, посмотри".localized, URL(string: "flat://\(String(flat!.id))")!]
+        let ac = UIActivityViewController(activityItems: items, applicationActivities: nil)
+        present(ac, animated: true)
     }
     
     private func setupView() {
+        if isProfileHidden { profileView.isHidden = true }
         if flat?.userId == UserSettings.appUser!.id {
             sendInviteButton.backgroundColor = .gray
         }
@@ -346,6 +356,7 @@ extension FlatModalViewController: UICollectionViewDelegate {
         guard let url = URL(string: (flat?.images?[indexPath.row])!) else {
             return photoCell
         }
+        photoCell.image.sd_imageIndicator = SDWebImageActivityIndicator.gray
         photoCell.image.sd_setImage(with: url, completed: nil)
         return photoCell
     }
@@ -375,10 +386,18 @@ extension FlatModalViewController: UITableViewDataSource {}
 
 extension FlatModalViewController: UIViewControllerTransitioningDelegate {
     func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        return TransparentBackgroundModalPresenter(isPush: true, originFrame: UIScreen.main.bounds)
+        if presented is AcceptModalViewController {
+            return TransparentBackgroundModalPresenter(isPush: true, originFrame: UIScreen.main.bounds)
+        } else {
+        return SuccessModalPresenter(isPush: true, originFrame: UIScreen.main.bounds)
+        }
     }
     
     func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        if dismissed is AcceptModalViewController {
         return TransparentBackgroundModalPresenter(isPush: false)
+        } else {
+            return SuccessModalPresenter(isPush: false)
+        }
     }
 }

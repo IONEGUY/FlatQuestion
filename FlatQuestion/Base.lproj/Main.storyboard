@@ -359,10 +359,10 @@
                                                 <cells/>
                                             </collectionView>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="17" translatesAutoresizingMaskIntoConstraints="NO" id="dR5-up-z2f">
-                                                <rect key="frame" x="34" y="822" width="346" height="42"/>
+                                                <rect key="frame" x="16" y="822" width="382" height="42"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tBM-Zo-0Bk">
-                                                        <rect key="frame" x="0.0" y="0.0" width="164.5" height="42"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="182.5" height="42"/>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="42" id="28C-kQ-88J"/>
@@ -374,8 +374,18 @@
                                                             <action selector="buttonCancelPressed:" destination="8fO-ME-xk3" eventType="touchUpInside" id="s6b-Ez-Qtn"/>
                                                         </connections>
                                                     </button>
+                                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UZi-7g-gEp">
+                                                        <rect key="frame" x="191" y="0.0" width="0.0" height="42"/>
+                                                        <color key="backgroundColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <state key="normal" title="Button">
+                                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        </state>
+                                                        <connections>
+                                                            <action selector="removeFlat:" destination="8fO-ME-xk3" eventType="touchUpInside" id="GzQ-Df-Z4X"/>
+                                                        </connections>
+                                                    </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZGP-Yb-wEA" customClass="DarkGradientButton" customModule="FlatQuestion" customModuleProvider="target">
-                                                        <rect key="frame" x="181.5" y="0.0" width="164.5" height="42"/>
+                                                        <rect key="frame" x="199.5" y="0.0" width="182.5" height="42"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="42" id="3f4-F1-i5C"/>
                                                         </constraints>
@@ -466,7 +476,7 @@
                                             <constraint firstAttribute="trailing" secondItem="w8Z-dc-SDT" secondAttribute="trailing" constant="16" id="DfX-wD-5Fx"/>
                                             <constraint firstAttribute="trailing" secondItem="wGx-WB-XA7" secondAttribute="trailing" constant="16" id="DrD-sh-rwi"/>
                                             <constraint firstItem="9Xo-aQ-GqD" firstAttribute="leading" secondItem="xFP-HO-Pxd" secondAttribute="leading" constant="16" id="FSP-w0-ib7"/>
-                                            <constraint firstAttribute="trailing" secondItem="dR5-up-z2f" secondAttribute="trailing" constant="34" id="FUf-ex-8Mc"/>
+                                            <constraint firstAttribute="trailing" secondItem="dR5-up-z2f" secondAttribute="trailing" constant="16" id="FUf-ex-8Mc"/>
                                             <constraint firstItem="Kb3-LY-wHt" firstAttribute="top" secondItem="mep-9I-Tgb" secondAttribute="bottom" constant="16" id="HVn-xP-miF"/>
                                             <constraint firstItem="zZq-ns-DBP" firstAttribute="top" secondItem="xFP-HO-Pxd" secondAttribute="top" constant="16" id="Hn1-LP-dmS"/>
                                             <constraint firstItem="XaO-n3-46T" firstAttribute="top" secondItem="yYQ-70-faH" secondAttribute="bottom" constant="-7.5" id="IC0-cD-EbN"/>
@@ -481,7 +491,7 @@
                                             <constraint firstItem="9Xo-aQ-GqD" firstAttribute="top" secondItem="RWz-yx-erI" secondAttribute="bottom" constant="16" id="O8w-ee-cXt"/>
                                             <constraint firstAttribute="trailing" secondItem="Kb3-LY-wHt" secondAttribute="trailing" constant="16" id="PGL-uC-qbO"/>
                                             <constraint firstItem="w8Z-dc-SDT" firstAttribute="leading" secondItem="xFP-HO-Pxd" secondAttribute="leading" constant="16" id="QJW-De-Ygf"/>
-                                            <constraint firstItem="dR5-up-z2f" firstAttribute="leading" secondItem="xFP-HO-Pxd" secondAttribute="leading" constant="34" id="S6A-80-xx1"/>
+                                            <constraint firstItem="dR5-up-z2f" firstAttribute="leading" secondItem="xFP-HO-Pxd" secondAttribute="leading" constant="16" id="S6A-80-xx1"/>
                                             <constraint firstItem="S7Z-Lh-hqi" firstAttribute="leading" secondItem="5Od-t6-tIW" secondAttribute="leading" id="Wsw-7N-QjV"/>
                                             <constraint firstItem="RWz-yx-erI" firstAttribute="leading" secondItem="xFP-HO-Pxd" secondAttribute="leading" constant="16" id="YOU-qt-YGz"/>
                                             <constraint firstAttribute="trailing" secondItem="1Pb-NO-ehy" secondAttribute="trailing" constant="16" id="ZmW-un-gZb"/>
@@ -564,6 +574,7 @@
                         <outlet property="nameView" destination="zZq-ns-DBP" id="5kA-7R-KWr"/>
                         <outlet property="navigationBarView" destination="92M-CP-Byq" id="JbI-Fy-weF"/>
                         <outlet property="placeView" destination="Kb3-LY-wHt" id="FBb-KM-hVj"/>
+                        <outlet property="removeButton" destination="UZi-7g-gEp" id="jMF-BE-5sA"/>
                         <outlet property="textView" destination="BOJ-bg-hvO" id="eTE-oh-188"/>
                     </connections>
                 </viewController>

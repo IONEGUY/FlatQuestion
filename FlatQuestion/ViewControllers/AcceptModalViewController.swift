@@ -59,7 +59,7 @@ class AcceptModalViewController: UIViewController {
     }
     
     private func setupView() {
-        view.backgroundColor = UIColor.black.withAlphaComponent(0.35)
+//        view.backgroundColor = UIColor.black.withAlphaComponent(0.35)
         declineButton.addCorner(with: 20, with: .black)
         writeMessageView.addCorner(with: 10, with: .black)
     }
@@ -88,11 +88,19 @@ class AcceptModalViewController: UIViewController {
 
 extension AcceptModalViewController: UIViewControllerTransitioningDelegate {
     func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        return TransparentBackgroundModalPresenter(isPush: true, originFrame: UIScreen.main.bounds)
+        if presented is AcceptModalViewController {
+            return TransparentBackgroundModalPresenter(isPush: true, originFrame: UIScreen.main.bounds)
+        } else {
+        return SuccessModalPresenter(isPush: true, originFrame: UIScreen.main.bounds)
+        }
     }
     
     func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        if dismissed is AcceptModalViewController {
         return TransparentBackgroundModalPresenter(isPush: false)
+        } else {
+            return SuccessModalPresenter(isPush: false)
+        }
     }
 }
 
