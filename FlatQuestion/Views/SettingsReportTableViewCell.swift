@@ -1,18 +1,13 @@
-//
-//  SettingsReportTableViewCell.swift
-//  FlatQuestion
-//
-//  Created by Андрей Олесов on 8/2/20.
-//  Copyright © 2020 Андрей Олесов. All rights reserved.
-//
-
 import UIKit
 
 class SettingsReportTableViewCell: UITableViewCell {
 
+    @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var arrowImage: UIImageView!
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        self.selectionStyle = .none
+        self.setupShadow(cornerRadius: 0, shadowOpacity: 0.2, shadowRadius: 4.0, shadowOffsetHeight: 4)
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

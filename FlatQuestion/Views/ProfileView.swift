@@ -1,16 +1,9 @@
-//
-//  ProfileView.swift
-//  FlatQuestion
-//
-//  Created by Андрей Олесов on 7/21/20.
-//  Copyright © 2020 Андрей Олесов. All rights reserved.
-//
-
 import Foundation
 import UIKit
 
 protocol ProfileViewProtocol: AnyObject {
     func didButtonPressed()
+    func settingsButtonPressed()
 }
 
 class ProfileView: UIView {
@@ -19,6 +12,7 @@ class ProfileView: UIView {
     @IBOutlet weak var genderAndYearsLabel: UILabel!
     @IBOutlet weak var fullName: UILabel!
     @IBOutlet weak var writeMessageButton: UIButton!
+    @IBOutlet weak var settingsButton: UIButton!
     
     @IBOutlet weak var smallView: UIView!
     @IBOutlet weak var smallFullNameLabel: UILabel!
@@ -49,6 +43,10 @@ class ProfileView: UIView {
         addSubview(view!)
     }
     
+    @IBAction func settingsButtonPressed(_ sender: Any) {
+        delegate?.settingsButtonPressed()
+    }
+    
     private func setupView() {
         loadFromNib()
     }
@@ -58,28 +56,40 @@ class ProfileView: UIView {
     }
     
     func showSmallView() {
-        DispatchQueue.main.async {
-            guard !self.isSmallView else { return }
-            self.smallView.isHidden = false
-            self.locationView.isHidden = true
-            self.genderAndYearsLabel.isHidden = true
-            self.fullName.isHidden = true
+        //guard !self.isSmallView else { return }
+        UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseIn) {
+            self.locationView.alpha = 0
+            self.genderAndYearsLabel.alpha = 0
+            self.fullName.alpha = 0
             self.isSmallView = true
             self.layoutSubviews()
             self.updateConstraints()
+        } completion: { (finished) in
+            UIView.animate(withDuration: 0.2) {
+                self.smallView.alpha = 1
+            }
         }
-        
+
+//        UIView.animate(withDuration: 0.6) {
+//            self.smallView.alpha = 1
+//            self.locationView.alpha = 0
+//            self.genderAndYearsLabel.alpha = 0
+//            self.fullName.alpha = 0
+//            self.isSmallView = true
+//            self.layoutSubviews()
+//            self.updateConstraints()
+//        }
     }
     
     func hideSmallView() {
-        guard isSmallView else { return }
-        
-        self.smallView.isHidden = true
-        self.locationView.isHidden = false
-        self.genderAndYearsLabel.isHidden = false
-        self.fullName.isHidden = false
-        self.isSmallView = false
-        self.layoutSubviews()
-        
+        //guard isSmallView else { return }
+        UIView.animate(withDuration: 0.1) {
+            self.smallView.alpha = 0
+            self.locationView.alpha = 1
+            self.genderAndYearsLabel.alpha = 1
+            self.fullName.alpha = 1
+            self.isSmallView = false
+            self.layoutSubviews()
+        }
     }
 }

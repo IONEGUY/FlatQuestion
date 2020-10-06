@@ -1,16 +1,17 @@
-//
-//  Comment.swift
-//  FlatQuestion
-//
-//  Created by MacBook on 7/13/20.
-//  Copyright © 2020 Андрей Олесов. All rights reserved.
-//
-
 import UIKit
 
-struct Comment {
+struct Comment: Codable {
+    var forUserId: String
     var text: String
-    var createdAt: Date
-    var rate: Rate
+    var createdAt: TimeInterval
+    var rate: Int
     var creatorName: String
+    
+    enum CodingKeys: CodingKey {
+        case forUserId
+        case text
+        case createdAt
+        case rate
+        case creatorName
+    }
 }

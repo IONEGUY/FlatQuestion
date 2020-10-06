@@ -3,21 +3,21 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>166840362498-jv7eofhqqgl70semnu6gpqlp6lblfqn2.apps.googleusercontent.com</string>
+	<string>115009683867-igcsj8rd5m4tfmi016jtuminrfnmokcc.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.166840362498-jv7eofhqqgl70semnu6gpqlp6lblfqn2</string>
+	<string>com.googleusercontent.apps.115009683867-igcsj8rd5m4tfmi016jtuminrfnmokcc</string>
 	<key>API_KEY</key>
-	<string>AIzaSyDngM5as1wLgQLILVlRI54x22DmTvwhGLc</string>
+	<string>AIzaSyA-zt-StANAiKq3uoxBzDO2MCmTaKWF7DE</string>
 	<key>GCM_SENDER_ID</key>
-	<string>166840362498</string>
+	<string>115009683867</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.flatquestion.FlatQuestion</string>
+	<string>com.DrinkAndDance</string>
 	<key>PROJECT_ID</key>
-	<string>flat-question-stage</string>
+	<string>drinkanddance-19ca4</string>
 	<key>STORAGE_BUCKET</key>
-	<string>flat-question-stage.appspot.com</string>
+	<string>drinkanddance-19ca4.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -29,8 +29,8 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:166840362498:ios:30f37ad29a6e5df5d5e91b</string>
+	<string>1:115009683867:ios:645b0bc46e3a9156e5213e</string>
 	<key>DATABASE_URL</key>
-	<string>https://flat-question-stage.firebaseio.com</string>
+	<string>https://drinkanddance-19ca4.firebaseio.com</string>
 </dict>
 </plist>

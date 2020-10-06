@@ -1,11 +1,3 @@
-//
-//  UIColor+Hex.swift
-//  FlatQuestion
-//
-//  Created by Андрей Олесов on 6/12/20.
-//  Copyright © 2020 Андрей Олесов. All rights reserved.
-//
-
 import Foundation
 import UIKit
 

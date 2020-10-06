@@ -1,11 +1,3 @@
-//
-//  IncomingMessageTableViewCell.swift
-//  FlatQuestion
-//
-//  Created by MacBook on 7/28/20.
-//  Copyright © 2020 Андрей Олесов. All rights reserved.
-//
-
 import UIKit
 import SDWebImage
 
@@ -18,10 +10,14 @@ class IncomingMessageTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
+        let backgroundView = UIView()
+        backgroundView.backgroundColor = UIColor.clear
+        selectedBackgroundView = backgroundView
+        
         self.senderAvatarImageView.applyCircledStyle()
         
         messageTextContainer.layer.cornerRadius = 10
-        messageTextContainer.layer.borderWidth = 1.5
+        messageTextContainer.layer.borderWidth = 1.5;
         messageTextContainer.layer.borderColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.1).cgColor
     }
 
@@ -29,5 +25,8 @@ class IncomingMessageTableViewCell: UITableViewCell {
         self.senderAvatarImageView.sd_setImage(with: URL(string: data.avatarUrl!), completed: nil)
         self.messageText.text = data.messageText
         self.sentTime.text = data.sentTime
+        self.contentView.backgroundColor = data.isRead ?? true
+            ? UIColor.clear
+            : UIColor(hex: "#DBCCCC")
     }
 }

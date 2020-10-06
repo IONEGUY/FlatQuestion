@@ -1,11 +1,3 @@
-//
-//  SuccessViewController.swift
-//  FlatQuestion
-//
-//  Created by Андрей Олесов on 7/16/20.
-//  Copyright © 2020 Андрей Олесов. All rights reserved.
-//
-
 import UIKit
 
 protocol SuccessViewControllerProtocol: AnyObject {

@@ -1,15 +1,7 @@
-//
-//  NotificationsTableViewCell.swift
-//  FlatQuestion
-//
-//  Created by Андрей Олесов on 7/18/20.
-//  Copyright © 2020 Андрей Олесов. All rights reserved.
-//
-
 import UIKit
 import SDWebImage
 protocol NotificationsTableViewCellProtocol: AnyObject {
-   func statusOfRequestWasChanged(result: Result<Void,Error>)
+    func statusOfRequestWasChanged(result: Result<Void,Error>, userId: String)
 }
 
 class NotificationsTableViewCell: UITableViewCell {
@@ -44,16 +36,14 @@ class NotificationsTableViewCell: UITableViewCell {
     }
     
     @IBAction func declineButtonPressed(_ sender: Any) {
-        if userInfo.status == .Approved {
-        userInfo.status = .New
+            self.userInfo.status = .Declined
             FireBaseHelper().updateFlatRequestStatus(flatId: self.flatId, userInformation: self.userInfo) { (result) in
-                self.delegate?.statusOfRequestWasChanged(result: result)
+                self.delegate?.statusOfRequestWasChanged(result: result, userId: self.userInfo.id)
             }
-        } else if userInfo.status == .New {
-            FireBaseHelper().removeFlatRequestUserInfo(flatId: self.flatId, userInformation: self.userInfo) { (result) in
-                self.delegate?.statusOfRequestWasChanged(result: result)
-            }
-        }
+//            FireBaseHelper().removeFlatRequestUserInfo(flatId: self.flatId, userInformation: self.userInfo) { (result) in
+//                self.delegate?.statusOfRequestWasChanged(result: result)
+//            }
+        
     }
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -62,9 +52,15 @@ class NotificationsTableViewCell: UITableViewCell {
     }
     
     @IBAction func approveRequest(_ sender: Any) {
+        if userInfo.status == .Approved {
+            userInfo.status = .New
+            FireBaseHelper().updateFlatRequestStatus(flatId: self.flatId, userInformation: self.userInfo) { (result) in
+                self.delegate?.statusOfRequestWasChanged(result: result, userId: self.userInfo.id)
+            }
+        } else if userInfo.status == .New {
         userInfo.status = .Approved
         FireBaseHelper().updateFlatRequestStatus(flatId: self.flatId, userInformation: self.userInfo) { (result) in
-            self.delegate?.statusOfRequestWasChanged(result: result)
+            self.delegate?.statusOfRequestWasChanged(result: result, userId: self.userInfo.id)
         }
 //        DispatchQueue.main.async {
 //            self.approveButton.setTitle("Принято".localized, for: .normal)
@@ -78,32 +74,38 @@ class NotificationsTableViewCell: UITableViewCell {
 //             self.descriptionLabel.text = "добавлен(а) к участникам вечеринке".localized
 //            self.layoutSubviews()
 //        }
-    }
+        }}
     
     
     func modify(status: RequestStatus) {
+        self.declineButton.setAttributedTitle(NSAttributedString(string: "Удалить".localized, attributes: [NSAttributedString.Key.font: UIFont(name: "SFProDisplay-Regular", size: 15.0), NSAttributedString.Key.foregroundColor: UIColor(hex: 0xF11616)]), for: .normal)
         switch status {
         case .New:
             DispatchQueue.main.async {
             self.approveButton.setTitle("Принять".localized, for: .normal)
             self.approveButton.setTitleColor(.white, for: .normal)
-            self.declineButton.setAttributedTitle(NSAttributedString(string: "Отказать".localized, attributes: [NSAttributedString.Key.font: UIFont(name: "SFProDisplay-Regular", size: 15.0), NSAttributedString.Key.foregroundColor: UIColor(hex: 0x5B58B4)]), for: .normal)
+                self.approveButton.backgroundColor = UIColor(hex: 0x03CCE0)
+                
+                self.approveButton.addShadow(shadowColor: UIColor(hex: 0x03CCE0).cgColor,
+                                 shadowOffset: CGSize(width: 5, height: 10),
+                                 shadowOpacity: 0.2,
+                                 shadowRadius: 10.0)
+//            self.declineButton.setAttributedTitle(NSAttributedString(string: "Отказать".localized, attributes: [NSAttributedString.Key.font: UIFont(name: "SFProDisplay-Regular", size: 15.0), NSAttributedString.Key.foregroundColor: UIColor(hex: 0x5B58B4)]), for: .normal)
             self.descriptionLabel.text = "желает присоединиться к вечеринке".localized
-            self.approveButton.applyGradientV2(colours: [UIColor(hexString: "0x615CBF")!, UIColor(hexString: "0x1C2F4B")!])
+            //self.approveButton.applyGradientV2(colours: [UIColor(hexString: "0x615CBF")!, UIColor(hexString: "0x1C2F4B")!])
             self.approveButton.titleLabel?.font = UIFont(name: "SFProDisplay-Regular", size: 16)
             self.approveButton.layer.cornerRadius = 20
-            self.approveButton.clipsToBounds = true
+            //self.approveButton.clipsToBounds = true
             }
             
         case .Approved:
             DispatchQueue.main.async {
-            self.approveButton.setTitle("Принято".localized, for: .normal)
+            self.approveButton.setTitle("Отказать".localized, for: .normal)
             self.approveButton.removeSublayers()
             self.approveButton.addCorner(with: 20, with: .black)
             self.approveButton.setTitleColor(UIColor(hex: 0x8F8F8F), for: .normal)
             self.approveButton.backgroundColor = .white
 
-             self.declineButton.setAttributedTitle(NSAttributedString(string: "Удалить".localized, attributes: [NSAttributedString.Key.font: UIFont(name: "SFProDisplay-Regular", size: 15.0), NSAttributedString.Key.foregroundColor: UIColor(hex: 0xF11616)]), for: .normal)
              self.descriptionLabel.text = "добавлен(а) к участникам вечеринке".localized
             }
             

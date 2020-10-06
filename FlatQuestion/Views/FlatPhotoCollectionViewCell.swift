@@ -1,11 +1,3 @@
-//
-//  FlatPhotoCollectionViewCell.swift
-//  FlatQuestion
-//
-//  Created by Андрей Олесов on 5/19/20.
-//  Copyright © 2020 Андрей Олесов. All rights reserved.
-//
-
 import UIKit
 
 protocol PhotoCellProtocol: class {

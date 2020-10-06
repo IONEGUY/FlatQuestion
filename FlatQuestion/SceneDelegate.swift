@@ -1,41 +1,49 @@
-//
-//  SceneDelegate.swift
-//  FlatQuestion
-//
-//  Created by Андрей Олесов on 5/13/20.
-//  Copyright © 2020 Андрей Олесов. All rights reserved.
-//
-
 import UIKit
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
 
+    private var currentScene: UIScene?
+    private var currentOptions: UIScene.ConnectionOptions?
+    
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(frame: UIScreen.main.bounds)
+        currentScene = scene
+        currentOptions = connectionOptions
         
+        let launchVC = AnimatedLaunchViewController(nibName: "AnimatedLaunchViewController", bundle: nil)
+        launchVC.delegate = self
+        window?.rootViewController = launchVC
+        window?.makeKeyAndVisible()
+        window?.windowScene = windowScene
+    }
+    
+    func chooseNextVCAndMove() {
+        guard let windowScene = (currentScene as? UIWindowScene) else { return }
         let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
         let mainViewController = storyBoard.instantiateViewController(withIdentifier: "main")
         mainViewController.modalPresentationStyle = .fullScreen
         let viewController = UserSettings.appUser == nil || UserSettings.appUser?.sex == nil ? LoginViewController() : mainViewController
-        window?.rootViewController = viewController
+        if let vc = mainViewController as? UITabBarController {
+            vc.selectedIndex = 3
+        }
+        window?.rootViewController = mainViewController
         window?.makeKeyAndVisible()
         window?.windowScene = windowScene
         
         //if UserSettings.appUser?.sex != nil{
         
-        let urlinfo = connectionOptions.urlContexts
-        if let url = urlinfo.first?.url {
-            self.scene(scene, openURLContexts: urlinfo)
+        if let urlinfo = currentOptions?.urlContexts {
+            if let url = urlinfo.first?.url {
+                self.scene(windowScene, openURLContexts: urlinfo)
+            }
         }
-//        } else {
-//            let vc = EditProfileViewController(nibName: "EditProfileViewController", bundle: nil)
-//            vc.modalPresentationStyle = .fullScreen
-//            viewController.present(vc, animated: true, completion: nil)
-//        }
-
+        UIView.transition(with: self.window!, duration: 0.8, options: .transitionFlipFromRight, animations: nil, completion: nil)
+        
+        currentOptions = nil
+        currentScene = nil
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
@@ -80,4 +88,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         }
     }
     
+}
+
+extension SceneDelegate: AnimatedLaunchProtocol {
+    func willClose() {
+        chooseNextVCAndMove()
+    }
 }

@@ -1,11 +1,3 @@
-//
-//  DateTimeConverterHelper.swift
-//  FlatQuestion
-//
-//  Created by MacBook on 7/28/20.
-//  Copyright © 2020 Андрей Олесов. All rights reserved.
-//
-
 import Foundation
 
 class DateTimeConverterHelper {

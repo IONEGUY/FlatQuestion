@@ -1,11 +1,3 @@
-//
-//  FlatModalViewController.swift
-//  FlatQuestion
-//
-//  Created by Андрей Олесов on 5/15/20.
-//  Copyright © 2020 Андрей Олесов. All rights reserved.
-//
-
 import UIKit
 import SDWebImage
 extension FlatModalViewController {
@@ -26,7 +18,10 @@ extension FlatModalViewController {
 
 protocol RemovableDelegate: class {
     func shouldRemoveFromSuperView()
+    func shouldOpenProfileVC(vc: UIViewController)
+    func shouldOpenFlatVC(vc: UIViewController)
 }
+
 
 class FlatModalViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
@@ -35,8 +30,9 @@ class FlatModalViewController: UIViewController {
     var flat: FlatModel?
     var isProfileHidden = false
     @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var viewForSendButton: UIView!
     
-    @IBOutlet weak var sendInviteButton: DarkGradientButton!
+    @IBOutlet weak var sendInviteButton: UIButton!
     @IBOutlet weak var profileView: UIView!
     @IBOutlet weak var mapView: UIView!
     @IBOutlet weak var favoriteView: UIView!
@@ -51,13 +47,34 @@ class FlatModalViewController: UIViewController {
     @IBOutlet weak var favoriteLabel: UILabel!
     @IBOutlet weak var shareLabel: UILabel!
     
+    var isYourFlat: Bool {
+        return flat?.userId == UserSettings.appUser?.id
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
+        localize()
         setupGesture()
         setupCollectionView()
         setupTableView()
         roundViews()
+    
+    }
+    
+    @objc func handleGesture(gesture: UISwipeGestureRecognizer) -> Void {
+       if gesture.direction == .up {
+        if currentState! == .partial {
+            moveView(state: .full)
+        }
+       }
+       else if gesture.direction == .down {
+        if currentState! == .full {
+            moveView(state: .partial)
+        } else if currentState! == .partial {
+            moveView(state: .none)
+        }
+       }
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -69,8 +86,14 @@ class FlatModalViewController: UIViewController {
     }
 
     private func setupGesture() {
-      let gesture = UIPanGestureRecognizer.init(target: self, action: #selector(panGesture))
-        view.addGestureRecognizer(gesture)
+        let swipeUp = UISwipeGestureRecognizer(target: self, action: #selector(handleGesture))
+        swipeUp.direction = .up
+        self.view.addGestureRecognizer(swipeUp)
+
+        let swipeDown = UISwipeGestureRecognizer(target: self, action: #selector(handleGesture))
+        swipeDown.direction = .down
+        self.view.addGestureRecognizer(swipeDown)
+
         view.isUserInteractionEnabled = true
         
         shareView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(shareFlat)))
@@ -87,10 +110,18 @@ class FlatModalViewController: UIViewController {
         if flat?.userId == UserSettings.appUser!.id {
             sendInviteButton.backgroundColor = .gray
         }
-        nameLabel.text = flat?.name
+        nameLabel.text = flat?.name.capitalizingFirstLetter()
+        if flat!.userId == UserSettings.appUser!.id {
+            nameLabel.textColor = UIColor(hex: 0xBC70F6)
+        } else {
+            nameLabel.textColor = UIColor(hex: 0x03CCE0)
+        }
         addressLabel.text = flat?.address
         dateLabel.text = DateFormatterHelper().getStringFromDate_MMM_yyyy_HH_mm(date: flat?.date?.date() ?? Date())
         placesLabel.text = "Свободно".localized + " \(String(describing: flat!.emptyPlacesCount!))" + "из".localized + " \(String(describing: flat!.allPlacesCount!))"
+        if isYourFlat {
+            self.profileView.isHidden = true
+        }
     }
 
     private func setupTableView() {
@@ -104,35 +135,24 @@ class FlatModalViewController: UIViewController {
     }
 
     private func moveView(state: State) {
+        UIView.animate(withDuration: 0.2) {
+            if state == .full {
+                self.viewForSendButton.alpha = 0
+            } else {
+                self.viewForSendButton.alpha = 1
+            }
+        }
         let yPosition = state == .partial ? Constant.getPartialViewPosition(
             tabBarHeight: self.tabBarController?.tabBar.frame.size.height ?? 0) : Constant.fullViewYPosition
-        if state == .none && currentState != .full {
-            view.frame = CGRect(x: 0, y: Constant.noneYPosition, width: view.frame.width, height: view.frame.height)
-            self.delegate?.shouldRemoveFromSuperView()
-        } else {
-            view.frame = CGRect(x: 0, y: yPosition, width: view.frame.width, height: view.frame.height)
-        }
-        currentState = state
-    }
-
-    private func moveView(panGestureRecognizer recognizer: UIPanGestureRecognizer) {
-        let translation = recognizer.translation(in: view)
-        let minY = view.frame.minY
-        if (minY + translation.y >= Constant.fullViewYPosition) && (minY + translation.y <= Constant.noneYPosition) {
-            view.frame = CGRect(x: 0, y: minY + translation.y, width: view.frame.width, height: view.frame.height)
-            recognizer.setTranslation(CGPoint.zero, in: view)
-        }
-    }
-
-    @objc private func panGesture(_ recognizer: UIPanGestureRecognizer) {
-        moveView(panGestureRecognizer: recognizer)
-        if recognizer.state == .ended {
-            UIView.animate(withDuration: 1, delay: 0.0, options: [.allowUserInteraction], animations: {
-                var state: State = recognizer.velocity(in: self.view).y >= 0 ? .partial : .full
-                if recognizer.velocity(in: self.view).y > 600 && self.currentState != .full { state = .none}
-                self.moveView(state: state)
-            }, completion: nil)
-        }
+        UIView.animate(withDuration: 0.3, delay: 0.0, options: [], animations: {
+            if state == .none && self.currentState != .full {
+                self.view.frame = CGRect(x: 0, y: Constant.noneYPosition, width: self.view.frame.width, height: self.view.frame.height)
+                self.delegate?.shouldRemoveFromSuperView()
+            } else {
+                self.view.frame = CGRect(x: 0, y: yPosition, width: self.view.frame.width, height: self.view.frame.height)
+            }
+            self.currentState = state
+        }, completion: nil)
     }
     
     @IBAction func openProfileButtonPressed(_ sender: Any) {
@@ -142,6 +162,7 @@ class FlatModalViewController: UIViewController {
         FireBaseHelper().getUserById(id: flat!.userId) { (result) in
             switch result {
             case .success(let appUser): vc.appUser = appUser
+            self.delegate?.shouldOpenProfileVC(vc: vc)
             self.present(vc, animated: true, completion: nil)
             case .failure(let error): self.showErrorAlert(message: error.localizedDescription)
             }
@@ -151,13 +172,24 @@ class FlatModalViewController: UIViewController {
     
     
     @IBAction func sendInviteButtonPressed(_ sender: Any) {
-        let vc = AcceptModalViewController(delegate: self, flat: flat!)
-        vc.transitioningDelegate = self
-        present(vc, animated: true, completion: nil)
+        if isYourFlat {
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let vc = storyboard.instantiateViewController(withIdentifier: "CreateFlatViewController") as! CreateFlatViewController
+            vc.modalPresentationStyle = .overFullScreen
+            vc.delegate = self
+            vc.isEditingFlat = true
+            vc.existedFlatModel = flat
+            
+            self.delegate?.shouldOpenFlatVC(vc: vc)
+        } else {
+            let vc = AcceptModalViewController(delegate: self, flat: flat!)
+            vc.transitioningDelegate = self
+            present(vc, animated: true, completion: nil)
+        }
     }
     
     func localize() {
-        sendInviteButton.titleLabel?.text = "Присоедениться".localized
+        sendInviteButton.setTitle(!isYourFlat ? "Присоедениться".localized : "Редактировать".localized, for: .normal)
         profileLabel.text = "Профиль".localized
         mapLabel.text = "Карта".localized
         favoriteLabel.text = "Избранные".localized
@@ -165,8 +197,6 @@ class FlatModalViewController: UIViewController {
     }
 
     func roundViews() {
-        sendInviteButton.setupButtonView()
-        
         profileView.addCorner(with: 10, with: .black)
         mapView.addCorner(with: 10, with: .black)
         favoriteView.addCorner(with: 10, with: .black)
@@ -360,6 +390,17 @@ extension FlatModalViewController: UICollectionViewDelegate {
         photoCell.image.sd_setImage(with: url, completed: nil)
         return photoCell
     }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        var urlStrings = [String]()
+        let selectedUrl = self.flat?.images![indexPath.item]
+        urlStrings.append(selectedUrl!)
+        let otherUrlStrings = self.flat?.images?.filter({ (string) -> Bool in
+            return string != selectedUrl
+        })
+        urlStrings.append(contentsOf: otherUrlStrings!)
+        WRGImageGallery().show(urls: urlStrings, viewController: self, initialPosition:0, tabBarToClose: self.tabBarController as? MainTabBarController)
+    }
 }
 
 extension FlatModalViewController: UICollectionViewDataSource {}
@@ -399,5 +440,11 @@ extension FlatModalViewController: UIViewControllerTransitioningDelegate {
         } else {
             return SuccessModalPresenter(isPush: false)
         }
+    }
+}
+
+extension FlatModalViewController: CreateFlatProtocol {
+    func flatWasCreated() {
+        print()
     }
 }

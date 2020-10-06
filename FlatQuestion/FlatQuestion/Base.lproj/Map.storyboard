@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="iqu-1r-qBY">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="fVD-f0-YSO">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
@@ -7,21 +7,40 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Карта-->
+        <!--Map View Controller-->
         <scene sceneID="JCY-1R-WHR">
             <objects>
-                <viewController id="iqu-1r-qBY" customClass="MapViewController" customModule="FlatQuestion" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="iqu-1r-qBY" customClass="MapViewController" customModule="D_D" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="KwP-83-IyZ">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="mLq-km-iqh"/>
                     </view>
+                    <navigationItem key="navigationItem" id="dIk-vs-27y"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hVb-Om-X9n" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1800.0000000000002" y="585.9375"/>
+        </scene>
+        <!--Карта-->
+        <scene sceneID="vcb-8W-eOg">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="fVD-f0-YSO" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Карта" image="global" id="QzW-Hj-AmU">
                         <offsetWrapper key="titlePositionAdjustment" horizontal="-20" vertical="0.0"/>
                     </tabBarItem>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="hVb-Om-X9n" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="k35-4D-Tfo">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="iqu-1r-qBY" kind="relationship" relationship="rootViewController" id="TOf-I3-SnI"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="thg-qj-wKH" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-2710.144927536232" y="585.9375"/>
         </scene>

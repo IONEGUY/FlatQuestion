@@ -1,11 +1,3 @@
-//
-//  GoogleMapsUtilsModels.swift
-//  FlatQuestion
-//
-//  Created by Андрей Олесов on 7/14/20.
-//  Copyright © 2020 Андрей Олесов. All rights reserved.
-//
-
 import Foundation
 import UIKit
 import GoogleMaps

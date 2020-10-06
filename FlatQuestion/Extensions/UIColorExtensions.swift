@@ -1,11 +1,3 @@
-//
-//  UIColorExtensions.swift
-//  FlatQuestion
-//
-//  Created by MacBook on 5/30/20.
-//  Copyright © 2020 Андрей Олесов. All rights reserved.
-//
-
 import UIKit
 
 extension UIColor {

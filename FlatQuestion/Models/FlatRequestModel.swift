@@ -1,17 +1,13 @@
-//
-//  FlatRequestModel.swift
-//  FlatQuestion
-//
-//  Created by Андрей Олесов on 7/16/20.
-//  Copyright © 2020 Андрей Олесов. All rights reserved.
-//
-
 import Foundation
 
 struct FlatRequestModel: Codable {
     let id: Int
     var requests: [UserInfo]
     var ownerId: String
+    let ownerPhotoLink: String
+    let fullName: String
+    let flatPhotoLink: String
+    let flatName: String
     
     var asDictionary : [String:Any] {
       let mirror = Mirror(reflecting: self)
@@ -29,4 +25,5 @@ struct UserInfo: Codable {
     let message: String
     let fullName: String
     let photoLink: String
+    let date: TimeInterval
 }

@@ -1,11 +1,3 @@
-//
-//  UserSettings.swift
-//  FlatQuestion
-//
-//  Created by MacBook on 6/18/20.
-//  Copyright © 2020 Андрей Олесов. All rights reserved.
-//
-
 import UIKit
 
 class UserSettings {

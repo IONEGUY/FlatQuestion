@@ -1,11 +1,3 @@
-//
-//  FireBaseHelper.swift
-//  FlatQuestion
-//
-//  Created by Андрей Олесов on 6/21/20.
-//  Copyright © 2020 Андрей Олесов. All rights reserved.
-//
-
 import UIKit
 import Foundation
 import Firebase
@@ -33,29 +25,178 @@ extension MyError: LocalizedError {
 }
 
 class FireBaseHelper {
-    func getFlatRequests(completion: @escaping (_ result: Result<FlatRequestModel,Error>) -> ()) {
-        guard let flats = UserSettings.appUser!.flats else {
+//    let ReceiverFCMToken = "e2Gs7QsBnkv1n1xmoE5yj-:APA91bGZtkw2Ja1ANEUXLSS_z9d28swaGLugG6FXB2iBlaD-ujimVY9gS1dIDwVTxaFmKajU3_BXdqgURmw2_4ap4yjXGG7EjAjbwjyIgkxyiIipu0FSsacfFCKu4mWPQf-aeblwOYXO"
+
+    // Please change it your Firebase Legacy server key
+    // Firebase -> Project settings -> Cloud messaging -> Legacy server key
+    
+    static var shared = FireBaseHelper()
+    
+    let legacyServerKey = "AAAAGsccgZs:APA91bH2qdmqAG4jXRGeNgDmt-eeqR7aAuY4dUJ8ieyQSjaRFF0h4pBo4NC-MG06XTiMGDZw6WL2nIYTtmGxP_lVXNFTlI0JUQ4vIr5igpXWj3l44Je_uLgIdFUfqzAcH8FiWtYHi5NB"
+   
+    var fcmToken: String? {
+        get {
+            return Messaging.messaging().fcmToken
+        }
+    }
+    
+    func initChat(chat: Chat, completion: @escaping () -> ()) {
+        let db = Firestore.firestore()
+        do {
+            try db.collection("chats").document().setData(from: chat)
+            completion()
+        } catch let error {
+            print("Error writing Flat to Firestore: \(error)")
+            completion()
+        }
+    }
+    
+    func setFCMToken(fcmTokenGroup: FCMTokenGroup , completion: @escaping (_ result: Result<Void,Error>) -> ()) {
+        let db = Firestore.firestore()
+        do {
+            try db.collection("fcm_tokens").document().setData(from: fcmTokenGroup)
+            completion(.success(()))
+        } catch let error {
+            print("Error writing Flat to Firestore: \(error)")
+            completion(.failure(error))
+        }
+    }
+    
+    func updateFCMToken(fcmTokenGroup: FCMTokenGroup , completion: @escaping (_ result: Result<Void,Error>) -> ()) {
+        let db = Firestore.firestore()
+        do {
+            
+            db.collection("fcm_tokens").whereField("userId", isEqualTo: fcmTokenGroup.userId).getDocuments { (snapshot, error) in
+                guard let document = snapshot?.documents.first else { return }
+                let encoder = Firestore.Encoder()
+                guard let updateData = try? encoder.encode(fcmTokenGroup) else {
+                    completion(.failure(MyError.unrecognizedError))
+                    return
+                }
+                db.collection("fcm_tokens").document(document.documentID).updateData(updateData) { (error) in
+                    error == nil ? completion(.success(())) : completion(.failure(error!))
+                }
+                
+            }
+        } catch let error {
+            print("Error writing Flat to Firestore: \(error)")
+            completion(.failure(error))
+        }
+    }
+    
+    func sendNotification(to userId: String, title: String, body: String) {
+        let db = Firestore.firestore()
+        db.collection("fcm_tokens").whereField("userId", isEqualTo: userId as Any).getDocuments { (snapshot, error) in
+            guard let document = snapshot?.documents.first else { return }
+            guard var fbModel = try? document.data(as: FCMTokenGroup.self), fbModel.fcmToken != "" else {
+                return
+            }
+            let token = fbModel.fcmToken
+            print("sendMessageTouser()")
+            let urlString = "https://fcm.googleapis.com/fcm/send"
+            let url = NSURL(string: urlString)!
+            let paramString: [String : Any] = ["to" : token,
+                                               "notification" : ["title" : title, "body" : body],
+                                               "data" : ["user" : "test_id"]
+            ]
+            let request = NSMutableURLRequest(url: url as URL)
+            request.httpMethod = "POST"
+            request.httpBody = try? JSONSerialization.data(withJSONObject:paramString, options: [.prettyPrinted])
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.setValue("key=\(self.legacyServerKey)", forHTTPHeaderField: "Authorization")
+            let task =  URLSession.shared.dataTask(with: request as URLRequest)  { (data, response, error) in
+                do {
+                    if let jsonData = data {
+                        if let jsonDataDict  = try JSONSerialization.jsonObject(with: jsonData, options: JSONSerialization.ReadingOptions.allowFragments) as? [String: AnyObject] {
+                            NSLog("Received data:\n\(jsonDataDict))")
+                        }
+                    }
+                } catch let err as NSError {
+                    print(err.debugDescription)
+                }
+            }
+            task.resume()
+            
+        }
+    }
+    func getFlatRequests(completion: @escaping (_ result: Result<[FlatRequestModel],Error>) -> ()) {
+        guard let flats = UserSettings.appUser?.flats else {
             completion(.failure(MyError.unrecognizedError))
             return }
-        guard flats.count > 0 else {
-            completion(.failure(MyError.userHasNoFlats))
-            return }
+//        guard flats.count > 0 else {
+//            completion(.failure(MyError.userHasNoFlats))
+//            return }
         let db = Firestore.firestore()
         db.collection("flat_requests").whereField("ownerId", isEqualTo: UserSettings.appUser!.id! as Any).getDocuments { (snapshot, error) in
                 if error != nil {
                     completion(.failure(MyError.unrecognizedError))
                 } else {
-                    guard let documents = snapshot?.documents, documents.count != 0 else { return }
-
+                    guard let documents = snapshot?.documents, documents.count != 0 else {
+                        completion(.success([FlatRequestModel]()))
+                        return
+                    }
+                    var models = [FlatRequestModel]()
                     documents.forEach({ (snapshot) in
                         guard var fbModel = try? snapshot.data(as: FlatRequestModel.self) else {
                             completion(.failure(MyError.unrecognizedError))
                             return
                         }
-                        completion(.success(fbModel))
+                        models.append(fbModel)
+                    })
+                    completion(.success(models))
+                }
+            }
+    }
+    
+    func getFlatRequestsMy(completion: @escaping (_ result: Result<[FlatRequestModel],Error>) -> ()) {
+        guard let flats = UserSettings.appUser?.flats else {
+            completion(.failure(MyError.unrecognizedError))
+            return }
+        
+        let db = Firestore.firestore()
+        db.collection("flat_requests").getDocuments { (snapshot, error) in
+                if error != nil {
+                    completion(.failure(MyError.unrecognizedError))
+                } else {
+                    guard let documents = snapshot?.documents, documents.count != 0 else { return }
+                    var models = [FlatRequestModel]()
+                    documents.forEach({ (snapshot) in
+                        guard var fbModel = try? snapshot.data(as: FlatRequestModel.self) else {
+                            completion(.failure(MyError.unrecognizedError))
+                            return
+                        }
+                        fbModel.requests.forEach({ (userInfo) in
+                            if userInfo.id == UserSettings.appUser!.id! {
+                                models.append(fbModel)
+                            }
+                        })
+                        completion(.success(models))
                     })
                 }
             }
+    }
+    
+    private func getCommentsOfUser(userId: String, completion: @escaping (_ result: Result<[Comment],Error>) -> ()) {
+        let db = Firestore.firestore()
+        db.collection("comments").whereField("forUserId", isEqualTo: userId as Any).getDocuments { (snapshot, error) in
+            if let error = error {
+                print(error)
+            } else if let snapshot = snapshot {
+               let flats = snapshot.documents.compactMap {
+                return try? $0.data(as: Comment.self)
+                }
+                completion(.success(flats))
+            }
+        }
+    }
+    
+    func getComments(userId: String, completion: @escaping (_ result: [Comment]) -> ()) {
+        getCommentsOfUser(userId: userId) { (result) in
+            switch result {
+            case .success(let comments): completion(comments)
+            case .failure(let error): print(error)
+            }
+        }
     }
     
     func updateFlatRequestStatus(flatId: Int, userInformation: UserInfo,completion: @escaping (_ result: Result<Void,Error>) -> ()) {
@@ -123,6 +264,15 @@ class FireBaseHelper {
             db.collection("flat_requests").document(document.documentID).updateData(updateData) { (error) in
                 error == nil ? completion(.success(())) : completion(.failure(error!))
             }
+        }
+    }
+    
+    func removeFlatRequest(flatId: Int) {
+        let db = Firestore.firestore()
+        db.collection("flat_requests").whereField("id", isEqualTo: flatId as Any).getDocuments { (snapshot, error) in
+            guard let document = snapshot?.documents.first else { return }
+            db.collection("flat_requests").document(document.documentID).delete()
+            
         }
     }
     
@@ -269,6 +419,21 @@ class FireBaseHelper {
                }
     }
     
+    func getFlatById(flatId: Int, completion: @escaping ([FlatModel]) -> ()) {
+        let db = Firestore.firestore()
+
+        db.collection("flats").whereField("id", isEqualTo: flatId as Any).getDocuments { (snapshot, error) in
+                   if let error = error {
+                       print(error)
+                   } else if let snapshot = snapshot {
+                      let flats = snapshot.documents.compactMap {
+                       return try? $0.data(as: FlatModel.self)
+                       }
+                       completion(flats)
+                   }
+               }
+    }
+    
     func removeFlat(flat: FlatModel, completion: @escaping (_ result: Result<Void,Error>) -> ()) {
         let urls = flat.images!
         DispatchQueue.global(qos: .background).async {
@@ -300,9 +465,18 @@ class FireBaseHelper {
                     completion(.failure(MyError.unrecognizedError))
                     return
                 }
-                completion(.success(()))         
+                let userWithDeletedFlat = UserSettings.appUser
+                userWithDeletedFlat?.flats?.removeAll(where: { (id) -> Bool in
+                    return id == flat.id
+                })
+                self.updateUserInfo(user: userWithDeletedFlat!) { (result) in
+                    UserSettings.appUser = userWithDeletedFlat
+                    completion(result)
+                }
             }
         }
+        
+        removeFlatRequest(flatId: flat.id)
         
     }
     
@@ -377,6 +551,7 @@ class FireBaseHelper {
                         userFlats?.append(flat.id)
                         user?.flats = userFlats
                         self.updateUserInfo(user: user!) { (result) in
+                            UserSettings.appUser = user
                             completion(result)
                             }
                         case .failure(let error): completion(.failure(error))
@@ -400,6 +575,16 @@ class FireBaseHelper {
         }
     }
     
+    func createComment(comment: Comment, completion: @escaping (_ result: Result<Void,Error>) -> ()) {
+        let db = Firestore.firestore()
+        do {
+            try db.collection("comments").document().setData(from: comment)
+            completion(.success(()))
+        } catch let error {
+            print("Error writing Flat to Firestore: \(error)")
+            completion(.failure(error))
+        }
+    }
     func updateFlat(flat: FlatModel, completion: @escaping (_ result: Result<Void,Error>) -> ()) {
         
         let db = Firestore.firestore()

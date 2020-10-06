@@ -1,46 +1,63 @@
-//
-//  ChatTableViewCell.swift
-//  FlatQuestion
-//
-//  Created by MacBook on 7/21/20.
-//  Copyright © 2020 Андрей Олесов. All rights reserved.
-//
-
 import UIKit
 
 class ChatTableViewCell: UITableViewCell {
     @IBOutlet weak var userAvatar: UIImageView!
+    @IBOutlet weak var messageOwnerAvatar: UIImageView!
     @IBOutlet weak var fullName: UILabel!
     @IBOutlet weak var lastMessageText: UILabel!
     @IBOutlet weak var lastMessageDate: UILabel!
     @IBOutlet weak var messagesCountContainer: UIView!
     @IBOutlet weak var messagesCount: UILabel!
-    @IBOutlet weak var messageTextTrailingConstraint: NSLayoutConstraint!
     
     override func awakeFromNib() {
         super.awakeFromNib()
         
+        let backgroundView = UIView()
+        backgroundView.backgroundColor = UIColor.clear
+        selectedBackgroundView = backgroundView
+        
         userAvatar.applyCircledStyle()
+        messageOwnerAvatar.applyCircledStyle()
         messagesCountContainer.applyCircledStyle()
     }
     
-    func fillData(_ chatTableViewCellModel: ChatTableViewCellModel) {
-        userAvatar.sd_setImage(with: URL(string: chatTableViewCellModel.message.userAvatarUrl!), completed: nil)
-        fullName.text = chatTableViewCellModel.message.ownerUserName
-        lastMessageText.text = chatTableViewCellModel.message.text
-        lastMessageDate.text = convertDateToString(chatTableViewCellModel.message.sentDate!)
-        messagesCount.text = String(chatTableViewCellModel.unreadedMessagesCount)
+    func fillData(_ chat: Chat) {
+        messagesCountContainer.isHidden = false
+        messageOwnerAvatar.isHidden = false
         
-        if chatTableViewCellModel.unreadedMessagesCount == 0 {
+        userAvatar.sd_setImage(with: URL(string: chat.interlocuterAvatarUrl
+            ?? Constants.defaultAvatarUrl), completed: nil)
+        messageOwnerAvatar.sd_setImage(with:URL(string: UserSettings.appUser?.avatarUrl
+            ?? Constants.defaultAvatarUrl), completed: nil)
+        fullName.text = chat.interlocutorFullName
+        lastMessageText.text = chat.lastMessage ?? "There are no messages in this chat"
+        lastMessageDate.text = convertDateToString(chat.lastMessageSentTime)
+        messagesCount.text = chat.unreadMessagesCount != nil
+            ? String(chat.unreadMessagesCount!) : String.empty
+        
+        if chat.unreadMessagesCount ?? 0 == 0 || chat.lastSenderId == UserSettings.appUser?.id! {
             messagesCountContainer.isHidden = true
-            messageTextTrailingConstraint.constant = 0
-            messagesCountContainer.widthAnchor.constraint(equalToConstant: 0).isActive = true
+        }
+        
+        if chat.lastSenderId != UserSettings.appUser?.id! {
+            messageOwnerAvatar.isHidden = true
         }
     }
     
-    private func convertDateToString(_ date: Date) -> String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd.MM.yyyy"
-        return dateFormatter.string(from: date)
+    private func convertDateToString(_ date: Date?) -> String {
+        guard let date = date else { return String.empty }
+        var text = String.empty
+        let calendar = Calendar.current
+        if calendar.isDateInToday(date) {
+            text = "Сегодня".localized
+        } else if calendar.isDateInYesterday(date) {
+            text = "Вчера".localized
+        } else {
+            let formatter = DateFormatter()
+            formatter.dateFormat = "dd.MM.yyyy"
+            text = formatter.string(from: date)
+        }
+        
+        return text
     }
 }

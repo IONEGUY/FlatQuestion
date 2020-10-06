@@ -1,11 +1,3 @@
-//
-//  DateFormatterHelper.swift
-//  FlatQuestion
-//
-//  Created by Андрей Олесов on 6/23/20.
-//  Copyright © 2020 Андрей Олесов. All rights reserved.
-//
-
 import UIKit
 
 class DateFormatterHelper: NSObject {

@@ -1,24 +1,13 @@
-//
-//  ModalPopUpViewController.swift
-//  FlatQuestion
-//
-//  Created by Андрей Олесов on 8/2/20.
-//  Copyright © 2020 Андрей Олесов. All rights reserved.
-//
-
 import UIKit
 
 protocol ModalPopUpViewControllerProtocol: AnyObject  {
-    func createButtonPressed(text: String)
+    func createButtonPressed()
 }
 
 class ModalPopUpViewController: UIViewController {
 
-    @IBOutlet weak var writeMessageView: UIView!
-    @IBOutlet weak var writeMessageLabel: UILabel!
     @IBOutlet weak var declineButton: UIButton!
     @IBOutlet weak var createButton: DarkGradientButton!
-    @IBOutlet weak var textView: UITextView!
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var titleLabel: UILabel!
     weak var delegate: ModalPopUpViewControllerProtocol?
@@ -45,23 +34,30 @@ class ModalPopUpViewController: UIViewController {
     }
     
         private func localize() {
+            createButton.setTitle(createButtonString, for: .normal)
             createButton.titleLabel?.text = createButtonString?.localized
             declineButton.titleLabel?.text = "Отмена".localized
-            writeMessageLabel.text = "Написать сообщение".localized
             descriptionLabel.text = descriptionString?.localized
             titleLabel.text = titleString?.localized
         }
         
         private func setupView() {
+            view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.tap(_:))))
+            view.isUserInteractionEnabled = true
+            
             declineButton.addCorner(with: 20, with: .black)
-            writeMessageView.addCorner(with: 10, with: .black)
         }
+    
+    @objc func tap(_ gestureRecognizer: UITapGestureRecognizer) {
+        self.dismiss(animated: true, completion: nil)
+    }
     
     @IBAction func declineButtonPressed(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
     }
     @IBAction func createButtonPressed(_ sender: UIButton) {
-        delegate?.createButtonPressed(text: textView.text)
+        delegate?.createButtonPressed()
+        self.dismiss(animated: true, completion: nil)
     }
     
 }

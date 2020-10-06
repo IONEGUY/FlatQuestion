@@ -1,11 +1,3 @@
-//
-//  FlatModel.swift
-//  FlatQuestion
-//
-//  Created by Андрей Олесов on 6/22/20.
-//  Copyright © 2020 Андрей Олесов. All rights reserved.
-//
-
 import Foundation
 import Firebase
 

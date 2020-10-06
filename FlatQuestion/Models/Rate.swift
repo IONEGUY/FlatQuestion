@@ -1,11 +1,3 @@
-//
-//  Rate.swift
-//  FlatQuestion
-//
-//  Created by MacBook on 7/13/20.
-//  Copyright © 2020 Андрей Олесов. All rights reserved.
-//
-
 import UIKit
 
 enum Rate: Int {

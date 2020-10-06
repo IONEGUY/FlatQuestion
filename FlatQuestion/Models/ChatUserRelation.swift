@@ -1,14 +1,6 @@
-//
-//  ChatUserRelation.swift
-//  FlatQuestion
-//
-//  Created by MacBook on 7/31/20.
-//  Copyright © 2020 Андрей Олесов. All rights reserved.
-//
-
 import Foundation
 
-struct ChatUserRelation {
+struct ChatMembersRelation: Decodable {
     var chatId: String
-    var userId: String
+    var chatIds: [String]
 }

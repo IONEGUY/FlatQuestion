@@ -1,17 +1,11 @@
-//
-//  MapViewController.swift
-//  FlatQuestion
-//
-//  Created by Андрей Олесов on 5/13/20.
-//  Copyright © 2020 Андрей Олесов. All rights reserved.
-//
-
 import UIKit
 import GoogleMaps
 import GooglePlaces
 import GoogleMapsUtils
 import GoogleUtilities
 import SDWebImage
+import Lottie
+
 class MapViewController: UIViewController, CLLocationManagerDelegate, GMUClusterManagerDelegate {
     private var collectionView: UICollectionView?
     private var flatModalVC: FlatModalViewController!
@@ -30,8 +24,13 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMUCluster
         super.viewDidLoad()
         setupMapView()
         setupCollectionView()
-        setupSearchView()
+        //setupSearchView()
         setupLocationManager()
+        let timer = Timer.scheduledTimer(timeInterval: 120.0, target: self, selector: #selector(fireTimer), userInfo: nil, repeats: true)
+    }
+    
+    @objc func fireTimer() {
+        getFlats(completion: nil)
     }
     
     func setupLocationManager() {
@@ -90,6 +89,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMUCluster
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
         checkAccess()
+        changeCurrentLocationButtonPosition()
     }
 
     @objc func didBecomeActive() {
@@ -124,8 +124,15 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMUCluster
 
 
     override func viewWillAppear(_ animated: Bool) {
+        if let _ = self.mapView {self.mapView!.startRendering()}
         super.viewWillAppear(animated)
         getFlats(completion: nil)
+        self.navigationController?.navigationBar.isHidden = true
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        self.mapView!.stopRendering()
+        self.navigationController?.navigationBar.isHidden = false
     }
 
     override func viewWillLayoutSubviews() {
@@ -137,6 +144,27 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMUCluster
         collectionView?.isPagingEnabled = true
         self.view.layoutIfNeeded()
     }
+    
+    func changeCurrentLocationButtonPosition() {
+        for object in self.mapView!.subviews{
+            if(object.theClassName == "GMSUISettingsPaddingView"){
+                for view in object.subviews{
+                    if(view.theClassName == "GMSUISettingsView"){
+                        for btn in view.subviews{
+                            if(btn.theClassName == "GMSx_QTMButton"){
+                                var frame = btn.frame
+                                frame.origin.y = (self.collectionView?.frame.origin.y)! - 150
+                                btn.frame = frame
+                                self.view.layoutIfNeeded()
+                                
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
 
     func updateFlats() {
         getFlats(completion: nil)
@@ -209,7 +237,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMUCluster
         mapView = GMSMapView(frame: self.view.frame, camera: camera)
         mapView?.delegate = self
         mapView?.isMyLocationEnabled = true
-        self.mapView!.padding = UIEdgeInsets(top: 0, left: 0, bottom: 150, right: 0)
+        self.mapView!.padding = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         mapView!.settings.myLocationButton = true
         mapView!.settings.compassButton = true
         guard let mapView = mapView else { return }
@@ -227,9 +255,9 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMUCluster
     }
     
 
-    
-
     func addModalFlatView(flat: FlatModel) {
+        guard let barVC = tabBarController as? MainTabBarController else { return }
+        barVC.setTabBarVisible(visible: false, duration: 0.3, animated: true)
         flatModalVC = FlatModalViewController(nibName: "FlatModalViewController", bundle: nil)
         flatModalVC.flat = flat
         flatModalVC.delegate = self
@@ -253,6 +281,7 @@ extension MapViewController: UICollectionViewDelegate {
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         addModalFlatView(flat: self.flats[indexPath.item])
+        self.mapView!.stopRendering()
     }
 }
 
@@ -265,9 +294,6 @@ extension MapViewController: UICollectionViewDataSource {
         guard let cell = flatCell else {return UICollectionViewCell()}
         let flat = self.flats[indexPath.item]
         cell.fillCellData(with: flat)
-        if flat.userId == UserSettings.appUser!.id {
-            cell.backgroundColor = .yellow
-        }
         return cell
     }
 }
@@ -297,8 +323,42 @@ extension MapViewController: UICollectionViewDelegateFlowLayout {
 }
 
 extension MapViewController: RemovableDelegate {
+    func shouldOpenProfileVC(vc: UIViewController) {
+        guard let barVC = tabBarController as? MainTabBarController else { return }
+        barVC.setTabBarVisible(visible: true, duration: 0.2, animated: true)
+        changeCurrentLocationButtonPosition()
+        UIView.animate(withDuration: 0.1, animations: {
+            self.flatModalVC.willMove(toParent: nil)
+            self.flatModalVC.view.removeFromSuperview()
+            self.flatModalVC.removeFromParent()
+        }) { (finished) in
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
+        
+        //self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    func shouldOpenFlatVC(vc: UIViewController) {
+        guard let barVC = tabBarController as? MainTabBarController else { return }
+        barVC.setTabBarVisible(visible: true, duration: 0.2, animated: true)
+        changeCurrentLocationButtonPosition()
+        UIView.animate(withDuration: 0.1, animations: {
+            self.flatModalVC.willMove(toParent: nil)
+            self.flatModalVC.view.removeFromSuperview()
+            self.flatModalVC.removeFromParent()
+        }) { (finished) in
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
+        
+        //self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
 
     func shouldRemoveFromSuperView() {
+        guard let barVC = tabBarController as? MainTabBarController else { return }
+        barVC.setTabBarVisible(visible: true, duration: 0.2, animated: true)
+        changeCurrentLocationButtonPosition()
+        self.mapView!.startRendering()
         flatModalVC.willMove(toParent: nil)
         flatModalVC.view.removeFromSuperview()
         flatModalVC.removeFromParent()
@@ -319,34 +379,70 @@ extension MapViewController: GMSMapViewDelegate {
 
 extension MapViewController: GMUClusterRendererDelegate {
     func renderer(_ renderer: GMUClusterRenderer, willRenderMarker marker: GMSMarker) {
+        guard UserSettings.appUser != nil else { return }
+        var lottieView: AnimationView!
+        lottieView = AnimationView(name: "marker-lottie2")
+        
         if  let markerData = (marker.userData as? StopMarker) {
-            
-            if markerData.id == selectedIndex {
                 priveousSelectedIndex = selectedIndex
-                let flat = flats[selectedIndex]
-                let iconView: IconView
-                if flat.userId == UserSettings.appUser!.id {
-                    iconView = IconView(frame: CGRect(x: -64, y: -64, width: 128, height: 128), isMyFlat: true)
-                } else {
-                    iconView = IconView(frame: CGRect(x: -64, y: -64, width: 128, height: 128))
+            let flat = flats[markerData.id!]
+                if flat.userId == UserSettings.appUser?.id {
+                    lottieView = AnimationView(name: "marker-lottie-my2")
                 }
 
-                if flat.images?.count != 0, let url = URL(string: (flat.images?.first)!) {
-                    iconView.photoView.sd_imageIndicator = SDWebImageActivityIndicator.gray
-                    iconView.photoView.sd_setImage(with: url, completed: nil)
-                } else {
-                    iconView.photoView.image = UIImage(named: "compas")
-                }
-                marker.icon = UIImage(view: iconView)
-                
-            } else {
-                let flat = flats[markerData.id!]
-                marker.icon = flat.userId == UserSettings.appUser!.id ? UIImage(named: "my_marker") : UIImage(named: "default_marker")
-                
-            }
+
+            lottieView.frame = CGRect(x: 0, y: 0, width: 100, height: 100)
+            marker.iconView = lottieView
+            marker.groundAnchor = CGPoint(x: 0.5, y: 0.67)
+            lottieView.loopMode = .autoReverse
+            lottieView.contentMode = .scaleAspectFill
+            lottieView.play()
         }
-
     }
+    
+//    func renderer(_ renderer: GMUClusterRenderer, willRenderMarker marker: GMSMarker) {
+//
+//        var imageView = UIImageView(image: UIImage(named: "default_marker"))
+//        if  let markerData = (marker.userData as? StopMarker) {
+//                priveousSelectedIndex = selectedIndex
+//            let flat = flats[markerData.id!]
+//                if flat.userId == UserSettings.appUser!.id {
+//                    imageView = UIImageView(image: UIImage(named: "my_marker"))
+//                }
+//            marker.iconView = imageView
+//            marker.tracksViewChanges = false
+//        }
+//    }
+
+//    func renderer(_ renderer: GMUClusterRenderer, willRenderMarker marker: GMSMarker) {
+//        if  let markerData = (marker.userData as? StopMarker) {
+//
+//            if markerData.id == selectedIndex {
+//                priveousSelectedIndex = selectedIndex
+//                let flat = flats[selectedIndex]
+//                let iconView: IconView
+//                if flat.userId == UserSettings.appUser!.id {
+//                    iconView = IconView(frame: CGRect(x: -64, y: -64, width: 128, height: 128), isMyFlat: true)
+//                } else {
+//                    iconView = IconView(frame: CGRect(x: -64, y: -64, width: 128, height: 128))
+//                }
+//
+//                if flat.images?.count != 0, let url = URL(string: (flat.images?.first)!) {
+//                    iconView.photoView.sd_imageIndicator = SDWebImageActivityIndicator.gray
+//                    iconView.photoView.sd_setImage(with: url, completed: nil)
+//                } else {
+//                    iconView.photoView.image = UIImage(named: "compas")
+//                }
+//                marker.icon = UIImage(view: iconView)
+//
+//            } else {
+//                let flat = flats[markerData.id!]
+//                marker.icon = flat.userId == UserSettings.appUser!.id ? UIImage(named: "my_marker") : UIImage(named: "default_marker")
+//
+//            }
+//        }
+//
+//    }
         
 }
 public extension NSObject {

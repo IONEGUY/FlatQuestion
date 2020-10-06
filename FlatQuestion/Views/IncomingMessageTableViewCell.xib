@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="57" id="KGk-i7-Jjw" customClass="IncomingMessageTableViewCell" customModule="FlatQuestion" customModuleProvider="target">
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="57" id="KGk-i7-Jjw" customClass="IncomingMessageTableViewCell" customModule="D_D" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="320" height="57"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
@@ -17,17 +18,17 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Wge-j0-Dsv">
-                        <rect key="frame" x="0.0" y="8" width="38" height="38"/>
+                        <rect key="frame" x="15" y="8" width="38" height="38"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="38" id="NeH-k1-Uex"/>
                             <constraint firstAttribute="height" constant="38" id="wAX-J5-zb8"/>
                         </constraints>
                     </imageView>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1Ld-zC-ieH">
-                        <rect key="frame" x="46" y="8" width="234" height="41"/>
+                        <rect key="frame" x="61" y="8" width="65" height="41"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tP4-jg-mfx">
-                                <rect key="frame" x="8" y="8" width="210" height="25"/>
+                                <rect key="frame" x="14" y="8" width="37" height="25"/>
                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="15"/>
                                 <color key="textColor" white="0.0" alpha="0.65000000000000002" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
@@ -36,13 +37,13 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="tP4-jg-mfx" secondAttribute="bottom" constant="8" id="1Lg-Q1-tlj"/>
-                            <constraint firstItem="tP4-jg-mfx" firstAttribute="leading" secondItem="1Ld-zC-ieH" secondAttribute="leading" constant="8" id="E9A-es-Lry"/>
-                            <constraint firstAttribute="trailing" secondItem="tP4-jg-mfx" secondAttribute="trailing" constant="16" id="HS8-JN-F91"/>
+                            <constraint firstItem="tP4-jg-mfx" firstAttribute="leading" secondItem="1Ld-zC-ieH" secondAttribute="leading" constant="14" id="E9A-es-Lry"/>
+                            <constraint firstAttribute="trailing" secondItem="tP4-jg-mfx" secondAttribute="trailing" constant="14" id="HS8-JN-F91"/>
                             <constraint firstItem="tP4-jg-mfx" firstAttribute="top" secondItem="1Ld-zC-ieH" secondAttribute="top" constant="8" id="uKm-V7-qWS"/>
                         </constraints>
                     </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pBy-e3-HAz">
-                        <rect key="frame" x="288" y="18" width="32" height="9"/>
+                        <rect key="frame" x="273" y="18" width="32" height="9"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="32" id="Dmt-8U-J58"/>
                             <constraint firstAttribute="height" constant="9" id="Hkf-ob-rKT"/>
@@ -54,20 +55,19 @@
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 <constraints>
-                    <constraint firstItem="Wge-j0-Dsv" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="1os-kM-JKG"/>
+                    <constraint firstItem="Wge-j0-Dsv" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="1os-kM-JKG"/>
                     <constraint firstItem="Wge-j0-Dsv" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="3B3-9k-CW2"/>
                     <constraint firstItem="1Ld-zC-ieH" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="FyK-Tj-tcS"/>
                     <constraint firstItem="pBy-e3-HAz" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="18" id="GNG-zd-gqW"/>
                     <constraint firstAttribute="bottom" secondItem="1Ld-zC-ieH" secondAttribute="bottom" constant="8" id="Ps1-5x-fu7"/>
                     <constraint firstItem="1Ld-zC-ieH" firstAttribute="leading" secondItem="Wge-j0-Dsv" secondAttribute="trailing" constant="8" id="TwX-Dh-hUU"/>
-                    <constraint firstItem="pBy-e3-HAz" firstAttribute="leading" secondItem="1Ld-zC-ieH" secondAttribute="trailing" constant="8" id="W18-SH-RdA"/>
-                    <constraint firstItem="pBy-e3-HAz" firstAttribute="leading" secondItem="1Ld-zC-ieH" secondAttribute="trailing" constant="8" id="Zwu-c2-aDe"/>
-                    <constraint firstAttribute="trailing" secondItem="pBy-e3-HAz" secondAttribute="trailing" id="hzo-eK-1Uo"/>
+                    <constraint firstItem="pBy-e3-HAz" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="1Ld-zC-ieH" secondAttribute="trailing" constant="8" id="Zwu-c2-aDe"/>
+                    <constraint firstAttribute="trailing" secondItem="pBy-e3-HAz" secondAttribute="trailing" constant="15" id="hzo-eK-1Uo"/>
                     <constraint firstItem="1Ld-zC-ieH" firstAttribute="leading" secondItem="Wge-j0-Dsv" secondAttribute="trailing" constant="8" id="idX-73-nWg"/>
                 </constraints>
             </tableViewCellContentView>
-            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <connections>
                 <outlet property="messageText" destination="tP4-jg-mfx" id="8c7-8s-I8S"/>
                 <outlet property="messageTextContainer" destination="1Ld-zC-ieH" id="H1x-tm-GUE"/>

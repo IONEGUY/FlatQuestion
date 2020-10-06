@@ -17,6 +17,7 @@ target 'FlatQuestion' do
   pod 'Firebase/Core'
   pod 'Firebase/Firestore'
   pod 'Firebase/Crashlytics'
+  pod 'Firebase/Messaging'
   pod 'RealmSwift'
   pod 'SwiftyVK'
   pod 'IQKeyboardManagerSwift'
@@ -25,6 +26,9 @@ target 'FlatQuestion' do
   pod 'Firebase/Database'
   pod 'FirebaseFirestoreSwift'
   pod 'Firebase/Storage'
+  pod 'lottie-ios'
+  pod 'ImagePicker'
+  pod 'Kingfisher'
   target 'FlatQuestionTests' do
     inherit! :search_paths
     # Pods for testing

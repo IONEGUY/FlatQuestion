@@ -1,13 +1,7 @@
-//
-//  ProfileViewController.swift
-//  FlatQuestion
-//
-//  Created by MacBook on 6/28/20.
-//  Copyright © 2020 Андрей Олесов. All rights reserved.
-//
-
 import UIKit
 import SDWebImage
+
+
 
 class ProfileViewController: UIViewController {
     @IBOutlet weak var scrollView: UIScrollView!
@@ -26,6 +20,8 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var aboutMeLabelDescription: UILabel!
     
     @IBOutlet weak var collectionViewHeightConstraint: NSLayoutConstraint!
+    
+   
     
     var imageView: UIImageView?
     var profileView: ProfileView?
@@ -47,10 +43,30 @@ class ProfileViewController: UIViewController {
     }
     
     @IBAction func appCommentButtonPressed() {
-        
+        let vc = RatingViewController(delegate: self, user: appUser!)
+        vc.transitioningDelegate = self
+        present(vc, animated: true, completion: nil)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        self.navigationController?.navigationBar.isHidden = true
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+
+        self.navigationController?.navigationBar.isHidden = false
     }
 
     @IBAction func logOutPressed() {
+        let userId = UserSettings.appUser?.id
+        DispatchQueue.global(qos: .userInitiated).async {
+            FireBaseHelper().updateFCMToken(fcmTokenGroup: FCMTokenGroup(userId: (userId)!, fcmToken: "")) { (result) in
+                print("Fcm Token Updated")
+            }
+        }
         UserSettings.clearAppUser()
         navigateToLoginVC()
     }
@@ -65,10 +81,11 @@ class ProfileViewController: UIViewController {
         let y = -scrollView.contentOffset.y
         let height = max (y, 180)
         profileView?.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: height)
+        profileView?.settingsButton.isHidden = !isYourAccount
         if height == 180 {
-            let gradientView = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: 300))
-            gradientView.applyGradientV2(colours: [UIColor(hexString: "0x615CBF")!, UIColor(hexString: "0x1C2F4B")!])
-                self.profileView?.profileView.image = UIImage(view: gradientView)
+            let colorView = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: 300))
+            colorView.backgroundColor = UIColor(hex: 0x191D29)
+                self.profileView?.profileView.image = UIImage(view: colorView)
                 self.profileView?.showSmallView()
             
         } else {
@@ -106,7 +123,7 @@ class ProfileViewController: UIViewController {
         let profileView = ProfileView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: 300))
         profileView.profileView.contentMode = .scaleAspectFill
         //profileView.profileView.clipsToBounds = true
-        profileView.writeMessageButton.addCorner(with: 20, with: .black)
+        //profileView.writeMessageButton.addCorner(with: 20, with: .black)
         view.addSubview(profileView)
         self.profileView = profileView
         profileView.delegate = self
@@ -128,6 +145,25 @@ class ProfileViewController: UIViewController {
         flatModalVC.view.frame = CGRect(x: 0, y: view.frame.maxY, width: width, height: height)
     }
     
+    func getComments() {
+        DispatchQueue.global(qos: .userInteractive).async {
+            FireBaseHelper().getComments(userId: (self.appUser?.id ?? UserSettings.appUser?.id)!) { (comments) in
+                self.comments = comments
+                self.comments.sort { (comment1, comment2) -> Bool in
+                    return comment1.createdAt > comment2.createdAt
+                }
+                DispatchQueue.main.async {
+                    UIView.animate(withDuration: 0.1) {
+                        self.commentsTableView.reloadData()
+                        self.updateViewConstraints()
+                        self.view.layoutIfNeeded()
+                        self.tableViewHeightConstraint.constant = self.commentsTableView.contentSize.height
+                        self.view.layoutIfNeeded()
+                    }
+                }
+            }
+        }
+    }
      func setupData() {
         
         if UserSettings.appUser == nil {
@@ -135,6 +171,7 @@ class ProfileViewController: UIViewController {
         }
         guard let user = isYourAccount ? UserSettings.appUser : self.appUser else { return }
         let title = !isYourAccount ? "Написать сообщение".localized : "Редактировать профиль".localized
+        if isYourAccount { addCommentButton.isHidden = true}
         self.profileView?.writeMessageButton.setTitle(title, for: .normal)
         DispatchQueue.global(qos: .userInteractive).async {
             FireBaseHelper().getFlatsById(userId: (user.id!)) { (flats) in
@@ -154,24 +191,24 @@ class ProfileViewController: UIViewController {
                 }
             }
         }
-        
+        getComments()
         profileView!.profileView.sd_setImage(with: URL(string: user.avatarUrl!), completed: nil)
-        profileView?.fullName.text = "\(user.firstName!) \(user.lastName!)"
+        profileView?.fullName.text = user.fullName!
         
-        profileView?.genderAndYearsLabel.text = "\(user.sex! ? "Парень".localized : "Девушка".localized), \(getYearsFromDate(date: user.date?.date()))"
+        profileView?.genderAndYearsLabel.text = "\(user.sex ?? true ? "Парень".localized : "Девушка".localized), \(getYearsFromDate(date: user.date?.date()))"
         profileView?.locationLabel.text = user.location
         instagramNick.text = user.instLink
         vkNick.text = user.vkLink
         aboutMeLabelDescription.text = user.aboutMe
-        profileView?.smallFullNameLabel.text = "\(user.firstName!) \(user.lastName!)"
+        profileView?.smallFullNameLabel.text = user.fullName!
         profileView?.smallGenderAndYearsLabel.text = "\(user.sex! ? "Парень".localized : "Девушка".localized), \(getYearsFromDate(date: user.date?.date()))"
         profileView?.smallLocationLabel.text = user.location
         profileView?.smallProfileView.sd_setImage(with: URL(string: user.avatarUrl!), completed: nil)
         
-        self.comments.append(Comment(text: "Адекватный парень, вечеринка прошла круто)",
-                                     createdAt: Date(), rate: Rate.Five, creatorName: "Полина Иванченко"))
-        self.comments.append(Comment(text: "Было много людей, мне ваще не зашло",
-                                     createdAt: Date(), rate: Rate.Two, creatorName: "Игорь Ивановский"))
+//        self.comments.append(Comment(text: "Адекватный парень, вечеринка прошла круто)",
+//                                     createdAt: Date(), rate: Rate.Five, creatorName: "Полина Иванченко"))
+//        self.comments.append(Comment(text: "Было много людей, мне ваще не зашло",
+//                                     createdAt: Date(), rate: Rate.Two, creatorName: "Игорь Ивановский"))
         
         instagramButton.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.openInstagram)))
         vkButton.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.openVK)))
@@ -228,7 +265,7 @@ extension ProfileViewController: UICollectionViewDelegate {
     }
 }
 
-extension ProfileViewController: UICollectionViewDataSource {
+extension ProfileViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView,
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let flatCell = self.partiesCollectionView?
@@ -241,6 +278,16 @@ extension ProfileViewController: UICollectionViewDataSource {
         cell.applyShadow(shadowOffsetHeight: 0)
         cell.fillCellData(with: self.flats[indexPath.item])
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+
+        let totalCellWidth = 283
+
+        let leftInset = (collectionView.frame.width - CGFloat(totalCellWidth)) / 2
+        let rightInset = leftInset
+
+        return UIEdgeInsets(top: 0, left: leftInset, bottom: 0, right: rightInset)
     }
 }
 
@@ -255,8 +302,10 @@ extension ProfileViewController: UITableViewDataSource {
                                  for: indexPath) as! CommentTableViewCell
         cell.bottonSpacing.constant = commentsTableViewRowSpacing
         cell.fillData(self.comments[indexPath.item])
+        cell.selectionStyle = .none
         return cell
     }
+    
 }
 
 extension ProfileViewController: UITableViewDelegate {
@@ -271,9 +320,24 @@ extension ProfileViewController: RemovableDelegate {
         flatModalVC.view.removeFromSuperview()
         flatModalVC.removeFromParent()
     }
+    
+    func shouldOpenProfileVC(vc: UIViewController) {
+        
+    }
+    
+    func shouldOpenFlatVC(vc: UIViewController) {
+        
+    }
 }
 
 extension ProfileViewController: ProfileViewProtocol {
+    func settingsButtonPressed() {
+        let vc = SettingsViewController(nibName: "SettingsViewController", bundle: nil)
+        //vc.modalPresentationStyle = .fullScreen
+        //self.present(vc, animated: true, completion: nil)
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
     func didButtonPressed() {
         isYourAccount ? showEditProfileScreen() : writeMessage()
     }
@@ -282,12 +346,28 @@ extension ProfileViewController: ProfileViewProtocol {
         let vc = EditProfileViewController(nibName: "EditProfileViewController", bundle: nil)
         vc.isEditingProfile = true
         vc.delegate = self
-        vc.modalPresentationStyle = .fullScreen
-        self.present(vc, animated: true, completion: nil)
+        //vc.modalPresentationStyle = .fullScreen
+        //self.present(vc, animated: true, completion: nil)
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     
     private func writeMessage() {
-        // TODO: go to CHAT
+        let interlocutorId = appUser?.id
+        var chat = Chat(chatId: UUID().uuidString,
+                        memberIds: [interlocutorId, UserSettings.appUser?.id])
+        
+        DispatchQueue.global().async {
+            let existingChat = ChatsService.shared.getChat(byMemberIds: chat.memberIds)
+            if existingChat != nil {
+                chat = existingChat!
+            }
+            
+            DispatchQueue.main.async {
+                chat.interlocutorFullName = self.appUser?.fullName
+                let isNewChat = existingChat == nil
+                self.present(ChatDetailViewController(chat, isNewChat, nil), animated: true, completion: nil)
+            }
+        }
     }
 }
 
@@ -314,5 +394,33 @@ extension ProfileViewController: CreateFlatProtocol {
         
         self.collectionViewHeightConstraint.constant = 0
         self.view.layoutIfNeeded()
+    }
+}
+
+extension ProfileViewController: RatingViewControllerProtocol {
+    func addButtonPressed() {
+        getComments()
+    }
+    
+    func declineButtonPressed() {
+        print()
+    }
+}
+
+extension ProfileViewController: UIViewControllerTransitioningDelegate {
+    func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        if presented is AcceptModalViewController || presented is ModalPopUpViewController || presented is QuestionModalViewController || presented is RatingViewController{
+            return TransparentBackgroundModalPresenter(isPush: true, originFrame: UIScreen.main.bounds)
+        } else {
+        return SuccessModalPresenter(isPush: true, originFrame: UIScreen.main.bounds)
+        }
+    }
+    
+    func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        if dismissed is AcceptModalViewController || dismissed is ModalPopUpViewController || dismissed is QuestionModalViewController || dismissed is RatingViewController{
+        return TransparentBackgroundModalPresenter(isPush: false)
+        } else {
+            return SuccessModalPresenter(isPush: false)
+        }
     }
 }

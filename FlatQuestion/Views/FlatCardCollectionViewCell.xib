@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
-        <array key="SFProDisplay-Medium.ttf">
-            <string>SFProDisplay-Medium</string>
+        <array key="SFProDisplay-Bold.ttf">
+            <string>SFProDisplay-Bold</string>
         </array>
         <array key="SFProDisplay-Regular.ttf">
             <string>SFProDisplay-Regular</string>
@@ -17,7 +19,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="FlatCardCollectionViewCell" id="gTV-IL-0wX" customClass="FlatCardCollectionViewCell" customModule="FlatQuestion" customModuleProvider="target">
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="FlatCardCollectionViewCell" id="gTV-IL-0wX" customClass="FlatCardCollectionViewCell" customModule="D_D" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="283" height="115"/>
             <autoresizingMask key="autoresizingMask"/>
             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -28,39 +30,47 @@
                         <rect key="frame" x="0.0" y="0.0" width="283" height="115"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Party тут)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gwc-hA-udm">
-                                <rect key="frame" x="124" y="9" width="144" height="21"/>
-                                <fontDescription key="fontDescription" name="SFProDisplay-Medium" family="SF Pro Display" pointSize="17"/>
+                                <rect key="frame" x="124" y="9" width="109" height="20.5"/>
+                                <fontDescription key="fontDescription" name="SFProDisplay-Bold" family="SF Pro Display" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" alpha="0.80000000000000004" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Партизанский район - ул.Козлова" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bbD-Wv-zE3">
-                                <rect key="frame" x="124" y="36" width="151" height="36"/>
+                                <rect key="frame" x="124" y="35.5" width="151" height="36"/>
                                 <fontDescription key="fontDescription" name="SFProDisplay-Regular" family="SF Pro Display" pointSize="15"/>
-                                <color key="textColor" red="0.54117647058823526" green="0.54117647058823526" blue="0.54117647058823526" alpha="0.84705882352941175" colorSpace="calibratedRGB"/>
+                                <color key="textColor" red="0.5607843137254902" green="0.5607843137254902" blue="0.5607843137254902" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="13 июня 20:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KuK-C8-zPz">
-                                <rect key="frame" x="124" y="75" width="70.5" height="13.5"/>
+                                <rect key="frame" x="124" y="76" width="70.5" height="13"/>
                                 <fontDescription key="fontDescription" name="SFProDisplay-Regular" family="SF Pro Display" pointSize="11"/>
                                 <color key="textColor" red="0.54117647059999996" green="0.54117647059999996" blue="0.54117647059999996" alpha="0.84705882349999995" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Свободно мест: 5 из 10" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zle-6L-6KY">
-                                <rect key="frame" x="124" y="92.5" width="114" height="13.5"/>
+                                <rect key="frame" x="124" y="93" width="114" height="13"/>
                                 <fontDescription key="fontDescription" name="SFProDisplay-Regular" family="SF Pro Display" pointSize="11"/>
                                 <color key="textColor" red="0.54117647059999996" green="0.54117647059999996" blue="0.54117647059999996" alpha="0.84705882349999995" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="моя" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zb4-fB-quD">
+                                <rect key="frame" x="245" y="11.5" width="23" height="16"/>
+                                <fontDescription key="fontDescription" name="SFProDisplay-Regular" family="SF Pro Display" pointSize="13"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="Zle-6L-6KY" firstAttribute="top" secondItem="KuK-C8-zPz" secondAttribute="bottom" constant="4" id="5Fq-d5-MYk"/>
                             <constraint firstItem="bbD-Wv-zE3" firstAttribute="top" secondItem="gwc-hA-udm" secondAttribute="bottom" constant="6" id="IoC-cH-bDi"/>
                             <constraint firstItem="gwc-hA-udm" firstAttribute="top" secondItem="VjV-o7-F4l" secondAttribute="top" constant="9" id="Kjl-nb-8m4"/>
-                            <constraint firstAttribute="trailing" secondItem="gwc-hA-udm" secondAttribute="trailing" constant="15" id="OPN-77-zwQ"/>
+                            <constraint firstAttribute="trailing" secondItem="gwc-hA-udm" secondAttribute="trailing" constant="50" id="OPN-77-zwQ"/>
                             <constraint firstAttribute="trailing" secondItem="bbD-Wv-zE3" secondAttribute="trailing" constant="8" id="aLj-8s-zhe"/>
+                            <constraint firstAttribute="trailing" secondItem="zb4-fB-quD" secondAttribute="trailing" constant="15" id="gv9-Ww-aDr"/>
                             <constraint firstAttribute="height" constant="115" id="vpb-gH-vym"/>
                             <constraint firstAttribute="bottom" secondItem="Zle-6L-6KY" secondAttribute="bottom" constant="9" id="ysd-22-6Z8"/>
+                            <constraint firstItem="zb4-fB-quD" firstAttribute="centerY" secondItem="gwc-hA-udm" secondAttribute="centerY" id="zzp-Zy-JPT"/>
                         </constraints>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -82,6 +92,7 @@
                     </imageView>
                 </subviews>
             </view>
+            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
             <constraints>
                 <constraint firstItem="Zle-6L-6KY" firstAttribute="leading" secondItem="aP8-L8-dcs" secondAttribute="trailing" constant="17" id="7PR-JI-bTr"/>
                 <constraint firstItem="KuK-C8-zPz" firstAttribute="leading" secondItem="aP8-L8-dcs" secondAttribute="trailing" constant="17" id="9Jg-bn-Lmo"/>
@@ -94,16 +105,22 @@
                 <constraint firstItem="VjV-o7-F4l" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="hyI-xb-nBo"/>
                 <constraint firstItem="bbD-Wv-zE3" firstAttribute="leading" secondItem="aP8-L8-dcs" secondAttribute="trailing" constant="17" id="jgS-vy-OeI"/>
             </constraints>
-            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
             <size key="customSize" width="275" height="117"/>
             <connections>
                 <outlet property="addressLabel" destination="bbD-Wv-zE3" id="Zhu-zL-akB"/>
                 <outlet property="dateLabel" destination="KuK-C8-zPz" id="4eH-GC-5dp"/>
                 <outlet property="imageView" destination="aP8-L8-dcs" id="lAN-JH-Zh8"/>
+                <outlet property="myLabel" destination="zb4-fB-quD" id="AN4-Xg-pW2"/>
                 <outlet property="placesLabel" destination="Zle-6L-6KY" id="T8m-hW-Ovd"/>
                 <outlet property="titleLabel" destination="gwc-hA-udm" id="IMZ-2O-lbZ"/>
+                <outlet property="view" destination="VjV-o7-F4l" id="vbb-BJ-Mqu"/>
             </connections>
             <point key="canvasLocation" x="21.014492753623191" y="113.50446428571428"/>
         </collectionViewCell>
     </objects>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
 </document>

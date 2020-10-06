@@ -1,14 +1,7 @@
-//
-//  CreateFlatViewController.swift
-//  FlatQuestion
-//
-//  Created by Андрей Олесов on 6/17/20.
-//  Copyright © 2020 Андрей Олесов. All rights reserved.
-//
-
 import UIKit
 import GooglePlaces
 import SDWebImage
+import ImagePicker
 
 protocol CreateFlatProtocol: class {
     func flatWasCreated()
@@ -22,7 +15,7 @@ class CreateFlatViewController: UIViewController{
     @IBOutlet fileprivate weak var placeView: UIView!
     @IBOutlet fileprivate weak var dateView: UIView!
     @IBOutlet fileprivate weak var nameView: UIView!
-    @IBOutlet fileprivate weak var navigationBarView: UIView!
+    @IBOutlet fileprivate weak var navigationBarView: UIImageView!
     @IBOutlet fileprivate weak var additionalInfoHeightConstraint: NSLayoutConstraint!
     @IBOutlet fileprivate weak var textView: UITextView!
     
@@ -75,6 +68,11 @@ class CreateFlatViewController: UIViewController{
     var urlsString: [String]?
     
     override func viewWillLayoutSubviews() {
+        let colorView = UIView(frame: navigationBarView.frame)
+        colorView.backgroundColor = UIColor(hex: 0x191D29)
+        navigationBarView.image = UIImage(view: colorView)
+        navigationBarView.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
+        navigationBarView.clipsToBounds = true
         super.viewWillLayoutSubviews()
     }
     override func viewDidLoad() {
@@ -95,8 +93,20 @@ class CreateFlatViewController: UIViewController{
         updateCollectionView()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+          super.viewWillAppear(animated)
+
+          self.navigationController?.navigationBar.isHidden = true
+      }
+
+      override func viewWillDisappear(_ animated: Bool) {
+          super.viewWillDisappear(animated)
+
+          self.navigationController?.navigationBar.isHidden = false
+      }
+    
     func localize() {
-        addFlatNavLabel.text = "Добавить вечеринку".localized
+        addFlatNavLabel.text = isEditingFlat ? "Редактировать вечеринку".localized :"Добавить вечеринку".localized
         nameLabel.text = "Название".localized
         dateAndTimeLabel.text = "Дата и время".localized
         lcoationLabel.text = "Местоположение".localized
@@ -121,6 +131,34 @@ class CreateFlatViewController: UIViewController{
             vc.transitioningDelegate = self
             self.present(vc, animated: true, completion: nil)
             case .failure(let error): self.showErrorAlert(message: error.localizedDescription)
+            }
+        }
+    }
+    
+    @IBAction func createFlat(_ sender: Any) {
+        guard allFiledsAreValid() else { return }
+        if !isEditingFlat {
+        self.showLoadingIndicator()
+        FireBaseHelper().createFlatWithImage(name: nameTextField.text!, address: self.addressTextField.text!, additionalInfo: textView.text, allPlacesCount: Int(allPlacesTextField.text!)!, emptyPlacesCount: Int(emptyPlacesTextfield.text!)!, date: currentDate!, id: Int(Date().timeIntervalSince1970), x: place?.coordinate.latitude ?? latitude ?? 0, y: place?.coordinate.longitude ?? longtitude ?? 0, images: arrayWithImages) { (result) in
+            self.hideLoadingableIndicator()
+            switch result {
+            case .success():
+                let vc = SuccessViewController(delegate: self)
+                vc.transitioningDelegate = self
+                self.present(vc, animated: true, completion: nil)
+            case .failure( _): self.showErrorAlert(message: "Ошибка создания мероприятия".localized)
+            }
+        }
+        } else {
+             self.showLoadingIndicator()
+            FireBaseHelper().updateFlatWithImage(name: nameTextField.text!, address: self.addressTextField.text!, additionalInfo: textView.text, allPlacesCount: Int(allPlacesTextField.text!)!, emptyPlacesCount: Int(emptyPlacesTextfield.text!)!, date: currentDate!, id: self.existedFlatModel!.id, x: place?.coordinate.latitude ?? latitude ?? 0, y: place?.coordinate.longitude ?? longtitude ?? 0, images: arrayWithImages, flatId: self.existedFlatModel!.id, urls: urlsString!) { (result) in
+                self.hideLoadingableIndicator()
+                switch result {
+                case .success(let user) : let vc = SuccessViewController(delegate: self)
+                vc.transitioningDelegate = self
+                self.present(vc, animated: true, completion: nil)
+                case .failure(let error): self.showErrorAlert(message: error.localizedDescription)
+                }
             }
         }
     }
@@ -326,17 +364,26 @@ private extension CreateFlatViewController {
         dateTextField.delegate = self
         dateTextField.inputView = datePicker
         datePicker.datePickerMode = .dateAndTime
+        if #available(iOS 14.0, *) {
+            datePicker.preferredDatePickerStyle = .inline
+        } else {
+            // Fallback on earlier versions
+        }
+
         let localeID = Locale.preferredLanguages.first
         datePicker.locale = Locale(identifier: localeID!)
         datePicker.addTarget(self, action: #selector(datePickerValueChanged), for: .valueChanged)
+        
         let toolbar = UIToolbar()
-        toolbar.barTintColor = UIColor(hexString: "0x394175")!
+        toolbar.barTintColor = UIColor(hexString: "0x03CCE0")!
         toolbar.sizeToFit()
         let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(datePickerClose))
+        let spacer = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         doneButton.tintColor = .white
-        toolbar.setItems([doneButton], animated: true)
+        toolbar.setItems([spacer, doneButton], animated: true)
         dateTextField.inputAccessoryView = toolbar
-        
+        nameTextField.inputAccessoryView = toolbar
+        textView.inputAccessoryView = toolbar
         emptyPlacesTextfield.inputView = pickerViewEmptyPlaces
         emptyPlacesTextfield.inputAccessoryView = toolbar
         emptyPlacesTextfield.delegate = self
@@ -374,6 +421,7 @@ private extension CreateFlatViewController {
     @objc func datePickerValueChanged() {
         currentDate = datePicker.date
         dateTextField.text = DateFormatterHelper().getStringFromDate_dd_MM_yyyy_HH_mm(date: currentDate!)
+        dateFiledIsValid()
     }
     
     @objc func datePickerClose() {
@@ -381,7 +429,25 @@ private extension CreateFlatViewController {
     }
     
     func setupData() {
+        nameTextField.delegate = self
+        dateTextField.delegate = self
+        addressTextField.delegate = self
+        allPlacesTextField.delegate = self
+        emptyPlacesTextfield.delegate = self
+        
         textView.delegate = self
+        let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(handleGesture))
+        swipeLeft.direction = .right
+        self.view.addGestureRecognizer(swipeLeft)
+    }
+    
+    @objc func handleGesture(gesture: UISwipeGestureRecognizer) -> Void {
+ //       close()
+//       if gesture.direction == .right {
+//        if self.navigationController == nil {
+//            self.dismiss(animated: true, completion: nil)
+//        }
+//       }
     }
     
     func dateFiledIsValid() -> Bool {
@@ -485,7 +551,8 @@ private extension CreateFlatViewController {
 
     
     func setupView() {
-        navigationBarView.applyGradientV2(colours: [UIColor(hex: "0x615CBF"), UIColor(hex: "0x1C2F4B")])
+//        navigationBarView.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
+//        navigationBarView.applyGradientV2(colours: [UIColor(hex: "0x615CBF"), UIColor(hex: "0x1C2F4B")], removeTopCorners: true)
         nameView.addCorner(with: 10, with: .black)
         dateView.addCorner(with: 10, with: .black)
         placeView.addCorner(with: 10, with: .black)
@@ -493,51 +560,35 @@ private extension CreateFlatViewController {
         allCountOfPeopleView.addCorner(with: 10, with: .black)
         additionalInfoView.addCorner(with: 10, with: .black)
         cancelButton.addCorner(with: 20, with: .black)
+        removeButton.addCorner(with: 20, with: .black)
+        self.view.layoutSubviews()
     }
     
     @IBAction func downloadImage(_ sender: Any) {
         
-        let imageController = UIImagePickerController()
-        imageController.delegate = self
-        imageController.sourceType = .photoLibrary
-        self.present(imageController, animated: true, completion: nil)
+//        let imageController = UIImagePickerController()
+//        imageController.delegate = self
+//        imageController.sourceType = .photoLibrary
+//        self.present(imageController, animated: true, completion: nil)
+        let config = Configuration()
+        config.doneButtonTitle = "Готово".localized
+        config.noImagesTitle = "Извините, изображения отсутствуют!".localized
+        config.recordLocation = false
+        config.allowVideoSelection = true
+
+        let imagePicker = ImagePickerController(configuration: config)
+        imagePicker.imageLimit = 3
+        imagePicker.delegate = self
+
+        present(imagePicker, animated: true, completion: nil)
     }
     
-    
-    @IBAction func createFlat(_ sender: Any) {
-        guard allFiledsAreValid() else { return }
-        if !isEditingFlat {
-        self.showLoadingIndicator()
-        FireBaseHelper().createFlatWithImage(name: nameTextField.text!, address: self.addressTextField.text!, additionalInfo: textView.text, allPlacesCount: Int(allPlacesTextField.text!)!, emptyPlacesCount: Int(emptyPlacesTextfield.text!)!, date: currentDate!, id: Int(Date().timeIntervalSince1970), x: place?.coordinate.latitude ?? latitude ?? 0, y: place?.coordinate.longitude ?? longtitude ?? 0, images: arrayWithImages) { (result) in
-            self.hideLoadingableIndicator()
-            switch result {
-            case .success():
-                let vc = SuccessViewController(delegate: self)
-                vc.transitioningDelegate = self
-                self.present(vc, animated: true, completion: nil)
-            case .failure( _): self.showErrorAlert(message: "Ошибка создания мероприятия".localized)
-            }
-        }
-        } else {
-             self.showLoadingIndicator()
-            FireBaseHelper().updateFlatWithImage(name: nameTextField.text!, address: self.addressTextField.text!, additionalInfo: textView.text, allPlacesCount: Int(allPlacesTextField.text!)!, emptyPlacesCount: Int(emptyPlacesTextfield.text!)!, date: currentDate!, id: self.existedFlatModel!.id, x: place?.coordinate.latitude ?? latitude ?? 0, y: place?.coordinate.longitude ?? longtitude ?? 0, images: arrayWithImages, flatId: self.existedFlatModel!.id, urls: urlsString!) { (result) in
-                self.hideLoadingableIndicator()
-                switch result {
-                case .success(let user) : let vc = SuccessViewController(delegate: self)
-                vc.transitioningDelegate = self
-                self.present(vc, animated: true, completion: nil)
-                case .failure(let error): self.showErrorAlert(message: error.localizedDescription)
-                }
-            }
-        }
-    }
     
     @IBAction func buttonBackPressed(_ sender: Any) {
         close()
     }
     @IBAction func buttonCancelPressed(_ sender: Any) {
-        updateCollectionView()
-        //close()
+        close()
     }
     
     @IBAction func emptyPlacesButtonPressen(_ sender: Any) {
@@ -596,6 +647,13 @@ extension CreateFlatViewController: PhotoCellProtocol {
 }
 
 extension CreateFlatViewController: UITextViewDelegate {
+    func textViewDidEndEditing(_ textView: UITextView) {
+        additionalInfoIsValid()
+    }
+    func textViewDidBeginEditing(_ textView: UITextView) {
+            additionalInfoView.layer.borderWidth = 1.5
+            additionalInfoView.layer.borderColor = UIColor(hex: 0x03CCE0).cgColor
+    }
     func textViewDidChange(_ textView: UITextView) {
         UIView.animate(withDuration: 0.3) {
             self.additionalInfoView.removeCorner()
@@ -729,4 +787,62 @@ extension CreateFlatViewController: UITextFieldDelegate {
         }
         return true
     }
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        switch textField {
+        case nameTextField:
+            nameView.layer.borderWidth = 1.5
+            nameView.layer.borderColor = UIColor(hex: 0x03CCE0).cgColor
+        case dateTextField:
+            dateView.layer.borderWidth = 1.5
+            dateView.layer.borderColor = UIColor(hex: 0x03CCE0).cgColor
+        case addressTextField:
+            placeView.layer.borderWidth = 1.5
+            placeView.layer.borderColor = UIColor(hex: 0x03CCE0).cgColor
+        case emptyPlacesTextfield:
+            emptyPlacesView.layer.borderWidth = 1.5
+            emptyPlacesView.layer.borderColor = UIColor(hex: 0x03CCE0).cgColor
+        case allPlacesTextField:
+            allCountOfPeopleView.layer.borderWidth = 1.5
+            allCountOfPeopleView.layer.borderColor = UIColor(hex: 0x03CCE0).cgColor
+        default:
+            break
+        }
+    }
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        switch textField {
+        case nameTextField:
+            nameFieldIsValid()
+        case dateTextField:
+            dateFiledIsValid()
+        case addressTextField:
+            addressFieldIsValid()
+        case emptyPlacesTextfield:
+            emptyPlacesIsValid()
+        case allPlacesTextField:
+            allPlacesIsValid()
+        default:
+            break
+        }
+    }
 }
+
+extension CreateFlatViewController: ImagePickerDelegate {
+    func wrapperDidPress(_ imagePicker: ImagePickerController, images: [UIImage]) {
+        print("Wrapper tapped")
+    }
+    
+    func doneButtonDidPress(_ imagePicker: ImagePickerController, images: [UIImage]) {
+        arrayWithImages.removeAll()
+        arrayWithImages.append(contentsOf: images)
+        updateCollectionView()
+        
+        imagePicker.dismiss(animated: true, completion: nil)
+    }
+    
+    func cancelButtonDidPress(_ imagePicker: ImagePickerController) {
+        imagePicker.dismiss(animated: true, completion: nil)
+    }
+      
+}
+
+

@@ -1,13 +1,4 @@
-//
-//  UIView+CornerShadow.swift
-//  FlatQuestion
-//
-//  Created by Андрей Олесов on 6/12/20.
-//  Copyright © 2020 Андрей Олесов. All rights reserved.
-//
-
 import Foundation
-
 import UIKit
 
 extension UIView {
@@ -44,6 +35,14 @@ extension UIView {
                          shadowOffset: CGSize(width: 0, height: 10),
                          shadowOpacity: 0.2,
                          shadowRadius: 10.0)
+    }
+    
+    func setupShadow(_ color: UIColor = UIColor.gray, cornerRadius: CGFloat, shadowOpacity: Float, shadowRadius: Float, shadowOffsetHeight: Float) {
+        self.layer.cornerRadius = cornerRadius
+        self.addShadow(shadowColor: color.cgColor,
+                       shadowOffset: CGSize(width: 0, height: Int(shadowOffsetHeight)),
+                         shadowOpacity: shadowOpacity,
+                         shadowRadius: CGFloat(shadowRadius))
     }
 
 }

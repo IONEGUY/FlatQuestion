@@ -1,11 +1,3 @@
-//
-//  Constants.swift
-//  FlatQuestion
-//
-//  Created by MacBook on 6/11/20.
-//  Copyright © 2020 Андрей Олесов. All rights reserved.
-//
-
 import UIKit
 
 class Constants {

@@ -1,14 +1,8 @@
-//
-//  EditProfileViewController.swift
-//  FlatQuestion
-//
-//  Created by Андрей Олесов on 6/29/20.
-//  Copyright © 2020 Андрей Олесов. All rights reserved.
-//
-
 import UIKit
 import GooglePlaces
 import SDWebImage
+import ImagePicker
+
 protocol EditProfileViewControllerProtocol: AnyObject {
     func successEditingProfile()
 }
@@ -21,7 +15,7 @@ class EditProfileViewController: UIViewController {
     @IBOutlet fileprivate weak var underPhotoView: UIView!
     @IBOutlet fileprivate weak var label: UILabel!
     @IBOutlet fileprivate weak var cancelButton: UIButton!
-    @IBOutlet fileprivate weak var navigationView: UIView!
+    @IBOutlet fileprivate weak var navigationView: UIImageView!
     @IBOutlet fileprivate weak var instagramView: UIView!
     @IBOutlet fileprivate weak var VKView: UIView!
     @IBOutlet fileprivate weak var aboutView: UIView!
@@ -86,9 +80,26 @@ class EditProfileViewController: UIViewController {
 
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        view.layoutIfNeeded()
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        self.navigationController?.navigationBar.isHidden = true
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+
+        self.navigationController?.navigationBar.isHidden = false
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        let colorView = UIView(frame: navigationView.frame)
+        colorView.backgroundColor = UIColor(hex: 0x191D29)
+        navigationView.image = UIImage(view: colorView)
+        navigationView.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
+        navigationView.clipsToBounds = true
+                
     }
     
     func localize() {
@@ -102,6 +113,34 @@ class EditProfileViewController: UIViewController {
         aboutMeLabel.text = "Обо мне".localized
         let titleForButtonCreate = isEditingProfile ? "Редактировать".localized : "Создать".localized
         createButton.setTitle(titleForButtonCreate, for: .normal)
+    }
+    
+    @IBAction func createProfile(_ sender: Any) {
+        guard allFiledsAreValid() else { return }
+        let user = UserSettings.appUser
+        user?.aboutMe = textView.text
+        user?.date = currentDate!.timeIntervalSince1970
+        user?.flats = []
+        user?.instLink = instLinkLaabel.text
+        user?.vkLink = vkLinkLabel.text
+        user?.location = addressTextField.text
+        user?.fullName = nameTextField.text
+        
+        user!.sex = sex
+        user?.x = place?.coordinate.latitude ?? latitude ?? 0
+        user?.y = place?.coordinate.longitude ?? longtitude ?? 0
+        showLoadingIndicator()
+        FireBaseHelper().updateUserInfoWithImage(user: user!, profileImage: photoImage!) { (result) in
+            self.hideLoadingableIndicator()
+           switch result {
+                case .success():
+                    UserSettings.appUser = user
+                    let vc = SuccessViewController(delegate: self)
+                    vc.transitioningDelegate = self
+                    self.present(vc, animated: true, completion: nil)
+           case .failure(let _): self.showErrorAlert(message: "Ошибка создания профиля".localized)
+                }
+        }
     }
 }
 
@@ -128,7 +167,7 @@ private extension EditProfileViewController {
         photoImageView.sd_setImage(with: URL(string: user.avatarUrl!)) { (image, error, cache, url) in
             self.photoImage = image
         }
-        nameTextField.text = "\(user.firstName!) \(user.lastName!)"
+        nameTextField.text = user.fullName!
         addressTextField.text = user.location
         textView.text = user.aboutMe
         instLinkLaabel.text = user.instLink
@@ -148,11 +187,11 @@ private extension EditProfileViewController {
         createButton.layer.cornerRadius = 20
         createButton.clipsToBounds = true
 //        }
-        navigationView.applyGradientV2(colours: [UIColor(hex: "0x615CBF"), UIColor(hex: "0x1C2F4B")])
+
         nameView.addCorner(with: 10, with: .black)
         dateView.addCorner(with: 10, with: .black)
         locationView.addCorner(with: 10, with: .black)
-        underPhotoView.addCorner(with: 10, with: .black)
+        underPhotoView.addCorner(with: 75.5, with: .black)
         VKView.addCorner(with: 10, with: .black)
         instagramView.addCorner(with: 10, with: .black)
         sexView.addCorner(with: 10, with: .black)
@@ -164,30 +203,49 @@ private extension EditProfileViewController {
     func setupPickers() {
         dateTextField.inputView = datePicker
         dateTextField.delegate = self
+        if #available(iOS 14.0, *) {
+            datePicker.preferredDatePickerStyle = .inline
+        } else {
+            // Fallback on earlier versions
+        }
         datePicker.datePickerMode = .dateAndTime
         let localeID = Locale.preferredLanguages.first
         datePicker.locale = Locale(identifier: localeID!)
         datePicker.addTarget(self, action: #selector(datePickerValueChanged), for: .valueChanged)
         datePicker.datePickerMode = .date
         let toolbar = UIToolbar()
-        toolbar.barTintColor = UIColor(hexString: "0x394175")!
+        toolbar.barTintColor = UIColor(hexString: "0x03CCE0")!
         toolbar.sizeToFit()
         let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(datePickerClose))
+        let spacer = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         doneButton.tintColor = .white
-        toolbar.setItems([doneButton], animated: true)
+        toolbar.setItems([spacer,doneButton], animated: true)
         dateTextField.inputAccessoryView = toolbar
-        
+        nameTextField.inputAccessoryView = toolbar
+        textView.inputAccessoryView = toolbar
+        addressTextField.inputAccessoryView = toolbar
         sexTextField.inputView = pickerSex
         sexTextField.delegate = self
         sexTextField.inputAccessoryView = toolbar
         pickerSex.delegate = self
         pickerSex.dataSource = self
+        instLinkLaabel.inputAccessoryView = toolbar
+        vkLinkLabel.inputAccessoryView = toolbar
         
     }
     
     func setupData() {
         textView.delegate = self
+        nameTextField.delegate = self
+        sexTextField.delegate = self
+        dateTextField.delegate = self
+        addressTextField.delegate = self
+        vkLinkLabel.delegate = self
+        instLinkLaabel.delegate = self
+        
     }
+    
+    
 }
 
 private extension EditProfileViewController {
@@ -310,43 +368,36 @@ private extension EditProfileViewController {
         return vkIsValid && instIsValid && infoAboutMeIsValid && sexIsValid && imagesIsValid && addressIsValid && dateIsValid && nameIsValid
     }
     
-    @IBAction func createProfile(_ sender: Any) {
-        guard allFiledsAreValid() else { return }
-        let user = UserSettings.appUser
-        user?.aboutMe = textView.text
-        user?.date = currentDate!.timeIntervalSince1970
-        user?.flats = []
-        user?.instLink = instLinkLaabel.text
-        user?.vkLink = vkLinkLabel.text
-        user?.location = addressTextField.text
-        
-        user!.sex = sex
-        user?.x = place?.coordinate.latitude ?? latitude ?? 0
-        user?.y = place?.coordinate.longitude ?? longtitude ?? 0
-        showLoadingIndicator()
-        FireBaseHelper().updateUserInfoWithImage(user: user!, profileImage: photoImage!) { (result) in
-            self.hideLoadingableIndicator()
-           switch result {
-                case .success():
-                    UserSettings.appUser = user
-                    let vc = SuccessViewController(delegate: self)
-                    vc.transitioningDelegate = self
-                    self.present(vc, animated: true, completion: nil)
-           case .failure(let _): self.showErrorAlert(message: "Ошибка создания профиля".localized)
-                }
+    @IBAction func backButtonPressed(_ sender: Any) {
+        if let _ = self.navigationController {
+            self.navigationController?.popViewController(animated: true)
+        } else {
+        self.dismiss(animated: true, completion: nil)
         }
     }
-    @IBAction func backButtonPressed(_ sender: Any) {
-        self.dismiss(animated: true, completion: nil)
-    }
     @IBAction func declineButtonPressed(_ sender: Any) {
+        if let _ = self.navigationController {
+            self.navigationController?.popViewController(animated: true)
+        } else {
         self.dismiss(animated: true, completion: nil)
+        }
     }
     @IBAction func choosePhoto(_ sender: Any) {
-        let imageController = UIImagePickerController()
-        imageController.delegate = self
-        imageController.sourceType = .photoLibrary
-        self.present(imageController, animated: true, completion: nil)
+//        let imageController = UIImagePickerController()
+//        imageController.delegate = self
+//        imageController.sourceType = .photoLibrary
+//        self.present(imageController, animated: true, completion: nil)
+        let config = Configuration()
+        config.doneButtonTitle = "Готово".localized
+        config.noImagesTitle = "Извините, изображения отсутствуют!".localized
+        config.recordLocation = false
+        config.allowVideoSelection = true
+
+        let imagePicker = ImagePickerController(configuration: config)
+        imagePicker.imageLimit = 1
+        imagePicker.delegate = self
+
+        present(imagePicker, animated: true, completion: nil)
     }
     @objc func datePickerValueChanged() {
         currentDate = datePicker.date
@@ -371,7 +422,7 @@ private extension EditProfileViewController {
         autocompleteController.placeFields = fields
         
         let filter = GMSAutocompleteFilter()
-        filter.type = .address
+        filter.type = .city
         autocompleteController.autocompleteFilter = filter
         
         present(autocompleteController, animated: true, completion: nil)
@@ -455,6 +506,13 @@ extension EditProfileViewController: UITextViewDelegate {
             self.aboutmeView.addCorner(with: 10, with: .black)
         }
     }
+    func textViewDidEndEditing(_ textView: UITextView) {
+        aboutMeIsValid()
+    }
+    func textViewDidBeginEditing(_ textView: UITextView) {
+            aboutView.layer.borderWidth = 1.5
+        aboutView.layer.borderColor = UIColor(hex: 0x03CCE0).cgColor
+    }
 }
 
 extension EditProfileViewController: UINavigationControllerDelegate, UIImagePickerControllerDelegate {
@@ -503,9 +561,72 @@ extension EditProfileViewController: UITextFieldDelegate {
             dateTextField.text = DateFormatterHelper().getStringFromDate_MMM_yyyy(date: currentDate!)
         case sexTextField:
             if (sexTextField.text!.isEmpty) {sexTextField.text = "Мужской".localized}
+            self.sex = true
         default:
             print("Default")
         }
         return true
     }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        switch textField {
+        case nameTextField:
+            nameView.layer.borderWidth = 1.5
+            nameView.layer.borderColor = UIColor(hex: 0x03CCE0).cgColor
+        case dateTextField:
+            dateView.layer.borderWidth = 1.5
+            dateView.layer.borderColor = UIColor(hex: 0x03CCE0).cgColor
+        case addressTextField:
+            locationView.layer.borderWidth = 1.5
+            locationView.layer.borderColor = UIColor(hex: 0x03CCE0).cgColor
+        case sexTextField:
+            sexView.layer.borderWidth = 1.5
+            sexView.layer.borderColor = UIColor(hex: 0x03CCE0).cgColor
+        case vkLinkLabel:
+            VKView.layer.borderWidth = 1.5
+            VKView.layer.borderColor = UIColor(hex: 0x03CCE0).cgColor
+        case instLinkLaabel:
+            instagramView.layer.borderWidth = 1.5
+            instagramView.layer.borderColor = UIColor(hex: 0x03CCE0).cgColor
+        default:
+            break
+        }
+    }
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        switch textField {
+        case nameTextField:
+            nameFieldIsValid()
+        case dateTextField:
+            dateFiledIsValid()
+        case addressTextField:
+            addressFieldIsValid()
+        case sexTextField:
+            sexTextFieldIsValid()
+        case vkLinkLabel:
+            vkTextFieldIsValid()
+        case instLinkLaabel:
+            instTextFieldIsValid()
+        default:
+            break
+        }
+    }
+}
+
+extension EditProfileViewController: ImagePickerDelegate {
+    func wrapperDidPress(_ imagePicker: ImagePickerController, images: [UIImage]) {
+        print("Wrapper tapped")
+    }
+    
+    func doneButtonDidPress(_ imagePicker: ImagePickerController, images: [UIImage]) {
+        photoImage = images[0]
+        photoImageView.image = images[0]
+        plusImageView.tintColor = .white
+        
+        imagePicker.dismiss(animated: true, completion: nil)
+    }
+    
+    func cancelButtonDidPress(_ imagePicker: ImagePickerController) {
+        imagePicker.dismiss(animated: true, completion: nil)
+    }
+      
 }

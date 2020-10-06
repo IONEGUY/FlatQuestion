@@ -1,11 +1,3 @@
-//
-//  FlatDescriptionTableViewCell.swift
-//  FlatQuestion
-//
-//  Created by Андрей Олесов on 5/21/20.
-//  Copyright © 2020 Андрей Олесов. All rights reserved.
-//
-
 import UIKit
 
 class FlatDescriptionTableViewCell: UITableViewCell {

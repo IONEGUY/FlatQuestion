@@ -1,11 +1,3 @@
-//
-//  VkUser.swift
-//  FlatQuestion
-//
-//  Created by MacBook on 5/26/20.
-//  Copyright © 2020 Андрей Олесов. All rights reserved.
-//
-
 import UIKit
 
 struct VkUser: Decodable {

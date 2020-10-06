@@ -1,11 +1,3 @@
-//
-//  MainMenuTabBar.swift
-//  FlatQuestion
-//
-//  Created by Андрей Олесов on 6/15/20.
-//  Copyright © 2020 Андрей Олесов. All rights reserved.
-//
-
 import UIKit
 
 class MainMenuTabBar: UITabBar {

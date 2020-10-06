@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -15,12 +17,13 @@
         </array>
     </customFonts>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AcceptModalViewController" customModule="FlatQuestion" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AcceptModalViewController" customModule="D_D" customModuleProvider="target">
             <connections>
                 <outlet property="connectToFlatLabel" destination="xsZ-cF-MwQ" id="gjT-eB-ijf"/>
                 <outlet property="contentView" destination="LCe-Ms-lwk" id="Rfn-q1-D52"/>
                 <outlet property="declineButton" destination="FiK-cu-EBt" id="0qf-Uj-T3I"/>
                 <outlet property="descriptionLabel" destination="jnx-oS-kb7" id="NVx-ty-jQm"/>
+                <outlet property="mainView" destination="i5M-Pr-FkT" id="RNH-ZE-IqI"/>
                 <outlet property="sendButton" destination="pmm-AD-k0W" id="hri-9x-YiO"/>
                 <outlet property="textView" destination="HgB-w3-W5L" id="GH1-2H-qZ8"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -34,7 +37,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LCe-Ms-lwk">
-                    <rect key="frame" x="16" y="301" width="382" height="304"/>
+                    <rect key="frame" x="16" y="276" width="382" height="354"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" Присоединиться к вечеринке" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xsZ-cF-MwQ">
                             <rect key="frame" x="22" y="32" width="337" height="20.5"/>
@@ -42,7 +45,7 @@
                                 <constraint firstAttribute="height" constant="20.5" id="XXa-He-A6W"/>
                             </constraints>
                             <fontDescription key="fontDescription" name="SFProDisplay-Bold" family="SF Pro Display" pointSize="17"/>
-                            <nil key="textColor"/>
+                            <color key="textColor" red="0.011764705882352941" green="0.80000000000000004" blue="0.8784313725490196" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Организатор получит уведомление о вашем желании присоединиться" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jnx-oS-kb7">
@@ -55,7 +58,7 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Yuv-yp-hwf">
-                            <rect key="frame" x="16" y="120.5" width="350" height="86"/>
+                            <rect key="frame" x="16" y="120.5" width="350" height="136"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Написать сообщение" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bez-C7-Nng">
                                     <rect key="frame" x="16" y="12" width="318" height="16"/>
@@ -67,17 +70,17 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="HgB-w3-W5L">
-                                    <rect key="frame" x="16" y="36" width="318" height="42"/>
-                                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                    <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                                    <rect key="frame" x="16" y="36" width="318" height="92"/>
+                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                    <color key="textColor" systemColor="labelColor"/>
                                     <fontDescription key="fontDescription" name="SFProDisplay-Regular" family="SF Pro Display" pointSize="15"/>
                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                 </textView>
                             </subviews>
-                            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             <constraints>
                                 <constraint firstAttribute="trailing" secondItem="bez-C7-Nng" secondAttribute="trailing" constant="16" id="CRU-Id-j6g"/>
-                                <constraint firstAttribute="height" constant="86" id="EnL-GE-NT8"/>
+                                <constraint firstAttribute="height" constant="136" id="EnL-GE-NT8"/>
                                 <constraint firstItem="HgB-w3-W5L" firstAttribute="top" secondItem="bez-C7-Nng" secondAttribute="bottom" constant="8" id="Gh6-B5-lvN"/>
                                 <constraint firstItem="bez-C7-Nng" firstAttribute="top" secondItem="Yuv-yp-hwf" secondAttribute="top" constant="12" id="Ip7-gQ-iFX"/>
                                 <constraint firstAttribute="trailing" secondItem="HgB-w3-W5L" secondAttribute="trailing" constant="16" id="Rdw-Zc-U2s"/>
@@ -87,22 +90,22 @@
                             </constraints>
                         </view>
                         <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="17" translatesAutoresizingMaskIntoConstraints="NO" id="RF3-Td-UGZ">
-                            <rect key="frame" x="16" y="222.5" width="350" height="42"/>
+                            <rect key="frame" x="16" y="272.5" width="350" height="42"/>
                             <subviews>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FiK-cu-EBt">
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FiK-cu-EBt">
                                     <rect key="frame" x="0.0" y="0.0" width="166.5" height="42"/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="42" id="EDu-2l-c7O"/>
                                     </constraints>
                                     <state key="normal" title="Отмена">
-                                        <color key="titleColor" red="0.35686274509999999" green="0.34509803919999998" blue="0.70588235290000001" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="titleColor" red="0.01176470588" green="0.80000000000000004" blue="0.87843137250000003" alpha="1" colorSpace="calibratedRGB"/>
                                     </state>
                                     <connections>
                                         <action selector="declineButtonPressed:" destination="-1" eventType="touchUpInside" id="vo2-GS-cdm"/>
                                     </connections>
                                 </button>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pmm-AD-k0W" customClass="DarkGradientButton" customModule="FlatQuestion" customModuleProvider="target">
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pmm-AD-k0W" customClass="BlueButton" customModule="D_D" customModuleProvider="target">
                                     <rect key="frame" x="183.5" y="0.0" width="166.5" height="42"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="42" id="rvi-A3-QzR"/>
@@ -110,6 +113,11 @@
                                     <state key="normal" title="Создать">
                                         <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </state>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                            <integer key="value" value="20"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
                                     <connections>
                                         <action selector="sendRequest:" destination="-1" eventType="touchUpInside" id="NM9-WW-1AM"/>
                                     </connections>
@@ -117,7 +125,7 @@
                             </subviews>
                         </stackView>
                     </subviews>
-                    <color key="backgroundColor" red="0.97254901960784312" green="0.97254901960784312" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="backgroundColor" red="0.94901960784313721" green="0.9882352941176471" blue="0.99215686274509807" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstAttribute="trailing" secondItem="Yuv-yp-hwf" secondAttribute="trailing" constant="16" id="17q-cT-LtN"/>
                         <constraint firstAttribute="trailing" secondItem="jnx-oS-kb7" secondAttribute="trailing" constant="45" id="5tT-5I-Qxm"/>
@@ -125,13 +133,13 @@
                         <constraint firstItem="Yuv-yp-hwf" firstAttribute="top" secondItem="jnx-oS-kb7" secondAttribute="bottom" constant="16" id="DXB-Sm-Yb8"/>
                         <constraint firstAttribute="trailing" secondItem="RF3-Td-UGZ" secondAttribute="trailing" constant="16" id="ISs-Oz-jeg"/>
                         <constraint firstItem="jnx-oS-kb7" firstAttribute="leading" secondItem="LCe-Ms-lwk" secondAttribute="leading" constant="22" id="Ofq-XC-9rb"/>
-                        <constraint firstAttribute="height" constant="304" id="UZc-gy-gO4"/>
+                        <constraint firstAttribute="height" constant="354" id="UZc-gy-gO4"/>
                         <constraint firstItem="Yuv-yp-hwf" firstAttribute="leading" secondItem="LCe-Ms-lwk" secondAttribute="leading" constant="16" id="Vew-rW-oac"/>
                         <constraint firstItem="RF3-Td-UGZ" firstAttribute="leading" secondItem="LCe-Ms-lwk" secondAttribute="leading" constant="16" id="WIg-sy-Yfa"/>
                         <constraint firstAttribute="trailing" secondItem="xsZ-cF-MwQ" secondAttribute="trailing" constant="23" id="asG-KW-HVV"/>
                         <constraint firstItem="jnx-oS-kb7" firstAttribute="top" secondItem="xsZ-cF-MwQ" secondAttribute="bottom" constant="16" id="fUo-uk-l3v"/>
+                        <constraint firstAttribute="bottom" secondItem="RF3-Td-UGZ" secondAttribute="bottom" constant="39.5" id="ftl-hg-vDB"/>
                         <constraint firstItem="xsZ-cF-MwQ" firstAttribute="leading" secondItem="LCe-Ms-lwk" secondAttribute="leading" constant="22" id="mBu-lQ-Y1X"/>
-                        <constraint firstAttribute="bottom" secondItem="RF3-Td-UGZ" secondAttribute="bottom" constant="39.5" id="qSy-Ye-NPs"/>
                         <constraint firstItem="RF3-Td-UGZ" firstAttribute="top" secondItem="Yuv-yp-hwf" secondAttribute="bottom" constant="16" id="qjM-km-kxo"/>
                     </constraints>
                     <userDefinedRuntimeAttributes>
@@ -141,6 +149,7 @@
                     </userDefinedRuntimeAttributes>
                 </view>
             </subviews>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="LCe-Ms-lwk" secondAttribute="trailing" constant="16" id="Apv-hv-uBp"/>
@@ -148,8 +157,15 @@
                 <constraint firstItem="LCe-Ms-lwk" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="ohO-gE-W8i"/>
                 <constraint firstItem="LCe-Ms-lwk" firstAttribute="centerY" secondItem="fnl-2z-Ty3" secondAttribute="centerY" id="zr4-7M-tLa"/>
             </constraints>
-            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <point key="canvasLocation" x="137.68115942028987" y="140.625"/>
         </view>
     </objects>
+    <resources>
+        <systemColor name="labelColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
 </document>

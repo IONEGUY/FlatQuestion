@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -12,13 +13,14 @@
         </array>
     </customFonts>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ProfileView" customModule="FlatQuestion" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ProfileView" customModule="D_D" customModuleProvider="target">
             <connections>
                 <outlet property="fullName" destination="owK-Te-t5F" id="639-yV-fvA"/>
                 <outlet property="genderAndYearsLabel" destination="cOU-zx-6gs" id="j5r-3r-Z00"/>
                 <outlet property="locationLabel" destination="1J8-mb-RM4" id="tw5-iV-79H"/>
                 <outlet property="locationView" destination="rNL-mD-bFa" id="3qU-0G-yxr"/>
                 <outlet property="profileView" destination="Cew-aL-gNR" id="tse-BY-Ueg"/>
+                <outlet property="settingsButton" destination="IgR-3w-0Pw" id="9CO-QY-GyO"/>
                 <outlet property="smallFullNameLabel" destination="8xA-lD-OgI" id="xY6-NS-7uu"/>
                 <outlet property="smallGenderAndYearsLabel" destination="609-Jj-iwB" id="Z6X-vx-1A6"/>
                 <outlet property="smallLocationLabel" destination="XNc-Sx-oYm" id="ifx-JJ-S5i"/>
@@ -36,7 +38,7 @@
                     <rect key="frame" x="0.0" y="0.0" width="414" height="363"/>
                 </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cOU-zx-6gs">
-                    <rect key="frame" x="186" y="283.5" width="42" height="20.5"/>
+                    <rect key="frame" x="186.5" y="283.5" width="41.5" height="20.5"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <nil key="highlightedColor"/>
@@ -77,7 +79,7 @@
                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8pg-oD-3rO">
+                <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8pg-oD-3rO">
                     <rect key="frame" x="57" y="238" width="300" height="100"/>
                     <subviews>
                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="p4a-rQ-H9K">
@@ -148,11 +150,18 @@
                         <constraint firstItem="qMh-Ip-Ayq" firstAttribute="centerY" secondItem="p4a-rQ-H9K" secondAttribute="centerY" id="PBI-Ao-VbX"/>
                         <constraint firstItem="p4a-rQ-H9K" firstAttribute="leading" secondItem="8pg-oD-3rO" secondAttribute="leading" id="THY-1K-4JH"/>
                         <constraint firstItem="p4a-rQ-H9K" firstAttribute="centerY" secondItem="8pg-oD-3rO" secondAttribute="centerY" id="fa9-EA-hGc"/>
-                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="300" id="lO9-Uw-sm8"/>
+                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="200" id="lO9-Uw-sm8"/>
                         <constraint firstAttribute="height" constant="100" id="pyd-Zg-vvc"/>
                     </constraints>
                 </view>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Eyw-kW-1z2">
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IgR-3w-0Pw">
+                    <rect key="frame" x="374" y="48" width="24" height="24"/>
+                    <state key="normal" image="settings"/>
+                    <connections>
+                        <action selector="settingsButtonPressed:" destination="-1" eventType="touchUpInside" id="fAy-2F-BOw"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Eyw-kW-1z2" customClass="BlueButton" customModule="D_D" customModuleProvider="target">
                     <rect key="frame" x="57" y="343" width="300" height="40"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
@@ -161,7 +170,7 @@
                     </constraints>
                     <fontDescription key="fontDescription" name="SFProDisplay-Regular" family="SF Pro Display" pointSize="15"/>
                     <state key="normal" title="Button sdfvdfdsf">
-                        <color key="titleColor" red="0.24313725490196078" green="0.27058823529411763" blue="0.51372549019607838" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </state>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -173,16 +182,19 @@
                     </connections>
                 </button>
             </subviews>
+            <viewLayoutGuide key="safeArea" id="skA-j0-uww"/>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstItem="cOU-zx-6gs" firstAttribute="top" secondItem="owK-Te-t5F" secondAttribute="bottom" constant="12" id="2mD-pf-bxg"/>
                 <constraint firstItem="Cew-aL-gNR" firstAttribute="top" secondItem="Naj-15-c7F" secondAttribute="top" id="45t-Qx-0M4"/>
                 <constraint firstItem="rNL-mD-bFa" firstAttribute="bottom" secondItem="Cew-aL-gNR" secondAttribute="bottom" constant="-30" id="5Ax-wg-Qip"/>
                 <constraint firstItem="cOU-zx-6gs" firstAttribute="centerX" secondItem="Naj-15-c7F" secondAttribute="centerX" id="5Kl-6h-Av1"/>
+                <constraint firstItem="skA-j0-uww" firstAttribute="top" secondItem="IgR-3w-0Pw" secondAttribute="top" constant="-4" id="6Az-pC-aVE"/>
                 <constraint firstItem="skA-j0-uww" firstAttribute="bottom" secondItem="Eyw-kW-1z2" secondAttribute="bottom" id="FKn-IT-uUe"/>
                 <constraint firstItem="1J8-mb-RM4" firstAttribute="top" secondItem="cOU-zx-6gs" secondAttribute="bottom" constant="12" id="Lhr-mk-ce2"/>
                 <constraint firstItem="owK-Te-t5F" firstAttribute="centerX" secondItem="Naj-15-c7F" secondAttribute="centerX" id="N4w-jd-YIi"/>
                 <constraint firstItem="Eyw-kW-1z2" firstAttribute="centerX" secondItem="skA-j0-uww" secondAttribute="centerX" id="NDv-in-g9L"/>
+                <constraint firstItem="skA-j0-uww" firstAttribute="trailing" secondItem="IgR-3w-0Pw" secondAttribute="trailing" constant="16" id="QhE-Eh-unx"/>
                 <constraint firstItem="rNL-mD-bFa" firstAttribute="centerX" secondItem="Naj-15-c7F" secondAttribute="centerX" constant="-3.5" id="Y8Z-ay-bA3"/>
                 <constraint firstAttribute="trailing" secondItem="Cew-aL-gNR" secondAttribute="trailing" id="cYm-dA-RWM"/>
                 <constraint firstItem="Cew-aL-gNR" firstAttribute="leading" secondItem="Naj-15-c7F" secondAttribute="leading" id="ooM-Ay-Mqg"/>
@@ -191,11 +203,11 @@
                 <constraint firstItem="skA-j0-uww" firstAttribute="bottom" secondItem="Cew-aL-gNR" secondAttribute="bottom" constant="20" id="vyC-6I-r6Y"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <viewLayoutGuide key="safeArea" id="skA-j0-uww"/>
             <point key="canvasLocation" x="227.536231884058" y="-165.73660714285714"/>
         </view>
     </objects>
     <resources>
         <image name="pin_icon" width="10" height="10"/>
+        <image name="settings" width="24" height="24"/>
     </resources>
 </document>

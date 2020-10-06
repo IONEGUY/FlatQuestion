@@ -1,18 +1,10 @@
-//
-//  AcceptModalViewController.swift
-//  FlatQuestion
-//
-//  Created by Андрей Олесов on 7/16/20.
-//  Copyright © 2020 Андрей Олесов. All rights reserved.
-//
-
 import UIKit
 
 protocol AcceptModalViewControllerProtocol: AnyObject  {
     func inviteSuccessfullySended()
 }
 
-enum RequestStatus: String, Codable {
+public enum RequestStatus: String, Codable {
     case New = "New"
     case Approved = "Approved"
     case Declined = "Declined"
@@ -20,6 +12,7 @@ enum RequestStatus: String, Codable {
 }
 class AcceptModalViewController: UIViewController {
 
+    @IBOutlet var mainView: UIView!
     @IBOutlet fileprivate weak var contentView: UIView!
     @IBOutlet fileprivate weak var sendButton: DarkGradientButton!
     @IBOutlet fileprivate weak var declineButton: UIButton!
@@ -51,7 +44,7 @@ class AcceptModalViewController: UIViewController {
     }
     
     private func localize() {
-        sendButton.titleLabel?.text = "Отправить".localized
+        sendButton.setTitle("Присоедениться", for: .normal)
         declineButton.titleLabel?.text = "Отмена".localized
         writeMessageLabel.text = "Написать сообщение".localized
         descriptionLabel.text = "Организатор получит уведомление о вашем желании присоединиться".localized
@@ -60,23 +53,46 @@ class AcceptModalViewController: UIViewController {
     
     private func setupView() {
 //        view.backgroundColor = UIColor.black.withAlphaComponent(0.35)
+        mainView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.tap(_:))))
+        mainView.isUserInteractionEnabled = true
+        contentView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.tapOnContent(_:))))
+        contentView.isUserInteractionEnabled = true
         declineButton.addCorner(with: 20, with: .black)
         writeMessageView.addCorner(with: 10, with: .black)
     }
+    
+    @objc func tap(_ gestureRecognizer: UITapGestureRecognizer) {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    @objc func tapOnContent(_ gestureRecognizer: UITapGestureRecognizer) {
+        self.textView.becomeFirstResponder()
+    }
 
     @IBAction func sendRequest(_ sender: Any) {
-        let userInfo = UserInfo(id: UserSettings.appUser!.id!, status: .New, message: textView.text, fullName: "\(String(describing: UserSettings.appUser!.lastName!)) \(String(describing: UserSettings.appUser!.firstName!))", photoLink: UserSettings.appUser!.avatarUrl!)
-
-        let requestModel = FlatRequestModel(id: flat.id, requests: [userInfo], ownerId: flat.userId)
         self.showLoadingIndicator()
-        FireBaseHelper.init().updateRequestsForFlat(model: requestModel) { (result) in
-            self.hideLoadingableIndicator()
+        FireBaseHelper().getUserById(id: flat.userId) { (result) in
             switch result {
-            case .success(()): let vc = SuccessViewController(delegate: self)
-            vc.transitioningDelegate = self
-            self.present(vc, animated: true, completion: nil)
-            case .failure(let error):
-                self.showErrorAlert(message: error.localizedDescription)
+            case .success(let owner):
+                let userInfo = UserInfo(id: UserSettings.appUser!.id!, status: .New, message: self.textView.text, fullName: "\(String(describing: UserSettings.appUser!.fullName!))", photoLink: UserSettings.appUser!.avatarUrl!, date: Date().timeIntervalSince1970)
+
+                let requestModel = FlatRequestModel(id: self.flat.id, requests: [userInfo], ownerId: self.flat.userId, ownerPhotoLink: owner.avatarUrl!, fullName: owner.fullName!, flatPhotoLink: self.flat.images![0], flatName: self.flat.name)
+                
+                FireBaseHelper.init().updateRequestsForFlat(model: requestModel) { (result) in
+                    self.hideLoadingableIndicator()
+                    switch result {
+                    case .success(()): let vc = SuccessViewController(delegate: self)
+                    DispatchQueue.global(qos: .userInitiated).async {
+                        FireBaseHelper().sendNotification(to: self.flat.userId, title: "Туса-Джуса", body: "Эй, кто-то хочет к тебе на тусовку!")
+                    }
+                    vc.transitioningDelegate = self
+                    self.present(vc, animated: true, completion: nil)
+                    case .failure(let error):
+                        self.showErrorAlert(message: error.localizedDescription)
+                    }
+                }
+            case .failure(let error): self.showErrorAlert(message: error.localizedDescription)
+                                      self.hideLoadingableIndicator()
             }
         }
     }

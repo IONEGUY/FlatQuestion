@@ -1,11 +1,3 @@
-//
-//  CommentTableViewCell.swift
-//  FlatQuestion
-//
-//  Created by MacBook on 7/16/20.
-//  Copyright © 2020 Андрей Олесов. All rights reserved.
-//
-
 import UIKit
 
 class CommentTableViewCell: UITableViewCell {
@@ -24,14 +16,18 @@ class CommentTableViewCell: UITableViewCell {
         fullName.text = comment?.creatorName ?? String.empty
         commentText.text = comment?.text
         createdAt.text = DateTimeConverterHelper
-            .convert(date: comment?.createdAt ?? Date(), toFormat: "dd.MM.yyyy")
-        setRate(comment?.rate ?? Rate.None)
+            .convert(date: comment?.createdAt.date() ?? Date(), toFormat: "dd.MM.yyyy")
+        setRate(comment?.rate ?? 1)
     }
     
-    private func setRate(_ rate: Rate) {
-        let stars = rateView.subviews;
-        for index in (Rate.One.rawValue...rate.rawValue) {
-            (stars[Rate.Five.rawValue - index] as? UIImageView)?.tintColor = UIColor.init(hex: "#EAAB09")
+    private func setRate(_ rate: Int) {
+            let stars = self.rateView.subviews;
+        for index in (0...4) {
+            (stars[index] as? UIImageView)?.tintColor = UIColor.init(hex: "#8F8F8F")
         }
+            for index in (0...rate - 1) {
+                (stars[4 - index] as? UIImageView)?.tintColor = UIColor.init(hex: "#EAAB09")
+            }
+
     }
 }
